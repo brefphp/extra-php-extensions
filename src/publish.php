@@ -31,6 +31,10 @@ foreach ($finder->files() as $file) {
         $layers[] = $layer;
     }
 }
+echo sprintf("\n%d new layers\n", count($layers));
+
+file_put_contents(__DIR__.'/../export/checksums', implode("\n", $discoveredChecksums));
+return;
 
 // Publish the layers
 /** @var Process[] $publishingProcesses */

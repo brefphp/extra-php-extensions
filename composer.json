@@ -1,5 +1,5 @@
 {
-    "name": "bref/layers",
+    "name": "bref/extra-layers",
     "type": "library",
     "require-dev": {
         "symfony/process": "^5.0",
