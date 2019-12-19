@@ -9,7 +9,7 @@
 use Aws\Lambda\LambdaClient;
 use function GuzzleHttp\Promise\unwrap;
 
-require_once __DIR__ . '/../../vendor/autoload.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 
 const LAYER_NAMES = [
     'php-74',

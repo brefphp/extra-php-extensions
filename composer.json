@@ -3,7 +3,8 @@
     "type": "library",
     "require-dev": {
         "symfony/process": "^5.0",
-        "symfony/finder": "^5.0"
+        "symfony/finder": "^5.0",
+        "aws/aws-sdk-php": "^3.130"
     },
     "license": "MIT",
     "authors": [

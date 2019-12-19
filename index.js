@@ -17,9 +17,9 @@ class ServerlessPlugin {
         const delegate = serverless.variables
             .getValueFromSource.bind(serverless.variables);
         serverless.variables.getValueFromSource = (variableString) => {
-            if (variableString.startsWith('bref:layer.')) {
+            if (variableString.startsWith('bref:extra.')) {
                 const region = serverless.getProvider('aws').getRegion();
-                const layerName = variableString.substr('bref:layer.'.length);
+                const layerName = variableString.substr('bref:extra.'.length);
                 if (! (layerName in layers)) {
                     throw `Unknown Bref layer named "${layerName}"`;
                 }

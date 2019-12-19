@@ -7,19 +7,19 @@
 use Symfony\Component\Process\Process;
 use Symfony\Component\Finder\Finder;
 
-require_once __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 
 /**
  * These are the regions on which the layers are published.
  */
 $regions = json_decode(file_get_contents('https://raw.githubusercontent.com/brefphp/bref/master/runtime/layers/regions.json'), true);
 
-$checksums = file_get_contents(__DIR__.'/export/checksums');
+$checksums = file_get_contents(__DIR__.'/../export/checksums');
 $discoveredChecksums = [];
 
 $layers = [];
 $finder = new Finder();
-$finder->in(__DIR__.'/export')
+$finder->in(__DIR__.'/../export')
     ->name('layer-*');
 foreach ($finder->files() as $file) {
     /** @var SplFileInfo $file */
@@ -31,7 +31,7 @@ foreach ($finder->files() as $file) {
         $layers[] = $layer;
     }
 }
-file_put_contents(__DIR__.'/export/checksums', implode("\n", $discoveredChecksums));
+file_put_contents(__DIR__.'/../export/checksums', implode("\n", $discoveredChecksums));
 
 // Publish the layers
 /** @var Process[] $publishingProcesses */
@@ -58,7 +58,7 @@ foreach ($regions as $region) {
 runProcessesInParallel($permissionProcesses);
 
 // Dump checksums
-file_put_contents(__DIR__.'/export/checksums', implode("\n", $discoveredChecksums));
+file_put_contents(__DIR__.'/../export/checksums', implode("\n", $discoveredChecksums));
 echo "\nDone\n";
 echo "Remember to commit and push changes to export/checksums\n";
 
