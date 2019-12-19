@@ -1,0 +1,15 @@
+{
+    "name": "bref/layers",
+    "type": "library",
+    "require-dev": {
+        "symfony/process": "^5.0",
+        "symfony/finder": "^5.0"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Tobias Nyholm",
+            "email": "tobias.nyholm@gmail.com"
+        }
+    ]
+}
