@@ -31,7 +31,6 @@ foreach ($finder->files() as $file) {
         $layers[] = $layer;
     }
 }
-file_put_contents(__DIR__.'/../export/checksums', implode("\n", $discoveredChecksums));
 
 // Publish the layers
 /** @var Process[] $publishingProcesses */
