@@ -1,5 +1,6 @@
 {
-    "name": "bref/extra-layers",
+    "name": "bref/extra-php-extensions",
+    "description": "Extra PHP extensions for your lambda application.",
     "type": "library",
     "require-dev": {
         "symfony/process": "^5.0",

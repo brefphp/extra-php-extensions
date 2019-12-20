@@ -1,4 +1,4 @@
-language: php
+language: minimal
 
 notifications:
   email:
@@ -8,16 +8,31 @@ services:
   - docker
 
 env:
-  - LAYER=amqp PHP=72
-  - LAYER=amqp PHP=73
-  - LAYER=amqp PHP=74
-  - LAYER=blackfire PHP=72
-  - LAYER=blackfire PHP=73
-  - LAYER=blackfire PHP=74
-  - LAYER=xdebug PHP=72
-  - LAYER=xdebug PHP=73
-  - LAYER=xdebug PHP=74
+  - LAYER=amqp PHP="72 73 74"
+  - LAYER=blackfire PHP="72 73 74"
+  - LAYER=xdebug PHP="72 73 74"
+
+before_install:
+  - |
+    # tfold is a helper to create folded reports (From Symfony)
+    tfold () {
+        local title="$1"
+        local fold=$(echo $title | sed -r 's/[^-_A-Za-z0-9]+/./g')
+        shift
+        echo -e "travis_fold:start:$fold"
+        echo -e "\\e[1;34m$title\\e[0m"
+        bash -xc "$*" 2>&1
+        local ok=$?
+        (exit $ok) &&
+            echo -e "\\e[32mOK\\e[0m $title\\n\\ntravis_fold:end:$fold" ||
+            echo -e "\\e[41mKO\\e[0m $title\\n"
+        (exit $ok)
+    }
+    export -f tfold
 
 script:
   - cd layers/$LAYER
-  - docker build --build-arg PHP_VERSION=$PHP .
+  - |
+    for php_version in $PHP; do
+      tfold "Build $php_version" docker build --build-arg PHP_VERSION=${php_version} .
+    done

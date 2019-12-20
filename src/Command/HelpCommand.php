@@ -1,17 +1,12 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace Bref\Extra\Command;
 
-use Bref\Extra\Aws\LayerPublisher;
-use Bref\Extra\Service\RegionProvider;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Finder\Finder;
 
 class HelpCommand
 {
-    public function __invoke(OutputInterface $output)
+    public function __invoke(OutputInterface $output): int
     {
         $output->writeln('With this small application you may publish new layers and list existing ones in layer.json');
         $output->writeln('You may specify the following environment variables: AWS_ID, AWS_PROFILE');

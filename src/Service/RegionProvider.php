@@ -1,15 +1,9 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace Bref\Extra\Service;
 
-use Aws\Lambda\LambdaClient;
-
 /**
  * Get all available bref regions.
- *
- * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
 class RegionProvider
 {

@@ -1,29 +1,23 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace Bref\Extra\Aws;
 
 use Aws\Lambda\LambdaClient;
-use function GuzzleHttp\Promise\unwrap;
 
 /**
  * Fetches layers and details from AWS
- *
- * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
 class LayerProvider
 {
+    /** @var string  */
     private $awsId;
 
-    /**
-     * @var array
-     */
+    /** @var array */
     private $layerNames;
 
     /**
-     * @param array $layerNames the name of the layers to list.
-     * @param string $awsId The account id
+     * @param array  $layerNames the name of the layers to list.
+     * @param string $awsId      The account id
      */
     public function __construct(array $layerNames, string $awsId)
     {
@@ -50,7 +44,7 @@ class LayerProvider
 
         // Wait on all of the requests to complete. Throws a ConnectException
         // if any of the requests fail
-        $results = \GuzzleHttp\Promise\unwrap($promises);
+        $results = unwrap($promises);
 
         $layers = [];
         foreach ($results as $layerName => $result) {
@@ -61,6 +55,4 @@ class LayerProvider
 
         return $layers;
     }
-
-
 }

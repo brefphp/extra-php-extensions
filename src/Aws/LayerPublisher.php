@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace Bref\Extra\Aws;
 
@@ -8,15 +6,9 @@ use Symfony\Component\Process\Process;
 
 class LayerPublisher
 {
-    /**
-     * @var string|null
-     */
+    /** @var string|null */
     private $awsProfile;
 
-    /**
-     *
-     * @param string|null $awsProfile
-     */
     public function __construct(?string $awsProfile)
     {
         $this->awsProfile = $awsProfile;
@@ -24,8 +16,8 @@ class LayerPublisher
 
 
     /**
-     * @param array<string, string> $layers Layer name and layer zip file path.
-     * @param array $regions
+     * @param array<string, string> $layers  Layer name and layer zip file path.
+     * @param array                 $regions
      */
     public function publishLayers(array $layers, array $regions): void
     {
@@ -37,7 +29,6 @@ class LayerPublisher
             }
         }
         $this->finishProcesses($publishingProcesses);
-
 
         // Add public permissions on the layers
         /** @var Process[] $permissionProcesses */
@@ -55,9 +46,7 @@ class LayerPublisher
 
     /**
      * @param string $region The AWS region to publish the layer to
-     * @param string $layerName
-     * @param string $file The absolute file path to the layer
-     * @return Process
+     * @param string $file   The absolute file path to the layer
      */
     private function publishSingleLayer(string $region, string $layerName, string $file): Process
     {
@@ -74,7 +63,7 @@ class LayerPublisher
             '--license-info',
             'MIT',
             '--zip-file',
-            'fileb://'.$file,
+            'fileb://' . $file,
             '--compatible-runtimes',
             'provided',
             // Output the version so that we can fetch it and use it
@@ -122,10 +111,7 @@ class LayerPublisher
     }
 
     /**
-     * @param string $region
      * @param string $layer name
-     * @param string $layerVersion
-     * @return Process
      */
     private function addPublicLayerPermissions(string $region, string $layer, string $layerVersion): Process
     {
@@ -157,7 +143,4 @@ class LayerPublisher
 
         return $process;
     }
-
-
-
 }
