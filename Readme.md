@@ -28,5 +28,16 @@ functions:
 
 ```
 ;php/conf.d/php.ini
-extension=/opt/bref-aqmp/amqp.so
+extension=amqp.so
+```
+
+
+## Deploy new versions
+
+```
+make publish
+make list
+git add checksums.json layers.json
+git commit -m "New version of layers"
+git push
 ```
