@@ -16,9 +16,9 @@ class ListCommand
     /** @var LayerProvider */
     private $provider;
 
-
     /** @var string */
     private $projectDir;
+
     /** @var RegionProvider */
     private $regionProvider;
 
@@ -29,7 +29,7 @@ class ListCommand
         $this->regionProvider = $regionProvider;
     }
 
-    public function __invoke(OutputInterface $output)
+    public function __invoke(OutputInterface $output): int
     {
         $export = [];
         foreach ($this->regionProvider->getAll() as $region) {

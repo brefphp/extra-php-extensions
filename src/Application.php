@@ -7,12 +7,13 @@ use Bref\Extra\Aws\LayerPublisher;
 use Bref\Extra\Command\ListCommand;
 use Bref\Extra\Command\PublishCommand;
 use Bref\Extra\Service\RegionProvider;
+use DI\Container;
 use DI\ContainerBuilder;
 use Psr\Container\ContainerInterface;
 
 class Application extends \Silly\Edition\PhpDi\Application
 {
-    protected function createContainer()
+    protected function createContainer(): Container
     {
         $builder = new ContainerBuilder;
         $awsId = getenv('AWS_ID');

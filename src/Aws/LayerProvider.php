@@ -9,6 +9,7 @@ use Aws\Lambda\LambdaClient;
  */
 class LayerProvider
 {
+    /** @var string  */
     private $awsId;
 
     /** @var array */

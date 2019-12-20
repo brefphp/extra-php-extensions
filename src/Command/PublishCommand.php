@@ -26,7 +26,7 @@ class PublishCommand
         $this->regionProvider = $regionProvider;
     }
 
-    public function __invoke(OutputInterface $output)
+    public function __invoke(OutputInterface $output): int
     {
         $checksums = file_get_contents($this->projectDir . '/checksums.json');
         $discoveredChecksums = [];
