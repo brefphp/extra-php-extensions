@@ -22,7 +22,7 @@ functions:
         handler: bin/console
         layers:
             - ${bref:layer.php-73} 
-            - ${bref:extra.amqp} # AMQP layer
+            - ${bref:extra.amqp-php-72} # AMQP layer
             - ${bref:layer.console}
 ```
 

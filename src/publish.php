@@ -28,7 +28,7 @@ foreach ($finder->files() as $file) {
     $discoveredChecksums[] = $md5;
     if (false === strstr($checksums, $md5)) {
         // This layer is new.
-        $layers[] = $layer;
+        $layers[] = substr($layer, 6);
     }
 }
 echo sprintf("\n%d new layers\n", count($layers));
