@@ -18,6 +18,7 @@ RUN set -xe; \
     cmake --build . --target install
 
 RUN pecl install amqp
+RUN cp /opt/bref/lib/php/extensions/no-debug-zts-*/amqp.so /tmp/amqp.so
 
 # Build the final image from the lambci image that is close to the production environment
 FROM lambci/lambda:provided
@@ -34,4 +35,4 @@ COPY --from=ext /opt/bref/lib64/librabbitmq.so.4 /opt/bref/lib64/librabbitmq.so.
 COPY --from=ext /opt/bref/lib64/librabbitmq.so.4.3.0 /opt/bref/lib64/librabbitmq.so.4.3.0
 COPY --from=ext /opt/bref/lib64/pkgconfig/librabbitmq.pc /opt/bref/lib64/pkgconfig/librabbitmq.pc
 
-COPY --from=ext /opt/bref/lib/php/extensions/no-debug-zts-20180731/amqp.so /opt/bref/lib/php/extensions/no-debug-zts-20180731/amqp.so
+COPY --from=ext /tmp/amqp.so /opt/bref-extra/amqp.so

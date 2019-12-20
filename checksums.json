@@ -1,4 +1,11 @@
 {
-    "memcached-php-73": "58d2102c602ff849734a57c255d70657",
-    "amqp-php-73": "26446b9824c8bb7af006664437fb09b8"
+    "blackfire-php-74": "d84b2d7f3e290237a40994e2d758fb05",
+    "amqp-php-74": "a77a771d9fbdb85c3733be399fe1d674",
+    "xdebug-php-74": "943b56db0f477f0be019318338f84dcb",
+    "blackfire-php-72": "41ee2abc51d6645b451b1ca712b989eb",
+    "blackfire-php-73": "b8c9548691e517c73aa9342fc17d7a85",
+    "amqp-php-72": "5f7a99b816afb6f8135b0c03d047a45f",
+    "xdebug-php-72": "44d5a532fcb4a54ac4d9b2d6f1337c92",
+    "xdebug-php-73": "4918003f160dd65986f5247d283846d4",
+    "amqp-php-73": "32a6249787c6d087a8d7f9ee1576cb51"
 }

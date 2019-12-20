@@ -63,6 +63,7 @@ class PublishCommand
             exit(1);
         }
 
+        ksort($discoveredChecksums);
         // Dump checksums
         file_put_contents($this->projectDir.'/checksums.json', json_encode($discoveredChecksums, \JSON_PRETTY_PRINT));
 

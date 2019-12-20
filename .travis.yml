@@ -11,10 +11,13 @@ env:
   - LAYER=amqp PHP=72
   - LAYER=amqp PHP=73
   - LAYER=amqp PHP=74
-  - LAYER=mecached PHP=72
-  - LAYER=mecached PHP=73
-  - LAYER=mecached PHP=74
+  - LAYER=blackfire PHP=72
+  - LAYER=blackfire PHP=73
+  - LAYER=blackfire PHP=74
+  - LAYER=xdebug PHP=72
+  - LAYER=xdebug PHP=73
+  - LAYER=xdebug PHP=74
 
 script:
-  - cd layer/$LAYER
+  - cd layers/$LAYER
   - docker build --build-arg PHP_VERSION=$PHP .
