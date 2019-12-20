@@ -35,4 +35,4 @@ layers: docker-images
 	rm -rf export/tmp
 
 publish: layers
-	php src/publish.php
+	php ./bref-extra publish
