@@ -8,16 +8,14 @@ services:
   - docker
 
 env:
-  - LAYER=amqp PHP=72
-  - LAYER=amqp PHP=73
-  - LAYER=amqp PHP=74
-  - LAYER=blackfire PHP=72
-  - LAYER=blackfire PHP=73
-  - LAYER=blackfire PHP=74
-  - LAYER=xdebug PHP=72
-  - LAYER=xdebug PHP=73
-  - LAYER=xdebug PHP=74
+  - LAYER=amqp PHP="72 73 74"
+  - LAYER=blackfire PHP="72 73 74"
+  - LAYER=xdebug PHP="72 73 74"
 
 script:
   - cd layers/$LAYER
-  - docker build --build-arg PHP_VERSION=$PHP .
+  - set -e ;
+    for php_version in $PHP; do ;
+    echo "##\n#\n#\n PHP Version ${php_version}\n\n";
+    docker build --build-arg PHP_VERSION=${php_version} . ;
+    done
