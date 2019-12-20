@@ -1,4 +1,4 @@
-language: php
+language: generic
 
 notifications:
   email:
@@ -12,11 +12,28 @@ env:
   - LAYER=blackfire PHP="72 73 74"
   - LAYER=xdebug PHP="72 73 74"
 
+
 script:
   - cd layers/$LAYER
   - |
-    set -e
     for php_version in $PHP; do
-      echo "##\n#\n#\n PHP Version ${php_version}\n\n"
+      echo "########################################"
+      echo "########################################"
+      echo "########################################"
+      echo "#### PHP Version ${php_version}"
+      echo ""
+      echo ""
+      local id=$(printf %08x $(( RANDOM * RANDOM )))
+      local start=$(nanoseconds)
+      echo -e "travis_fold:start:$php_version"
+      echo -e "travis_time:start:$id"
       docker build --build-arg PHP_VERSION=${php_version} .
+
+      local ok=$?
+      local end=$(nanoseconds)
+      echo -e "\\ntravis_time:end:$id:start=$start,finish=$end,duration=$(($end-$start))"
+      (exit $ok) &&
+          echo -e "\\e[32mOK\\e[0m $title\\n\\ntravis_fold:end:$fold" ||
+          echo -e "\\e[41mKO\\e[0m $title\\n"
+      (exit $ok)
     done
