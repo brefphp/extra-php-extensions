@@ -17,7 +17,7 @@ provider:
 
 plugins:
     - ./vendor/bref/bref
-    - ./vendor/bref/extra-layers # <--- Add the extra Serverless plugin
+    - ./vendor/bref/extra-layers # <----- Add the extra Serverless plugin
 
 functions:
     console:
@@ -28,7 +28,7 @@ functions:
             - ${bref:layer.console}
 ```
 
-```
+```ini
 ;php/conf.d/php.ini
 extension=/opt/bref-extra/amqp.so
 ```
