@@ -9,7 +9,22 @@ use Symfony\Component\Process\Process;
 class LayerPublisher
 {
     /**
-     * @param array $layers
+     * @var string|null
+     */
+    private $awsProfile;
+
+    /**
+     *
+     * @param string|null $awsProfile
+     */
+    public function __construct(?string $awsProfile)
+    {
+        $this->awsProfile = $awsProfile;
+    }
+
+
+    /**
+     * @param array<string, string> $layers Layer name and layer zip file path.
      * @param array $regions
      */
     public function publishLayers(array $layers, array $regions): void
@@ -17,8 +32,8 @@ class LayerPublisher
         /** @var Process[] $publishingProcesses */
         $publishingProcesses = [];
         foreach ($regions as $region) {
-            foreach ($layers as $layer) {
-                $publishingProcesses[$region.$layer] = $this->publishSingleLayer($region, $layer);
+            foreach ($layers as $layerName => $layerFilePath) {
+                $publishingProcesses[$region . $layerName] = $this->publishSingleLayer($region, $layerName, $layerFilePath);
             }
         }
         $this->finishProcesses($publishingProcesses);
@@ -28,11 +43,11 @@ class LayerPublisher
         /** @var Process[] $permissionProcesses */
         $permissionProcesses = [];
         foreach ($regions as $region) {
-            foreach ($layers as $layer) {
-                $publishLayer = $publishingProcesses[$region . $layer];
+            foreach ($layers as $layerName => $layerFilePath) {
+                $publishLayer = $publishingProcesses[$region . $layerName];
                 $layerVersion = trim($publishLayer->getOutput());
 
-                $permissionProcesses[] = $this->addPublicLayerPermissions($region, $layer, $layerVersion);
+                $permissionProcesses[] = $this->addPublicLayerPermissions($region, $layerName, $layerVersion);
             }
         }
         $this->finishProcesses($permissionProcesses);
@@ -40,27 +55,26 @@ class LayerPublisher
 
     /**
      * @param string $region The AWS region to publish the layer to
-     * @param string $layer The file path to the layer relative ???
+     * @param string $layerName
+     * @param string $file The absolute file path to the layer
      * @return Process
      */
-    private function publishSingleLayer(string $region, string $layer): Process
+    private function publishSingleLayer(string $region, string $layerName, string $file): Process
     {
-        $file = __DIR__ . "/export/$layer.zip";
-
-        $process = new Process([
+        $args = [
             'aws',
             'lambda',
             'publish-layer-version',
             '--region',
             $region,
             '--layer-name',
-            $layer,
+            $layerName,
             '--description',
-            $layer,
+            $layerName,
             '--license-info',
             'MIT',
             '--zip-file',
-            'fileb://' . $file,
+            'fileb://'.$file,
             '--compatible-runtimes',
             'provided',
             // Output the version so that we can fetch it and use it
@@ -68,7 +82,14 @@ class LayerPublisher
             'text',
             '--query',
             'Version',
-        ]);
+        ];
+
+        if ($this->awsProfile !== null) {
+            $args[] = '--profile';
+            $args[] = $this->awsProfile;
+        }
+
+        $process = new Process($args);
         $process->setTimeout(null);
 
         return $process;
@@ -108,7 +129,7 @@ class LayerPublisher
      */
     private function addPublicLayerPermissions(string $region, string $layer, string $layerVersion): Process
     {
-        $process = new Process([
+        $args = [
             'aws',
             'lambda',
             'add-layer-version-permission',
@@ -124,7 +145,14 @@ class LayerPublisher
             'lambda:GetLayerVersion',
             '--principal',
             '*',
-        ]);
+        ];
+
+        if ($this->awsProfile !== null) {
+            $args[] = '--profile';
+            $args[] = $this->awsProfile;
+        }
+
+        $process = new Process($args);
         $process->setTimeout(null);
 
         return $process;

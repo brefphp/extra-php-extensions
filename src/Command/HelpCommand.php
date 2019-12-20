@@ -14,6 +14,7 @@ class HelpCommand
     public function __invoke(OutputInterface $output)
     {
         $output->writeln('With this small application you may publish new layers and list existing ones in layer.json');
+        $output->writeln('You may specify the following environment variables: AWS_ID, AWS_PROFILE');
 
         return 0;
     }

@@ -28,5 +28,5 @@ functions:
 
 ```
 ;php/conf.d/php.ini
-extension=amqp
+extension=/opt/bref-aqmp/amqp.so
 ```

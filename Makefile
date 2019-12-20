@@ -1,5 +1,6 @@
 SHELL := /bin/bash
 php_versions = 72 73 74
+php_versions = 73
 
 docker-images:
 	PWD=pwd
@@ -15,7 +16,7 @@ docker-images:
 	done
 
 # The PHP runtimes
-export: docker-images
+layers: docker-images
 	PWD=pwd
 	rm -rf export/tmp || true
 	mkdir export/tmp
@@ -26,11 +27,12 @@ export: docker-images
 			echo "### Exporting $${dir} PHP$${php_version}"; \
 			echo "###"; \
 			cd ${PWD} ; cd export/tmp ; \
-			docker run --entrypoint "tar" bref/$${dir}-php-$${php_version} -ch -C /opt . | tar -x;zip -X --quiet --recurse-paths ../`echo "$${dir}-php-$${php_version}" | sed -e "s/layers\//layer-/g"`.zip . ; \
+			docker run --entrypoint "tar" bref/$${dir}-php-$${php_version} -ch -C /opt . | tar -x ; \
+			zip --quiet --recurse-paths ../`echo "$${dir}-php-$${php_version}" | sed -e "s/layers\//layer-/g"`.zip . ; \
 			echo ""; \
 		done \
 	done
 	rm -rf export/tmp
 
-publish: export
+publish: layers
 	php src/publish.php

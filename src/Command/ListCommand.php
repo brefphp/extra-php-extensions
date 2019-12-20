@@ -42,8 +42,9 @@ class ListCommand
         $export = [];
         foreach ($this->regionProvider->getAll() as $region) {
             $layers = $this->provider->listLayers($region);
-
-            //$export[$layerName][$region] = $layers[$layerName];
+            foreach ($layers as $layerName => $version) {
+                $export[$layerName][$region] = $version;
+            }
 
             $output->writeln($region);
         }

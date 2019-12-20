@@ -41,13 +41,13 @@ class PublishCommand
 
         $layers = [];
         $finder = new Finder();
-        $finder->in(__DIR__.'/../export')
+        $finder->in($this->projectDir.'/export')
             ->name('layer-*');
         foreach ($finder->files() as $file) {
             /** @var \SplFileInfo $file */
-            $layerFile = $file->getFilename();
+            $layerFile = $file->getRealPath();
             $layerName = substr($file->getFilenameWithoutExtension(), 6);
-            $md5 = md5_file($file->getRealPath());
+            $md5 = md5_file($layerFile);
             $discoveredChecksums[$layerName] = $md5;
             if (false === strstr($checksums, $md5)) {
                 // This layer is new.
@@ -57,7 +57,7 @@ class PublishCommand
         $output->writeln(sprintf('Found %d new layers', count($layers)));
 
         try {
-            $this->publisher->publishLayers(array_values($layers), $this->regionProvider->getAll());
+            $this->publisher->publishLayers($layers, $this->regionProvider->getAll());
         }catch(\Exception $e) {
             // TODO write output.
             exit(1);

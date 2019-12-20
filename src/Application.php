@@ -18,8 +18,12 @@ class Application extends \Silly\Edition\PhpDi\Application
     {
         $builder = new ContainerBuilder();
         $awsId = getenv('AWS_ID');
+        $awsProfile = getenv('AWS_PROFILE');
         if (empty($awsId)){
-            $awsId = 'foobar';
+            $awsId = 'xxxxxxxxx';
+        }
+        if (empty($awsProfile)){
+            $awsProfile = null;
         }
 
         $projectDir = dirname(__DIR__);
@@ -28,6 +32,7 @@ class Application extends \Silly\Edition\PhpDi\Application
         $builder->addDefinitions([
             'project_dir' => $projectDir,
             'aws_id' => $awsId,
+            'aws_profile' => $awsProfile,
             'layer_names' => $localLayers,
             LayerProvider::class => function (ContainerInterface $c) {
                 return new LayerProvider($c->get('layer_names'), $c->get('aws_id'));
@@ -37,6 +42,9 @@ class Application extends \Silly\Edition\PhpDi\Application
             },
             PublishCommand::class => function (ContainerInterface $c) {
                 return new PublishCommand($c->get(LayerPublisher::class), $c->get(RegionProvider::class), $c->get('project_dir'));
+            },
+            LayerPublisher::class => function (ContainerInterface $c) {
+                return new LayerPublisher($c->get('aws_profile'));
             },
         ]);
 
