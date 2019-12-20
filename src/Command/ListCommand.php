@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace Bref\Extra\Command;
 
@@ -15,19 +13,13 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class ListCommand
 {
-    /**
-     * @var LayerProvider
-     */
+    /** @var LayerProvider */
     private $provider;
 
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $projectDir;
-    /**
-     * @var RegionProvider
-     */
+    /** @var RegionProvider */
     private $regionProvider;
 
     public function __construct(LayerProvider $provider, RegionProvider $regionProvider, string $projectDir)

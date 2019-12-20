@@ -1,13 +1,8 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace Bref\Extra\Command;
 
-use Bref\Extra\Aws\LayerPublisher;
-use Bref\Extra\Service\RegionProvider;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Finder\Finder;
 
 class HelpCommand
 {

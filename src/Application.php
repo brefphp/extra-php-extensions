@@ -1,14 +1,12 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace Bref\Extra;
 
 use Bref\Extra\Aws\LayerProvider;
 use Bref\Extra\Aws\LayerPublisher;
-use Bref\Extra\Service\RegionProvider;
 use Bref\Extra\Command\ListCommand;
 use Bref\Extra\Command\PublishCommand;
+use Bref\Extra\Service\RegionProvider;
 use DI\ContainerBuilder;
 use Psr\Container\ContainerInterface;
 
@@ -16,18 +14,18 @@ class Application extends \Silly\Edition\PhpDi\Application
 {
     protected function createContainer()
     {
-        $builder = new ContainerBuilder();
+        $builder = new ContainerBuilder;
         $awsId = getenv('AWS_ID');
         $awsProfile = getenv('AWS_PROFILE');
-        if (empty($awsId)){
+        if (empty($awsId)) {
             $awsId = 'xxxxxxxxx';
         }
-        if (empty($awsProfile)){
+        if (empty($awsProfile)) {
             $awsProfile = null;
         }
 
         $projectDir = dirname(__DIR__);
-        $localLayers = array_keys(json_decode(file_get_contents($projectDir.'/checksums.json'), true));
+        $localLayers = array_keys(json_decode(file_get_contents($projectDir . '/checksums.json'), true));
 
         $builder->addDefinitions([
             'project_dir' => $projectDir,
