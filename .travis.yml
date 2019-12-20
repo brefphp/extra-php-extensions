@@ -14,8 +14,9 @@ env:
 
 script:
   - cd layers/$LAYER
-  - set -e ;
-    for php_version in $PHP; do ;
-    echo "##\n#\n#\n PHP Version ${php_version}\n\n";
-    docker build --build-arg PHP_VERSION=${php_version} . ;
+  - |
+    set -e
+    for php_version in $PHP; do
+      echo "##\n#\n#\n PHP Version ${php_version}\n\n"
+      docker build --build-arg PHP_VERSION=${php_version} .
     done

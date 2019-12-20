@@ -45,7 +45,6 @@ extension=/opt/bref-extra/amqp.so
 
 ```
 make publish
-make list
 git add checksums.json layers.json
 git commit -m "New version of layers"
 git push
