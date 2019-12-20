@@ -7,6 +7,5 @@ src/ export-ignore
 .prettyci.composer.json export-ignore
 .travis.yml export-ignore
 bref-extra export-ignore
-bchecksums.json export-ignore
+checksums.json export-ignore
 Makefile export-ignore
-
