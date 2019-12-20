@@ -15,7 +15,7 @@ provider:
 
 plugins:
     - ./vendor/bref/bref
-    - ./vendor/bref/extra-layers
+    - ./vendor/bref/extra-layers # Add the extra Serverless plugin
 
 functions:
     console:
