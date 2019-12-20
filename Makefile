@@ -1,6 +1,5 @@
 SHELL := /bin/bash
 php_versions = 72 73 74
-php_versions = 73
 
 docker-images:
 	PWD=pwd

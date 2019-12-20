@@ -1,0 +1,20 @@
+language: php
+
+notifications:
+  email:
+    on_success: never
+
+services:
+  - docker
+
+env:
+  - LAYER=amqp PHP=72
+  - LAYER=amqp PHP=73
+  - LAYER=amqp PHP=74
+  - LAYER=mecached PHP=72
+  - LAYER=mecached PHP=73
+  - LAYER=mecached PHP=74
+
+script:
+  - cd layer/$LAYER
+  - docker build --build-arg PHP_VERSION=$PHP .

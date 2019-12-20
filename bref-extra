@@ -1,0 +1,12 @@
+#!/usr/bin/env php
+<?php
+require __DIR__.'/vendor/autoload.php';
+
+$app = new Bref\Extra\Application();
+$app->command('publish', \Bref\Extra\Command\PublishCommand::class)->descriptions('Publish new layers. Create checksums.json');
+$app->command('list', \Bref\Extra\Command\ListCommand::class)->descriptions('Create layer.json');
+$app->command('help', \Bref\Extra\Command\HelpCommand::class)->descriptions('Prints some help texts.');
+
+$app->setDefaultCommand('help');
+
+$app->run();
