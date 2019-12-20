@@ -48,7 +48,7 @@ class ListCommand
 
             $output->writeln($region);
         }
-        file_put_contents($this->projectDir . '/layers.json', json_encode($export, JSON_PRETTY_PRINT));
+        file_put_contents($this->projectDir . '/layers.json', json_encode($export, \JSON_PRETTY_PRINT));
 
         return 0;
     }

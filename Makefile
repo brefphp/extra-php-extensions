@@ -18,7 +18,7 @@ docker-images:
 # The PHP runtimes
 layers: docker-images
 	PWD=pwd
-	rm -rf export/tmp || true
+	rm -rf export/tmp export/layer-*.zip || true
 	mkdir export/tmp
 	for dir in layers/*; do \
 		for php_version in $(php_versions); do \
@@ -28,7 +28,7 @@ layers: docker-images
 			echo "###"; \
 			cd ${PWD} ; cd export/tmp ; \
 			docker run --entrypoint "tar" bref/$${dir}-php-$${php_version} -ch -C /opt . | tar -x ; \
-			zip --quiet --recurse-paths ../`echo "$${dir}-php-$${php_version}" | sed -e "s/layers\//layer-/g"`.zip . ; \
+			zip --quiet -X --recurse-paths ../`echo "$${dir}-php-$${php_version}" | sed -e "s/layers\//layer-/g"`.zip . ; \
 			echo ""; \
 		done \
 	done
@@ -36,3 +36,4 @@ layers: docker-images
 
 publish: layers
 	php ./bref-extra publish
+	php ./bref-extra list

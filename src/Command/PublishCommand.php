@@ -64,7 +64,7 @@ class PublishCommand
         }
 
         // Dump checksums
-        file_put_contents($this->projectDir.'/checksums.json', json_encode($discoveredChecksums));
+        file_put_contents($this->projectDir.'/checksums.json', json_encode($discoveredChecksums, \JSON_PRETTY_PRINT));
 
         $output->writeln('Done');
         $output->writeln('Remember to commit and push changes to ./checksums.json');

@@ -1,1 +1,4 @@
-{"amqp-php-73":"6e5ec38cfaf51de0353c1b9e459ea001"}
+{
+    "memcached-php-73": "58d2102c602ff849734a57c255d70657",
+    "amqp-php-73": "26446b9824c8bb7af006664437fb09b8"
+}
