@@ -9,7 +9,8 @@ RUN set -xe; \
     curl -Ls  https://launchpad.net/libmemcached/1.0/1.0.18/+download/libmemcached-1.0.18.tar.gz  \
   | tar xzC ${LIBMEMCACHED_BUILD_DIR}
 
-RUN curl -Ls -o ${LIBMEMCACHED_BUILD_DIR}/libmemcached-1.0.18/libmemcached-build.patch https://src.fedoraproject.org/rpms/libmemcached/raw/HEAD/f/libmemcached-build.patch
+# patch from https://src.fedoraproject.org/rpms/libmemcached/raw/HEAD/f/libmemcached-build.patch for build with GCC7
+COPY libmemcached-build.patch ${LIBMEMCACHED_BUILD_DIR}/libmemcached-1.0.18/libmemcached-build.patch
 
 # Move into the unpackaged code directory
 WORKDIR  ${LIBMEMCACHED_BUILD_DIR}/libmemcached-1.0.18/
