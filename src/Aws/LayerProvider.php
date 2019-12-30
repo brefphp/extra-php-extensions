@@ -49,7 +49,7 @@ class LayerProvider
         $layers = [];
         foreach ($results as $layerName => $result) {
             $versions = $result['LayerVersions'];
-            if (!empty($versions)) {
+            if (! empty($versions)) {
                 $latestVersion = end($versions);
                 $layers[$layerName] = $latestVersion['Version'];
             }
