@@ -46,6 +46,11 @@ class PublishCommand
             }
         }
         $output->writeln(sprintf('Found %d new layers', count($layers)));
+        foreach ($layers as $layer => $file) {
+            $output->writeln('- ' . $layer);
+        }
+        $output->writeln('');
+        $output->writeln('Publishing new layers:');
 
         try {
             $this->publisher->publishLayers($layers, $this->regionProvider->getAll());
@@ -58,6 +63,8 @@ class PublishCommand
         // Dump checksums
         file_put_contents($this->projectDir . '/checksums.json', json_encode($discoveredChecksums, \JSON_PRETTY_PRINT));
 
+        $output->writeln('');
+        $output->writeln('');
         $output->writeln('Done');
         $output->writeln('Remember to commit and push changes to ./checksums.json');
 

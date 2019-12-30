@@ -10,6 +10,8 @@ services:
 env:
   - LAYER=amqp PHP="72 73 74"
   - LAYER=blackfire PHP="72 73 74"
+  - LAYER=gmp PHP="72 73 74"
+  - LAYER=memcached PHP="72 73 74"
   - LAYER=xdebug PHP="72 73 74"
 
 before_install:
