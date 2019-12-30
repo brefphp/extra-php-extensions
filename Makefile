@@ -4,6 +4,7 @@ php_versions = 72 73 74
 
 docker-images:
 	PWD=pwd
+	set -e; \
 	for dir in layers/*; do \
 		for php_version in $(php_versions); do \
 			echo "###############################################"; \
@@ -21,6 +22,7 @@ layers: docker-images
 	PWD=pwd
 	rm -rf export/layer-*.zip || true
 	mkdir export/tmp
+	set -e; \
 	for dir in layers/*; do \
 		for php_version in $(php_versions); do \
 			echo "###############################################"; \

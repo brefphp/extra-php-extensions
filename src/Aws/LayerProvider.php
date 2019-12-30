@@ -3,6 +3,7 @@
 namespace Bref\Extra\Aws;
 
 use Aws\Lambda\LambdaClient;
+use function GuzzleHttp\Promise\unwrap;
 
 /**
  * Fetches layers and details from AWS
@@ -24,7 +25,6 @@ class LayerProvider
         $this->awsId = $awsId;
         $this->layerNames = $layerNames;
     }
-
 
     public function listLayers(string $selectedRegion): array
     {
@@ -49,8 +49,10 @@ class LayerProvider
         $layers = [];
         foreach ($results as $layerName => $result) {
             $versions = $result['LayerVersions'];
-            $latestVersion = end($versions);
-            $layers[$layerName] = $latestVersion['Version'];
+            if (! empty($versions)) {
+                $latestVersion = end($versions);
+                $layers[$layerName] = $latestVersion['Version'];
+            }
         }
 
         return $layers;
