@@ -64,12 +64,12 @@ and modify the `agent_socket`.
 ```ini
 extension=/opt/bref-extra/blackfire.so
 
-blackfire.agent_socket = tcp://ip-172-40-40-40.eu-central-1.compute.internal:4711
+blackfire.agent_socket = tcp://ip-172-40-40-40.eu-central-1.compute.internal:8307
 blackfire.agent_timeout = 0.25
 ```
 
 Then modify your [agent config](https://blackfire.io/docs/reference-guide/configuration#agent-configuration) 
-to make sure you are listening to `tcp://0.0.0.0:4711`.  
+to make sure you are listening to `tcp://0.0.0.0:8307`.  
 
 ## For contributors and maintainers
 
@@ -81,6 +81,11 @@ the same same location on the Lambda.
 
 Note that one can't just move files/libraries around. Most of them are expected to
 be in their "standard" location.  
+
+1. Create a new folder in `layers` and name it to your extension name.
+2. Add your Dockerfile
+3. Update .travis.yml to include your extension
+4. Update the table in the readme
 
 ### Deploy new versions
 
