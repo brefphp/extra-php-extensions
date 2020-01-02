@@ -55,8 +55,8 @@ Note that the "Memcached" layer provides both extension for [Memcache](https://p
 ### Blackfire installation
 
 The Blackfire layer only have probe installed. You still need to install the agent. 
-The agent is installed on a separate server (not a lambda function). The very smallest 
-EC2 instance is sufficient to runt the Blackfire agent.
+The agent is installed on a separate server (not a lambda function). The smallest 
+EC2 instance is sufficient to run the Blackfire agent.
 
 Create a `blackfire.ini` file for your lambda function where you load the extension 
 and modify the `agent_socket`.
