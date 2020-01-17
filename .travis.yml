@@ -8,6 +8,7 @@ services:
   - docker
 
 env:
+  - LAYER=odbc PHP="72 73 74"
   - LAYER=amqp PHP="72 73 74"
   - LAYER=blackfire PHP="72 73 74"
   - LAYER=gmp PHP="72 73 74"
