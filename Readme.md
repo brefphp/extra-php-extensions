@@ -71,6 +71,9 @@ blackfire.agent_timeout = 0.25
 Then modify your [agent config](https://blackfire.io/docs/reference-guide/configuration#agent-configuration) 
 to make sure you are listening to `tcp://0.0.0.0:8307`.  
 
+This [blog post](https://developer.happyr.com/installing-blackfire-multiple-servers) 
+could be helpful as it describes how to install the Blackfire Agent.  
+
 ## For contributors and maintainers
 
 ### Creating a new layer
