@@ -91,6 +91,8 @@ be in their "standard" location.
 3. Update .travis.yml to include your extension
 4. Update the table in the readme
 
+Please refer [here](docs/create_your_own_extension_layer.md) for more details.
+
 ### Deploy new versions
 
 ```
