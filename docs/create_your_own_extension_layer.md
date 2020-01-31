@@ -27,7 +27,7 @@ FROM lambci/lambda:provided
 #
 ```
 
-Then you need to add two part of Dockerfile, the following snippets are examples of build and file copy parts respectively.
+Then you need to add two parts of Dockerfile, the following snippets are examples of build and file copy parts respectively.
 
 ```Dockerfile
 
@@ -38,13 +38,22 @@ RUN make -j `nproc` && make install
 
 RUN cp `php-config --extension-dir`/pgsql.so /tmp/pgsql.so
 ```
-Some env variables are set and can be used in this environment. `PHP_BUILD_DIR` is `/tmp/build/php`, `INSTALL_DIR` is `/opt/bref`.
+
+Compile the extension here.
+In some cases, download the source code, install the libraries required for compilation, perform pecl install, etc, describe the processing to create all files required for extension.
+The Dockerfiles for [these](../layers) extensions will be very helpful.
+
+The environment variable `PHP_VERSION` is passed from the Makefile as an argument of docker build, and the value takes `72`, `73`, `74`.
+As a docker image is created for each PHP_VERSION, if the build procedure of extension differs for each version, it can use this variable to switch processing in Dockerfile.
+There are some other env variables available,`PHP_BUILD_DIR` is `/tmp/build/php`, `INSTALL_DIR` is `/opt/bref`.
 
 ```Dockerfile
 COPY --from=ext /tmp/pgsql.so /opt/bref-extra/pgsql.so
 ```
 
-Extension files that need to be installed should be placed `/opt` directory in the final image.
+The extension layer consists of a zip archive of files that overlay the PHP layer, so copy the files and create the layer file structure here.
+Extension and all related files that need to be installed should be placed `/opt` directory in the final image.
+Because only `/opt` directory is allowed to put things in Lambda custom runtime environment.
 
 It might be good to build extension step-by-step and create Dockerfile from command history instead of immediately building from Dockerfile.
 
@@ -142,7 +151,11 @@ $ serverless deploy
 
 # Prepare for contribution
 
-If you'd like to contribute, please confirm that it works with each PHP versions in the way described above, and update the document and CI settings.
+Contributions to add new extensions are welcomed. When you built new extension, please contribute it by all means.
+In order to contribute, you should do a little more work.
+
+* Make sure that it works with each PHP versions in the way described above
+* Update the document and CI settings as follows
 
 Update the table in the `Readme.md` in alphabetical order.
 
