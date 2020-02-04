@@ -40,7 +40,7 @@ RUN cp `php-config --extension-dir`/pgsql.so /tmp/pgsql.so
 ```
 
 Compile the extension here.
-In some cases, download the source code, install the libraries required for compilation, perform pecl install, etc, describe the processing to create all files required for extension.
+In some cases, download the source code, install the libraries required for compilation, perform pecl install, etc.
 The Dockerfiles for [these](../layers) extensions will be very helpful.
 
 The environment variable `PHP_VERSION` is passed from the Makefile as an argument of docker build, and the value takes `72`, `73`, `74`.
