@@ -1,7 +1,7 @@
 # How to build new layer
 
-To create your own extension layer, compile the extension and any required libraries on Bref environment with Docker.
-It picks up pgsql extension as an example, so please replace the name appropriately.
+To create your own extension layer, compile the extension and any required libraries 
+with Docker. This guide uses pgsql extension as an example.
 
 First create new extension directory in `layers/` and move there.
 
@@ -27,7 +27,17 @@ FROM lambci/lambda:provided
 #
 ```
 
-Then you need to add two parts of Dockerfile, the following snippets are examples of build and file copy parts respectively.
+The environment variable `PHP_VERSION` is passed from the Makefile as an argument 
+to docker build. It may have values like: `72`, `73`, `74`. A docker image is created 
+for each PHP_VERSION. If the build procedure of your extension differs for each version, 
+you may use this variable to switch processing in Dockerfile.
+
+There are some other env variables available,`PHP_BUILD_DIR` is `/tmp/build/php`, `INSTALL_DIR` is `/opt/bref`.
+
+### Building your extension
+
+Then you need to add two parts of Dockerfile, the following snippets are examples 
+of build and copy parts respectively.
 
 ```Dockerfile
 
@@ -39,29 +49,37 @@ RUN make -j `nproc` && make install
 RUN cp `php-config --extension-dir`/pgsql.so /tmp/pgsql.so
 ```
 
-Compile the extension here.
-In some cases, download the source code, install the libraries required for compilation, perform pecl install, etc.
-The Dockerfiles for [these](../layers) extensions will be very helpful.
+You may need to: 
+ - download the source code, 
+ - install the libraries required for compilation, 
+ - perform pecl install, 
+ - etc.
 
-The environment variable `PHP_VERSION` is passed from the Makefile as an argument of docker build, and the value takes `72`, `73`, `74`.
-As a docker image is created for each PHP_VERSION, if the build procedure of extension differs for each version, it can use this variable to switch processing in Dockerfile.
-There are some other env variables available,`PHP_BUILD_DIR` is `/tmp/build/php`, `INSTALL_DIR` is `/opt/bref`.
+The Dockerfiles for [these](../layers) extensions could be very helpful.
+
+### Copy files
+
+
+The extension layer consists of a zip archive of files that overlay the PHP layer, 
+so copy the files and create the layer file structure here. Extension and all related 
+files that need to be installed should be placed `/opt` directory in the final image.
+Because only `/opt` directory is allowed to put things in Lambda custom runtime
+environment.
 
 ```Dockerfile
 COPY --from=ext /tmp/pgsql.so /opt/bref-extra/pgsql.so
 ```
 
-The extension layer consists of a zip archive of files that overlay the PHP layer, so copy the files and create the layer file structure here.
-Extension and all related files that need to be installed should be placed `/opt` directory in the final image.
-Because only `/opt` directory is allowed to put things in Lambda custom runtime environment.
+### Making a layer 
 
-It might be good to build extension step-by-step and create Dockerfile from command history instead of immediately building from Dockerfile.
+It might be good to build extension step-by-step and create Dockerfile from command 
+history instead of immediately building from Dockerfile.
 
 ```bash
 $ docker run -it bref/build-php-$PHP_VERSION /bin/bash  # Run build environment with ”-it” option and build the extension step by step.
 ```
 
-Once you have created Dockerfile, make sure the build suceeds.
+Once you have created Dockerfile, make sure the build succeeds.
 
 ```bash
 $ make docker-images
