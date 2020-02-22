@@ -48,7 +48,7 @@ class LayerProvider
             if (! empty($versionsArray)) {
                 /** @var LayerVersionsListItem $latestVersion */
                 $latestVersion = end($versionsArray);
-                $layers[$layerName] = $latestVersion->getVersion();
+                $layers[$layerName] = (int) $latestVersion->getVersion();
             }
         }
 
