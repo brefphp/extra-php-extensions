@@ -11,6 +11,7 @@ env:
   - LAYER=amqp PHP="72 73 74"
   - LAYER=blackfire PHP="72 73 74"
   - LAYER=gmp PHP="72 73 74"
+  - LAYER=mailparse PHP="72 73 74"
   - LAYER=memcached PHP="72 73 74"
   - LAYER=pgsql PHP="72 73 74"
   - LAYER=xdebug PHP="72 73 74"

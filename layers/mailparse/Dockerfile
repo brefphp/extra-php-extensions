@@ -1,0 +1,11 @@
+ARG PHP_VERSION
+FROM bref/build-php-$PHP_VERSION AS ext
+
+RUN pecl install mailparse
+RUN cp `php-config --extension-dir`/mailparse.so /tmp/mailparse.so
+
+# Build the final image from the lambci image that is close to the production environment
+FROM lambci/lambda:provided
+
+# Copy things we installed to the final image
+COPY --from=ext /tmp/mailparse.so /opt/bref-extra/mailparse.so
