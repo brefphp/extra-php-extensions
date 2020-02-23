@@ -5,9 +5,9 @@
     "require-dev": {
         "symfony/process": "^5.0",
         "symfony/finder": "^5.0",
-        "aws/aws-sdk-php": "^3.130",
         "mnapoli/silly": "^1.7",
-        "mnapoli/silly-php-di": "^1.2"
+        "mnapoli/silly-php-di": "^1.2",
+        "async-aws/lambda": "^0.1.0"
     },
     "autoload-dev": {
         "psr-4": {

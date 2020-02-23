@@ -2,8 +2,8 @@
 
 namespace Bref\Extra\Aws;
 
-use Aws\Lambda\LambdaClient;
-use function GuzzleHttp\Promise\unwrap;
+use AsyncAws\Lambda\LambdaClient;
+use AsyncAws\Lambda\Result\LayerVersionsListItem;
 
 /**
  * Fetches layers and details from AWS
@@ -29,29 +29,26 @@ class LayerProvider
     public function listLayers(string $selectedRegion): array
     {
         $lambda = new LambdaClient([
-            'version' => 'latest',
             'region' => $selectedRegion,
         ]);
 
-        $accountId = $this->awsId;
         // Run the API calls in parallel (thanks to async)
-        $promises = array_combine($this->layerNames, array_map(function (string $layerName) use ($lambda, $selectedRegion, $accountId) {
-            return $lambda->listLayerVersionsAsync([
-                'LayerName' => "arn:aws:lambda:$selectedRegion:$accountId:layer:$layerName",
+        $results = [];
+        foreach ($this->layerNames as $layerName) {
+            $results[$layerName] = $lambda->listLayerVersions([
+                'LayerName' => sprintf('arn:aws:lambda:%s:%s:layer:%s', $selectedRegion, $this->awsId, $layerName),
                 'MaxItems' => 1,
             ]);
-        }, $this->layerNames));
-
-        // Wait on all of the requests to complete. Throws a ConnectException
-        // if any of the requests fail
-        $results = unwrap($promises);
+        }
 
         $layers = [];
         foreach ($results as $layerName => $result) {
-            $versions = $result['LayerVersions'];
-            if (! empty($versions)) {
-                $latestVersion = end($versions);
-                $layers[$layerName] = $latestVersion['Version'];
+            $versions = $result->getLayerVersions(true);
+            $versionsArray = iterator_to_array($versions);
+            if (! empty($versionsArray)) {
+                /** @var LayerVersionsListItem $latestVersion */
+                $latestVersion = end($versionsArray);
+                $layers[$layerName] = (int) $latestVersion->getVersion();
             }
         }
 
