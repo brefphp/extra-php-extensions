@@ -43,8 +43,7 @@ publish: layers
 	php ./bref-extra list
 
 # Publish doocker images
-#publish-docker-images: docker-images
-publish-docker-images:
+publish-docker-images: docker-images
 	for dir in layers/${layer}; do \
 		for php_version in $(php_versions); do \
 			echo "###############################################"; \
