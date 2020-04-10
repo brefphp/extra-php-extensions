@@ -41,3 +41,27 @@ layers: docker-images
 publish: layers
 	php ./bref-extra publish
 	php ./bref-extra list
+
+# Publish doocker images
+publish-docker-images: docker-images
+	for dir in layers/${layer}; do \
+		for php_version in $(php_versions); do \
+			echo "###############################################"; \
+			echo "###############################################"; \
+			echo "### Publishing $${dir} PHP$${php_version}"; \
+			echo "###"; \
+			privateImage="bref/$${dir}-php-$${php_version}"; \
+			publicImage=$${privateImage/layers\//extra-}; \
+			echo "Image name: $$publicImage"; \
+			docker tag $$privateImage:latest $$publicImage:latest ; \
+			docker push $$publicImage:latest; \
+			if (test $(DOCKER_TAG)); then \
+			  echo "Pusing tagged images"; \
+			  docker tag $$privateImage:latest $$publicImage:${DOCKER_TAG}; \
+			  docker push $$publicImage:${DOCKER_TAG}; \
+			fi; \
+			echo ""; \
+		done \
+	done
+
+
