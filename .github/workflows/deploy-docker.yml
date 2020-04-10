@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - master
-      - env-fix2
     tags:
       - '*' # On all tags
 
