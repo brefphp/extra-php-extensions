@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - env-fix2
     tags:
       - '*' # On all tags
 
@@ -17,7 +18,17 @@ jobs:
 
       - name: Get the version
         id: get_version
-        run: echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/}
+        run: |
+          REF=${GITHUB_REF#refs/tags/}
+          if [[ $REF == *"refs"* ]]; then
+            REF=""
+          fi
+          echo ::set-output name=VERSION::$REF
+
+      - name: Publish
+        env:
+          DOCKER_TAG: ${{ steps.get_version.outputs.VERSION }}
+        run: echo $DOCKER_TAG
 
       - name: Docker login
         run: echo '${{ secrets.DOCKER_PASSWORD }}' | docker login --username ${{ secrets.DOCKER_USERNAME }} --password-stdin
