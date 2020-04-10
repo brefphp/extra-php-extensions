@@ -77,6 +77,15 @@ to make sure you are listening to `tcp://0.0.0.0:8307`.
 This [blog post](https://developer.happyr.com/installing-blackfire-multiple-servers) 
 could be helpful as it describes how to install the Blackfire Agent.  
 
+## Docker images
+
+There are Docker images for every layer. They are updated on every push to master 
+and on every tag. The name of the image is `bref/extra-[name]-php-[version]`. Find
+all images on [Docker hub](https://hub.docker.com/u/bref).
+
+These are the same docker images that creates the layers. All layer files lives inside
+the `/opt` directory in the image. 
+
 ## For contributors and maintainers
 
 ### Creating a new layer
