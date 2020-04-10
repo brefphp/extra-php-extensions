@@ -98,6 +98,8 @@ Please refer [here](docs/create_your_own_extension_layer.md) for more details.
 ### Deploy new versions
 
 ```
+export AWS_PROFILE=my_profile
+export AWS_ID=403367587399
 make publish
 git add checksums.json layers.json
 git commit -m "New version of layers"
