@@ -49,6 +49,7 @@ extension=/opt/bref-extra/amqp.so
 | Mailparse | `${bref:extra.mailparse-php-74}` | `extension=/opt/bref-extra/mailparse.so` |
 | Memcache | `${bref:extra.memcached-php-74}` | `extension=/opt/bref-extra/memcache.so` |
 | Memcached | `${bref:extra.memcached-php-74}` | `extension=/opt/bref-extra/memcached.so` |
+| Pcov | `${bref:extra.pcov-php-74}` | `extension=/opt/bref-extra/pcov.so` |
 | PostgreSQL | `${bref:extra.pgsql-php-74}` | `extension=/opt/bref-extra/pgsql.so` |
 | Xdebug | `${bref:extra.xdebug-php-74}` | `zend_extension=/opt/bref-extra/xdebug.so` |
 
