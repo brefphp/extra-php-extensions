@@ -7,7 +7,7 @@
         "symfony/finder": "^5.0",
         "mnapoli/silly": "^1.7",
         "mnapoli/silly-php-di": "^1.2",
-        "async-aws/lambda": "^0.1.0"
+        "async-aws/lambda": "^0.4.0"
     },
     "autoload-dev": {
         "psr-4": {
