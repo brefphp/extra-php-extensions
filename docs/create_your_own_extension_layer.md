@@ -23,7 +23,7 @@ FROM bref/build-php-$PHP_VERSION AS ext
 FROM lambci/lambda:provided
 
 #
-# Add commands to copy files that requried for final image.
+# Add commands to copy files that required for final image.
 #
 ```
 
