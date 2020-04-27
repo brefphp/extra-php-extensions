@@ -57,7 +57,7 @@ extension=/opt/bref-extra/amqp.so
 Note that the "Memcached" layer provides both extension for [Memcache](https://pecl.php.net/package/memcache) and [Memcached](https://pecl.php.net/package/memcached). 
 
 Note that you cannot use both the built-in imagick extension and imagick extension from this package.
-This version of imagick is built against newer version of ImageMagick than the built-in one and provides webp support.
+This version of imagick is built against newer version of ImageMagick than the built-in one and provides heic and webp support.
 
 ### Blackfire installation
 
