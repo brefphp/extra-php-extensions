@@ -23,7 +23,7 @@ FROM bref/build-php-$PHP_VERSION AS ext
 FROM lambci/lambda:provided
 
 #
-# Add commands to copy files that requried for final image.
+# Add commands to copy files that required for final image.
 #
 ```
 
@@ -88,7 +88,7 @@ $ make docker-images
 If the build goes through, generate zip files of the layers in `export/` directory.
 
 ```bash
-$ make layer
+$ make layers
 ```
 
 Register the zip file generated above to AWS as Lambda Layer. It also able to add from AWS console.

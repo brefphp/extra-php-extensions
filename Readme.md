@@ -46,6 +46,7 @@ extension=/opt/bref-extra/amqp.so
 | AMQP | `${bref:extra.amqp-php-74}` | `extension=/opt/bref-extra/amqp.so` |
 | Blackfire | `${bref:extra.blackfire-php-74}` | `extension=/opt/bref-extra/blackfire.so` |
 | GMP | `${bref:extra.gmp-php-74}` | `extension=/opt/bref-extra/gmp.so` |
+| Igbinary | `${bref:extra.igbinary-php-74}` | `extension=/opt/bref-extra/igbinary.so` |
 | Imagick | `${bref:extra.imagick-php-74}` | `extension=/opt/bref-extra/imagick.so` |
 | Mailparse | `${bref:extra.mailparse-php-74}` | `extension=/opt/bref-extra/mailparse.so` |
 | Memcache | `${bref:extra.memcached-php-74}` | `extension=/opt/bref-extra/memcache.so` |
