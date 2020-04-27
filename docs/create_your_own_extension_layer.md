@@ -88,7 +88,7 @@ $ make docker-images
 If the build goes through, generate zip files of the layers in `export/` directory.
 
 ```bash
-$ make layer
+$ make layers
 ```
 
 Register the zip file generated above to AWS as Lambda Layer. It also able to add from AWS console.
