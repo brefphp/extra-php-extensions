@@ -47,6 +47,7 @@ extension=/opt/bref-extra/amqp.so
 | Blackfire | `${bref:extra.blackfire-php-74}` | `extension=/opt/bref-extra/blackfire.so` |
 | GMP | `${bref:extra.gmp-php-74}` | `extension=/opt/bref-extra/gmp.so` |
 | Igbinary | `${bref:extra.igbinary-php-74}` | `extension=/opt/bref-extra/igbinary.so` |
+| Imagick | `${bref:extra.imagick-php-74}` | `extension=/opt/bref-extra/imagick.so` |
 | Mailparse | `${bref:extra.mailparse-php-74}` | `extension=/opt/bref-extra/mailparse.so` |
 | Memcache | `${bref:extra.memcached-php-74}` | `extension=/opt/bref-extra/memcache.so` |
 | Memcached | `${bref:extra.memcached-php-74}` | `extension=/opt/bref-extra/memcached.so` |
@@ -55,6 +56,9 @@ extension=/opt/bref-extra/amqp.so
 | Xdebug | `${bref:extra.xdebug-php-74}` | `zend_extension=/opt/bref-extra/xdebug.so` |
 
 Note that the "Memcached" layer provides both extension for [Memcache](https://pecl.php.net/package/memcache) and [Memcached](https://pecl.php.net/package/memcached). 
+
+Note that you cannot use both the built-in imagick extension and imagick extension from this package.
+This version of imagick is built against newer version of ImageMagick than the built-in one and provides heic and webp support.
 
 ### Blackfire installation
 
