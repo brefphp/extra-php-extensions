@@ -53,6 +53,7 @@ extension=/opt/bref-extra/amqp.so
 | Mailparse  | `${bref:extra.mailparse-php-74}` | `extension=/opt/bref-extra/mailparse.so`   |
 | Memcache   | `${bref:extra.memcached-php-74}` | `extension=/opt/bref-extra/memcache.so`    |
 | Memcached  | `${bref:extra.memcached-php-74}` | `extension=/opt/bref-extra/memcached.so`   |
+| ODBC Snowflake | `${bref:extra.odbc-snowflake-php-74}` | `extension=/opt/bref-extra/odbc.so` |
 | Pcov       | `${bref:extra.pcov-php-74}`      | `extension=/opt/bref-extra/pcov.so`        |
 | PostgreSQL | `${bref:extra.pgsql-php-74}`     | `extension=/opt/bref-extra/pgsql.so`       |
 | Xdebug     | `${bref:extra.xdebug-php-74}`    | `zend_extension=/opt/bref-extra/xdebug.so` |
@@ -83,6 +84,18 @@ to make sure you are listening to `tcp://0.0.0.0:8307`.
 
 This [blog post](https://developer.happyr.com/installing-blackfire-multiple-servers) 
 could be helpful as it describes how to install the Blackfire Agent.  
+
+### ODBC Snowflake setup
+
+Enable the odbc extension in your `php.ini` by setting `extension=/opt/bref-extra/odbc.so`.
+Then you also need to set the environment variable `ODBCSYSINI: /opt/snowflake_odbc/conf/` in your `serverless.yaml`
+in order to tell unixODBC to load the ini file of the snowflake client.
+
+You can then use snowflake like this: `odbc_connect('DRIVER=SnowflakeDSIIDriver;Server=[name].snowflakecomputing.com;Account=;Schema=;Warehouse=;Database=;Role=', 'username', 'password')`.
+
+There is more information about the driver ini configuration in the [snowflake client documentation](https://docs.snowflake.com/en/user-guide/odbc-linux.html#step-4-configure-the-odbc-driver)
+but the default configuration is enough in most cases.
+The easiest way review those is to download the [`snowflake_odbc` directory](https://sfc-repo.snowflakecomputing.com/odbc/linux/index.html). 
 
 ## Docker images
 
