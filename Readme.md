@@ -29,7 +29,7 @@ functions:
     console:
         handler: bin/console
         layers:
-            - ${bref:layer.php-74} 
+            - ${bref:layer.php-74}
             - ${bref:extra.amqp-php-74} # <----- Example for AMQP layer
             - ${bref:layer.console}
 ```
@@ -45,6 +45,7 @@ extension=/opt/bref-extra/amqp.so
 | ---- | ----------------------------| -------------- |
 | AMQP | `${bref:extra.amqp-php-74}` | `extension=/opt/bref-extra/amqp.so` |
 | Blackfire | `${bref:extra.blackfire-php-74}` | `extension=/opt/bref-extra/blackfire.so` |
+| GD | `${bref:extra.gd-php-74}` | `extension=/opt/bref-extra/gd.so` |
 | GMP | `${bref:extra.gmp-php-74}` | `extension=/opt/bref-extra/gmp.so` |
 | Igbinary | `${bref:extra.igbinary-php-74}` | `extension=/opt/bref-extra/igbinary.so` |
 | Imagick | `${bref:extra.imagick-php-74}` | `extension=/opt/bref-extra/imagick.so` |
