@@ -13,6 +13,7 @@ env:
   # All layers in alphabetical order
   - LAYER=amqp PHP="72 73 74"
   - LAYER=blackfire PHP="72 73 74"
+  - LAYER=ds PHP="72 73 74"
   - LAYER=gmp PHP="72 73 74"
   - LAYER=igbinary PHP="72 73 74"
   - LAYER=imagick PHP="72 73 74"
