@@ -5,9 +5,9 @@
 ### Added
 
 - Support for Cassandra
-- Support for ds
-- Support for igbinary
-- Support for imagick
+- Support for Data Structures
+- Support for Igbinary
+- Support for ImageMagick
 - Support for ODBC Snowflake
 
 ## 0.3.0
