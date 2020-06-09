@@ -19,6 +19,7 @@ env:
   - LAYER=igbinary PHP="72 73 74"
   - LAYER=imagick PHP="72 73 74"
   - LAYER=mailparse PHP="72 73 74"
+  - LAYER=odb-snowfake PHP="72 73 74"
   - LAYER=pcov PHP="72 73 74"
   - LAYER=pgsql PHP="72 73 74"
   - LAYER=xdebug PHP="72 73 74"
