@@ -1,5 +1,15 @@
 # Change log
 
+## 0.3.1
+
+### Added
+
+- Support for Cassandra
+- Support for ds
+- Support for igbinary
+- Support for imagick
+- Support for ODBC Snowflake
+
 ## 0.3.0
 
 ### Added
