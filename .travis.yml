@@ -19,7 +19,7 @@ env:
   - LAYER=gmp PHP="72 73 74"
   - LAYER=igbinary PHP="72 73 74"
   - LAYER=mailparse PHP="72 73 74"
-  - LAYER=odbc-snowfake PHP="72 73 74"
+  - LAYER=odbc-snowflake PHP="72 73 74"
   - LAYER=pcov PHP="72 73 74"
   - LAYER=pgsql PHP="72 73 74"
   - LAYER=xdebug PHP="72 73 74"
