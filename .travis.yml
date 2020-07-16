@@ -17,6 +17,7 @@ env:
   - LAYER=cassandra PHP="72 73 74"
   - LAYER=ds PHP="72 73 74"
   - LAYER=gmp PHP="72 73 74"
+  - LAYER=grpc PHP="74"
   - LAYER=igbinary PHP="72 73 74"
   - LAYER=mailparse PHP="72 73 74"
   - LAYER=odbc-snowflake PHP="72 73 74"
