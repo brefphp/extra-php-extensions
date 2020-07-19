@@ -1,5 +1,11 @@
 # Change log
 
+## 0.3.2
+
+### Added
+
+- Support for gRPC
+
 ## 0.3.1
 
 ### Added
