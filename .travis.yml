@@ -11,6 +11,7 @@ env:
   # Some super slow extension first
   - LAYER=imagick PHP="72 73 74"
   - LAYER=memcached PHP="72 73 74"
+  - LAYER=grpc PHP="72 73 74"
   # All layers in alphabetical order
   - LAYER=amqp PHP="72 73 74"
   - LAYER=blackfire PHP="72 73 74"

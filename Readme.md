@@ -48,6 +48,7 @@ extension=/opt/bref-extra/amqp.so
 | Cassandra  | `${bref:extra.cassandra-php-74}` | `extension=/opt/bref-extra/cassandra.so`   |
 | DS         | `${bref:extra.ds-php-74}`        | `extension=/opt/bref-extra/ds.so`          |
 | GMP        | `${bref:extra.gmp-php-74}`       | `extension=/opt/bref-extra/gmp.so`         |
+| gRPC       | `${bref:extra.grpc-php-74}`      | `extension=/opt/bref-extra/grpc.so`        |
 | Igbinary   | `${bref:extra.igbinary-php-74}`  | `extension=/opt/bref-extra/igbinary.so`    |
 | Imagick    | `${bref:extra.imagick-php-74}`   | `extension=/opt/bref-extra/imagick.so`     |
 | Mailparse  | `${bref:extra.mailparse-php-74}` | `extension=/opt/bref-extra/mailparse.so`   |
