@@ -11,13 +11,13 @@ env:
   # Some super slow extension first
   - LAYER=imagick PHP="72 73 74"
   - LAYER=memcached PHP="72 73 74"
+  - LAYER=grpc PHP="72 73 74"
   # All layers in alphabetical order
   - LAYER=amqp PHP="72 73 74"
   - LAYER=blackfire PHP="72 73 74"
   - LAYER=cassandra PHP="72 73 74"
   - LAYER=ds PHP="72 73 74"
   - LAYER=gmp PHP="72 73 74"
-  - LAYER=grpc PHP="72 73 74"
   - LAYER=igbinary PHP="72 73 74"
   - LAYER=mailparse PHP="72 73 74"
   - LAYER=odbc-snowflake PHP="72 73 74"
