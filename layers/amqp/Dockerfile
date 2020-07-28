@@ -18,7 +18,7 @@ RUN set -xe; \
     cmake --build . --target install
 
 RUN pecl install amqp
-RUN cp /opt/bref/lib/php/extensions/no-debug-zts-*/amqp.so /tmp/amqp.so
+RUN cp /opt/bref/lib/php/extensions/no-debug-non-zts-*/amqp.so /tmp/amqp.so
 
 # Build the final image from the lambci image that is close to the production environment
 FROM scratch
