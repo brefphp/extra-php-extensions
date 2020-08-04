@@ -57,6 +57,7 @@ extension=/opt/bref-extra/amqp.so
 | ODBC Snowflake | `${bref:extra.odbc-snowflake-php-74}` | `extension=/opt/bref-extra/odbc.so` |
 | Pcov       | `${bref:extra.pcov-php-74}`      | `extension=/opt/bref-extra/pcov.so`        |
 | PostgreSQL | `${bref:extra.pgsql-php-74}`     | `extension=/opt/bref-extra/pgsql.so`       |
+| UUID       | `${bref:extra.uuid-php-74}`      | `zend_extension=/opt/bref-extra/uuid.so`   |
 | Xdebug     | `${bref:extra.xdebug-php-74}`    | `zend_extension=/opt/bref-extra/xdebug.so` |
 
 Note that the "Memcached" layer provides both extension for [Memcache](https://pecl.php.net/package/memcache) and [Memcached](https://pecl.php.net/package/memcached). 
