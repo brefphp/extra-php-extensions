@@ -22,7 +22,6 @@ RUN set -xe; \
 RUN pecl install yaml
 RUN cp /opt/bref/lib/php/extensions/no-debug-zts-*/yaml.so /tmp/yaml.so
 
-
 FROM lambci/lambda:provided
 
 COPY --from=ext /opt/bref/lib/libyaml-0.so.2 /opt/bref/lib64/libyaml-0.so.2
