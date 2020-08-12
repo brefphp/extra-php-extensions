@@ -24,6 +24,7 @@ env:
   - LAYER=pcov PHP="72 73 74"
   - LAYER=pgsql PHP="72 73 74"
   - LAYER=xdebug PHP="72 73 74"
+  - LAYER=yaml PHP="72 73 74"
 
 before_install:
   - |
