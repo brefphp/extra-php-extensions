@@ -23,6 +23,7 @@ env:
   - LAYER=odbc-snowflake PHP="72 73 74"
   - LAYER=pcov PHP="72 73 74"
   - LAYER=pgsql PHP="72 73 74"
+  - LAYER=uuid PHP="72 73 74"
   - LAYER=xdebug PHP="72 73 74"
   - LAYER=yaml PHP="72 73 74"
 
