@@ -1,5 +1,10 @@
 # Change log
 
+## 0.3.3
+
+- Support for UUID
+- Support for Yaml
+
 ## 0.3.2
 
 ### Added

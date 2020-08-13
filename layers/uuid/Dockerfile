@@ -13,9 +13,6 @@ FROM lambci/lambda:provided
 
 # Copy things we installed to the final image
 COPY --from=ext /tmp/uuid.so /opt/bref-extra/uuid.so
-
 COPY --from=ext /usr/lib64/libuuid.so /opt/bref/lib64/llibuuid.so
-
 COPY --from=ext /usr/include/uuid/uuid.h /opt/bref/include/uuid/uuid.h
-
 COPY --from=ext /usr/lib64/pkgconfig/uuid.pc /opt/bref/lib64/pkgconfig/uuid.pc
