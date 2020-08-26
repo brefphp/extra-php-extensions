@@ -78,7 +78,7 @@ This version of imagick is built against newer version of ImageMagick than the b
 
 ### Blackfire installation
 
-The Blackfire layer only have probe installed. 
+The Blackfire layer only have the probe installed. 
 
 You still need to install the agent. 
 The agent is installed on a separate server (not a lambda function). The micro 
