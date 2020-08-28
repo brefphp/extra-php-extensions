@@ -1,6 +1,6 @@
 # Bref Extra PHP Extension
 
-This repository has some AWS Lambda layers with PHP extensions. This is useful when you want something "off the shelf". 
+This repository has some AWS Lambda layers with PHP extensions. This is useful when you want something "off the shelf".
 If you ever need more than 2-3 layer you should consider creating your own layer. That is because AWS has
 a limit of 5 layers per Lambda.
 
@@ -29,7 +29,7 @@ functions:
     console:
         handler: bin/console
         layers:
-            - ${bref:layer.php-74} 
+            - ${bref:layer.php-74}
             - ${bref:extra.amqp-php-74} # <----- Example for AMQP layer
             - ${bref:layer.console}
 ```
@@ -71,20 +71,20 @@ memory_limit=128M
 | Xdebug     | `${bref:extra.xdebug-php-74}`    | `zend_extension=/opt/bref-extra/xdebug.so` |
 | Yaml       | `${bref:extra.yaml-php-74}`      | `extension=/opt/bref-extra/yaml.so`   |
 
-Note that the "Memcached" layer provides both extension for [Memcache](https://pecl.php.net/package/memcache) and [Memcached](https://pecl.php.net/package/memcached). 
+Note that the "Memcached" layer provides both extension for [Memcache](https://pecl.php.net/package/memcache) and [Memcached](https://pecl.php.net/package/memcached).
 
 Note that you cannot use both the built-in imagick extension and imagick extension from this package.
 This version of imagick is built against newer version of ImageMagick than the built-in one and provides heic and webp support.
 
 ### Blackfire installation
 
-The Blackfire layer only have the probe installed. 
+The Blackfire layer only have the probe installed.
 
-You still need to install the agent. 
-The agent is installed on a separate server (not a lambda function). The micro 
+You still need to install the agent.
+The agent is installed on a separate server (not a lambda function). The micro
 EC2 instance is sufficient to run the Blackfire agent.
 
-Create a `blackfire.ini` file in `php/conf.d/` for your lambda function where you load the extension 
+Create a `blackfire.ini` file in `php/conf.d/` for your lambda function where you load the extension
 and modify the `agent_socket` in order to point it to the Blackfire Agent.
 
 ```ini
@@ -95,14 +95,14 @@ blackfire.agent_socket = tcp://ip-172-40-40-40.eu-central-1.compute.internal:830
 blackfire.agent_timeout = 0.25
 ```
 
-> You may tweak other Blackfire parameters. 
+> You may tweak other Blackfire parameters.
 > [See Blackfire documentation about them](https://blackfire.io/docs/configuration/php#configuring-the-probe-via-the-php-ini-configuration-file).
 
-Then modify your [agent config](https://blackfire.io/docs/reference-guide/configuration#agent-configuration) 
-to make sure you are listening to `tcp://0.0.0.0:8307`.  
+Then modify your [agent config](https://blackfire.io/docs/reference-guide/configuration#agent-configuration)
+to make sure you are listening to `tcp://0.0.0.0:8307`.
 
-This [blog post](https://developer.happyr.com/installing-blackfire-multiple-servers) 
-could be helpful as it describes how to install the Blackfire Agent.  
+This [blog post](https://developer.happyr.com/installing-blackfire-multiple-servers)
+could be helpful as it describes how to install the Blackfire Agent.
 
 ### ODBC Snowflake setup
 
@@ -114,16 +114,16 @@ You can then use snowflake like this: `odbc_connect('DRIVER=SnowflakeDSIIDriver;
 
 There is more information about the driver ini configuration in the [snowflake client documentation](https://docs.snowflake.com/en/user-guide/odbc-linux.html#step-4-configure-the-odbc-driver)
 but the default configuration is enough in most cases.
-The easiest way review those is to download the [`snowflake_odbc` directory](https://sfc-repo.snowflakecomputing.com/odbc/linux/index.html). 
+The easiest way review those is to download the [`snowflake_odbc` directory](https://sfc-repo.snowflakecomputing.com/odbc/linux/index.html).
 
 ## Docker images
 
-There are Docker images for every layer. They are updated on every push to master 
+There are Docker images for every layer. They are updated on every push to master
 and on every tag. The name of the image is `bref/extra-[name]-php-[version]`. Find
 all images on [Docker hub](https://hub.docker.com/u/bref).
 
 These are the same docker images that creates the layers. All layer files lives inside
-the `/opt` directory in the image. 
+the `/opt` directory in the image.
 
 ## For contributors and maintainers
 
@@ -134,7 +134,7 @@ you want, then move all related files to `/opt`. Those files will be available i
 the same same location on the Lambda.
 
 Note that one can't just move files/libraries around. Most of them are expected to
-be in their "standard" location.  
+be in their "standard" location.
 
 1. Create a new folder in `layers` and name it to your extension name.
 2. Add your Dockerfile
@@ -149,6 +149,17 @@ Please refer [here](docs/create_your_own_extension_layer.md) for more details.
 export AWS_PROFILE=my_profile
 export AWS_ID=403367587399
 make publish
+git add checksums.json layers.json
+git commit -m "New version of layers"
+git push
+```
+
+If you only want to build a specific layer:
+
+```
+## ...
+make clean
+make publish layer=blackfire
 git add checksums.json layers.json
 git commit -m "New version of layers"
 git push
