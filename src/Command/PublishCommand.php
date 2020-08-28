@@ -2,6 +2,7 @@
 
 namespace Bref\Extra\Command;
 
+use AsyncAws\Core\Exception\Exception as AsyncAwsException;
 use Bref\Extra\Aws\LayerPublisher;
 use Bref\Extra\Service\RegionProvider;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -54,6 +55,10 @@ class PublishCommand
 
         try {
             $this->publisher->publishLayers($layers, $this->regionProvider->getAll());
+        } catch (AsyncAwsException $e) {
+            $output->writeln($e->getMessage());
+
+            exit(1);
         } catch (\Throwable $e) {
             // TODO write output.
             exit(1);
