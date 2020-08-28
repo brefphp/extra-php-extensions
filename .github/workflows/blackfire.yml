@@ -56,6 +56,10 @@ jobs:
           sed "/^## $LATEST_TAG/i ## $NEW_TAG\n\n### Added\n\nUpdated Blackfire to version ${{ steps.fetch_version.outputs.last }}.\n" CHANGELOG.md
 
       - name: Publish
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_ACCESS_SECRET }}
+          AWS_ID: ${{ secrets.AWS_ACCOUNT_ID }}
         run: |
           php ./bref-extra publish
           php ./bref-extra list
