@@ -24,7 +24,7 @@ class LayerPublisher
     public function publishLayers(array $layers, array $regions): void
     {
         foreach ($regions as $region) {
-            echo $region.PHP_EOL;
+            echo $region . PHP_EOL;
             $versions = $this->uploadLayers($layers, $region);
             $this->makeLayersPublic($layers, $region, $versions);
             echo PHP_EOL;
