@@ -16,9 +16,7 @@ class LayerProvider
     /** @var array */
     private $layerNames;
 
-    /**
-     * @var LambdaClient
-     */
+    /** @var LambdaClient */
     private $lambda;
 
     /**

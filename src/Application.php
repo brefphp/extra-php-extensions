@@ -39,7 +39,7 @@ class Application extends \Silly\Edition\PhpDi\Application
                 return new PublishCommand($c->get(LayerPublisher::class), $c->get(RegionProvider::class), $c->get('project_dir'));
             },
             LambdaClient::class => function (ContainerInterface $c) {
-                return new LambdaClient();
+                return new LambdaClient;
             },
             LayerPublisher::class => function (ContainerInterface $c) {
                 return new LayerPublisher($c->get(LambdaClient::class));

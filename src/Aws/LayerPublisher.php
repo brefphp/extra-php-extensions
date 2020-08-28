@@ -9,9 +9,7 @@ use AsyncAws\Lambda\ValueObject\LayerVersionContentInput;
 
 class LayerPublisher
 {
-    /**
-     * @var LambdaClient
-     */
+    /** @var LambdaClient */
     private $lambda;
 
     public function __construct(LambdaClient $lambda)
@@ -40,7 +38,7 @@ class LayerPublisher
             }
 
             foreach (Result::wait($result, null, true) as $result) {
-                $versions[$region.$result->getDescription()] = $result->getVersion();
+                $versions[$region . $result->getDescription()] = $result->getVersion();
             }
         }
 
@@ -56,7 +54,7 @@ class LayerPublisher
                     'VersionNumber' => $layerVersion,
                     'StatementId' => 'public',
                     'Action' => 'lambda:GetLayerVersion',
-                    'Principal' => '*'
+                    'Principal' => '*',
                 ]);
             }
 
