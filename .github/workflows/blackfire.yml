@@ -66,8 +66,8 @@ jobs:
         with:
           token: ${{ secrets.BOT_GITHUB_TOKEN }}
           branch: blackfire-update
-          author: Bot <github@bref.com>
-          committer: Bot <github@bref.com>
+          author: Bref Bot <github-bot@bref.sh>
+          committer: Bref Bot <github-bot@bref.sh>
           commit-message: Update Blackfire extension
           title: Update Blackfire extension
           body: |
