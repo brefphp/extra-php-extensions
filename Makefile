@@ -2,7 +2,6 @@ SHELL := /bin/bash
 php_versions = 72 73 74
 layer = *
 
-
 docker-images:
 	PWD=pwd
 	set -e; \
@@ -37,6 +36,9 @@ layers: docker-images
 		done \
 	done
 	rm -rf export/tmp
+
+clean:
+	rm -f export/layer-*
 
 publish: layers
 	php ./bref-extra publish
