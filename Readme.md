@@ -34,9 +34,19 @@ functions:
             - ${bref:layer.console}
 ```
 
+### Extra configuration files
+
+You may add extra configuration files for PHP in the ``php/conf.d/`` directory.
+
+```ini
+;php/conf.d/amqp.ini
+; Loading the AMQP extension.
+extension=/opt/bref-extra/amqp.so
+```
+
 ```ini
 ;php/conf.d/php.ini
-extension=/opt/bref-extra/amqp.so
+memory_limit=128M
 ```
 
 ### Available layers
@@ -68,19 +78,25 @@ This version of imagick is built against newer version of ImageMagick than the b
 
 ### Blackfire installation
 
-The Blackfire layer only have probe installed. You still need to install the agent. 
-The agent is installed on a separate server (not a lambda function). The smallest 
+The Blackfire layer only have the probe installed. 
+
+You still need to install the agent. 
+The agent is installed on a separate server (not a lambda function). The micro 
 EC2 instance is sufficient to run the Blackfire agent.
 
-Create a `blackfire.ini` file for your lambda function where you load the extension 
-and modify the `agent_socket`.
+Create a `blackfire.ini` file in `php/conf.d/` for your lambda function where you load the extension 
+and modify the `agent_socket` in order to point it to the Blackfire Agent.
 
 ```ini
+;php/conf.d/blackfire.ini
 extension=/opt/bref-extra/blackfire.so
 
 blackfire.agent_socket = tcp://ip-172-40-40-40.eu-central-1.compute.internal:8307
 blackfire.agent_timeout = 0.25
 ```
+
+> You may tweak other Blackfire parameters. 
+> [See Blackfire documentation about them](https://blackfire.io/docs/configuration/php#configuring-the-probe-via-the-php-ini-configuration-file).
 
 Then modify your [agent config](https://blackfire.io/docs/reference-guide/configuration#agent-configuration) 
 to make sure you are listening to `tcp://0.0.0.0:8307`.  
