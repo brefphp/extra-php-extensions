@@ -11,9 +11,6 @@ use AsyncAws\Lambda\ValueObject\LayerVersionsListItem;
  */
 class LayerProvider
 {
-    /** @var string  */
-    private $awsId;
-
     /** @var array */
     private $layerNames;
 
@@ -22,11 +19,9 @@ class LayerProvider
 
     /**
      * @param array  $layerNames the name of the layers to list.
-     * @param string $awsId      The account id
      */
-    public function __construct(LambdaClient $lambda, array $layerNames, string $awsId)
+    public function __construct(LambdaClient $lambda, array $layerNames)
     {
-        $this->awsId = $awsId;
         $this->layerNames = $layerNames;
         $this->lambda = $lambda;
     }
