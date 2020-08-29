@@ -11,6 +11,8 @@ use AsyncAws\Lambda\ValueObject\LayerVersionsListItem;
  */
 class LayerProvider
 {
+    private const CHUNK_SIZE = 5;
+
     /** @var array */
     private $layerNames;
 
@@ -39,13 +41,15 @@ class LayerProvider
         }
 
         $layers = [];
-        foreach (Result::wait($results, null, true) as $result) {
-            $versions = $result->getLayerVersions(true);
-            $versionsArray = iterator_to_array($versions);
-            if (! empty($versionsArray)) {
-                /** @var LayerVersionsListItem $latestVersion */
-                $latestVersion = end($versionsArray);
-                $layers[$latestVersion->getDescription()] = (int) $latestVersion->getVersion();
+        foreach (array_chunk($results, self::CHUNK_SIZE) as $chunkResults) {
+            foreach (Result::wait($chunkResults, null, true) as $result) {
+                $versions = $result->getLayerVersions(true);
+                $versionsArray = iterator_to_array($versions);
+                if (! empty($versionsArray)) {
+                    /** @var LayerVersionsListItem $latestVersion */
+                    $latestVersion = end($versionsArray);
+                    $layers[$latestVersion->getDescription()] = (int) $latestVersion->getVersion();
+                }
             }
         }
 

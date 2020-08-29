@@ -9,6 +9,8 @@ use AsyncAws\Lambda\ValueObject\LayerVersionContentInput;
 
 class LayerPublisher
 {
+    private const CHUNK_SIZE = 5;
+
     /** @var LambdaClient */
     private $lambda;
 
@@ -46,8 +48,10 @@ class LayerPublisher
         }
 
         $versions = [];
-        foreach (Result::wait($results, null, true) as $result) {
-            $versions[$region . $result->getDescription()] = $result->getVersion();
+        foreach (array_chunk($results, self::CHUNK_SIZE) as $chunkResults) {
+            foreach (Result::wait($chunkResults, null, true) as $result) {
+                $versions[$region . $result->getDescription()] = $result->getVersion();
+            }
         }
 
         return $versions;
@@ -69,8 +73,10 @@ class LayerPublisher
             ]);
         }
 
-        foreach (Result::wait($results) as $result) {
-            echo '.';
+        foreach (array_chunk($results, self::CHUNK_SIZE) as $chunkResults) {
+            foreach (Result::wait($chunkResults) as $result) {
+                echo '.';
+            }
         }
     }
 }

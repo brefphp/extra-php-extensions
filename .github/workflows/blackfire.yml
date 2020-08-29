@@ -2,7 +2,7 @@ name: Blackfire
 
 on:
   schedule:
-    - cron: '40 7 * * *'
+    - cron: '30 8 * * *'
 
 jobs:
   watch:
