@@ -15,15 +15,6 @@ define build_docker_image
 	docker build -t bref/${1}-php-${2} --build-arg PHP_VERSION=${2} ${DOCKER_BUILD_FLAGS} ${1}
 endef
 
-
-foo:
-	if $(parallel); then \
-		echo "yes"; \
-	else \
-		echo "no"; \
-	fi
-
-
 docker-images:
 	if $(parallel); then \
 		$(call generate_list) | parallel --colsep ' ' $(call build_docker_image,{1},{2}) ; \
