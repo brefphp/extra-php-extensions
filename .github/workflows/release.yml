@@ -46,7 +46,7 @@ jobs:
           git config --local user.name "Bref Bot"
 
           git add checksums.json layers.json
-          git commit -m "Update images with new data"
+          git commit -m "Updated checksums.json and layers.json"
 
       - name: Push changes
         uses: ad-m/github-push-action@master
