@@ -9,6 +9,7 @@ jobs:
   build:
     name: Build docker images
     runs-on: ubuntu-latest
+    if: ${{ github.actor != 'bref-bot' }}
 
     steps:
       - name: Set up PHP
