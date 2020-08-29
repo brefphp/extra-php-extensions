@@ -145,6 +145,16 @@ Please refer [here](docs/create_your_own_extension_layer.md) for more details.
 
 ### Deploy new versions
 
+#### Use Github actions
+
+Prepare the changelog with some release notes. Then push your changes to `prepare-release` branch.
+The Github Action will build an publish layers and then commit the `checksums.json`
+and `layers.json` to your PR.
+
+Now you will just merge and create a tag.
+
+#### The manual way
+
 ```
 export AWS_PROFILE=my_profile
 export AWS_ID=403367587399

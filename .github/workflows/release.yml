@@ -1,0 +1,56 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - prepare-release
+
+jobs:
+  build:
+    name: Build docker images
+    runs-on: ubuntu-latest
+    if: ${{ github.actor != 'bref-bot' }}
+
+    steps:
+      - name: Set up PHP
+        uses: shivammathur/setup-php@2.1.2
+        with:
+          php-version: 7.4
+          coverage: none
+
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Download dependencies
+        run: |
+          composer update --no-interaction --prefer-dist --optimize-autoloader --prefer-stable
+
+      - name: Build layers
+        run: |
+          make clean
+          make layers
+
+      - name: Publish layers
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_ACCESS_SECRET }}
+          AWS_ID: ${{ secrets.AWS_ACCOUNT_ID }}
+        run: |
+          php ./bref-extra publish
+          php ./bref-extra list
+
+      - name: Commit changes
+        run: |
+          git config --local user.email "github-bot@bref.sh"
+          git config --local user.name "Bref Bot"
+
+          git add checksums.json layers.json
+          git commit -m "Updated checksums.json and layers.json"
+
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.BOT_GITHUB_TOKEN }}
+          branch: prepare-release
