@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    name: Build docker images
+    name: Create layers
     runs-on: ubuntu-latest
     if: ${{ github.actor != 'bref-bot' }}
 
@@ -36,7 +36,6 @@ jobs:
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_ACCESS_SECRET }}
-          AWS_ID: ${{ secrets.AWS_ACCOUNT_ID }}
         run: |
           php ./bref-extra publish
           php ./bref-extra list

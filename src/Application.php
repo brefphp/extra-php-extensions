@@ -17,20 +17,14 @@ class Application extends \Silly\Edition\PhpDi\Application
     protected function createContainer(): Container
     {
         $builder = new ContainerBuilder;
-        $awsId = getenv('AWS_ID');
-        if (empty($awsId)) {
-            $awsId = 'xxxxxxxxx';
-        }
-
         $projectDir = dirname(__DIR__);
         $localLayers = array_keys(json_decode(file_get_contents($projectDir . '/checksums.json'), true));
 
         $builder->addDefinitions([
             'project_dir' => $projectDir,
-            'aws_id' => $awsId,
             'layer_names' => $localLayers,
             LayerProvider::class => function (ContainerInterface $c) {
-                return new LayerProvider($c->get(LambdaClient::class), $c->get('layer_names'), $c->get('aws_id'));
+                return new LayerProvider($c->get(LambdaClient::class), $c->get('layer_names'));
             },
             ListCommand::class => function (ContainerInterface $c) {
                 return new ListCommand($c->get(LayerProvider::class), $c->get(RegionProvider::class), $c->get('project_dir'));

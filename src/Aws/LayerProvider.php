@@ -2,6 +2,7 @@
 
 namespace Bref\Extra\Aws;
 
+use AsyncAws\Core\Result;
 use AsyncAws\Lambda\LambdaClient;
 use AsyncAws\Lambda\ValueObject\LayerVersionsListItem;
 
@@ -10,9 +11,6 @@ use AsyncAws\Lambda\ValueObject\LayerVersionsListItem;
  */
 class LayerProvider
 {
-    /** @var string  */
-    private $awsId;
-
     /** @var array */
     private $layerNames;
 
@@ -20,12 +18,10 @@ class LayerProvider
     private $lambda;
 
     /**
-     * @param array  $layerNames the name of the layers to list.
-     * @param string $awsId      The account id
+     * @param array $layerNames the name of the layers to list.
      */
-    public function __construct(LambdaClient $lambda, array $layerNames, string $awsId)
+    public function __construct(LambdaClient $lambda, array $layerNames)
     {
-        $this->awsId = $awsId;
         $this->layerNames = $layerNames;
         $this->lambda = $lambda;
     }
@@ -37,21 +33,23 @@ class LayerProvider
         foreach ($this->layerNames as $layerName) {
             $results[$layerName] = $this->lambda->listLayerVersions([
                 '@region' => $selectedRegion,
-                'LayerName' => sprintf('arn:aws:lambda:%s:%s:layer:%s', $selectedRegion, $this->awsId, $layerName),
+                'LayerName' => $layerName,
                 'MaxItems' => 1,
             ]);
         }
 
         $layers = [];
-        foreach ($results as $layerName => $result) {
+        foreach (Result::wait($results, null, true) as $result) {
             $versions = $result->getLayerVersions(true);
             $versionsArray = iterator_to_array($versions);
             if (! empty($versionsArray)) {
                 /** @var LayerVersionsListItem $latestVersion */
                 $latestVersion = end($versionsArray);
-                $layers[$layerName] = (int) $latestVersion->getVersion();
+                $layers[$latestVersion->getDescription()] = (int) $latestVersion->getVersion();
             }
         }
+
+        ksort($layers);
 
         return $layers;
     }

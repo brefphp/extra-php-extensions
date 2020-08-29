@@ -158,7 +158,6 @@ Now you will just merge and create a tag.
 
 ```
 export AWS_PROFILE=my_profile
-export AWS_ID=403367587399
 make publish
 git add checksums.json layers.json
 git commit -m "New version of layers"
