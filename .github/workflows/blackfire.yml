@@ -1,0 +1,77 @@
+name: Blackfire
+
+on:
+  schedule:
+    - cron: '0 6,14 * * *'
+
+jobs:
+  watch:
+    name: Watch for new version
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set up PHP
+        uses: shivammathur/setup-php@2.1.2
+        with:
+          php-version: 7.4
+          coverage: none
+
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          ref: master
+
+      - name: Fetch last version
+        id: fetch_version
+        run: |
+          cd layers/blackfire;
+          for VERSION in 72 73 74; do
+            BF_AGENT_VERSION=$(curl -s -o probe -D - https://blackfire.io/api/v1/releases/probe/php/linux/amd64/$VERSION-zts | grep 'X-Blackfire-Release-Version: ' | sed "s%X-Blackfire-Release-Version: %%" | sed s%.$%%);
+            php ./store.php $VERSION $BF_AGENT_VERSION;
+          done
+          rm probe
+          echo ::set-output name=last::$BF_AGENT_VERSION
+          cat versions.json
+
+      - name: Check if anything changed
+        run: |
+          if [[ $(git diff --numstat | wc -l) -eq 0 ]]; then
+            echo "No significant changes."
+            exit 1
+          fi
+
+      - name: Build layers
+        run: |
+          make clean
+          make layers layer=blackfire
+
+      - name: Write change log
+        run: |
+          LATEST_TAG=$(git describe --abbrev=0 --tags)
+          ARR=(${LATEST_TAG//./ })
+          ARR[2]=$((${ARR[2]}+1))
+          NEW_TAG="${ARR[0]}.${ARR[1]}.${ARR[2]}"
+
+          sed "/^## $LATEST_TAG/i ## $NEW_TAG\n\n### Added\n\nUpdated Blackfire to version ${{ steps.fetch_version.outputs.last }}.\n" CHANGELOG.md
+
+      - name: Publish
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_ACCESS_SECRET }}
+          AWS_ID: ${{ secrets.AWS_ACCOUNT_ID }}
+        run: |
+          php ./bref-extra publish
+          php ./bref-extra list
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v3
+        with:
+          token: ${{ secrets.BOT_GITHUB_TOKEN }}
+          branch: blackfire-update
+          author: Bref Bot <github-bot@bref.sh>
+          committer: Bref Bot <github-bot@bref.sh>
+          commit-message: Update Blackfire extension
+          title: Update Blackfire extension
+          body: |
+            The Blackfire extension was update to ${{ steps.fetch_version.outputs.last }}.
