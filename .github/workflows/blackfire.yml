@@ -2,7 +2,7 @@ name: Blackfire
 
 on:
   schedule:
-    - cron: '30 8 * * *'
+    - cron: '50 8 * * *'
 
 jobs:
   watch:
@@ -65,6 +65,7 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_ACCESS_SECRET }}
         run: |
           php ./bref-extra publish
+          sleep 20
           php ./bref-extra list
 
       - name: Create Pull Request
