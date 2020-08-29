@@ -1,21 +1,45 @@
 SHELL := /bin/bash
 php_versions = 72 73 74
 layer = *
+parallel = $(if $(shell which parallel),true,false)
 
-docker-images:
-	PWD=pwd
-	set -e; \
+define generate_list
 	for dir in layers/${layer}; do \
 		for php_version in $(php_versions); do \
-			echo "###############################################"; \
-			echo "###############################################"; \
-			echo "### Building $${dir} PHP$${php_version}"; \
-			echo "###"; \
-			cd ${PWD} ; cd $${dir} ; \
-			docker build -t bref/$${dir}-php-$${php_version} --build-arg PHP_VERSION=$${php_version} ${DOCKER_BUILD_FLAGS} . ; \
-			echo ""; \
+		    echo "$${dir} $${php_version}"; \
 		done \
 	done
+endef
+
+define build_docker_image
+	docker build -t bref/${1}-php-${2} --build-arg PHP_VERSION=${2} ${DOCKER_BUILD_FLAGS} ${1}
+endef
+
+
+foo:
+	if $(parallel); then \
+		echo "yes"; \
+	else \
+		echo "no"; \
+	fi
+
+
+docker-images:
+	if $(parallel); then \
+		$(call generate_list) | parallel --colsep ' ' $(call build_docker_image,{1},{2}) ; \
+	else  \
+		set -e; \
+		for dir in layers/${layer}; do \
+			for php_version in $(php_versions); do \
+				echo "###############################################"; \
+				echo "###############################################"; \
+				echo "### Building $${dir} PHP$${php_version}"; \
+				echo "###"; \
+				$(call build_docker_image,$${dir},$${php_version}) ; \
+				echo ""; \
+			done \
+		done \
+	fi;
 
 # The PHP runtimes
 layers: docker-images
