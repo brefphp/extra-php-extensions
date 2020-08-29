@@ -3,7 +3,7 @@
 namespace Bref\Extra\Aws;
 
 use AsyncAws\Lambda\LambdaClient;
-use AsyncAws\Lambda\Result\LayerVersionsListItem;
+use AsyncAws\Lambda\ValueObject\LayerVersionsListItem;
 
 /**
  * Fetches layers and details from AWS
@@ -16,26 +16,27 @@ class LayerProvider
     /** @var array */
     private $layerNames;
 
+    /** @var LambdaClient */
+    private $lambda;
+
     /**
      * @param array  $layerNames the name of the layers to list.
      * @param string $awsId      The account id
      */
-    public function __construct(array $layerNames, string $awsId)
+    public function __construct(LambdaClient $lambda, array $layerNames, string $awsId)
     {
         $this->awsId = $awsId;
         $this->layerNames = $layerNames;
+        $this->lambda = $lambda;
     }
 
     public function listLayers(string $selectedRegion): array
     {
-        $lambda = new LambdaClient([
-            'region' => $selectedRegion,
-        ]);
-
         // Run the API calls in parallel (thanks to async)
         $results = [];
         foreach ($this->layerNames as $layerName) {
-            $results[$layerName] = $lambda->listLayerVersions([
+            $results[$layerName] = $this->lambda->listLayerVersions([
+                '@region' => $selectedRegion,
                 'LayerName' => sprintf('arn:aws:lambda:%s:%s:layer:%s', $selectedRegion, $this->awsId, $layerName),
                 'MaxItems' => 1,
             ]);

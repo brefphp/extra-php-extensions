@@ -2,6 +2,7 @@
 
 namespace Bref\Extra;
 
+use AsyncAws\Lambda\LambdaClient;
 use Bref\Extra\Aws\LayerProvider;
 use Bref\Extra\Aws\LayerPublisher;
 use Bref\Extra\Command\ListCommand;
@@ -17,12 +18,8 @@ class Application extends \Silly\Edition\PhpDi\Application
     {
         $builder = new ContainerBuilder;
         $awsId = getenv('AWS_ID');
-        $awsProfile = getenv('AWS_PROFILE');
         if (empty($awsId)) {
             $awsId = 'xxxxxxxxx';
-        }
-        if (empty($awsProfile)) {
-            $awsProfile = null;
         }
 
         $projectDir = dirname(__DIR__);
@@ -31,10 +28,9 @@ class Application extends \Silly\Edition\PhpDi\Application
         $builder->addDefinitions([
             'project_dir' => $projectDir,
             'aws_id' => $awsId,
-            'aws_profile' => $awsProfile,
             'layer_names' => $localLayers,
             LayerProvider::class => function (ContainerInterface $c) {
-                return new LayerProvider($c->get('layer_names'), $c->get('aws_id'));
+                return new LayerProvider($c->get(LambdaClient::class), $c->get('layer_names'), $c->get('aws_id'));
             },
             ListCommand::class => function (ContainerInterface $c) {
                 return new ListCommand($c->get(LayerProvider::class), $c->get(RegionProvider::class), $c->get('project_dir'));
@@ -42,8 +38,11 @@ class Application extends \Silly\Edition\PhpDi\Application
             PublishCommand::class => function (ContainerInterface $c) {
                 return new PublishCommand($c->get(LayerPublisher::class), $c->get(RegionProvider::class), $c->get('project_dir'));
             },
+            LambdaClient::class => function (ContainerInterface $c) {
+                return new LambdaClient;
+            },
             LayerPublisher::class => function (ContainerInterface $c) {
-                return new LayerPublisher($c->get('aws_profile'));
+                return new LayerPublisher($c->get(LambdaClient::class));
             },
         ]);
 

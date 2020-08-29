@@ -2,6 +2,7 @@
 
 namespace Bref\Extra\Command;
 
+use AsyncAws\Core\Exception\Exception as AsyncAwsException;
 use Bref\Extra\Aws\LayerPublisher;
 use Bref\Extra\Service\RegionProvider;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -28,7 +29,7 @@ class PublishCommand
 
     public function __invoke(OutputInterface $output): int
     {
-        $checksums = file_get_contents($this->projectDir . '/checksums.json');
+        $checksums = json_decode(file_get_contents($this->projectDir . '/checksums.json'), true);
         $discoveredChecksums = [];
 
         $layers = [];
@@ -39,9 +40,9 @@ class PublishCommand
             $layerFile = $file->getRealPath();
             $layerName = substr($file->getFilenameWithoutExtension(), 6);
             $md5 = md5_file($layerFile);
-            $discoveredChecksums[$layerName] = $md5;
-            if (strstr($checksums, $md5) === false) {
+            if ($md5 !== $checksums[$layerName] ?? '') {
                 // This layer is new.
+                $discoveredChecksums[$layerName] = $md5;
                 $layers[$layerName] = $layerFile;
             }
         }
@@ -54,14 +55,19 @@ class PublishCommand
 
         try {
             $this->publisher->publishLayers($layers, $this->regionProvider->getAll());
+        } catch (AsyncAwsException $e) {
+            $output->writeln($e->getMessage());
+
+            exit(1);
         } catch (\Throwable $e) {
             // TODO write output.
             exit(1);
         }
 
-        ksort($discoveredChecksums);
+        $checksums = array_merge($checksums, $discoveredChecksums);
+        ksort($checksums);
         // Dump checksums
-        file_put_contents($this->projectDir . '/checksums.json', json_encode($discoveredChecksums, \JSON_PRETTY_PRINT));
+        file_put_contents($this->projectDir . '/checksums.json', json_encode($checksums, \JSON_PRETTY_PRINT));
 
         $output->writeln('');
         $output->writeln('');
