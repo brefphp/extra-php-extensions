@@ -1,5 +1,11 @@
 # Change log
 
+## 0.3.4
+
+### Added
+
+Updated Blackfire to version 1.38.0.
+
 ## 0.3.3
 
 - Support for UUID
