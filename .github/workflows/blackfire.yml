@@ -41,6 +41,10 @@ jobs:
             exit 1
           fi
 
+      - name: Download dependencies
+        run: |
+          composer update --no-interaction --prefer-dist --optimize-autoloader --prefer-stable
+
       - name: Build layers
         run: |
           make clean
