@@ -5,6 +5,7 @@
 ### Added
 
 - Updated Blackfire to version 1.38.0.
+- Added MongoDB
 
 ### Changed
 
