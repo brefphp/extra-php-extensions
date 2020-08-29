@@ -18,7 +18,7 @@ class LayerProvider
     private $lambda;
 
     /**
-     * @param array  $layerNames the name of the layers to list.
+     * @param array $layerNames the name of the layers to list.
      */
     public function __construct(LambdaClient $lambda, array $layerNames)
     {
