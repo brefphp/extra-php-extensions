@@ -51,6 +51,7 @@ class LayerProvider
                     $layers[$latestVersion->getDescription()] = (int) $latestVersion->getVersion();
                 }
             }
+            sleep(1);
         }
 
         ksort($layers);
