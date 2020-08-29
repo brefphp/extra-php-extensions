@@ -2,7 +2,7 @@ name: Blackfire
 
 on:
   schedule:
-    - cron: '0 6,7 * * *'
+    - cron: '40 7 * * *'
 
 jobs:
   watch:
@@ -78,3 +78,4 @@ jobs:
           title: Update Blackfire extension
           body: |
             The Blackfire extension was update to ${{ steps.fetch_version.outputs.last }}.
+            Ping @nyholm, please release this.
