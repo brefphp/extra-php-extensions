@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    name: Build docker images
+    name: Create layers
     runs-on: ubuntu-latest
     if: ${{ github.actor != 'bref-bot' }}
 

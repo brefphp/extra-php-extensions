@@ -2,6 +2,7 @@
 
 namespace Bref\Extra\Aws;
 
+use AsyncAws\Core\Result;
 use AsyncAws\Lambda\LambdaClient;
 use AsyncAws\Lambda\ValueObject\LayerVersionsListItem;
 
@@ -37,21 +38,23 @@ class LayerProvider
         foreach ($this->layerNames as $layerName) {
             $results[$layerName] = $this->lambda->listLayerVersions([
                 '@region' => $selectedRegion,
-                'LayerName' => sprintf('arn:aws:lambda:%s:%s:layer:%s', $selectedRegion, $this->awsId, $layerName),
+                'LayerName' => $layerName,
                 'MaxItems' => 1,
             ]);
         }
 
         $layers = [];
-        foreach ($results as $layerName => $result) {
+        foreach (Result::wait($results, null, true) as $result) {
             $versions = $result->getLayerVersions(true);
             $versionsArray = iterator_to_array($versions);
             if (! empty($versionsArray)) {
                 /** @var LayerVersionsListItem $latestVersion */
                 $latestVersion = end($versionsArray);
-                $layers[$layerName] = (int) $latestVersion->getVersion();
+                $layers[$latestVersion->getDescription()] = (int) $latestVersion->getVersion();
             }
         }
+
+        ksort($layers);
 
         return $layers;
     }
