@@ -2,7 +2,7 @@ name: Blackfire
 
 on:
   schedule:
-    - cron: '5 11 * * *'
+    - cron: '15 12 * * *'
 
 jobs:
   watch:
@@ -53,11 +53,14 @@ jobs:
       - name: Write change log
         run: |
           LATEST_TAG=$(git describe --abbrev=0 --tags)
+          echo "Tag: $LATEST_TAG"
           ARR=(${LATEST_TAG//./ })
           ARR[2]=$((${ARR[2]}+1))
           NEW_TAG="${ARR[0]}.${ARR[1]}.${ARR[2]}"
+          echo "New tag: $NEW_TAG"
 
           sed "/^## $LATEST_TAG/i ## $NEW_TAG\n\n### Added\n\nUpdated Blackfire to version ${{ steps.fetch_version.outputs.last }}.\n" CHANGELOG.md
+          cat CHANGELOG.md
 
       - name: Publish
         env:
