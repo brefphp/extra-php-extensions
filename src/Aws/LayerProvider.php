@@ -12,7 +12,7 @@ use AsyncAws\Lambda\ValueObject\LayerVersionsListItem;
 class LayerProvider
 {
     private const CHUNK_SIZE = 1;
-    const SLEEP = 5;
+    private const SLEEP = 5;
 
     /** @var array */
     private $layerNames;
