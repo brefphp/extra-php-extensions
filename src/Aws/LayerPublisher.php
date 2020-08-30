@@ -52,6 +52,8 @@ class LayerPublisher
             foreach (Result::wait($chunkResults, null, true) as $result) {
                 $versions[$region . $result->getDescription()] = $result->getVersion();
             }
+
+            sleep(1);
         }
 
         return $versions;
@@ -77,6 +79,8 @@ class LayerPublisher
             foreach (Result::wait($chunkResults) as $result) {
                 echo '.';
             }
+
+            sleep(1);
         }
     }
 }
