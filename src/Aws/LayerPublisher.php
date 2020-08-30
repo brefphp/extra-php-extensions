@@ -37,7 +37,7 @@ class LayerPublisher
     private function uploadLayers(array $layers, string $region): array
     {
         $versions = [];
-        foreach (array_chunk($layers, self::CHUNK_SIZE) as $chunkLayers) {
+        foreach (array_chunk($layers, self::CHUNK_SIZE, true) as $chunkLayers) {
             $results = [];
             foreach ($chunkLayers as $layerName => $layerFilePath) {
                 $results[] = $this->lambda->publishLayerVersion([
@@ -62,7 +62,7 @@ class LayerPublisher
 
     private function makeLayersPublic(array $layers, string $region, array $versions): void
     {
-        foreach (array_chunk($layers, self::CHUNK_SIZE) as $chunkLayers) {
+        foreach (array_chunk($layers, self::CHUNK_SIZE, true) as $chunkLayers) {
             $results = [];
             foreach ($chunkLayers as $layerName => $layerFilePath) {
                 $layerVersion = $versions[$region . $layerName];
