@@ -31,6 +31,7 @@ class ListCommand
 
     public function __invoke(OutputInterface $output): int
     {
+        $output->writeln('Building layers.json');
         $export = [];
         foreach ($this->regionProvider->getAll() as $region) {
             $layers = $this->provider->listLayers($region);
