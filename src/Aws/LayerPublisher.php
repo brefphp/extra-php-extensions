@@ -9,7 +9,8 @@ use AsyncAws\Lambda\ValueObject\LayerVersionContentInput;
 
 class LayerPublisher
 {
-    private const CHUNK_SIZE = 5;
+    private const CHUNK_SIZE = 1;
+    private const SLEEP = 2;
 
     /** @var LambdaClient */
     private $lambda;
@@ -35,23 +36,25 @@ class LayerPublisher
 
     private function uploadLayers(array $layers, string $region): array
     {
-        $results = [];
-        foreach ($layers as $layerName => $layerFilePath) {
-            $results[] = $this->lambda->publishLayerVersion([
-                '@region' => $region,
-                'LayerName' => $layerName,
-                'Description' => $layerName,
-                'LicenseInfo' => 'MIT',
-                'CompatibleRuntimes' => [Runtime::PROVIDED],
-                'Content' => new LayerVersionContentInput(['ZipFile' => file_get_contents($layerFilePath)]),
-            ]);
-        }
-
         $versions = [];
-        foreach (array_chunk($results, self::CHUNK_SIZE) as $chunkResults) {
-            foreach (Result::wait($chunkResults, null, true) as $result) {
+        foreach (array_chunk($layers, self::CHUNK_SIZE, true) as $chunkLayers) {
+            $results = [];
+            foreach ($chunkLayers as $layerName => $layerFilePath) {
+                $results[] = $this->lambda->publishLayerVersion([
+                    '@region' => $region,
+                    'LayerName' => $layerName,
+                    'Description' => $layerName,
+                    'LicenseInfo' => 'MIT',
+                    'CompatibleRuntimes' => [Runtime::PROVIDED],
+                    'Content' => new LayerVersionContentInput(['ZipFile' => file_get_contents($layerFilePath)]),
+                ]);
+            }
+
+            foreach (Result::wait($results, null, true) as $result) {
                 $versions[$region . $result->getDescription()] = $result->getVersion();
             }
+
+            sleep(self::SLEEP);
         }
 
         return $versions;
@@ -59,24 +62,25 @@ class LayerPublisher
 
     private function makeLayersPublic(array $layers, string $region, array $versions): void
     {
-        $results = [];
-        foreach ($layers as $layerName => $layerFilePath) {
-            $layerVersion = $versions[$region . $layerName];
+        foreach (array_chunk($layers, self::CHUNK_SIZE, true) as $chunkLayers) {
+            $results = [];
+            foreach ($chunkLayers as $layerName => $layerFilePath) {
+                $layerVersion = $versions[$region . $layerName];
+                $results[] = $this->lambda->addLayerVersionPermission([
+                    '@region' => $region,
+                    'LayerName' => $layerName,
+                    'VersionNumber' => $layerVersion,
+                    'StatementId' => 'public',
+                    'Action' => 'lambda:GetLayerVersion',
+                    'Principal' => '*',
+                ]);
+            }
 
-            $results[] = $this->lambda->addLayerVersionPermission([
-                '@region' => $region,
-                'LayerName' => $layerName,
-                'VersionNumber' => $layerVersion,
-                'StatementId' => 'public',
-                'Action' => 'lambda:GetLayerVersion',
-                'Principal' => '*',
-            ]);
-        }
-
-        foreach (array_chunk($results, self::CHUNK_SIZE) as $chunkResults) {
-            foreach (Result::wait($chunkResults) as $result) {
+            foreach (Result::wait($results) as $result) {
                 echo '.';
             }
+
+            sleep(self::SLEEP);
         }
     }
 }

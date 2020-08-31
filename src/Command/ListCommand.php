@@ -31,14 +31,16 @@ class ListCommand
 
     public function __invoke(OutputInterface $output): int
     {
+        $output->writeln('Building layers.json');
         $export = [];
         foreach ($this->regionProvider->getAll() as $region) {
+            $output->writeln($region);
             $layers = $this->provider->listLayers($region);
             foreach ($layers as $layerName => $version) {
                 $export[$layerName][$region] = $version;
             }
 
-            $output->writeln($region);
+            $output->writeln(':');
         }
         file_put_contents($this->projectDir . '/layers.json', json_encode($export, \JSON_PRETTY_PRINT));
 

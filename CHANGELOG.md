@@ -1,10 +1,15 @@
 # Change log
 
-## 0.3.4
+## 0.4.0
 
 ### Added
 
-Updated Blackfire to version 1.38.0.
+- Updated Blackfire to version 1.38.0.
+- Added MongoDB
+
+### Changed
+
+- Builds can now be automated.
 
 ## 0.3.3
 

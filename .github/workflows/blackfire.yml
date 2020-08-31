@@ -2,7 +2,7 @@ name: Blackfire
 
 on:
   schedule:
-    - cron: '29 15 * * *'
+    - cron: '45 5 * * *'
 
 jobs:
   watch:
@@ -57,7 +57,7 @@ jobs:
           ARR[2]=$((${ARR[2]}+1))
           NEW_TAG="${ARR[0]}.${ARR[1]}.${ARR[2]}"
 
-          sed -i -re "s/^## $LATEST_TAG/## $NEW_TAG\n\n### Added\n\nUpdated Blackfire to version ${{ steps.fetch_version.outputs.last }}.\n\n## $LATEST_TAG/" CHANGELOG.md
+          sed -i -re "s/^## $LATEST_TAG/## $NEW_TAG\n\n### - Added\n\nUpdated Blackfire to version ${{ steps.fetch_version.outputs.last }}.\n\n## $LATEST_TAG/" CHANGELOG.md
 
       - name: Publish
         env:

@@ -40,7 +40,7 @@ class PublishCommand
             $layerFile = $file->getRealPath();
             $layerName = substr($file->getFilenameWithoutExtension(), 6);
             $md5 = md5_file($layerFile);
-            if ($md5 !== $checksums[$layerName] ?? '') {
+            if ($md5 !== ($checksums[$layerName] ?? '')) {
                 // This layer is new.
                 $discoveredChecksums[$layerName] = $md5;
                 $layers[$layerName] = $layerFile;

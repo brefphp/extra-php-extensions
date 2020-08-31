@@ -11,7 +11,8 @@ use AsyncAws\Lambda\ValueObject\LayerVersionsListItem;
  */
 class LayerProvider
 {
-    private const CHUNK_SIZE = 5;
+    private const CHUNK_SIZE = 1;
+    private const SLEEP = 2;
 
     /** @var array */
     private $layerNames;
@@ -31,18 +32,18 @@ class LayerProvider
     public function listLayers(string $selectedRegion): array
     {
         // Run the API calls in parallel (thanks to async)
-        $results = [];
-        foreach ($this->layerNames as $layerName) {
-            $results[$layerName] = $this->lambda->listLayerVersions([
-                '@region' => $selectedRegion,
-                'LayerName' => $layerName,
-                'MaxItems' => 1,
-            ]);
-        }
-
         $layers = [];
-        foreach (array_chunk($results, self::CHUNK_SIZE) as $chunkResults) {
-            foreach (Result::wait($chunkResults, null, true) as $result) {
+        foreach (array_chunk($this->layerNames, self::CHUNK_SIZE) as $chunkLayers) {
+            $results = [];
+            foreach ($chunkLayers as $layerName) {
+                $results[$layerName] = $this->lambda->listLayerVersions([
+                    '@region' => $selectedRegion,
+                    'LayerName' => $layerName,
+                    'MaxItems' => 1,
+                ]);
+            }
+
+            foreach (Result::wait($results, null, true) as $result) {
                 $versions = $result->getLayerVersions(true);
                 $versionsArray = iterator_to_array($versions);
                 if (! empty($versionsArray)) {
@@ -50,8 +51,10 @@ class LayerProvider
                     $latestVersion = end($versionsArray);
                     $layers[$latestVersion->getDescription()] = (int) $latestVersion->getVersion();
                 }
+                echo '.';
             }
-            sleep(1);
+
+            sleep(self::SLEEP);
         }
 
         ksort($layers);
