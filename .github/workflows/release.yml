@@ -38,7 +38,13 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_ACCESS_SECRET }}
         run: |
           php ./bref-extra publish
-          sleep 20
+
+      - name: List layers
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_ACCESS_SECRET }}
+        run: |
+          sleep 10
           php ./bref-extra list
 
       - name: Commit changes
