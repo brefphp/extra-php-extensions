@@ -51,6 +51,7 @@ class LayerProvider
                     $latestVersion = end($versionsArray);
                     $layers[$latestVersion->getDescription()] = (int) $latestVersion->getVersion();
                 }
+                echo '.';
             }
 
             sleep(self::SLEEP);
