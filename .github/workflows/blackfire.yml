@@ -78,5 +78,5 @@ jobs:
           commit-message: Update Blackfire extension
           title: Update Blackfire extension
           body: |
-            The Blackfire extension was update to ${{ steps.fetch_version.outputs.last }}.
+            The Blackfire extension was updated to ${{ steps.fetch_version.outputs.last }}.
             Ping @nyholm, please release this.
