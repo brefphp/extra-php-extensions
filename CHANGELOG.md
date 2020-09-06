@@ -11,6 +11,12 @@
 
 - Builds can now be automated.
 
+## 0.3.4
+
+### - Added
+
+Updated Blackfire to version 1.39.0.
+
 ## 0.3.3
 
 - Support for UUID
