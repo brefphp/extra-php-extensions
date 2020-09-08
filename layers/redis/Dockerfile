@@ -1,7 +1,7 @@
 ARG PHP_VERSION
 FROM bref/build-php-$PHP_VERSION AS ext
 
-RUN pecl install redis
+RUN pecl install --force redis
 RUN cp `php-config --extension-dir`/redis.so /tmp/redis.so
 
 # Build the final image from the lambci image that is close to the production environment
