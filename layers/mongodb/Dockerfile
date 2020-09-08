@@ -1,7 +1,7 @@
 ARG PHP_VERSION
 FROM bref/build-php-$PHP_VERSION AS ext
 
-RUN pecl install mongodb
+RUN pecl install --force mongodb
 RUN cp `php-config --extension-dir`/mongodb.so /tmp/mongodb.so
 
 # Build the final image from the lambci image that is close to the production environment
