@@ -1,9 +1,9 @@
 language: minimal
 
-# blocklist
 branches:
   except:
   - /^blackfire-.*$/
+  - prepare-release
 
 notifications:
   email:
