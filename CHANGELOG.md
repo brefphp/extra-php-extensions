@@ -1,10 +1,16 @@
 # Change log
 
+## 0.4.2
+
+### Added
+
+- Redis extension
+
 ## 0.4.1
 
-### - Added
+### Added
 
-Updated Blackfire to version 1.39.1.
+- Updated Blackfire to version 1.39.1.
 
 ## 0.4.0
 
