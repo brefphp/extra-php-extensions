@@ -69,6 +69,7 @@ memory_limit=128M
 | Pcov       | `${bref:extra.pcov-php-74}`      | `extension=/opt/bref-extra/pcov.so`        |
 | PostgreSQL | `${bref:extra.pgsql-php-74}`     | `extension=/opt/bref-extra/pgsql.so`       |
 | Redis      | `${bref:extra.redis-php-74}`     | `extension=/opt/bref-extra/redis.so`       |
+| Scrypt     | `${bref:extra.scrypt-php-74}`    | `extension=/opt/bref-extra/scrypt.so`      |
 | UUID       | `${bref:extra.uuid-php-74}`      | `zend_extension=/opt/bref-extra/uuid.so`   |
 | Xdebug     | `${bref:extra.xdebug-php-74}`    | `zend_extension=/opt/bref-extra/xdebug.so` |
 | Yaml       | `${bref:extra.yaml-php-74}`      | `extension=/opt/bref-extra/yaml.so`   |
