@@ -1,6 +1,6 @@
 # How to build new layer
 
-To create your own extension layer, compile the extension and any required libraries 
+To create your own extension layer, compile the extension and any required libraries
 with Docker. This guide uses pgsql extension as an example.
 
 First create new extension directory in `layers/` and move there.
@@ -19,24 +19,24 @@ FROM bref/build-php-$PHP_VERSION AS ext
 # Add commands to build PHP extensions here.
 #
 
-# Build the final image from the lambci image that is close to the production environment
-FROM lambci/lambda:provided
+# Build the final image from the scratch image that contain files you want to export
+FROM scratch
 
 #
 # Add commands to copy files that required for final image.
 #
 ```
 
-The environment variable `PHP_VERSION` is passed from the Makefile as an argument 
-to docker build. It may have values like: `72`, `73`, `74`. A docker image is created 
-for each PHP_VERSION. If the build procedure of your extension differs for each version, 
+The environment variable `PHP_VERSION` is passed from the Makefile as an argument
+to docker build. It may have values like: `72`, `73`, `74`. A docker image is created
+for each PHP_VERSION. If the build procedure of your extension differs for each version,
 you may use this variable to switch processing in Dockerfile.
 
 There are some other env variables available,`PHP_BUILD_DIR` is `/tmp/build/php`, `INSTALL_DIR` is `/opt/bref`.
 
 ### Building your extension
 
-Then you need to add two parts of Dockerfile, the following snippets are examples 
+Then you need to add two parts of Dockerfile, the following snippets are examples
 of build and copy parts respectively.
 
 ```Dockerfile
@@ -49,10 +49,10 @@ RUN make -j `nproc` && make install
 RUN cp `php-config --extension-dir`/pgsql.so /tmp/pgsql.so
 ```
 
-You may need to: 
- - download the source code, 
- - install the libraries required for compilation, 
- - perform pecl install, 
+You may need to:
+ - download the source code,
+ - install the libraries required for compilation,
+ - perform pecl install,
  - etc.
 
 The Dockerfiles for [these](../layers) extensions could be very helpful.
@@ -60,8 +60,8 @@ The Dockerfiles for [these](../layers) extensions could be very helpful.
 ### Copy files
 
 
-The extension layer consists of a zip archive of files that overlay the PHP layer, 
-so copy the files and create the layer file structure here. Extension and all related 
+The extension layer consists of a zip archive of files that overlay the PHP layer,
+so copy the files and create the layer file structure here. Extension and all related
 files that need to be installed should be placed `/opt` directory in the final image.
 Because only `/opt` directory is allowed to put things in Lambda custom runtime
 environment.
@@ -70,9 +70,9 @@ environment.
 COPY --from=ext /tmp/pgsql.so /opt/bref-extra/pgsql.so
 ```
 
-### Making a layer 
+### Making a layer
 
-It might be good to build extension step-by-step and create Dockerfile from command 
+It might be good to build extension step-by-step and create Dockerfile from command
 history instead of immediately building from Dockerfile.
 
 ```bash
@@ -111,7 +111,7 @@ $ vendor/bin/bref init
   [0] PHP function
   [1] HTTP application
   [2] Console application
- > 1                          
+ > 1
 ## Select suitable for check your extension.
 ```
 

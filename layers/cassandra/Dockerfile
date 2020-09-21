@@ -12,7 +12,7 @@ ENV LD_LIBRARY_PATH=/usr/lib:/usr/lib64:$LD_LIBRARY_PATH
 
 WORKDIR /tmp
 
-RUN yum install -y automake cmake gcc gcc-c++ git libtool openssl-devel wget gmp gmp-devel boost php-devel pcre-devel 
+RUN yum install -y automake cmake gcc gcc-c++ git libtool openssl-devel wget gmp gmp-devel boost php-devel pcre-devel
 
 # Install dependencies
 RUN curl -o libuv.rpm https://downloads.datastax.com/cpp-driver/centos/7/dependencies/libuv/v$LIBUV_VERSION/libuv-$LIBUV_VERSION-1.el7.x86_64.rpm
@@ -31,7 +31,7 @@ RUN cd /tmp && \
 RUN cp `php-config --extension-dir`/cassandra.so /tmp/cassandra.so
 
 # Build the final image from the lambci image that is close to the production environment
-FROM lambci/lambda:provided
+FROM scratch
 
 
 # php extension binary

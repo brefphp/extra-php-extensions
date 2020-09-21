@@ -44,7 +44,7 @@ RUN make -j $(nproc)
 RUN make install
 RUN cp `php-config --extension-dir`/imagick.so /tmp/imagick.so
 
-FROM lambci/lambda:provided
+FROM scratch
 
 # The ImageMagick libraries needed by the extension
 COPY --from=ext /opt/bref/lib/libMagickWand-6.Q16.so.6.0.0 /opt/bref/lib/libMagickWand-6.Q16.so.6

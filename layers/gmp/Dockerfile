@@ -14,12 +14,12 @@ RUN phpize && \
         --build=x86_64-pc-linux-gnu \
         --prefix=${INSTALL_DIR} \
         --enable-option-checking=fatal
-    
+
 RUN make -j $(nproc) install
 RUN cp /opt/bref/lib/php/extensions/no-debug-zts-*/gmp.so /tmp/gmp.so
 
 # Build the final image from the lambci image that is close to the production environment
-FROM lambci/lambda:provided
+FROM scratch
 
 # Copy things we installed to the final image
 COPY --from=ext /usr/include/gmp-mparam-x86_64.h /opt/bref/include/gmp-mparam-x86_64.h
