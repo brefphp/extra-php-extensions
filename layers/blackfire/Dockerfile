@@ -10,7 +10,7 @@ RUN version=$(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;")-zts \
 
 
 # Build the final image from the lambci image that is close to the production environment
-FROM lambci/lambda:provided
+FROM scratch
 
 # Copy things we installed to the final image
 COPY --from=ext /tmp/blackfire.so /opt/bref-extra/blackfire.so

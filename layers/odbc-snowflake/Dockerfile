@@ -20,7 +20,7 @@ RUN curl https://sfc-repo.snowflakecomputing.com/odbc/linux/2.21.3/snowflake_lin
 RUN sed -i 's#/path/to/your/#/opt/snowflake_odbc/lib/#g' /tmp/snowflake_odbc/conf/*
 
 # Build the final image from the lambci image that is close to the production environment
-FROM lambci/lambda:provided
+FROM scratch
 
 COPY --from=ext /usr/lib64/libodb* /opt/bref/lib64/
 COPY --from=ext /tmp/snowflake_odbc/ /opt/snowflake_odbc/
