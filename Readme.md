@@ -57,6 +57,7 @@ memory_limit=128M
 | Blackfire  | `${bref:extra.blackfire-php-74}` | `extension=/opt/bref-extra/blackfire.so`   |
 | Cassandra  | `${bref:extra.cassandra-php-74}` | `extension=/opt/bref-extra/cassandra.so`   |
 | DS         | `${bref:extra.ds-php-74}`        | `extension=/opt/bref-extra/ds.so`          |
+| GD         | `${bref:extra.gd-php-74}`        | `extension=/opt/bref-extra/gd.so`          |
 | GMP        | `${bref:extra.gmp-php-74}`       | `extension=/opt/bref-extra/gmp.so`         |
 | gRPC       | `${bref:extra.grpc-php-74}`      | `extension=/opt/bref-extra/grpc.so`        |
 | Igbinary   | `${bref:extra.igbinary-php-74}`  | `extension=/opt/bref-extra/igbinary.so`    |
@@ -72,7 +73,7 @@ memory_limit=128M
 | Scrypt     | `${bref:extra.scrypt-php-74}`    | `extension=/opt/bref-extra/scrypt.so`      |
 | UUID       | `${bref:extra.uuid-php-74}`      | `zend_extension=/opt/bref-extra/uuid.so`   |
 | Xdebug     | `${bref:extra.xdebug-php-74}`    | `zend_extension=/opt/bref-extra/xdebug.so` |
-| Yaml       | `${bref:extra.yaml-php-74}`      | `extension=/opt/bref-extra/yaml.so`   |
+| Yaml       | `${bref:extra.yaml-php-74}`      | `extension=/opt/bref-extra/yaml.so`        |
 
 Note that the "Memcached" layer provides both extension for [Memcache](https://pecl.php.net/package/memcache) and [Memcached](https://pecl.php.net/package/memcached).
 

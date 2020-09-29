@@ -22,6 +22,7 @@ env:
   - LAYER=blackfire PHP="72 73 74"
   - LAYER=cassandra PHP="72 73 74"
   - LAYER=ds PHP="72 73 74"
+  - LAYER=gd PHP="73 74"
   - LAYER=gmp PHP="72 73 74"
   - LAYER=igbinary PHP="72 73 74"
   - LAYER=mailparse PHP="72 73 74"
