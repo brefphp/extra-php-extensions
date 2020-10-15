@@ -1,5 +1,18 @@
 # Change log
 
+## 0.5.0
+
+### Added
+
+- Scrypt extension
+- GD extension
+- Msgpack extension
+- LDAP extension
+
+### Changed
+
+All images is built `FROM scratch` now.
+
 ## 0.4.2
 
 ### Added
