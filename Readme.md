@@ -67,6 +67,7 @@ memory_limit=128M
 | Memcache   | `${bref:extra.memcached-php-74}` | `extension=/opt/bref-extra/memcache.so`    |
 | Memcached  | `${bref:extra.memcached-php-74}` | `extension=/opt/bref-extra/memcached.so`   |
 | MongoDB    | `${bref:extra.mongodb-php-74}`   | `extension=/opt/bref-extra/mongodb.so`     |
+| MsgPack    | `${bref:extra.msgpack-php-74}`   | `extension=/opt/bref-extra/msgpack.so`     |
 | ODBC Snowflake | `${bref:extra.odbc-snowflake-php-74}` | `extension=/opt/bref-extra/odbc.so` |
 | Pcov       | `${bref:extra.pcov-php-74}`      | `extension=/opt/bref-extra/pcov.so`        |
 | PostgreSQL | `${bref:extra.pgsql-php-74}`     | `extension=/opt/bref-extra/pgsql.so`       |

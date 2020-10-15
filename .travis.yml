@@ -28,6 +28,7 @@ env:
   - LAYER=ldap PHP="72 73 74"
   - LAYER=mailparse PHP="72 73 74"
   - LAYER=mongodb PHP="72 73 74"
+  - LAYER=msgpack PHP="72 73 74"
   - LAYER=odbc-snowflake PHP="72 73 74"
   - LAYER=pcov PHP="72 73 74"
   - LAYER=pgsql PHP="72 73 74"
