@@ -45,7 +45,7 @@ layers: docker-images
 			echo "### Exporting $${dir} PHP$${php_version}"; \
 			echo "###"; \
 			cd ${PWD} ; rm -rf export/tmp/${layer} || true ; cd export/tmp ; \
-			CID=$$(docker create --entrypoint=/bin/bash bref/$${dir}-php-$${php_version}) ; \
+			CID=$$(docker create --entrypoint=scratch bref/$${dir}-php-$${php_version}) ; \
 			docker cp $${CID}:/opt . ; \
 			docker rm $${CID} ; \
 			cd ./opt ; \
@@ -83,5 +83,4 @@ publish-docker-images: docker-images
 			echo ""; \
 		done \
 	done
-
 
