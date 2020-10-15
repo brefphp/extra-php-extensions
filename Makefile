@@ -36,7 +36,7 @@ docker-images:
 layers: docker-images
 	PWD=pwd
 	rm -rf export/layer-${layer}.zip || true
-	mkdir export/tmp
+	mkdir -p export/tmp
 	set -e; \
 	for dir in layers/${layer}; do \
 		for php_version in $(php_versions); do \
@@ -45,8 +45,11 @@ layers: docker-images
 			echo "### Exporting $${dir} PHP$${php_version}"; \
 			echo "###"; \
 			cd ${PWD} ; rm -rf export/tmp/${layer} || true ; cd export/tmp ; \
-			docker run --entrypoint "tar" bref/$${dir}-php-$${php_version} -ch -C /opt . | tar -x ; \
-			zip --quiet -X --recurse-paths ../`echo "$${dir}-php-$${php_version}" | sed -e "s/layers\//layer-/g"`.zip . ; \
+			CID=$$(docker create --entrypoint=scratch bref/$${dir}-php-$${php_version}) ; \
+			docker cp $${CID}:/opt . ; \
+			docker rm $${CID} ; \
+			cd ./opt ; \
+			zip --quiet -X --recurse-paths ../../`echo "$${dir}-php-$${php_version}" | sed -e "s/layers\//layer-/g"`.zip . ; \
 			echo ""; \
 		done \
 	done
@@ -80,5 +83,4 @@ publish-docker-images: docker-images
 			echo ""; \
 		done \
 	done
-
 
