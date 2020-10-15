@@ -25,6 +25,7 @@ env:
   - LAYER=gd PHP="73 74"
   - LAYER=gmp PHP="72 73 74"
   - LAYER=igbinary PHP="72 73 74"
+  - LAYER=ldap PHP="72 73 74"
   - LAYER=mailparse PHP="72 73 74"
   - LAYER=mongodb PHP="72 73 74"
   - LAYER=odbc-snowflake PHP="72 73 74"
