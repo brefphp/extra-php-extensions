@@ -1,6 +1,6 @@
 SHELL := /bin/bash
-php_versions = 72 73 74
-layer = *
+php_versions ?= 72 73 74
+layer ?= *
 parallel = $(if $(shell which parallel),true,false)
 
 define generate_list
