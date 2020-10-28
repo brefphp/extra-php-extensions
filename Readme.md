@@ -124,6 +124,13 @@ There is more information about the driver ini configuration in the [snowflake c
 but the default configuration is enough in most cases.
 The easiest way review those is to download the [`snowflake_odbc` directory](https://sfc-repo.snowflakecomputing.com/odbc/linux/index.html).
 
+### SQL Server setup
+
+The SQL Server layer includes both the SQLSRV extension and the PDO_SQLSRV extension ([source](https://github.com/microsoft/msphpsql)).
+If you are unsure of which extension to use, this [stackoverflow post](https://stackoverflow.com/questions/11614536/sqlsrv-driver-vs-pdo-driver-for-php-with-ms-sql-server) may be helpful.
+In addition to enabling the chosen extension in your `php.ini`, you must set the environment variable `ODBCSYSINI: /opt/microsoft/conf/`
+in your `serverless.yaml` in order to tell unixODBC to load the required ini files.
+
 ## Docker images
 
 There are Docker images for every layer. They are updated on every push to master
