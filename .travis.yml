@@ -39,6 +39,14 @@ env:
   - LAYER=xdebug PHP="72 73 74"
   - LAYER=yaml PHP="72 73 74"
 
+cache:
+  directories:
+  - docker_images
+
+before_cache:
+  # Save tagged docker images
+  - docker save -o docker_images/images.tar $(docker images -a -q)
+
 before_install:
   - |
     # tfold is a helper to create folded reports (From Symfony)
@@ -56,6 +64,9 @@ before_install:
         (exit $ok)
     }
     export -f tfold
+
+  # Load cached docker images
+  - docker load -i docker_images/images.tar || true
 
 script:
   - cd layers/$LAYER
