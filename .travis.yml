@@ -44,7 +44,7 @@ cache:
   - docker_images
 
 before_cache:
-  # Save tagged docker images
+  # Save docker images
   - docker save -o docker_images/images.tar $(docker images -a -q)
 
 before_install:
