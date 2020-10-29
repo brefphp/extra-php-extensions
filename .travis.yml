@@ -47,6 +47,7 @@ before_cache:
   # Save docker images
   - mkdir -p docker_images
   - docker save -o docker_images/images.tar $(docker images -a -q)
+  - ls -l docker_images/images.tar
 
 before_install:
   - |
@@ -75,4 +76,3 @@ script:
     for php_version in $PHP; do
       tfold "Build $php_version" docker build --build-arg PHP_VERSION=${php_version} .
     done
-
