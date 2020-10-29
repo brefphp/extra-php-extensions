@@ -184,5 +184,13 @@ We build the docker layers in parallel if the GNU `parallel` command is availabl
 To make sure to build docker images in sequence run `make publish parallel=false`
 
 You can also build only one specific layer by providing `layer=blackfire` to `make`.
+Same thing for some specific version(s) of php by providing `php_versions="73 74"` to `make`.
+You can invoke both ways:
+```shell
+# First way: make with named arguments
+make layer=gd php_versions=74
+# Second way: environment variables passed to make
+layer=blackfire php_versions=80 make
+```
 
 
