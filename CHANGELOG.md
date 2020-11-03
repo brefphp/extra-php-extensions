@@ -5,6 +5,7 @@
 ### Added
 
 - Updated Blackfire to version 1.43.0.
+- SQLSRV extension
 
 ## 0.5.1
 
