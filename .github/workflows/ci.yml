@@ -31,6 +31,7 @@ jobs:
           - memcached
           - mongodb
           - msgpack
+          - newrelic
           - odbc-snowflake
           - pcov
           - pgsql

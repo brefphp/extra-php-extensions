@@ -1,3 +1,5 @@
 /vendor/
 composer.lock
 .php_cs.cache
+.DS_Store
+/layers/newrelic/.DS_Store
