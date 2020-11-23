@@ -1,5 +1,11 @@
 # Change log
 
+## 0.6.0
+
+### Changed
+
+- Removed ZTS from all extensions.
+
 ## 0.5.3
 
 ### Added

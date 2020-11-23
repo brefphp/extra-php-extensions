@@ -16,7 +16,7 @@ RUN phpize && \
         --enable-option-checking=fatal
 
 RUN make -j $(nproc) install
-RUN cp /opt/bref/lib/php/extensions/no-debug-zts-*/gmp.so /tmp/gmp.so
+RUN cp /opt/bref/lib/php/extensions/no-debug-non-zts-*/gmp.so /tmp/gmp.so
 
 # Build the final image from the lambci image that is close to the production environment
 FROM scratch
