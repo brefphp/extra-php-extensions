@@ -14,9 +14,9 @@ services:
 
 env:
   # Some super slow extension first
-  - LAYER=imagick PHP="73 74 80"
-  - LAYER=memcached PHP="73 74 80"
-  - LAYER=grpc PHP="73 74 80"
+  - LAYER=imagick PHP="73 74"
+  - LAYER=memcached PHP="73 74"
+  - LAYER=grpc PHP="73 74"
   # All layers in alphabetical order
   - LAYER=amqp PHP="73 74"
   - LAYER=blackfire PHP="73 74"
