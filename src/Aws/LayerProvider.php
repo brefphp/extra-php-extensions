@@ -11,8 +11,7 @@ use AsyncAws\Lambda\ValueObject\LayerVersionsListItem;
  */
 class LayerProvider
 {
-    private const CHUNK_SIZE = 1;
-    private const SLEEP = 2;
+    private const CHUNK_SIZE = 5;
 
     /** @var array */
     private $layerNames;
@@ -53,8 +52,6 @@ class LayerProvider
                 }
                 echo '.';
             }
-
-            sleep(self::SLEEP);
         }
 
         ksort($layers);
