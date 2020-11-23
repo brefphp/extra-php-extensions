@@ -20,7 +20,7 @@ RUN set -xe; \
     make install
 
 RUN pecl install yaml
-RUN cp /opt/bref/lib/php/extensions/no-debug-zts-*/yaml.so /tmp/yaml.so
+RUN cp /opt/bref/lib/php/extensions/no-debug-non-zts-*/yaml.so /tmp/yaml.so
 
 FROM scratch
 
