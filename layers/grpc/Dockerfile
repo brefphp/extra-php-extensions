@@ -1,5 +1,5 @@
 ARG PHP_VERSION
-FROM bref/build-php-$PHP_VERSION as ext
+FROM bref/build-php-$PHP_VERSION:latest AS ext
 
 RUN pecl install grpc > /dev/null
 RUN cp `php-config --extension-dir`/grpc.so /tmp/grpc.so

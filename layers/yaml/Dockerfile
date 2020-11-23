@@ -1,5 +1,5 @@
 ARG PHP_VERSION
-FROM bref/build-php-$PHP_VERSION as ext
+FROM bref/build-php-$PHP_VERSION:latest AS ext
 
 ENV LIBYAML_BUILD_DIR=${BUILD_DIR}/libyaml
 

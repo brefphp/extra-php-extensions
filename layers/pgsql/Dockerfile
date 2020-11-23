@@ -1,5 +1,5 @@
 ARG PHP_VERSION
-FROM bref/build-php-$PHP_VERSION AS ext
+FROM bref/build-php-$PHP_VERSION:latest AS ext
 
 WORKDIR ${PHP_BUILD_DIR}/ext/pgsql
 RUN phpize
