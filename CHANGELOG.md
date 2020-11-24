@@ -1,5 +1,11 @@
 # Change log
 
+## 0.6.2
+
+### Fixed
+
+- Make sure docker is using `1.0.0-beta1` tag instead of `latest`.
+
 ## 0.6.1
 
 ### Added
