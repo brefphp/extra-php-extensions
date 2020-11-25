@@ -1,5 +1,5 @@
 ARG PHP_VERSION
-FROM bref/build-php-$PHP_VERSION:1.0.0-beta1 AS ext
+FROM bref/build-php-$PHP_VERSION:1.0.0 AS ext
 
 # Fix library path
 ENV LD_LIBRARY_PATH=/usr/lib:/usr/lib64:$LD_LIBRARY_PATH
@@ -11,9 +11,9 @@ RUN yum install -y gmp-devel
 WORKDIR /tmp/build/php/ext/gmp
 RUN phpize && \
     ./configure \
-        --build=x86_64-pc-linux-gnu \
-        --prefix=${INSTALL_DIR} \
-        --enable-option-checking=fatal
+    --build=x86_64-pc-linux-gnu \
+    --prefix=${INSTALL_DIR} \
+    --enable-option-checking=fatal
 
 RUN make -j $(nproc) install
 RUN cp /opt/bref/lib/php/extensions/no-debug-non-zts-*/gmp.so /tmp/gmp.so

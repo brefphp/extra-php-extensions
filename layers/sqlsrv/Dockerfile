@@ -1,5 +1,5 @@
 ARG PHP_VERSION
-FROM bref/build-php-$PHP_VERSION:1.0.0-beta1 AS ext
+FROM bref/build-php-$PHP_VERSION:1.0.0 AS ext
 
 ENV LD_LIBRARY_PATH=/usr/lib:/usr/lib64:$LD_LIBRARY_PATH
 
@@ -18,13 +18,13 @@ RUN cp /opt/bref/lib/php/extensions/no-debug-non-zts-*/sqlsrv.so /tmp/sqlsrv.so
 RUN cp /opt/bref/lib/php/extensions/no-debug-non-zts-*/pdo_sqlsrv.so /tmp/pdo_sqlsrv.so
 
 RUN echo $'[ODBC Driver 17 for SQL Server]\n\
-Driver      = ODBC Driver 17 for SQL Server\n\
-Description = My ODBC Driver 17 for SQL Server\n\
-Trace       = No'  > /tmp/odbc.ini
+  Driver      = ODBC Driver 17 for SQL Server\n\
+  Description = My ODBC Driver 17 for SQL Server\n\
+  Trace       = No'  > /tmp/odbc.ini
 RUN echo $'[ODBC Driver 17 for SQL Server]\n\
-Description = Microsoft ODBC Driver 17 for SQL Server\n\
-Driver      = /opt/microsoft/msodbcsql17/lib64/libmsodbcsql-17.6.so.1.1\n\
-UsageCount  = 1'  > /tmp/odbcinst.ini
+  Description = Microsoft ODBC Driver 17 for SQL Server\n\
+  Driver      = /opt/microsoft/msodbcsql17/lib64/libmsodbcsql-17.6.so.1.1\n\
+  UsageCount  = 1'  > /tmp/odbcinst.ini
 
 FROM scratch
 

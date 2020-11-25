@@ -1,13 +1,13 @@
 ARG PHP_VERSION
-FROM bref/build-php-$PHP_VERSION:1.0.0-beta1 AS ext
+FROM bref/build-php-$PHP_VERSION:1.0.0 AS ext
 
 ENV LIBMEMCACHED_BUILD_DIR=${BUILD_DIR}/libmemcached
 
 RUN set -xe; \
     mkdir -p ${LIBMEMCACHED_BUILD_DIR}; \
-# Download and upack the source code
+    # Download and upack the source code
     curl -Ls  https://launchpad.net/libmemcached/1.0/1.0.18/+download/libmemcached-1.0.18.tar.gz  \
-  | tar xzC ${LIBMEMCACHED_BUILD_DIR}
+    | tar xzC ${LIBMEMCACHED_BUILD_DIR}
 
 # patch from https://src.fedoraproject.org/rpms/libmemcached/raw/HEAD/f/libmemcached-build.patch for build with GCC7
 COPY libmemcached-build.patch ${LIBMEMCACHED_BUILD_DIR}/libmemcached-1.0.18/libmemcached-build.patch

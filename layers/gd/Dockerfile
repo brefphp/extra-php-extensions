@@ -1,16 +1,16 @@
 ARG PHP_VERSION
-FROM bref/build-php-$PHP_VERSION:1.0.0-beta1 AS ext
+FROM bref/build-php-$PHP_VERSION:1.0.0 AS ext
 
 # Install required build libraries
 RUN set -ue \
     ; LD_LIBRARY_PATH= \
     ; yum -y install \
-        libwebp-devel \
-        libXpm-devel \
-        libpng-devel \
-        libjpeg-devel \
-        freetype-devel \
-;
+    libwebp-devel \
+    libXpm-devel \
+    libpng-devel \
+    libjpeg-devel \
+    freetype-devel \
+    ;
 
 WORKDIR ${PHP_BUILD_DIR}/ext/gd
 RUN phpize
@@ -23,25 +23,25 @@ ENV EXT_CONFIGURE_OPTS=" \
     --with-webp \
     --with-xpm \
     --with-zlib \
-"
+    "
 RUN if [ "$PHP_VERSION" = "73" ] ; \
     then \
-        EXT_CONFIGURE_OPTS=" \
-        --with-freetype-dir=${INSTALL_DIR} \
-        --with-gd \
-        --with-jpeg-dir=${INSTALL_DIR} \
-        --with-png-dir=${INSTALL_DIR} \
-        --with-webp-dir=${INSTALL_DIR} \
-        --with-xpm-dir=${INSTALL_DIR} \
-        --with-zlib-dir=${INSTALL_DIR} \
-        " ; \
+    EXT_CONFIGURE_OPTS=" \
+    --with-freetype-dir=${INSTALL_DIR} \
+    --with-gd \
+    --with-jpeg-dir=${INSTALL_DIR} \
+    --with-png-dir=${INSTALL_DIR} \
+    --with-webp-dir=${INSTALL_DIR} \
+    --with-xpm-dir=${INSTALL_DIR} \
+    --with-zlib-dir=${INSTALL_DIR} \
+    " ; \
     fi; \
     ./configure \
-        --disable-static \
-        --enable-gd-jis-conv \
-        --enable-shared \
-        ${EXT_CONFIGURE_OPTS} \
-;
+    --disable-static \
+    --enable-gd-jis-conv \
+    --enable-shared \
+    ${EXT_CONFIGURE_OPTS} \
+    ;
 RUN make -j $(nproc)
 RUN make install
 RUN cp "$(php-config --extension-dir)/gd.so" /tmp/gd.so
