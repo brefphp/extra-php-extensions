@@ -1,5 +1,12 @@
 # Change log
 
+## 0.6.4
+
+### Changed
+
+- Using a new config.json to control which php versions each extension is built.
+- Make sure docker is using `1.0.0` tag instead of `1.0.0-beta1`.
+
 ## 0.6.3
 
 ### Added
