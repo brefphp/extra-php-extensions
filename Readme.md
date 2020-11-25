@@ -51,33 +51,33 @@ memory_limit=128M
 
 ### Available layers
 
-| Name       | Serverless config (php 7.4)      | php.ini config                             |
-|:-----------|:---------------------------------|:-------------------------------------------|
-| AMQP       | `${bref:extra.amqp-php-74}`      | `extension=/opt/bref-extra/amqp.so`        |
-| Blackfire  | `${bref:extra.blackfire-php-74}` | `extension=/opt/bref-extra/blackfire.so`   |
-| Cassandra  | `${bref:extra.cassandra-php-74}` | `extension=/opt/bref-extra/cassandra.so`   |
-| DS         | `${bref:extra.ds-php-74}`        | `extension=/opt/bref-extra/ds.so`          |
-| GD         | `${bref:extra.gd-php-74}`        | `extension=/opt/bref-extra/gd.so`          |
-| GMP        | `${bref:extra.gmp-php-74}`       | `extension=/opt/bref-extra/gmp.so`         |
-| gRPC       | `${bref:extra.grpc-php-74}`      | `extension=/opt/bref-extra/grpc.so`        |
-| Igbinary   | `${bref:extra.igbinary-php-74}`  | `extension=/opt/bref-extra/igbinary.so`    |
-| Imagick    | `${bref:extra.imagick-php-74}`   | `extension=/opt/bref-extra/imagick.so`     |
-| LDAP       | `${bref:extra.ldap-php-74}`      | `extension=/opt/bref-extra/ldap.so`        |
-| Mailparse  | `${bref:extra.mailparse-php-74}` | `extension=/opt/bref-extra/mailparse.so`   |
-| Memcache   | `${bref:extra.memcached-php-74}` | `extension=/opt/bref-extra/memcache.so`    |
-| Memcached  | `${bref:extra.memcached-php-74}` | `extension=/opt/bref-extra/memcached.so`   |
-| MongoDB    | `${bref:extra.mongodb-php-74}`   | `extension=/opt/bref-extra/mongodb.so`     |
-| MsgPack    | `${bref:extra.msgpack-php-74}`   | `extension=/opt/bref-extra/msgpack.so`     |
-| ODBC Snowflake | `${bref:extra.odbc-snowflake-php-74}` | `extension=/opt/bref-extra/odbc.so` |
-| Pcov       | `${bref:extra.pcov-php-74}`      | `extension=/opt/bref-extra/pcov.so`        |
-| PostgreSQL | `${bref:extra.pgsql-php-74}`     | `extension=/opt/bref-extra/pgsql.so`       |
-| Redis      | `${bref:extra.redis-php-74}`     | `extension=/opt/bref-extra/redis.so`       |
-| Scrypt     | `${bref:extra.scrypt-php-74}`    | `extension=/opt/bref-extra/scrypt.so`      |
-| SQLSRV     | `${bref:extra.sqlsrv-php-74}`    | `extension=/opt/bref-extra/sqlsrv.so`      |
-| SQLSRV (PDO) | `${bref:extra.sqlsrv-php-74}`  | `extension=/opt/bref-extra/pdo_sqlsrv.so`  |
-| UUID       | `${bref:extra.uuid-php-74}`      | `zend_extension=/opt/bref-extra/uuid.so`   |
-| Xdebug     | `${bref:extra.xdebug-php-74}`    | `zend_extension=/opt/bref-extra/xdebug.so` |
-| Yaml       | `${bref:extra.yaml-php-74}`      | `extension=/opt/bref-extra/yaml.so`        |
+| Name           | Serverless config (php 7.4)           | php.ini config                             |
+|:---------------|:--------------------------------------|:-------------------------------------------|
+| AMQP           | `${bref:extra.amqp-php-74}`           | `extension=/opt/bref-extra/amqp.so`        |
+| Blackfire      | `${bref:extra.blackfire-php-74}`      | `extension=/opt/bref-extra/blackfire.so`   |
+| Cassandra      | `${bref:extra.cassandra-php-74}`      | `extension=/opt/bref-extra/cassandra.so`   |
+| DS             | `${bref:extra.ds-php-74}`             | `extension=/opt/bref-extra/ds.so`          |
+| GD             | `${bref:extra.gd-php-74}`             | `extension=/opt/bref-extra/gd.so`          |
+| GMP            | `${bref:extra.gmp-php-74}`            | `extension=/opt/bref-extra/gmp.so`         |
+| gRPC           | `${bref:extra.grpc-php-74}`           | `extension=/opt/bref-extra/grpc.so`        |
+| Igbinary       | `${bref:extra.igbinary-php-74}`       | `extension=/opt/bref-extra/igbinary.so`    |
+| Imagick        | `${bref:extra.imagick-php-74}`        | `extension=/opt/bref-extra/imagick.so`     |
+| LDAP           | `${bref:extra.ldap-php-74}`           | `extension=/opt/bref-extra/ldap.so`        |
+| Mailparse      | `${bref:extra.mailparse-php-74}`      | `extension=/opt/bref-extra/mailparse.so`   |
+| Memcache       | `${bref:extra.memcached-php-74}`      | `extension=/opt/bref-extra/memcache.so`    |
+| Memcached      | `${bref:extra.memcached-php-74}`      | `extension=/opt/bref-extra/memcached.so`   |
+| MongoDB        | `${bref:extra.mongodb-php-74}`        | `extension=/opt/bref-extra/mongodb.so`     |
+| MsgPack        | `${bref:extra.msgpack-php-74}`        | `extension=/opt/bref-extra/msgpack.so`     |
+| ODBC Snowflake | `${bref:extra.odbc-snowflake-php-74}` | `extension=/opt/bref-extra/odbc.so`        |
+| Pcov           | `${bref:extra.pcov-php-74}`           | `extension=/opt/bref-extra/pcov.so`        |
+| PostgreSQL     | `${bref:extra.pgsql-php-74}`          | `extension=/opt/bref-extra/pgsql.so`       |
+| Redis          | `${bref:extra.redis-php-74}`          | `extension=/opt/bref-extra/redis.so`       |
+| Scrypt         | `${bref:extra.scrypt-php-74}`         | `extension=/opt/bref-extra/scrypt.so`      |
+| SQLSRV         | `${bref:extra.sqlsrv-php-74}`         | `extension=/opt/bref-extra/sqlsrv.so`      |
+| SQLSRV (PDO)   | `${bref:extra.sqlsrv-php-74}`         | `extension=/opt/bref-extra/pdo_sqlsrv.so`  |
+| UUID           | `${bref:extra.uuid-php-74}`           | `zend_extension=/opt/bref-extra/uuid.so`   |
+| Xdebug         | `${bref:extra.xdebug-php-74}`         | `zend_extension=/opt/bref-extra/xdebug.so` |
+| Yaml           | `${bref:extra.yaml-php-74}`           | `extension=/opt/bref-extra/yaml.so`        |
 
 Note that the "Memcached" layer provides both extension for [Memcache](https://pecl.php.net/package/memcache) and [Memcached](https://pecl.php.net/package/memcached).
 
@@ -153,8 +153,9 @@ be in their "standard" location.
 
 1. Create a new folder in `layers` and name it to your extension name.
 2. Add your Dockerfile
-3. Update .travis.yml to include your extension
-4. Update the table in the readme
+3. Create a config.json file at root of your layer directory specifying php versions it is built for.
+4. Update .travis.yml to include your extension
+5. Update the table in the readme
 
 Please refer [here](docs/create_your_own_extension_layer.md) for more details.
 

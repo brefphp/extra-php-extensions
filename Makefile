@@ -1,11 +1,11 @@
 SHELL := /bin/bash
-php_versions ?= 73 74
 layer ?= *
 parallel = $(if $(shell which parallel),true,false)
+resolve_php_versions = $(or $(php_versions),`jq -r '.php | join(" ")' ${1}/config.json`)
 
 define generate_list
 	for dir in layers/${layer}; do \
-		for php_version in $(php_versions); do \
+		for php_version in $(call resolve_php_versions,$${dir}); do \
 		    echo "$${dir} $${php_version}"; \
 		done \
 	done
@@ -21,7 +21,7 @@ docker-images:
 	else  \
 		set -e; \
 		for dir in layers/${layer}; do \
-			for php_version in $(php_versions); do \
+			for php_version in $(call resolve_php_versions,$${dir}); do \
 				echo "###############################################"; \
 				echo "###############################################"; \
 				echo "### Building $${dir} PHP$${php_version}"; \
@@ -39,7 +39,7 @@ layers: docker-images
 	mkdir -p export/tmp
 	set -e; \
 	for dir in layers/${layer}; do \
-		for php_version in $(php_versions); do \
+		for php_version in $(call resolve_php_versions,$${dir}); do \
 			echo "###############################################"; \
 			echo "###############################################"; \
 			echo "### Exporting $${dir} PHP$${php_version}"; \
@@ -65,7 +65,7 @@ publish: layers
 # Publish docker images
 publish-docker-images: docker-images
 	for dir in layers/${layer}; do \
-		for php_version in $(php_versions); do \
+		for php_version in $(call resolve_php_versions,$${dir}); do \
 			echo "###############################################"; \
 			echo "###############################################"; \
 			echo "### Publishing $${dir} PHP$${php_version}"; \
