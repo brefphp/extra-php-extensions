@@ -1,5 +1,5 @@
 ARG PHP_VERSION
-FROM bref/build-php-$PHP_VERSION:1.0.0-beta1 AS ext
+FROM bref/build-php-$PHP_VERSION:1.0.0 AS ext
 
 ENV LD_LIBRARY_PATH=/usr/lib:/usr/lib64:$LD_LIBRARY_PATH
 RUN yum install -y unixODBC unixODBC-devel
@@ -7,8 +7,8 @@ RUN yum install -y unixODBC unixODBC-devel
 # strongly inspired by https://github.com/mlocati/docker-php-extension-installer/blob/master/install-php-extensions
 WORKDIR /tmp/build/php/ext/odbc
 RUN phpize \
- && sed -ri 's@^ *test +"\$PHP_.*" *= *"no" *&& *PHP_.*=yes *$@#&@g' configure \
- && ./configure --prefix=${INSTALL_DIR} --with-unixODBC=shared,/usr
+  && sed -ri 's@^ *test +"\$PHP_.*" *= *"no" *&& *PHP_.*=yes *$@#&@g' configure \
+  && ./configure --prefix=${INSTALL_DIR} --with-unixODBC=shared,/usr
 
 RUN make -j $(nproc) install
 RUN cp /opt/bref/lib/php/extensions/no-debug-non-zts-*/odbc.so /tmp/odbc.so
