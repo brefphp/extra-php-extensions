@@ -36,7 +36,7 @@ env:
   - LAYER=scrypt PHP="73 74"
   - LAYER=sqlsrv PHP="73 74"
   - LAYER=uuid PHP="73 74 80"
-  - LAYER=xdebug PHP="73 74"
+  - LAYER=xdebug PHP="73 74 80"
   - LAYER=yaml PHP="73 74 80"
 
 before_install:
