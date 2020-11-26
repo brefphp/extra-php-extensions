@@ -16,6 +16,7 @@ jobs:
         layer:
           - amqp
           - gmp
+          - redis
 
     steps:
       - name: Checkout code
