@@ -1,0 +1,27 @@
+name: CI
+
+on:
+  pull_request: ~
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    name: Layers
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        layer:
+          - amqp
+          - gmp
+
+    steps:
+      - name: Build layer
+        run: |
+          make clean
+          layer=${{ matrix.layer }} make docker-images
+
+      - name: Test layer
+        run:  layer=${{ matrix.layer }} make test

@@ -32,6 +32,20 @@ docker-images:
 		done \
 	fi;
 
+test:
+	set -e; \
+	for dir in layers/${layer}; do \
+		for php_version in $(call resolve_php_versions,$${dir}); do \
+			echo "###############################################"; \
+			echo "###############################################"; \
+			echo "### Testing $${dir} PHP$${php_version}"; \
+			echo "###"; \
+			docker build --build-arg PHP_VERSION=$${php_version} --build-arg TARGET_IMAGE=$${dir}-php-$${php_version} -t bref/test tests ; \
+			docker run --rm -v $$(pwd)/layers/$${layer}:/var/task bref/test /opt/bin/php /var/task/test.php ; \
+			echo ""; \
+		done \
+	done;
+
 # The PHP runtimes
 layers: docker-images
 	PWD=pwd
