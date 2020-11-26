@@ -35,7 +35,7 @@ jobs:
           - pgsql
           - redis
           - scrypt
-          - sqlsrc
+          - sqlsrv
           - uuid
           - xdebug
           - yaml
