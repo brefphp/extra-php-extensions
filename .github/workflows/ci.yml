@@ -22,9 +22,12 @@ jobs:
           - ds
           - gd
           - gmp
+          - grpc
           - igbinary
+          - imagick
           - ldap
           - mailparse
+          - memcached
           - mongodb
           - msgpack
           - odbc-snowflake

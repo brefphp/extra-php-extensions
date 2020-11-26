@@ -43,6 +43,7 @@ test: docker-images
 			docker build --build-arg PHP_VERSION=$${php_version} --build-arg TARGET_IMAGE=$${dir}-php-$${php_version} -t bref/test-$${layer}-$${php_version} tests ; \
 			echo "docker run --rm -v $$(pwd)/layers/$${layer}:/var/task bref/test-$${layer}-$${php_version} /opt/bin/php /var/task/test.php" ; \
 			docker run --rm -v $$(pwd)/layers/$${layer}:/var/task bref/test-$${layer}-$${php_version} /opt/bin/php /var/task/test.php ; \
+			if docker run --rm -v $$(pwd)/layers/$${layer}:/var/task bref/test-$${layer}-$${php_version} /opt/bin/php -v 2>&1 >/dev/null | grep -q 'Unable'; then exit 1; fi ; \
 			echo ""; \
 		done \
 	done;
