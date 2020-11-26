@@ -29,6 +29,7 @@ RUN cd /tmp && \
     pecl install ext/package.xml
 
 RUN cp `php-config --extension-dir`/cassandra.so /tmp/cassandra.so
+RUN echo 'extension=/opt/bref-extra/cassandra.so' > /tmp/ext.ini
 
 # Build the final image from the lambci image that is close to the production environment
 FROM scratch
@@ -36,6 +37,7 @@ FROM scratch
 
 # php extension binary
 COPY --from=ext /tmp/cassandra.so /opt/bref-extra/cassandra.so
+COPY --from=ext /tmp/ext.ini /opt/bref/etc/php/conf.d/ext-cassandra.ini
 
 COPY --from=ext /usr/lib64/libcassandra.so.2 /opt/bref/lib64/libcassandra.so.2
 COPY --from=ext /usr/lib64/libcassandra_static.a /opt/bref/lib64/libcassandra_static.a

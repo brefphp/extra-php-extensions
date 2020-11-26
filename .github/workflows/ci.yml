@@ -17,8 +17,25 @@ jobs:
       matrix:
         layer:
           - amqp
+          - blackfire
+          - cassandra
+          - ds
+          - gd
           - gmp
+          - igbinary
+          - ldap
+          - mailparse
+          - mongodb
+          - msgpack
+          - odbc-snowflake
+          - pcov
+          - pgsql
           - redis
+          - scrypt
+          - sqlsrc
+          - uuid
+          - xdebug
+          - yaml
 
     steps:
       - name: Checkout code

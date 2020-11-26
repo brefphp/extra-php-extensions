@@ -45,6 +45,7 @@ RUN if [ "$PHP_VERSION" = "73" ] ; \
 RUN make -j $(nproc)
 RUN make install
 RUN cp "$(php-config --extension-dir)/gd.so" /tmp/gd.so
+RUN echo 'extension=/opt/bref-extra/gd.so' > /tmp/ext.ini
 
 FROM scratch
 
@@ -52,3 +53,4 @@ COPY --from=ext /usr/lib64/libXpm.so.4 /opt/bref/lib64/libXpm.so.4
 COPY --from=ext /usr/lib64/libwebp.so.4 /opt/bref/lib64/libwebp.so.4
 
 COPY --from=ext /tmp/gd.so /opt/bref-extra/gd.so
+COPY --from=ext /tmp/ext.ini /opt/bref/etc/php/conf.d/ext-gd.ini

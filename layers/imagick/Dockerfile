@@ -43,6 +43,7 @@ RUN ./configure --with-imagick=${INSTALL_DIR}
 RUN make -j $(nproc)
 RUN make install
 RUN cp `php-config --extension-dir`/imagick.so /tmp/imagick.so
+RUN echo 'extension=/opt/bref-extra/imagick.so' > /tmp/ext.ini
 
 FROM scratch
 
@@ -56,3 +57,4 @@ COPY --from=ext /opt/bref/lib/libde265.so.0.0.12 /opt/bref/lib/libde265.so.0
 COPY --from=ext /opt/bref/lib/libheif.so.1.6.2 /opt/bref/lib/libheif.so.1
 
 COPY --from=ext /tmp/imagick.so /opt/bref-extra/imagick.so
+COPY --from=ext /tmp/ext.ini /opt/bref/etc/php/conf.d/ext-imagick.ini

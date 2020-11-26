@@ -8,9 +8,12 @@ RUN version=$(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") \
     && cp /tmp/blackfire/blackfire-*.so /tmp/blackfire.so \
     && rm -rf /tmp/blackfire /tmp/blackfire-probe.tar.gz
 
+RUN echo 'extension=/opt/bref-extra/blackfire.so' > /tmp/ext.ini
+
 
 # Build the final image from the lambci image that is close to the production environment
 FROM scratch
 
 # Copy things we installed to the final image
 COPY --from=ext /tmp/blackfire.so /opt/bref-extra/blackfire.so
+COPY --from=ext /tmp/ext.ini /opt/bref/etc/php/conf.d/ext-blackfire.ini
