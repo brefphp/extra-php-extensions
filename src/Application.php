@@ -2,6 +2,7 @@
 
 namespace Bref\Extra;
 
+use AsyncAws\Core\HttpClient\AwsRetryStrategy;
 use AsyncAws\Lambda\LambdaClient;
 use Bref\Extra\Aws\LayerProvider;
 use Bref\Extra\Aws\LayerPublisher;
@@ -11,6 +12,9 @@ use Bref\Extra\Service\RegionProvider;
 use DI\Container;
 use DI\ContainerBuilder;
 use Psr\Container\ContainerInterface;
+use Symfony\Component\HttpClient\HttpClient;
+use Symfony\Component\HttpClient\RetryableHttpClient;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class Application extends \Silly\Edition\PhpDi\Application
 {
@@ -32,8 +36,13 @@ class Application extends \Silly\Edition\PhpDi\Application
             PublishCommand::class => function (ContainerInterface $c) {
                 return new PublishCommand($c->get(LayerPublisher::class), $c->get(RegionProvider::class), $c->get('project_dir'));
             },
+            HttpClientInterface::class => function (ContainerInterface $c) {
+                $strategy = new AwsRetryStrategy(AwsRetryStrategy::DEFAULT_RETRY_STATUS_CODES, 5000, 12, 600000);
+
+                return new RetryableHttpClient(HttpClient::create(), $strategy, 2);
+            },
             LambdaClient::class => function (ContainerInterface $c) {
-                return new LambdaClient;
+                return new LambdaClient([], null, $c->get(HttpClientInterface::class));
             },
             LayerPublisher::class => function (ContainerInterface $c) {
                 return new LayerPublisher($c->get(LambdaClient::class));
