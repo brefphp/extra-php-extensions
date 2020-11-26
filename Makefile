@@ -40,8 +40,8 @@ test:
 			echo "###############################################"; \
 			echo "### Testing $${dir} PHP$${php_version}"; \
 			echo "###"; \
-			docker build --build-arg PHP_VERSION=$${php_version} --build-arg TARGET_IMAGE=$${dir}-php-$${php_version} -t bref/test tests ; \
-			docker run --rm -v $$(pwd)/layers/$${layer}:/var/task bref/test /opt/bin/php /var/task/test.php ; \
+			docker build --build-arg PHP_VERSION=$${php_version} --build-arg TARGET_IMAGE=$${dir}-php-$${php_version} -t bref/test-$${dir}-$${php_version} tests ; \
+			docker run --rm -v $$(pwd)/layers/$${layer}:/var/task bref/test-$${dir}-$${php_version} /opt/bin/php /var/task/test.php ; \
 			echo ""; \
 		done \
 	done;
