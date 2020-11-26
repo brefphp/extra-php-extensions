@@ -97,8 +97,6 @@ and modify the `agent_socket` in order to point it to the Blackfire Agent.
 
 ```ini
 ;php/conf.d/blackfire.ini
-extension=/opt/bref-extra/blackfire.so
-
 blackfire.agent_socket = tcp://ip-172-40-40-40.eu-central-1.compute.internal:8307
 blackfire.agent_timeout = 0.25
 ```
@@ -114,8 +112,7 @@ could be helpful as it describes how to install the Blackfire Agent.
 
 ### ODBC Snowflake setup
 
-Enable the odbc extension in your `php.ini` by setting `extension=/opt/bref-extra/odbc.so`.
-Then you also need to set the environment variable `ODBCSYSINI: /opt/snowflake_odbc/conf/` in your `serverless.yaml`
+You need to set the environment variable `ODBCSYSINI: /opt/snowflake_odbc/conf/` in your `serverless.yaml`
 in order to tell unixODBC to load the ini file of the snowflake client.
 
 You can then use snowflake like this: `odbc_connect('DRIVER=SnowflakeDSIIDriver;Server=[name].snowflakecomputing.com;Account=;Schema=;Warehouse=;Database=;Role=', 'username', 'password')`.
