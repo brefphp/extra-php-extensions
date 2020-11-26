@@ -37,9 +37,9 @@ class Application extends \Silly\Edition\PhpDi\Application
                 return new PublishCommand($c->get(LayerPublisher::class), $c->get(RegionProvider::class), $c->get('project_dir'));
             },
             HttpClientInterface::class => function (ContainerInterface $c) {
-                $strategy = new AwsRetryStrategy(AwsRetryStrategy::DEFAULT_RETRY_STATUS_CODES, 1000, 5);
+                $strategy = new AwsRetryStrategy(AwsRetryStrategy::DEFAULT_RETRY_STATUS_CODES, 5000, 12, 600000);
 
-                return new RetryableHttpClient(HttpClient::create(), $strategy, 4);
+                return new RetryableHttpClient(HttpClient::create(), $strategy, 2);
             },
             LambdaClient::class => function (ContainerInterface $c) {
                 return new LambdaClient([], null, $c->get(HttpClientInterface::class));
