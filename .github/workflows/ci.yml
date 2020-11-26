@@ -18,6 +18,9 @@ jobs:
           - gmp
 
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
       - name: Build layer
         run: layer=${{ matrix.layer }} make docker-images
 
