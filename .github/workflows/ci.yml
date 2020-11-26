@@ -19,9 +19,7 @@ jobs:
 
     steps:
       - name: Build layer
-        run: |
-          make clean
-          layer=${{ matrix.layer }} make docker-images
+        run: layer=${{ matrix.layer }} make docker-images
 
       - name: Test layer
         run:  layer=${{ matrix.layer }} make test
