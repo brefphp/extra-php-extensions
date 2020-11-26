@@ -7,7 +7,7 @@ RUN yum install -y libuuid-devel
 
 RUN pecl install uuid
 RUN cp `php-config --extension-dir`/uuid.so /tmp/uuid.so
-RUN echo 'zend_extension=/opt/bref-extra/uuid.so' > /tmp/ext.ini
+RUN echo 'extension=/opt/bref-extra/uuid.so' > /tmp/ext.ini
 
 # Build the final image from the lambci image that is close to the production environment
 FROM scratch
