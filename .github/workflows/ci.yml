@@ -10,6 +10,8 @@ jobs:
   build:
     name: Layers
     runs-on: ubuntu-latest
+    env:
+      DOCKER_BUILDKIT: '1'
     strategy:
       fail-fast: false
       matrix:

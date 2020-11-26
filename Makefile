@@ -41,6 +41,7 @@ test: docker-images
 			echo "### Testing $${dir} PHP$${php_version}"; \
 			echo "###"; \
 			docker build --build-arg PHP_VERSION=$${php_version} --build-arg TARGET_IMAGE=$${dir}-php-$${php_version} -t bref/test-$${layer}-$${php_version} tests ; \
+			echo "docker run --rm -v $$(pwd)/layers/$${layer}:/var/task bref/test-$${layer}-$${php_version} /opt/bin/php /var/task/test.php" ; \
 			docker run --rm -v $$(pwd)/layers/$${layer}:/var/task bref/test-$${layer}-$${php_version} /opt/bin/php /var/task/test.php ; \
 			echo ""; \
 		done \

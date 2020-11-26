@@ -1,6 +1,7 @@
 <?php
 
-if (!class_exists(AMQPConnection::class)) {
+if (!class_exists($class = AMQPConnection::class)) {
+    echo sprintf('FAIL: Class "%s" does not exit.', $class).PHP_EOL;
     exit(1);
 }
 
