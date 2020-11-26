@@ -61,5 +61,7 @@ script:
   - cd layers/$LAYER
   - |
     for php_version in $PHP; do
-      tfold "Build $php_version" docker build --build-arg PHP_VERSION=${php_version} .
+      tfold "Build $php_version" docker build --build-arg PHP_VERSION=${php_version} -t bref/extra-build-${LAYER} .
+      tfold "Test $php_version" docker build --build-arg PHP_VERSION=${php_version} --build-arg TARGET_IMAGE=bref/extra-build-${LAYER} -t bref/test ../../tests && \
+      docker run --rm -v $(pwd):/var/task bref/test /opt/bin/php /var/task/test.php
     done
