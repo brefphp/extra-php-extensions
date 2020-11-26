@@ -1,5 +1,10 @@
 # Change log
 
+## 0.6.5
+
+### Added
+
+- Updated mongodb to version 1.9.0 with php80 compatibility.
 ## 0.6.4
 
 ### Changed
