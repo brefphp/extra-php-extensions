@@ -152,12 +152,26 @@ Note that one can't just move files/libraries around. Most of them are expected 
 be in their "standard" location.
 
 1. Create a new folder in `layers` and name it to your extension name.
-2. Add your Dockerfile
-3. Create a config.json file at root of your layer directory specifying php versions it is built for.
-4. Update .travis.yml to include your extension
-5. Update the table in the readme
+1. Add your Dockerfile
+1. Create a config.json file at root of your layer directory specifying php versions it is built for
+1. Create a test.php file with a small test that makes sure the extension is loaded
+1. Update .travis.yml to include your extension
+1. Update the table in the readme
 
 Please refer [here](docs/create_your_own_extension_layer.md) for more details.
+
+### Testing the layer
+
+```
+# Test all layers and PHP versions
+make test
+
+# Test only a single layer
+layer=imagick make test
+
+# Test a single layer on a single PHP version
+layer=imagick php_versions=74 make test
+```
 
 ### Deploy new versions
 
