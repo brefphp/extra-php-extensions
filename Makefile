@@ -39,7 +39,7 @@ layers: docker-images
 	mkdir -p export/tmp
 	set -e; \
 	for dir in layers/${layer}; do \
-		for php_version in $(call resolve_php_versions,$${dir}); do \
+		for php_version in $(call resolve_php_versions,${PWD}/$${dir}); do \
 			echo "###############################################"; \
 			echo "###############################################"; \
 			echo "### Exporting $${dir} PHP$${php_version}"; \
