@@ -24,6 +24,7 @@ RUN sed -i 's#/path/to/your/#/opt/snowflake_odbc/lib/#g' /tmp/snowflake_odbc/con
 FROM scratch
 
 COPY --from=ext /usr/lib64/libodb* /opt/bref/lib64/
+COPY --from=ext /usr/lib64/libltdl.so.7.3.0 /opt/bref/lib64/libltdl.so.7
 COPY --from=ext /tmp/snowflake_odbc/ /opt/snowflake_odbc/
 COPY --from=ext /tmp/odbc.so /opt/bref-extra/
 COPY --from=ext /tmp/ext.ini /opt/bref/etc/php/conf.d/ext-odbc.ini
