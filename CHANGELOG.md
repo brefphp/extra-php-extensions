@@ -1,10 +1,23 @@
 # Change log
 
-## 0.6.5
+## 0.7.0
+
+Version 0.6.x was a mess for multiple reasons. Let's try to start fresh with 0.7.0.
+It includes a tiny BC break (ie, you dont need to add `extensions=/opt/bref-extra/*.so`.
 
 ### Added
 
+- Testing for each layer to make sure they do not cause issues in production.
 - Updated mongodb to version 1.9.0 with php80 compatibility.
+
+### Changed
+
+- Most layers will automatically include the extension file.
+
+### Fixed
+
+- Compile issues with GD and Snowflake layers.
+
 ## 0.6.4
 
 ### Changed
