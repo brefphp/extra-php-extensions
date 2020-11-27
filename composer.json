@@ -9,7 +9,8 @@
         "mnapoli/silly-php-di": "^1.2",
         "async-aws/core": "^1.7@dev",
         "symfony/http-client": "^5.2@rc",
-        "async-aws/lambda": "^1.1"
+        "async-aws/lambda": "^1.1",
+        "bref/logger": "^1.0"
     },
     "autoload-dev": {
         "psr-4": {
