@@ -26,9 +26,9 @@ RUN make install
 
 # Compile the ImageMagick library
 WORKDIR ${IMAGICK_BUILD_DIR}
-RUN wget https://github.com/ImageMagick/ImageMagick6/archive/6.9.11-7.tar.gz -O ImageMagick.tar.gz
+RUN wget https://github.com/ImageMagick/ImageMagick/archive/7.0.10-43.tar.gz -O ImageMagick.tar.gz
 RUN tar xzf ImageMagick.tar.gz
-WORKDIR ${IMAGICK_BUILD_DIR}/ImageMagick6-6.9.11-7
+WORKDIR ${IMAGICK_BUILD_DIR}/ImageMagick-7.0.10-43
 RUN ./configure --prefix ${INSTALL_DIR} --exec-prefix ${INSTALL_DIR} --with-webp --with-heic --disable-static
 RUN make -j $(nproc)
 RUN make install
@@ -48,8 +48,8 @@ RUN echo 'extension=/opt/bref-extra/imagick.so' > /tmp/ext.ini
 FROM scratch
 
 # The ImageMagick libraries needed by the extension
-COPY --from=ext /opt/bref/lib/libMagickWand-6.Q16.so.6.0.0 /opt/bref/lib/libMagickWand-6.Q16.so.6
-COPY --from=ext /opt/bref/lib/libMagickCore-6.Q16.so.6.0.0 /opt/bref/lib/libMagickCore-6.Q16.so.6
+COPY --from=ext /opt/bref/lib/libMagickWand-7.Q16HDRI.so.8.0.0 /opt/bref/lib/libMagickWand-7.Q16HDRI.so.8
+COPY --from=ext /opt/bref/lib/libMagickCore-7.Q16HDRI.so.8.0.0 /opt/bref/lib/libMagickCore-7.Q16HDRI.so.8
 
 # ImageMagick dependencies
 COPY --from=ext /usr/lib64/libwebp.so.4.0.2 /opt/bref/lib/libwebp.so.4
