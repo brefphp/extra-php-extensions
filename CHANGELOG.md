@@ -3,7 +3,7 @@
 ## 0.7.0
 
 Version 0.6.x was a mess for multiple reasons. Let's try to start fresh with 0.7.0.
-It includes a tiny BC break (ie, you dont need to add `extensions=/opt/bref-extra/*.so`.
+It includes a tiny BC break (ie, you dont need to add `extensions=/opt/bref-extra/*.so`).
 
 ### Added
 
