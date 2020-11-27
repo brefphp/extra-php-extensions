@@ -30,6 +30,9 @@ jobs:
       - name: Build images
         run: make docker-images
 
+      - name: Test images
+        run: make test
+
       - name: Publish
         env:
           DOCKER_TAG: ${{ steps.get_version.outputs.VERSION }}
