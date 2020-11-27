@@ -41,8 +41,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Build layer
+      - name: Build docker images
         run: layer=${{ matrix.layer }} make docker-images
 
-      - name: Test layer
+      - name: Test images
         run: layer=${{ matrix.layer }} make test

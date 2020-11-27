@@ -30,7 +30,7 @@ jobs:
       - name: Build images
         run: make docker-images
 
-      - name: Test layer
+      - name: Test images
         run: make test
 
       - name: Publish
