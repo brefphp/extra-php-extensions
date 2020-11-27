@@ -1,5 +1,12 @@
 # Change log
 
+## 0.7.1
+
+### Fixed
+
+- Added support for PNG and JPG for Imagick.
+- Updated Imagick to version 7
+
 ## 0.7.0
 
 Version 0.6.x was a mess for multiple reasons. Let's try to start fresh with 0.7.0.
