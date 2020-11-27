@@ -16,6 +16,7 @@ define build_docker_image
 endef
 
 docker-images:
+	test -d layers/${layer}
 	if $(parallel); then \
 		$(call generate_list) | parallel --colsep ' ' $(call build_docker_image,{1},{2}) ; \
 	else  \
@@ -32,8 +33,26 @@ docker-images:
 		done \
 	fi;
 
+test: docker-images
+	test -d layers/${layer}
+	set -e; \
+	for dir in layers/${layer}; do \
+		for php_version in $(call resolve_php_versions,$${dir}); do \
+			echo "###############################################"; \
+			echo "###############################################"; \
+			echo "### Testing $${dir} PHP$${php_version}"; \
+			echo "###"; \
+			docker build --build-arg PHP_VERSION=$${php_version} --build-arg TARGET_IMAGE=$${dir}-php-$${php_version} -t bref/test-$${layer}-$${php_version} tests ; \
+			echo "docker run --rm -v $$(pwd)/layers/$${layer}:/var/task bref/test-$${layer}-$${php_version} /opt/bin/php /var/task/test.php" ; \
+			docker run --rm -v $$(pwd)/layers/$${layer}:/var/task bref/test-$${layer}-$${php_version} /opt/bin/php /var/task/test.php ; \
+			if docker run --rm -v $$(pwd)/layers/$${layer}:/var/task bref/test-$${layer}-$${php_version} /opt/bin/php -v 2>&1 >/dev/null | grep -q 'Unable\|Warning'; then exit 1; fi ; \
+			echo ""; \
+		done \
+	done;
+
 # The PHP runtimes
 layers: docker-images
+	test -d layers/${layer}
 	PWD=pwd
 	rm -rf export/layer-${layer}.zip || true
 	mkdir -p export/tmp

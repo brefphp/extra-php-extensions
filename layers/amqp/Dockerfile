@@ -19,6 +19,7 @@ RUN set -xe; \
 
 RUN pecl install amqp
 RUN cp /opt/bref/lib/php/extensions/no-debug-non-zts-*/amqp.so /tmp/amqp.so
+RUN echo 'extension=/opt/bref-extra/amqp.so' > /tmp/ext.ini
 
 # Build the final image from the lambci image that is close to the production environment
 FROM scratch
@@ -36,3 +37,4 @@ COPY --from=ext /opt/bref/lib64/librabbitmq.so.4.3.0 /opt/bref/lib64/librabbitmq
 COPY --from=ext /opt/bref/lib64/pkgconfig/librabbitmq.pc /opt/bref/lib64/pkgconfig/librabbitmq.pc
 
 COPY --from=ext /tmp/amqp.so /opt/bref-extra/amqp.so
+COPY --from=ext /tmp/ext.ini /opt/bref/etc/php/conf.d/ext-amqp.ini

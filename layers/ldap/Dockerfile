@@ -12,9 +12,11 @@ RUN ./configure --with-ldap --with-libdir=lib64
 RUN make -j `nproc` && make install
 
 RUN cp `php-config --extension-dir`/ldap.so /tmp/ldap.so
+RUN echo 'extension=/opt/bref-extra/ldap.so' > /tmp/ext.ini
 
 # Build the final image from the lambci image that is close to the production environment
 FROM scratch
 
 # Copy things we installed to the final image
 COPY --from=ext /tmp/ldap.so /opt/bref-extra/ldap.so
+COPY --from=ext /tmp/ext.ini /opt/bref/etc/php/conf.d/ext-ldap.ini

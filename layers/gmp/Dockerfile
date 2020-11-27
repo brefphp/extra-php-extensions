@@ -17,6 +17,8 @@ RUN phpize && \
 
 RUN make -j $(nproc) install
 RUN cp /opt/bref/lib/php/extensions/no-debug-non-zts-*/gmp.so /tmp/gmp.so
+RUN echo 'extension=/opt/bref-extra/gmp.so' > /tmp/ext.ini
+
 
 # Build the final image from the lambci image that is close to the production environment
 FROM scratch
@@ -32,3 +34,4 @@ COPY --from=ext /usr/lib64/libgmp.so /opt/bref/lib64/libgmp.so
 COPY --from=ext /usr/lib64/libgmpxx.so /opt/bref/lib64/libgmpxx.so
 
 COPY --from=ext /tmp/gmp.so /opt/bref-extra/gmp.so
+COPY --from=ext /tmp/ext.ini /opt/bref/etc/php/conf.d/ext-gmp.ini

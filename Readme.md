@@ -53,31 +53,31 @@ memory_limit=128M
 
 | Name           | Serverless config (php 7.4)           | php.ini config                             |
 |:---------------|:--------------------------------------|:-------------------------------------------|
-| AMQP           | `${bref:extra.amqp-php-74}`           | `extension=/opt/bref-extra/amqp.so`        |
-| Blackfire      | `${bref:extra.blackfire-php-74}`      | `extension=/opt/bref-extra/blackfire.so`   |
-| Cassandra      | `${bref:extra.cassandra-php-74}`      | `extension=/opt/bref-extra/cassandra.so`   |
-| DS             | `${bref:extra.ds-php-74}`             | `extension=/opt/bref-extra/ds.so`          |
-| GD             | `${bref:extra.gd-php-74}`             | `extension=/opt/bref-extra/gd.so`          |
-| GMP            | `${bref:extra.gmp-php-74}`            | `extension=/opt/bref-extra/gmp.so`         |
-| gRPC           | `${bref:extra.grpc-php-74}`           | `extension=/opt/bref-extra/grpc.so`        |
-| Igbinary       | `${bref:extra.igbinary-php-74}`       | `extension=/opt/bref-extra/igbinary.so`    |
-| Imagick        | `${bref:extra.imagick-php-74}`        | `extension=/opt/bref-extra/imagick.so`     |
-| LDAP           | `${bref:extra.ldap-php-74}`           | `extension=/opt/bref-extra/ldap.so`        |
-| Mailparse      | `${bref:extra.mailparse-php-74}`      | `extension=/opt/bref-extra/mailparse.so`   |
+| AMQP           | `${bref:extra.amqp-php-74}`           |                                            |
+| Blackfire      | `${bref:extra.blackfire-php-74}`      |                                            |
+| Cassandra      | `${bref:extra.cassandra-php-74}`      |                                            |
+| DS             | `${bref:extra.ds-php-74}`             |                                            |
+| GD             | `${bref:extra.gd-php-74}`             |                                            |
+| GMP            | `${bref:extra.gmp-php-74}`            |                                            |
+| gRPC           | `${bref:extra.grpc-php-74}`           |                                            |
+| Igbinary       | `${bref:extra.igbinary-php-74}`       |                                            |
+| Imagick        | `${bref:extra.imagick-php-74}`        |                                            |
+| LDAP           | `${bref:extra.ldap-php-74}`           |                                            |
+| Mailparse      | `${bref:extra.mailparse-php-74}`      |                                            |
 | Memcache       | `${bref:extra.memcached-php-74}`      | `extension=/opt/bref-extra/memcache.so`    |
 | Memcached      | `${bref:extra.memcached-php-74}`      | `extension=/opt/bref-extra/memcached.so`   |
-| MongoDB        | `${bref:extra.mongodb-php-74}`        | `extension=/opt/bref-extra/mongodb.so`     |
-| MsgPack        | `${bref:extra.msgpack-php-74}`        | `extension=/opt/bref-extra/msgpack.so`     |
-| ODBC Snowflake | `${bref:extra.odbc-snowflake-php-74}` | `extension=/opt/bref-extra/odbc.so`        |
-| Pcov           | `${bref:extra.pcov-php-74}`           | `extension=/opt/bref-extra/pcov.so`        |
-| PostgreSQL     | `${bref:extra.pgsql-php-74}`          | `extension=/opt/bref-extra/pgsql.so`       |
-| Redis          | `${bref:extra.redis-php-74}`          | `extension=/opt/bref-extra/redis.so`       |
-| Scrypt         | `${bref:extra.scrypt-php-74}`         | `extension=/opt/bref-extra/scrypt.so`      |
+| MongoDB        | `${bref:extra.mongodb-php-74}`        |                                            |
+| MsgPack        | `${bref:extra.msgpack-php-74}`        |                                            |
+| ODBC Snowflake | `${bref:extra.odbc-snowflake-php-74}` |                                            |
+| Pcov           | `${bref:extra.pcov-php-74}`           |                                            |
+| PostgreSQL     | `${bref:extra.pgsql-php-74}`          |                                            |
+| Redis          | `${bref:extra.redis-php-74}`          |                                            |
+| Scrypt         | `${bref:extra.scrypt-php-74}`         |                                            |
 | SQLSRV         | `${bref:extra.sqlsrv-php-74}`         | `extension=/opt/bref-extra/sqlsrv.so`      |
 | SQLSRV (PDO)   | `${bref:extra.sqlsrv-php-74}`         | `extension=/opt/bref-extra/pdo_sqlsrv.so`  |
-| UUID           | `${bref:extra.uuid-php-74}`           | `zend_extension=/opt/bref-extra/uuid.so`   |
-| Xdebug         | `${bref:extra.xdebug-php-74}`         | `zend_extension=/opt/bref-extra/xdebug.so` |
-| Yaml           | `${bref:extra.yaml-php-74}`           | `extension=/opt/bref-extra/yaml.so`        |
+| UUID           | `${bref:extra.uuid-php-74}`           |                                            |
+| Xdebug         | `${bref:extra.xdebug-php-74}`         |                                            |
+| Yaml           | `${bref:extra.yaml-php-74}`           |                                            |
 
 Note that the "Memcached" layer provides both extension for [Memcache](https://pecl.php.net/package/memcache) and [Memcached](https://pecl.php.net/package/memcached).
 
@@ -97,8 +97,6 @@ and modify the `agent_socket` in order to point it to the Blackfire Agent.
 
 ```ini
 ;php/conf.d/blackfire.ini
-extension=/opt/bref-extra/blackfire.so
-
 blackfire.agent_socket = tcp://ip-172-40-40-40.eu-central-1.compute.internal:8307
 blackfire.agent_timeout = 0.25
 ```
@@ -114,8 +112,7 @@ could be helpful as it describes how to install the Blackfire Agent.
 
 ### ODBC Snowflake setup
 
-Enable the odbc extension in your `php.ini` by setting `extension=/opt/bref-extra/odbc.so`.
-Then you also need to set the environment variable `ODBCSYSINI: /opt/snowflake_odbc/conf/` in your `serverless.yaml`
+You need to set the environment variable `ODBCSYSINI: /opt/snowflake_odbc/conf/` in your `serverless.yaml`
 in order to tell unixODBC to load the ini file of the snowflake client.
 
 You can then use snowflake like this: `odbc_connect('DRIVER=SnowflakeDSIIDriver;Server=[name].snowflakecomputing.com;Account=;Schema=;Warehouse=;Database=;Role=', 'username', 'password')`.
@@ -152,12 +149,26 @@ Note that one can't just move files/libraries around. Most of them are expected 
 be in their "standard" location.
 
 1. Create a new folder in `layers` and name it to your extension name.
-2. Add your Dockerfile
-3. Create a config.json file at root of your layer directory specifying php versions it is built for.
-4. Update .travis.yml to include your extension
-5. Update the table in the readme
+1. Add your Dockerfile
+1. Create a config.json file at root of your layer directory specifying php versions it is built for
+1. Create a test.php file with a small test that makes sure the extension is loaded
+1. Update .travis.yml to include your extension
+1. Update the table in the readme
 
 Please refer [here](docs/create_your_own_extension_layer.md) for more details.
+
+### Testing the layer
+
+```
+# Test all layers and PHP versions
+make test
+
+# Test only a single layer
+layer=imagick make test
+
+# Test a single layer on a single PHP version
+layer=imagick php_versions=74 make test
+```
 
 ### Deploy new versions
 

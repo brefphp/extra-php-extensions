@@ -1,0 +1,51 @@
+name: CI
+
+on:
+  pull_request: ~
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    name: Layers
+    runs-on: ubuntu-latest
+    env:
+      DOCKER_BUILDKIT: '1'
+    strategy:
+      fail-fast: false
+      matrix:
+        layer:
+          - amqp
+          - blackfire
+          - cassandra
+          - ds
+          - gd
+          - gmp
+          - grpc
+          - igbinary
+          - imagick
+          - ldap
+          - mailparse
+          - memcached
+          - mongodb
+          - msgpack
+          - odbc-snowflake
+          - pcov
+          - pgsql
+          - redis
+          - scrypt
+          - sqlsrv
+          - uuid
+          - xdebug
+          - yaml
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Build layer
+        run: layer=${{ matrix.layer }} make docker-images
+
+      - name: Test layer
+        run:  layer=${{ matrix.layer }} make test
