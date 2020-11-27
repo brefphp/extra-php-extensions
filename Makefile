@@ -16,7 +16,7 @@ define build_docker_image
 endef
 
 docker-images:
-	test -d layers/${layer}
+	if [ "${layer}" != "*" ]; then test -d layers/${layer}; fi
 	if $(parallel); then \
 		$(call generate_list) | parallel --colsep ' ' $(call build_docker_image,{1},{2}) ; \
 	else  \
@@ -34,7 +34,7 @@ docker-images:
 	fi;
 
 test: docker-images
-	test -d layers/${layer}
+	if [ "${layer}" != "*" ]; then test -d layers/${layer}; fi
 	set -e; \
 	for dir in layers/${layer}; do \
 		for php_version in $(call resolve_php_versions,$${dir}); do \
@@ -52,7 +52,7 @@ test: docker-images
 
 # The PHP runtimes
 layers: docker-images
-	test -d layers/${layer}
+	if [ "${layer}" != "*" ]; then test -d layers/${layer}; fi
 	PWD=pwd
 	rm -rf export/layer-${layer}.zip || true
 	mkdir -p export/tmp
