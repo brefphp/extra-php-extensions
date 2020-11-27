@@ -43,6 +43,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - uses: satackey/action-docker-layer-caching@v0.0.8
+        continue-on-error: true
+
       - name: Build docker images
         run: layer=${{ matrix.layer }} make docker-images
 

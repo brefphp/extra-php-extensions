@@ -1,6 +1,6 @@
 SHELL := /bin/bash
 layer ?= *
-parallel = $(if $(shell which parallel),true,false)
+parallel ?= $(if $(shell which parallel),true,false)
 resolve_php_versions = $(or $(php_versions),`jq -r '.php | join(" ")' ${1}/config.json`)
 
 define generate_list
