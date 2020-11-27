@@ -4,7 +4,7 @@ FROM bref/build-php-$PHP_VERSION:1.0.0 AS ext
 # Prepare environment
 ENV IMAGICK_BUILD_DIR=${BUILD_DIR}/imagick
 RUN mkdir -p ${IMAGICK_BUILD_DIR}
-RUN LD_LIBRARY_PATH= yum -y install libwebp-devel wget
+RUN LD_LIBRARY_PATH= yum -y install libwebp-devel wget libpng-devel libjpeg-devel
 
 # Compile libde265 (libheif dependency)
 WORKDIR ${IMAGICK_BUILD_DIR}
@@ -52,6 +52,8 @@ COPY --from=ext /opt/bref/lib/libMagickWand-7.Q16HDRI.so.8.0.0 /opt/bref/lib/lib
 COPY --from=ext /opt/bref/lib/libMagickCore-7.Q16HDRI.so.8.0.0 /opt/bref/lib/libMagickCore-7.Q16HDRI.so.8
 
 # ImageMagick dependencies
+COPY --from=ext /usr/lib64/libpng15.so.15.13.0 /opt/bref/lib/libpng15.so.15
+COPY --from=ext /usr/lib64/libjpeg.so.62.1.0 /opt/bref/lib/libjpeg.so.62
 COPY --from=ext /usr/lib64/libwebp.so.4.0.2 /opt/bref/lib/libwebp.so.4
 COPY --from=ext /usr/lib64/libgomp.so.1.0.0 /opt/bref/lib/libgomp.so.1
 COPY --from=ext /opt/bref/lib/libde265.so.0.0.12 /opt/bref/lib/libde265.so.0
