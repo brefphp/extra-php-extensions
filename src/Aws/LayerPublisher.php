@@ -9,7 +9,7 @@ use AsyncAws\Lambda\ValueObject\LayerVersionContentInput;
 
 class LayerPublisher
 {
-    private const CHUNK_SIZE = 5;
+    private const CHUNK_SIZE = 10;
 
     /** @var LambdaClient */
     private $lambda;
