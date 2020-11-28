@@ -81,9 +81,6 @@ memory_limit=128M
 
 Note that the "Memcached" layer provides both extension for [Memcache](https://pecl.php.net/package/memcache) and [Memcached](https://pecl.php.net/package/memcached).
 
-Note that you cannot use both the built-in imagick extension and imagick extension from this package.
-This version of imagick is built against newer version of ImageMagick than the built-in one and provides heic and webp support.
-
 ### Blackfire installation
 
 The Blackfire layer only have the probe installed.
@@ -158,7 +155,6 @@ FROM bref/php-74-fpm-dev
 COPY --from=mongodbextra /opt /opt
 ```
 
-
 ## For contributors and maintainers
 
 ### Creating a new layer
@@ -220,6 +216,7 @@ To make sure to build docker images in sequence run `make publish parallel=false
 You can also build only one specific layer by providing `layer=blackfire` to `make`.
 Same thing for some specific version(s) of php by providing `php_versions="73 74"` to `make`.
 You can invoke both ways:
+
 ```shell
 # First way: make with named arguments
 make layer=gd php_versions=74
