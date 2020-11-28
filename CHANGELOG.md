@@ -6,6 +6,10 @@
 
 - Updated Blackfire to version 1.46.4.
 
+### Changed
+
+- Removed PHP 7.2. They cannot be used with Bref 1.0
+
 ## 0.7.1
 
 ### Fixed
