@@ -2,7 +2,7 @@
 
 This repository has some AWS Lambda layers with PHP extensions. This is useful when you want something "off the shelf".
 If you ever need more than 2-3 layer you should consider creating your own layer. That is because AWS has
-a limit of 5 layers per Lambda.
+a limit of 5 layers per Lambda. You can also utilise the provided docker images for local development.
 
 We are happy to get contributions for other extensions. Sky is the limit! (And also your knowledge with Docker...)
 
@@ -136,6 +136,28 @@ all images on [Docker hub](https://hub.docker.com/u/bref).
 
 These are the same docker images that creates the layers. All layer files lives inside
 the `/opt` directory in the image.
+
+### Local Development
+
+When developing locally you can build your own images with the required extensions. Example with PHP 7.4 and MongoDB Extension:
+
+docker-compose.yml
+```
+  php:
+    build:
+      context: .
+      dockerfile: Dockerfile-phpFpm
+    volumes:
+      - .:/var/task:ro
+```
+
+Dockerfile-phpFpm
+```
+FROM bref/extra-mongodb-php-74 as mongodbextra
+FROM bref/php-74-fpm-dev
+COPY --from=mongodbextra /opt /opt
+```
+
 
 ## For contributors and maintainers
 
