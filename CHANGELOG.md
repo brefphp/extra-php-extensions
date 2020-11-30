@@ -1,5 +1,11 @@
 # Change log
 
+## 0.7.3
+
+### Fixed
+
+- Issue with SQLSRV extension.
+
 ## 0.7.2
 
 ### Added
