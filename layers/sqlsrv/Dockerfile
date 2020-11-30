@@ -17,14 +17,14 @@ RUN pecl install -f pdo_sqlsrv
 RUN cp /opt/bref/lib/php/extensions/no-debug-non-zts-*/sqlsrv.so /tmp/sqlsrv.so
 RUN cp /opt/bref/lib/php/extensions/no-debug-non-zts-*/pdo_sqlsrv.so /tmp/pdo_sqlsrv.so
 
+RUN echo $'[ODBC Driver 17 for SQL Server]\
+Driver      = ODBC Driver 17 for SQL Server\n\
+Description = My ODBC Driver 17 for SQL Server\n\
+Trace       = No'  > /tmp/odbc.ini
 RUN echo $'[ODBC Driver 17 for SQL Server]\n\
-  Driver      = ODBC Driver 17 for SQL Server\n\
-  Description = My ODBC Driver 17 for SQL Server\n\
-  Trace       = No'  > /tmp/odbc.ini
-RUN echo $'[ODBC Driver 17 for SQL Server]\n\
-  Description = Microsoft ODBC Driver 17 for SQL Server\n\
-  Driver      = /opt/microsoft/msodbcsql17/lib64/libmsodbcsql-17.6.so.1.1\n\
-  UsageCount  = 1'  > /tmp/odbcinst.ini
+Description = Microsoft ODBC Driver 17 for SQL Server\n\
+Driver      = /opt/microsoft/msodbcsql17/lib64/libmsodbcsql-17.6.so.1.1\n\
+UsageCount  = 1'  > /tmp/odbcinst.ini
 
 FROM scratch
 
