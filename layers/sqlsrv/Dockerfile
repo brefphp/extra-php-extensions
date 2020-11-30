@@ -42,6 +42,7 @@ COPY --from=ext /usr/lib64/libsapdbS* /opt/bref/lib64/
 COPY --from=ext /usr/lib64/libss* /opt/bref/lib64/
 COPY --from=ext /usr/lib64/libtdsS* /opt/bref/lib64/
 COPY --from=ext /usr/lib64/libtemplate* /opt/bref/lib64/
+COPY --from=ext /usr/lib64/libltdl* /opt/bref/lib64/
 
 COPY --from=ext /tmp/sqlsrv.so /opt/bref-extra/sqlsrv.so
 COPY --from=ext /tmp/pdo_sqlsrv.so /opt/bref-extra/pdo_sqlsrv.so
