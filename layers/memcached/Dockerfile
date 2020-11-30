@@ -1,13 +1,13 @@
 ARG PHP_VERSION
-FROM bref/build-php-$PHP_VERSION as ext
+FROM bref/build-php-$PHP_VERSION:1.0.0 AS ext
 
 ENV LIBMEMCACHED_BUILD_DIR=${BUILD_DIR}/libmemcached
 
 RUN set -xe; \
     mkdir -p ${LIBMEMCACHED_BUILD_DIR}; \
-# Download and upack the source code
+    # Download and upack the source code
     curl -Ls  https://launchpad.net/libmemcached/1.0/1.0.18/+download/libmemcached-1.0.18.tar.gz  \
-  | tar xzC ${LIBMEMCACHED_BUILD_DIR}
+    | tar xzC ${LIBMEMCACHED_BUILD_DIR}
 
 # patch from https://src.fedoraproject.org/rpms/libmemcached/raw/HEAD/f/libmemcached-build.patch for build with GCC7
 COPY libmemcached-build.patch ${LIBMEMCACHED_BUILD_DIR}/libmemcached-1.0.18/libmemcached-build.patch
@@ -23,7 +23,7 @@ RUN set -xe; \
     make install
 
 RUN pecl install memcache
-RUN cp /opt/bref/lib/php/extensions/no-debug-zts-*/memcache.so /tmp/memcache.so
+RUN cp /opt/bref/lib/php/extensions/no-debug-non-zts-*/memcache.so /tmp/memcache.so
 
 RUN pecl install --onlyreqdeps --nobuild memcached && \
     cd "$(pecl config-get temp_dir)/memcached" && \
@@ -33,7 +33,7 @@ RUN pecl install --onlyreqdeps --nobuild memcached && \
     make install  && \
     cd -
 
-RUN cp /opt/bref/lib/php/extensions/no-debug-zts-*/memcached.so /tmp/memcached.so
+RUN cp /opt/bref/lib/php/extensions/no-debug-non-zts-*/memcached.so /tmp/memcached.so
 
 # Build the final image from the lambci image that is close to the production environment
 FROM scratch

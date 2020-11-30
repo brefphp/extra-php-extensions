@@ -9,11 +9,14 @@ on:
 
 jobs:
   publish:
-    name: Building images
+    name: Deploy images
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+
+      - uses: satackey/action-docker-layer-caching@v0.0.8
+        continue-on-error: true
 
       - name: Get the version
         id: get_version
@@ -29,6 +32,9 @@ jobs:
 
       - name: Build images
         run: make docker-images
+
+      - name: Test images
+        run: make test
 
       - name: Publish
         env:

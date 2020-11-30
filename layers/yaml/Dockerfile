@@ -1,5 +1,5 @@
 ARG PHP_VERSION
-FROM bref/build-php-$PHP_VERSION as ext
+FROM bref/build-php-$PHP_VERSION:1.0.0 AS ext
 
 ENV LIBYAML_BUILD_DIR=${BUILD_DIR}/libyaml
 
@@ -20,7 +20,8 @@ RUN set -xe; \
     make install
 
 RUN pecl install yaml
-RUN cp /opt/bref/lib/php/extensions/no-debug-zts-*/yaml.so /tmp/yaml.so
+RUN cp /opt/bref/lib/php/extensions/no-debug-non-zts-*/yaml.so /tmp/yaml.so
+RUN echo 'extension=/opt/bref-extra/yaml.so' > /tmp/ext.ini
 
 FROM scratch
 
@@ -31,3 +32,4 @@ COPY --from=ext /opt/bref/lib/libyaml.la /opt/bref/lib64/libyaml.la
 COPY --from=ext /opt/bref/lib/libyaml.so /opt/bref/lib64/libyaml.so
 
 COPY --from=ext /tmp/yaml.so /opt/bref-extra/yaml.so
+COPY --from=ext /tmp/ext.ini /opt/bref/etc/php/conf.d/ext-yaml.ini

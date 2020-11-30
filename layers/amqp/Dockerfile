@@ -1,13 +1,13 @@
 ARG PHP_VERSION
-FROM bref/build-php-$PHP_VERSION as ext
+FROM bref/build-php-$PHP_VERSION:1.0.0 AS ext
 
 ENV LIBRABBITMQ_BUILD_DIR=${BUILD_DIR}/librabbitmq
 
 RUN set -xe; \
     mkdir -p ${LIBRABBITMQ_BUILD_DIR}; \
-# Download and upack the source code
+    # Download and upack the source code
     curl -Ls  https://github.com/alanxz/rabbitmq-c/archive/v0.9.0.tar.gz  \
-  | tar xzC ${LIBRABBITMQ_BUILD_DIR}
+    | tar xzC ${LIBRABBITMQ_BUILD_DIR}
 
 # Move into the unpackaged code directory
 WORKDIR  ${LIBRABBITMQ_BUILD_DIR}/rabbitmq-c-0.9.0/
@@ -18,7 +18,8 @@ RUN set -xe; \
     cmake --build . --target install
 
 RUN pecl install amqp
-RUN cp /opt/bref/lib/php/extensions/no-debug-zts-*/amqp.so /tmp/amqp.so
+RUN cp /opt/bref/lib/php/extensions/no-debug-non-zts-*/amqp.so /tmp/amqp.so
+RUN echo 'extension=/opt/bref-extra/amqp.so' > /tmp/ext.ini
 
 # Build the final image from the lambci image that is close to the production environment
 FROM scratch
@@ -36,3 +37,4 @@ COPY --from=ext /opt/bref/lib64/librabbitmq.so.4.3.0 /opt/bref/lib64/librabbitmq
 COPY --from=ext /opt/bref/lib64/pkgconfig/librabbitmq.pc /opt/bref/lib64/pkgconfig/librabbitmq.pc
 
 COPY --from=ext /tmp/amqp.so /opt/bref-extra/amqp.so
+COPY --from=ext /tmp/ext.ini /opt/bref/etc/php/conf.d/ext-amqp.ini

@@ -1,11 +1,11 @@
 SHELL := /bin/bash
-php_versions = 72 73 74
-layer = *
-parallel = $(if $(shell which parallel),true,false)
+layer ?= *
+parallel ?= $(if $(shell which parallel),true,false)
+resolve_php_versions = $(or $(php_versions),`jq -r '.php | join(" ")' ${1}/config.json`)
 
 define generate_list
 	for dir in layers/${layer}; do \
-		for php_version in $(php_versions); do \
+		for php_version in $(call resolve_php_versions,$${dir}); do \
 		    echo "$${dir} $${php_version}"; \
 		done \
 	done
@@ -16,12 +16,13 @@ define build_docker_image
 endef
 
 docker-images:
+	if [ "${layer}" != "*" ]; then test -d layers/${layer}; fi
 	if $(parallel); then \
 		$(call generate_list) | parallel --colsep ' ' $(call build_docker_image,{1},{2}) ; \
 	else  \
 		set -e; \
 		for dir in layers/${layer}; do \
-			for php_version in $(php_versions); do \
+			for php_version in $(call resolve_php_versions,$${dir}); do \
 				echo "###############################################"; \
 				echo "###############################################"; \
 				echo "### Building $${dir} PHP$${php_version}"; \
@@ -32,14 +33,32 @@ docker-images:
 		done \
 	fi;
 
+test: docker-images
+	if [ "${layer}" != "*" ]; then test -d layers/${layer}; fi
+	set -e; \
+	for dir in layers/${layer}; do \
+		for php_version in $(call resolve_php_versions,$${dir}); do \
+			echo "###############################################"; \
+			echo "###############################################"; \
+			echo "### Testing $${dir} PHP$${php_version}"; \
+			echo "###"; \
+			docker build --build-arg PHP_VERSION=$${php_version} --build-arg TARGET_IMAGE=$${dir}-php-$${php_version} -t bref/test-$${dir}-$${php_version} tests ; \
+			echo "docker run --rm -v $$(pwd)/$${dir}:/var/task bref/test-$${dir}-$${php_version} /opt/bin/php /var/task/test.php" ; \
+			docker run --rm -v $$(pwd)/$${dir}:/var/task bref/test-$${dir}-$${php_version} /opt/bin/php /var/task/test.php ; \
+			if docker run --rm -v $$(pwd)/$${dir}:/var/task bref/test-$${dir}-$${php_version} /opt/bin/php -v 2>&1 >/dev/null | grep -q 'Unable\|Warning'; then exit 1; fi ; \
+			echo ""; \
+		done \
+	done;
+
 # The PHP runtimes
 layers: docker-images
+	if [ "${layer}" != "*" ]; then test -d layers/${layer}; fi
 	PWD=pwd
 	rm -rf export/layer-${layer}.zip || true
 	mkdir -p export/tmp
 	set -e; \
 	for dir in layers/${layer}; do \
-		for php_version in $(php_versions); do \
+		for php_version in $(call resolve_php_versions,${PWD}/$${dir}); do \
 			echo "###############################################"; \
 			echo "###############################################"; \
 			echo "### Exporting $${dir} PHP$${php_version}"; \
@@ -65,7 +84,7 @@ publish: layers
 # Publish docker images
 publish-docker-images: docker-images
 	for dir in layers/${layer}; do \
-		for php_version in $(php_versions); do \
+		for php_version in $(call resolve_php_versions,$${dir}); do \
 			echo "###############################################"; \
 			echo "###############################################"; \
 			echo "### Publishing $${dir} PHP$${php_version}"; \

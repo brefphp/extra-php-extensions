@@ -2,7 +2,7 @@
 
 This repository has some AWS Lambda layers with PHP extensions. This is useful when you want something "off the shelf".
 If you ever need more than 2-3 layer you should consider creating your own layer. That is because AWS has
-a limit of 5 layers per Lambda.
+a limit of 5 layers per Lambda. You can also utilise the provided docker images for local development.
 
 We are happy to get contributions for other extensions. Sky is the limit! (And also your knowledge with Docker...)
 
@@ -51,38 +51,35 @@ memory_limit=128M
 
 ### Available layers
 
-| Name       | Serverless config (php 7.4)      | php.ini config                             |
-|:-----------|:---------------------------------|:-------------------------------------------|
-| AMQP       | `${bref:extra.amqp-php-74}`      | `extension=/opt/bref-extra/amqp.so`        |
-| Blackfire  | `${bref:extra.blackfire-php-74}` | `extension=/opt/bref-extra/blackfire.so`   |
-| Cassandra  | `${bref:extra.cassandra-php-74}` | `extension=/opt/bref-extra/cassandra.so`   |
-| DS         | `${bref:extra.ds-php-74}`        | `extension=/opt/bref-extra/ds.so`          |
-| GD         | `${bref:extra.gd-php-74}`        | `extension=/opt/bref-extra/gd.so`          |
-| GMP        | `${bref:extra.gmp-php-74}`       | `extension=/opt/bref-extra/gmp.so`         |
-| gRPC       | `${bref:extra.grpc-php-74}`      | `extension=/opt/bref-extra/grpc.so`        |
-| Igbinary   | `${bref:extra.igbinary-php-74}`  | `extension=/opt/bref-extra/igbinary.so`    |
-| Imagick    | `${bref:extra.imagick-php-74}`   | `extension=/opt/bref-extra/imagick.so`     |
-| LDAP       | `${bref:extra.ldap-php-74}`      | `extension=/opt/bref-extra/ldap.so`        |
-| Mailparse  | `${bref:extra.mailparse-php-74}` | `extension=/opt/bref-extra/mailparse.so`   |
-| Memcache   | `${bref:extra.memcached-php-74}` | `extension=/opt/bref-extra/memcache.so`    |
-| Memcached  | `${bref:extra.memcached-php-74}` | `extension=/opt/bref-extra/memcached.so`   |
-| MongoDB    | `${bref:extra.mongodb-php-74}`   | `extension=/opt/bref-extra/mongodb.so`     |
-| MsgPack    | `${bref:extra.msgpack-php-74}`   | `extension=/opt/bref-extra/msgpack.so`     |
-| ODBC Snowflake | `${bref:extra.odbc-snowflake-php-74}` | `extension=/opt/bref-extra/odbc.so` |
-| Pcov       | `${bref:extra.pcov-php-74}`      | `extension=/opt/bref-extra/pcov.so`        |
-| PostgreSQL | `${bref:extra.pgsql-php-74}`     | `extension=/opt/bref-extra/pgsql.so`       |
-| Redis      | `${bref:extra.redis-php-74}`     | `extension=/opt/bref-extra/redis.so`       |
-| Scrypt     | `${bref:extra.scrypt-php-74}`    | `extension=/opt/bref-extra/scrypt.so`      |
-| SQLSRV     | `${bref:extra.sqlsrv-php-74}`    | `extension=/opt/bref-extra/sqlsrv.so`      |
-| SQLSRV (PDO) | `${bref:extra.sqlsrv-php-74}`  | `extension=/opt/bref-extra/pdo_sqlsrv.so`  |
-| UUID       | `${bref:extra.uuid-php-74}`      | `zend_extension=/opt/bref-extra/uuid.so`   |
-| Xdebug     | `${bref:extra.xdebug-php-74}`    | `zend_extension=/opt/bref-extra/xdebug.so` |
-| Yaml       | `${bref:extra.yaml-php-74}`      | `extension=/opt/bref-extra/yaml.so`        |
+| Name           | Serverless config (php 7.4)           | php.ini config                             |
+|:---------------|:--------------------------------------|:-------------------------------------------|
+| AMQP           | `${bref:extra.amqp-php-74}`           |                                            |
+| Blackfire      | `${bref:extra.blackfire-php-74}`      |                                            |
+| Cassandra      | `${bref:extra.cassandra-php-74}`      |                                            |
+| DS             | `${bref:extra.ds-php-74}`             |                                            |
+| GD             | `${bref:extra.gd-php-74}`             |                                            |
+| GMP            | `${bref:extra.gmp-php-74}`            |                                            |
+| gRPC           | `${bref:extra.grpc-php-74}`           |                                            |
+| Igbinary       | `${bref:extra.igbinary-php-74}`       |                                            |
+| Imagick        | `${bref:extra.imagick-php-74}`        |                                            |
+| LDAP           | `${bref:extra.ldap-php-74}`           |                                            |
+| Mailparse      | `${bref:extra.mailparse-php-74}`      |                                            |
+| Memcache       | `${bref:extra.memcached-php-74}`      | `extension=/opt/bref-extra/memcache.so`    |
+| Memcached      | `${bref:extra.memcached-php-74}`      | `extension=/opt/bref-extra/memcached.so`   |
+| MongoDB        | `${bref:extra.mongodb-php-74}`        |                                            |
+| MsgPack        | `${bref:extra.msgpack-php-74}`        |                                            |
+| ODBC Snowflake | `${bref:extra.odbc-snowflake-php-74}` |                                            |
+| Pcov           | `${bref:extra.pcov-php-74}`           |                                            |
+| PostgreSQL     | `${bref:extra.pgsql-php-74}`          |                                            |
+| Redis          | `${bref:extra.redis-php-74}`          |                                            |
+| Scrypt         | `${bref:extra.scrypt-php-74}`         |                                            |
+| SQLSRV         | `${bref:extra.sqlsrv-php-74}`         | `extension=/opt/bref-extra/sqlsrv.so`      |
+| SQLSRV (PDO)   | `${bref:extra.sqlsrv-php-74}`         | `extension=/opt/bref-extra/pdo_sqlsrv.so`  |
+| UUID           | `${bref:extra.uuid-php-74}`           |                                            |
+| Xdebug         | `${bref:extra.xdebug-php-74}`         |                                            |
+| Yaml           | `${bref:extra.yaml-php-74}`           |                                            |
 
 Note that the "Memcached" layer provides both extension for [Memcache](https://pecl.php.net/package/memcache) and [Memcached](https://pecl.php.net/package/memcached).
-
-Note that you cannot use both the built-in imagick extension and imagick extension from this package.
-This version of imagick is built against newer version of ImageMagick than the built-in one and provides heic and webp support.
 
 ### Blackfire installation
 
@@ -97,8 +94,6 @@ and modify the `agent_socket` in order to point it to the Blackfire Agent.
 
 ```ini
 ;php/conf.d/blackfire.ini
-extension=/opt/bref-extra/blackfire.so
-
 blackfire.agent_socket = tcp://ip-172-40-40-40.eu-central-1.compute.internal:8307
 blackfire.agent_timeout = 0.25
 ```
@@ -114,8 +109,7 @@ could be helpful as it describes how to install the Blackfire Agent.
 
 ### ODBC Snowflake setup
 
-Enable the odbc extension in your `php.ini` by setting `extension=/opt/bref-extra/odbc.so`.
-Then you also need to set the environment variable `ODBCSYSINI: /opt/snowflake_odbc/conf/` in your `serverless.yaml`
+You need to set the environment variable `ODBCSYSINI: /opt/snowflake_odbc/conf/` in your `serverless.yaml`
 in order to tell unixODBC to load the ini file of the snowflake client.
 
 You can then use snowflake like this: `odbc_connect('DRIVER=SnowflakeDSIIDriver;Server=[name].snowflakecomputing.com;Account=;Schema=;Warehouse=;Database=;Role=', 'username', 'password')`.
@@ -140,6 +134,27 @@ all images on [Docker hub](https://hub.docker.com/u/bref).
 These are the same docker images that creates the layers. All layer files lives inside
 the `/opt` directory in the image.
 
+### Local Development
+
+When developing locally you can build your own images with the required extensions. Example with PHP 7.4 and MongoDB Extension:
+
+docker-compose.yml
+```
+  php:
+    build:
+      context: .
+      dockerfile: Dockerfile-phpFpm
+    volumes:
+      - .:/var/task:ro
+```
+
+Dockerfile-phpFpm
+```
+FROM bref/extra-mongodb-php-74 as mongodbextra
+FROM bref/php-74-fpm-dev
+COPY --from=mongodbextra /opt /opt
+```
+
 ## For contributors and maintainers
 
 ### Creating a new layer
@@ -152,11 +167,26 @@ Note that one can't just move files/libraries around. Most of them are expected 
 be in their "standard" location.
 
 1. Create a new folder in `layers` and name it to your extension name.
-2. Add your Dockerfile
-3. Update .travis.yml to include your extension
-4. Update the table in the readme
+1. Add your Dockerfile
+1. Create a config.json file at root of your layer directory specifying php versions it is built for
+1. Create a test.php file with a small test that makes sure the extension is loaded
+1. Update .travis.yml to include your extension
+1. Update the table in the readme
 
 Please refer [here](docs/create_your_own_extension_layer.md) for more details.
+
+### Testing the layer
+
+```
+# Test all layers and PHP versions
+make test
+
+# Test only a single layer
+layer=imagick make test
+
+# Test a single layer on a single PHP version
+layer=imagick php_versions=74 make test
+```
 
 ### Deploy new versions
 
@@ -184,5 +214,14 @@ We build the docker layers in parallel if the GNU `parallel` command is availabl
 To make sure to build docker images in sequence run `make publish parallel=false`
 
 You can also build only one specific layer by providing `layer=blackfire` to `make`.
+Same thing for some specific version(s) of php by providing `php_versions="73 74"` to `make`.
+You can invoke both ways:
+
+```shell
+# First way: make with named arguments
+make layer=gd php_versions=74
+# Second way: environment variables passed to make
+layer=blackfire php_versions=80 make
+```
 
 
