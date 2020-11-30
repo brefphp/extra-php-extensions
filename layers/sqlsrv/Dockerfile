@@ -17,6 +17,9 @@ RUN pecl install -f pdo_sqlsrv
 RUN cp /opt/bref/lib/php/extensions/no-debug-non-zts-*/sqlsrv.so /tmp/sqlsrv.so
 RUN cp /opt/bref/lib/php/extensions/no-debug-non-zts-*/pdo_sqlsrv.so /tmp/pdo_sqlsrv.so
 
+RUN echo $'extension=/opt/bref-extra/sqlsrv.so\n\
+extension=/opt/bref-extra/pdo_sqlsrv.so' > /tmp/ext.ini
+
 RUN echo $'[ODBC Driver 17 for SQL Server]\
 Driver      = ODBC Driver 17 for SQL Server\n\
 Description = My ODBC Driver 17 for SQL Server\n\
@@ -46,6 +49,7 @@ COPY --from=ext /usr/lib64/libltdl* /opt/bref/lib64/
 
 COPY --from=ext /tmp/sqlsrv.so /opt/bref-extra/sqlsrv.so
 COPY --from=ext /tmp/pdo_sqlsrv.so /opt/bref-extra/pdo_sqlsrv.so
+COPY --from=ext /tmp/ext.ini /opt/bref/etc/php/conf.d/ext-sqlsrv.ini
 
 COPY --from=ext /tmp/odbc.ini /opt/microsoft/conf/odbc.ini
 COPY --from=ext /tmp/odbcinst.ini /opt/microsoft/conf/odbcinst.ini

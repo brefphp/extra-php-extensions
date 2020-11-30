@@ -73,8 +73,7 @@ memory_limit=128M
 | PostgreSQL     | `${bref:extra.pgsql-php-74}`          |                                            |
 | Redis          | `${bref:extra.redis-php-74}`          |                                            |
 | Scrypt         | `${bref:extra.scrypt-php-74}`         |                                            |
-| SQLSRV         | `${bref:extra.sqlsrv-php-74}`         | `extension=/opt/bref-extra/sqlsrv.so`      |
-| SQLSRV (PDO)   | `${bref:extra.sqlsrv-php-74}`         | `extension=/opt/bref-extra/pdo_sqlsrv.so`  |
+| SQLSRV         | `${bref:extra.sqlsrv-php-74}`         |                                            |
 | UUID           | `${bref:extra.uuid-php-74}`           |                                            |
 | Xdebug         | `${bref:extra.xdebug-php-74}`         |                                            |
 | Yaml           | `${bref:extra.yaml-php-74}`           |                                            |
@@ -122,7 +121,7 @@ The easiest way review those is to download the [`snowflake_odbc` directory](htt
 
 The SQL Server layer includes both the SQLSRV extension and the PDO_SQLSRV extension ([source](https://github.com/microsoft/msphpsql)).
 If you are unsure of which extension to use, this [stackoverflow post](https://stackoverflow.com/questions/11614536/sqlsrv-driver-vs-pdo-driver-for-php-with-ms-sql-server) may be helpful.
-In addition to enabling the chosen extension in your `php.ini`, you must set the environment variable `ODBCSYSINI: /opt/microsoft/conf/`
+You need to set the environment variable `ODBCSYSINI: /opt/microsoft/conf/`
 in your `serverless.yaml` in order to tell unixODBC to load the required ini files.
 
 ## Docker images
