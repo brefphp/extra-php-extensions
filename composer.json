@@ -7,8 +7,8 @@
         "symfony/finder": "^5.0",
         "mnapoli/silly": "^1.7",
         "mnapoli/silly-php-di": "^1.2",
-        "async-aws/core": "^1.7@dev",
-        "symfony/http-client": "^5.2@rc",
+        "async-aws/core": "^1.7",
+        "symfony/http-client": "^5.2",
         "async-aws/lambda": "^1.1",
         "bref/logger": "^1.0"
     },
