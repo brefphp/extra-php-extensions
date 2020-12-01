@@ -31,7 +31,7 @@ RUN cd /tmp && \
 RUN cp `php-config --extension-dir`/cassandra.so /tmp/cassandra.so
 RUN echo 'extension=/opt/bref-extra/cassandra.so' > /tmp/ext.ini
 
-# Build the final image from the lambci image that is close to the production environment
+# Build the final image with just the files we need
 FROM scratch
 
 
