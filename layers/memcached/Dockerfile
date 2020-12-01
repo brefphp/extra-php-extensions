@@ -35,7 +35,7 @@ RUN pecl install --onlyreqdeps --nobuild memcached && \
 
 RUN cp /opt/bref/lib/php/extensions/no-debug-non-zts-*/memcached.so /tmp/memcached.so
 
-# Build the final image from the lambci image that is close to the production environment
+# Build the final image with just the files we need
 FROM scratch
 
 # Copy things we installed to the final image
