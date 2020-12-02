@@ -32,6 +32,7 @@ class PublishCommand
         $checksums = json_decode(file_get_contents($this->projectDir . '/checksums.json'), true);
         $discoveredChecksums = [];
 
+        $sameChecksumCount = 0;
         $layers = [];
         $finder = new Finder;
         $finder->in($this->projectDir . '/export')->name('layer-*');
@@ -44,9 +45,13 @@ class PublishCommand
                 // This layer is new.
                 $discoveredChecksums[$layerName] = $md5;
                 $layers[$layerName] = $layerFile;
+            } else {
+                $sameChecksumCount++;
             }
         }
-        $output->writeln(sprintf('Found %d new layers', count($layers)));
+
+        ksort($layers);
+        $output->writeln(sprintf('Found %d new layers and %d layers with the same checksum. They new layers are:', count($layers), $sameChecksumCount));
         foreach ($layers as $layer => $file) {
             $output->writeln('- ' . $layer);
         }
