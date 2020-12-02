@@ -1,5 +1,18 @@
 # Change log
 
+## 0.8.0
+
+This is just a super small BC break. If you are not using Microsoft SQLSRV layer
+then you can upgrade with no worry.
+
+### Changed
+
+- You dont need to add `extension=/opt/bref-extra/sqlsrv.so` or `extension=/opt/bref-extra/pdo_sqlsrv.so` in your php.ini anymore.
+
+### Fixed
+
+- Issue another issue with SQLSRV extension.
+
 ## 0.7.3
 
 ### Fixed
