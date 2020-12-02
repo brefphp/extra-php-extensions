@@ -43,7 +43,6 @@ test: docker-images
 			echo "### Testing $${dir} PHP$${php_version}"; \
 			echo "###"; \
 			docker build --build-arg PHP_VERSION=$${php_version} --build-arg TARGET_IMAGE=$${dir}-php-$${php_version} -t bref/test-$${dir}-$${php_version} tests ; \
-			echo "docker run --rm -v $$(pwd)/$${dir}:/var/task bref/test-$${dir}-$${php_version} /opt/bin/php /var/task/test.php" ; \
 			docker run --rm -v $$(pwd)/$${dir}:/var/task bref/test-$${dir}-$${php_version} /opt/bin/php /var/task/test.php ; \
 			if docker run --rm -v $$(pwd)/$${dir}:/var/task bref/test-$${dir}-$${php_version} /opt/bin/php -v 2>&1 >/dev/null | grep -q 'Unable\|Warning'; then exit 1; fi ; \
 			echo ""; \
@@ -92,12 +91,13 @@ publish-docker-images: docker-images
 			privateImage="bref/$${dir}-php-$${php_version}"; \
 			publicImage=$${privateImage/layers\//extra-}; \
 			echo "Image name: $$publicImage"; \
-			docker tag $$privateImage:latest $$publicImage:latest ; \
-			docker push $$publicImage:latest; \
 			if (test $(DOCKER_TAG)); then \
 			  echo "Pushing tagged images"; \
-			  docker tag $$privateImage:latest $$publicImage:${DOCKER_TAG}; \
-			  docker push $$publicImage:${DOCKER_TAG}; \
+			  ARR=($${DOCKER_TAG//./ }); \
+			  docker tag $$privateImage:latest $$publicImage:$${ARR[0]}.$${ARR[1]} $$publicImage:$${ARR[0]}.$${ARR[1]} $$publicImage:$${ARR[0]}.$${ARR[1]}.$${ARR[2]}; \
+			  docker push $$publicImage:$${ARR[0]}; \
+			  docker push $$publicImage:$${ARR[0]}.$${ARR[1]}; \
+			  docker push $$publicImage:$${ARR[0]}.$${ARR[1]}.$${ARR[2]}; \
 			fi; \
 			echo ""; \
 		done \
