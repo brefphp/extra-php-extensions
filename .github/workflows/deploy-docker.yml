@@ -15,6 +15,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: Set up PHP
+        uses: shivammathur/setup-php@2.1.2
+        with:
+          php-version: 7.4
+          coverage: none
+
       - uses: satackey/action-docker-layer-caching@v0.0.8
         continue-on-error: true
 
@@ -40,3 +46,20 @@ jobs:
         env:
           DOCKER_TAG: ${{ steps.get_version.outputs.VERSION }}
         run: make publish-docker-images
+
+      - name: Update tags
+        run: ./new-docker-tags.php ${{ steps.get_version.outputs.VERSION }} --update
+        if: ${{ steps.get_version.outputs.VERSION != "" }}
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v3
+        if: ${{ steps.get_version.outputs.VERSION != "" }}
+        with:
+          token: ${{ secrets.BOT_GITHUB_TOKEN }}
+          branch: tag-update
+          author: Bref Bot <github-bot@bref.sh>
+          committer: Bref Bot <github-bot@bref.sh>
+          commit-message: Adding tag ${{ steps.get_version.outputs.VERSION }}
+          title: Update list of tags
+          body: |
+            Since we just tagged ${{ steps.get_version.outputs.VERSION }} we also need to update config.json

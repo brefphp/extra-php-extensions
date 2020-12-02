@@ -2,6 +2,7 @@ SHELL := /bin/bash
 layer ?= *
 parallel ?= $(if $(shell which parallel),true,false)
 resolve_php_versions = $(or $(php_versions),`jq -r '.php | join(" ")' ${1}/config.json`)
+resolve_tags = `./new-docker-tags.php $(DOCKER_TAG)`
 
 define generate_list
 	for dir in layers/${layer}; do \
@@ -93,13 +94,12 @@ publish-docker-images: docker-images
 			echo "Image name: $$publicImage"; \
 			if (test $(DOCKER_TAG)); then \
 			  echo "Pushing tagged images"; \
-			  ARR=($${DOCKER_TAG//./ }); \
-			  docker tag $$privateImage:latest $$publicImage:$${ARR[0]}; \
-			  docker tag $$privateImage:latest $$publicImage:$${ARR[0]}.$${ARR[1]}; \
-			  docker tag $$privateImage:latest $$publicImage:$${ARR[0]}.$${ARR[1]}.$${ARR[2]}; \
-			  docker push $$publicImage:$${ARR[0]}; \
-			  docker push $$publicImage:$${ARR[0]}.$${ARR[1]}; \
-			  docker push $$publicImage:$${ARR[0]}.$${ARR[1]}.$${ARR[2]}; \
+			  for tag in $(call resolve_tags); do \
+			    echo ""; \
+			    echo "docker push $$publicImage:$${tag}"; \
+			    docker tag $$privateImage:latest $$publicImage:$${tag}; \
+			    docker push $$publicImage:$${tag}; \
+			  done; \
 			fi; \
 			echo ""; \
 		done \
