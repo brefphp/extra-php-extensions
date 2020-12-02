@@ -49,11 +49,11 @@ jobs:
 
       - name: Update tags
         run: ./new-docker-tags.php ${{ steps.get_version.outputs.VERSION }} --update
-        if: ${{ steps.get_version.outputs.VERSION != "" }}
+        if: ${{ steps.get_version.outputs.VERSION != '' }}
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
-        if: ${{ steps.get_version.outputs.VERSION != "" }}
+        if: ${{ steps.get_version.outputs.VERSION != '' }}
         with:
           token: ${{ secrets.BOT_GITHUB_TOKEN }}
           branch: tag-update
