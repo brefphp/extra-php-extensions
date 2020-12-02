@@ -46,6 +46,8 @@ class PublishCommand
                 $layers[$layerName] = $layerFile;
             }
         }
+
+        ksort($layers);
         $output->writeln(sprintf('Found %d new layers', count($layers)));
         foreach ($layers as $layer => $file) {
             $output->writeln('- ' . $layer);
