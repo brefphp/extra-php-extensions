@@ -1,5 +1,11 @@
 # Change log
 
+## 0.8.1
+
+No changes to the layers compared to 0.8.0. This version and future versions will
+add more tag on the docker images. It will tag images for major, minor and patch
+versions.
+
 ## 0.8.0
 
 This is just a super small BC break. If you are not using Microsoft SQLSRV layer
