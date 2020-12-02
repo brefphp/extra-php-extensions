@@ -94,7 +94,7 @@ publish-docker-images: docker-images
 			if (test $(DOCKER_TAG)); then \
 			  echo "Pushing tagged images"; \
 			  ARR=($${DOCKER_TAG//./ }); \
-			  docker tag $$privateImage:latest $$publicImage:$${ARR[0]}.$${ARR[1]} $$publicImage:$${ARR[0]}.$${ARR[1]} $$publicImage:$${ARR[0]}.$${ARR[1]}.$${ARR[2]}; \
+			  docker tag $$privateImage:latest $$publicImage:$${ARR[0]} $$publicImage:$${ARR[0]}.$${ARR[1]} $$publicImage:$${ARR[0]}.$${ARR[1]}.$${ARR[2]}; \
 			  docker push $$publicImage:$${ARR[0]}; \
 			  docker push $$publicImage:$${ARR[0]}.$${ARR[1]}; \
 			  docker push $$publicImage:$${ARR[0]}.$${ARR[1]}.$${ARR[2]}; \
