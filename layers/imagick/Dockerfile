@@ -35,9 +35,9 @@ RUN make install
 
 # Compile the php imagick extension
 WORKDIR ${IMAGICK_BUILD_DIR}
-RUN pecl download imagick
-RUN tar xzf imagick-3.4.4.tgz
-WORKDIR ${IMAGICK_BUILD_DIR}/imagick-3.4.4
+RUN git clone https://github.com/Imagick/imagick
+WORKDIR ${IMAGICK_BUILD_DIR}/imagick
+RUN git checkout 132a11fd26675db9eb9f0e9a3e2887c161875206
 RUN phpize
 RUN ./configure --with-imagick=${INSTALL_DIR}
 RUN make -j $(nproc)
