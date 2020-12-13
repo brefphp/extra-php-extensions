@@ -22,7 +22,7 @@ RUN set -xe; \
     make && \
     make install
 
-RUN pecl install memcache
+RUN pecl install memcache-4.0.5.2
 RUN cp /opt/bref/lib/php/extensions/no-debug-non-zts-*/memcache.so /tmp/memcache.so
 
 RUN pecl install --onlyreqdeps --nobuild memcached && \
