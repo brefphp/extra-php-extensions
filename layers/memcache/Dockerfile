@@ -1,5 +1,6 @@
 ARG PHP_VERSION
 FROM bref/build-php-$PHP_VERSION:1.0.2 AS ext
+ARG PHP_VERSION
 
 ENV LIBMEMCACHED_BUILD_DIR=${BUILD_DIR}/libmemcached
 
@@ -22,16 +23,9 @@ RUN set -xe; \
     make && \
     make install
 
-RUN pecl install --onlyreqdeps --nobuild memcached && \
-    cd "$(pecl config-get temp_dir)/memcached" && \
-    phpize && \
-    ./configure --with-libmemcached-dir=${INSTALL_DIR}  --disable-memcached-sasl && \
-    make && \
-    make install  && \
-    cd -
-
-RUN cp /opt/bref/lib/php/extensions/no-debug-non-zts-*/memcached.so /tmp/memcached.so
-RUN echo 'extension=/opt/bref-extra/memcached.so' > /tmp/ext.ini
+RUN if [[ "${PHP_VERSION}" = "80" ]]; then pecl install memcache ; else pecl install memcache-4.0.5.2 ; fi
+RUN cp /opt/bref/lib/php/extensions/no-debug-non-zts-*/memcache.so /tmp/memcache.so
+RUN echo 'extension=/opt/bref-extra/memcache.so' > /tmp/ext.ini
 
 # Build the final image with just the files we need
 FROM scratch
@@ -48,5 +42,5 @@ COPY --from=ext /opt/bref/lib/libmemcached.* /opt/bref/lib/
 COPY --from=ext /opt/bref/lib/libmemcachedutil.* /opt/bref/lib/
 COPY --from=ext /opt/bref/lib/pkgconfig/libmemcached.pc /opt/bref/lib/pkgconfig/libmemcached.pc
 
-COPY --from=ext /tmp/memcached.so /opt/bref-extra/memcached.so
-COPY --from=ext /tmp/ext.ini /opt/bref/etc/php/conf.d/ext-memcached.ini
+COPY --from=ext /tmp/memcache.so  /opt/bref-extra/memcache.so
+COPY --from=ext /tmp/ext.ini /opt/bref/etc/php/conf.d/ext-memcache.ini
