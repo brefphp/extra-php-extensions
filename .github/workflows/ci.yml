@@ -26,6 +26,7 @@ jobs:
           - imagick
           - ldap
           - mailparse
+          - memcache
           - memcached
           - mongodb
           - msgpack
