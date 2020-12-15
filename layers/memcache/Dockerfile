@@ -1,5 +1,5 @@
 ARG PHP_VERSION
-FROM bref/build-php-$PHP_VERSION:1.0.0 AS ext
+FROM bref/build-php-$PHP_VERSION:1.0.2 AS ext
 
 ENV LIBMEMCACHED_BUILD_DIR=${BUILD_DIR}/libmemcached
 
@@ -22,7 +22,7 @@ RUN set -xe; \
     make && \
     make install
 
-RUN if [[ "${PHP_VERSION}" = "80" ]]; then pecl install memcache-8.0 ; else pecl install memcache-4.0.5.2 ; fi
+RUN if [[ "${PHP_VERSION}" = "80" ]]; then pecl install memcache ; else pecl install memcache-4.0.5.2 ; fi
 RUN cp /opt/bref/lib/php/extensions/no-debug-non-zts-*/memcache.so /tmp/memcache.so
 RUN echo 'extension=/opt/bref-extra/memcache.so' > /tmp/ext.ini
 
