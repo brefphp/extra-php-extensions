@@ -1,6 +1,5 @@
 ARG PHP_VERSION
 FROM bref/build-php-$PHP_VERSION:1.0.0 AS ext
-ARG PHP_VERSION
 
 # Prepare environment
 ENV IMAGICK_BUILD_DIR=${BUILD_DIR}/imagick
