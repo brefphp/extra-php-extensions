@@ -1,5 +1,6 @@
 ARG PHP_VERSION
 FROM bref/build-php-$PHP_VERSION:1.0.0 AS ext
+ARG PHP_VERSION
 
 # Prepare environment
 ENV IMAGICK_BUILD_DIR=${BUILD_DIR}/imagick
@@ -35,9 +36,11 @@ RUN make install
 
 # Compile the php imagick extension
 WORKDIR ${IMAGICK_BUILD_DIR}
-RUN pecl download imagick
-RUN tar xzf imagick-3.4.4.tgz
-WORKDIR ${IMAGICK_BUILD_DIR}/imagick-3.4.4
+# Temporary workaround for getting right imagick both for PHP 7.* and 8.*
+# @see https://github.com/brefphp/extra-php-extensions/pull/143/files#r541977286
+RUN git clone https://github.com/Imagick/imagick
+WORKDIR ${IMAGICK_BUILD_DIR}/imagick
+RUN if [[ "${PHP_VERSION}" = "80" ]]; then git checkout 132a11fd26675db9eb9f0e9a3e2887c161875206 ; else git checkout 3.4.4 ; fi
 RUN phpize
 RUN ./configure --with-imagick=${INSTALL_DIR}
 RUN make -j $(nproc)
