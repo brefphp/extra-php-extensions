@@ -1,5 +1,17 @@
 # Change log
 
+## 0.9.0
+
+### Added
+
+- Support for Imagick on PHP 8.
+
+### Changed
+
+- Separated Memcache and Memcached layers. Memcache users should use the new
+`${bref:extra.memcache-php-74}` layer. Memcached users dont need to include the
+`memcached.so` file anymore, it is done automatically.
+
 ## 0.8.1
 
 No changes to the layers compared to 0.8.0. This version and future versions will
