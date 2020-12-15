@@ -58,7 +58,7 @@ memory_limit=128M
 | Imagick            | `${bref:extra.imagick-php-74}`        |
 | LDAP               | `${bref:extra.ldap-php-74}`           |
 | Mailparse          | `${bref:extra.mailparse-php-74}`      |
-| Memcache           | `${bref:extra.memcached-php-74}`      |
+| Memcache           | `${bref:extra.memcache-php-74}`      |
 | Memcached          | `${bref:extra.memcached-php-74}`      |
 | MongoDB            | `${bref:extra.mongodb-php-74}`        |
 | MsgPack            | `${bref:extra.msgpack-php-74}`        |
@@ -71,8 +71,6 @@ memory_limit=128M
 | UUID               | `${bref:extra.uuid-php-74}`           |
 | Xdebug             | `${bref:extra.xdebug-php-74}`         |
 | Yaml               | `${bref:extra.yaml-php-74}`           |
-
-Note that the "Memcached" layer provides both extension for [Memcache](https://pecl.php.net/package/memcache) and [Memcached](https://pecl.php.net/package/memcached).
 
 ### Blackfire installation
 
