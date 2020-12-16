@@ -56,6 +56,7 @@ jobs:
         if: ${{ steps.get_version.outputs.VERSION != '' }}
         with:
           token: ${{ secrets.BOT_GITHUB_TOKEN }}
+          base: master
           branch: tag-update
           author: Bref Bot <github-bot@bref.sh>
           committer: Bref Bot <github-bot@bref.sh>

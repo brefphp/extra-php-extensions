@@ -34,7 +34,7 @@ $latestTag = $config['latest_versions']['v'.$match[1]] ?? null;
 if ($latestTag === null || -1 === version_compare($latestTag, $version)) {
     echo $match[1].PHP_EOL;
     if ($update) {
-        $config['latest_versions']['v' . $match[1]] = $version;
+        $config['latest_versions']['v'.$match[1]] = $version;
         file_put_contents($configFile, json_encode($config, JSON_PRETTY_PRINT));
     }
 }
