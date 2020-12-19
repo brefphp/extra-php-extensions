@@ -1,8 +1,8 @@
 {
     "amqp-php-73": "197fa41141a17d20297ece6512d9b93f",
     "amqp-php-74": "3be7b0df2cbb08cb0b402e90bbaee2d7",
-    "blackfire-php-73": "442afeb361648bbe47512a46854d6838",
-    "blackfire-php-74": "7bc4dfcbc3315ae7c80bd15b48db25b6",
+    "blackfire-php-73": "27525ba5efbd6095d5b776b58960f50c",
+    "blackfire-php-74": "af185252b090c0571d2ecaa5c7c8fa0f",
     "cassandra-php-73": "f6b0fc1f6cc0919342183499d2f19f4a",
     "cassandra-php-74": "bd40f1dabe985afb1990e10f6de60427",
     "ds-php-73": "1c50564f30d267d457ee3649620e76ff",
