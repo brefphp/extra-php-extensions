@@ -18,7 +18,7 @@ RUN \
 
 # Copy the newrelic.so and php.ini file to the tmp folder
 
-RUN cp `php-config --extension-dir`/newrelic.so /tmp/newrelic.so
+RUN cp `php -i | grep extension_dir | sed 's/^.*=> \(.*\)$/\1/' | head -1`/newrelic.so /tmp/newrelic.so
 RUN echo 'extension=/opt/bref-extra/newrelic.so' > /tmp/newrelic.ini
 
 # Build the final image from the scratch image that contain files you want to export
@@ -26,5 +26,5 @@ FROM scratch
 
 # Copy the two key files to the correct location for the empty layer.
 # newrelic.so should become a layered extension. php.ini should overwrite base layer
-COPY --from=ext /tmp/newrelic.so /opt/bref/lib/php/extensions/no-debug-zts-20190902/newrelic.so
+COPY --from=ext /tmp/newrelic.so /opt/bref-extra/newrelic.so
 COPY --from=ext /tmp/newrelic.ini /opt/bref/etc/php/conf.d/ext-newrelic.ini
