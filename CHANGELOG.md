@@ -1,7 +1,7 @@
 # Change log
 
 ## 0.9.4
-Added New Relic for Agent version 9.14 - Add New Relic Layer and Readme
+Added New Relic for Agent version 9.15 - Add New Relic Layer and Readme
 
 ## 0.9.3
 
