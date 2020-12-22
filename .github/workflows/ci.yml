@@ -24,6 +24,7 @@ jobs:
           - grpc
           - igbinary
           - imagick
+          - imap
           - ldap
           - mailparse
           - memcache
