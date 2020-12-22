@@ -215,4 +215,14 @@ make layer=gd php_versions=74
 layer=blackfire php_versions=80 make
 ```
 
+## Lambda layers in details
 
+> **Notice:** this section is only useful if you want to learn more.
+
+The lambda layers follow this pattern:
+
+```
+arn:aws:lambda:<region>:403367587399:layer:<layer-name>:<layer-version>
+```
+
+See the [latest layer versions](https://raw.githubusercontent.com/brefphp/extra-php-extensions/master/layers.json).
