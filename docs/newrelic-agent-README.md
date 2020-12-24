@@ -50,16 +50,20 @@ Below are some suggested configuration settings to use.
     NEW_RELIC_LOG_FILE: "/proc/self/fd/2"
     NEW_RELIC_LOG_LEVEL: "info"
     NEW_RELIC_DAEMON_APP_CONNECT_TIMEOUT: "5s"
-    NEW_RELIC_DAEMON_START_TIMEOUT: "5s"
+    NEW_RELIC_DAEMON_START_TIMEOUT: "0"
 ```   
 
-1) APP_NAME - Will define what your application will be named when reporting to NR. Failure to set this will result in default "PHP Application" being used as name.
-2) LOG_FILE - We would recommend pointing the logfile to `/proc/self/fd/2` which is STDERR and you will therefore get logging to Cloudwatch in the event of an issue. 
-3) LOG_LEVEL - defaults to INFO but if you only want issues and not conversational logging you can raise the level to `warning` or `error`. 
-4) DAEMON_ADDRESS - Should be the IP of the location of your remotely started daemon (see below for guidance.) along with port it's listening on.
+1) APP_NAME - Will define what your application will be named when reporting to NR. Not Required. Default value : "PHP Application"
+2) LICENSE_KEY - **REQUIRED** - This defines where to send the data. This should be the license key of your account. 
+3) LOG_FILE - We would recommend pointing the logfile to `/proc/self/fd/2` which is STDERR and you will therefore get logging to Cloudwatch in the event of an issue. Not required but without setting to STDERR it will not write anywhere as Lambda is Readonly.
+4) LOG_LEVEL - defaults to INFO but if you only want issues and not conversational logging you can raise the level to `warning` or `error`. 
+5) DAEMON_ADDRESS - **REQUIRED** Should be the IP of the location of your remotely started daemon (see below for guidance.) along with port it's listening on. 
+6) DAEMON_APP_CONNECT_TIMEOUT - Sets the maximum time the agent should wait for the daemon connecting an application. The default is 10 minute. For billing purposes we would recommend over-riding to a smaller timeout to ensure you're not billed for a Lambda waiting for a daemon that maybe is down or not functioning as expected.
+7) DAEMON_START_TIMEOUT - Sets the maximum time the agent should wait for the daemon to start after a daemon launch was triggered. A value of 0 causes the agent to not wait. If you're using a remote daemon as advised. This should be 0. 
 
 
-If you use a Key Management tool or want to define the values as environment variables in Lambda (through UI or a serverless.yml) You can use ENV VARS in your configuration file which could be achieved as an example below.
+### Can I Use Environment Variables?
+If you use a Key Management Service (KMS) or want to define the values as environment variables in Lambda (through UI or a serverless.yml) You can use ENV VARS in your configuration file which could be achieved as an example below.
 
 ```yaml
 newrelic.appname = ${NEW_RELIC_APP_NAME}
@@ -70,6 +74,8 @@ newrelic.loglevel = ${NEW_RELIC_LOG_LEVEL}
 newrelic.daemon.app_connect_timeout = ${NEW_RELIC_DAEMON_APP_CONNECT_TIMEOUT}
 newrelic.daemon.start_timeout = ${NEW_RELIC_DAEMON_START_TIMEOUT}
 ```
+
+After changing your configuration to reference the ENVIRONMENT VARIABLES you can then set their values in Lambda and replace them using your KMS. Giving additional security to your deployed code rather than having license key. If using a KMS it will make it easy to globally change across numerous Lambda's the location of a daemon, the log level or the license key if you need to change where the data reports.
 
 ## A Standalone Daemon
 In this example, the New Relic Daemon will be running on ECS or an EC2 instance listening on port 31339. If you follow the New Relic documentation and just install the daemon to a host, you can have it listen for incoming connectivity.
