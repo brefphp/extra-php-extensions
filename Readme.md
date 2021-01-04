@@ -56,6 +56,7 @@ memory_limit=128M
 | gRPC               | `${bref:extra.grpc-php-74}`           |
 | Igbinary           | `${bref:extra.igbinary-php-74}`       |
 | Imagick            | `${bref:extra.imagick-php-74}`        |
+| IMAP               | `${bref:extra.imap-php-74}            |
 | LDAP               | `${bref:extra.ldap-php-74}`           |
 | Mailparse          | `${bref:extra.mailparse-php-74}`      |
 | Memcache           | `${bref:extra.memcache-php-74}`      |
