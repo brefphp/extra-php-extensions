@@ -59,10 +59,11 @@ memory_limit=128M
 | IMAP               | `${bref:extra.imap-php-74}            |
 | LDAP               | `${bref:extra.ldap-php-74}`           |
 | Mailparse          | `${bref:extra.mailparse-php-74}`      |
-| Memcache           | `${bref:extra.memcache-php-74}`      |
+| Memcache           | `${bref:extra.memcache-php-74}`       |
 | Memcached          | `${bref:extra.memcached-php-74}`      |
 | MongoDB            | `${bref:extra.mongodb-php-74}`        |
 | MsgPack            | `${bref:extra.msgpack-php-74}`        |
+| Newrelic           | `${bref:extra.newrelic-php-74}`       |
 | ODBC Snowflake     | `${bref:extra.odbc-snowflake-php-74}` |
 | Pcov               | `${bref:extra.pcov-php-74}`           |
 | PostgreSQL         | `${bref:extra.pgsql-php-74}`          |
