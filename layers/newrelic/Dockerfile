@@ -2,15 +2,13 @@ ARG PHP_VERSION
 FROM bref/build-php-$PHP_VERSION AS ext
 
 # Build the New Relic Agent install silently for PHP Agent 9.14
-# Then append php.ini with key information including a license key and 
-# location of the daemon coming from an ENV VAR for Lambda
 
 RUN \
   curl -L http://download.newrelic.com/php_agent/archive/9.15.0.293/newrelic-php5-9.15.0.293-linux.tar.gz | tar -C /tmp -zx && \
   export NR_INSTALL_USE_CP_NOT_LN=1 && \
   export NR_INSTALL_SILENT=1 && \
   /tmp/newrelic-php5-*/newrelic-install install && \
-  rm -rf /tmp/newrelic-php5-* /tmp/nrinstall* 
+  rm -rf /tmp/newrelic-php5-* /tmp/nrinstall*
 
 # newrelic.so will be installed to `php-config --extension-dir`/newrelic.so
 # In this core image newrelic.ini will be placed but not exist in the scatch layer
@@ -25,6 +23,6 @@ RUN echo 'extension=/opt/bref-extra/newrelic.so' > /tmp/newrelic.ini
 FROM scratch
 
 # Copy the two key files to the correct location for the empty layer.
-# newrelic.so should become a layered extension. php.ini should overwrite base layer
+# newrelic.so should become a layered extension.
 COPY --from=ext /tmp/newrelic.so /opt/bref-extra/newrelic.so
 COPY --from=ext /tmp/newrelic.ini /opt/bref/etc/php/conf.d/ext-newrelic.ini
