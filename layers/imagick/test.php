@@ -13,14 +13,17 @@ foreach (['PNG', 'JPG', 'GIF', 'WEBP', 'HEIC'] as $format) {
 }
 
 try {
-    $draw = new ImagickDraw();
+    $draw = new \ImagickDraw();
     $draw->setFont(__DIR__.'/Arial.ttf');
     $draw->setFontSize(13);
 
-    $canvas = new Imagick();
-    $metrics = $canvas->queryFontMetrics($draw, 'hello');
-} catch(ImagickException $e) {
+    $canvas = new \Imagick();
+    $canvas->queryFontMetrics($draw, 'hello');
+} catch(\ImagickException $e) {
     echo sprintf('FAIL: Imagick cannot draw text "%s".', $e->getMessage()).PHP_EOL;
+    exit(1);
+} catch (\Throwable $e) {
+    echo sprintf('FAIL: Imagick failed with "%s" exception: %s', get_class($e), $e->getMessage()).PHP_EOL;
     exit(1);
 }
 
