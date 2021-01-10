@@ -53,3 +53,6 @@ jobs:
 
       - name: Test images
         run: layer=${{ matrix.layer }} make test
+
+      - name: Test images (Again)
+        run: layer=${{ matrix.layer }} make test
