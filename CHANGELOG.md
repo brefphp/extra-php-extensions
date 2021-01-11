@@ -2,7 +2,8 @@
 
 ## 0.9.4
 
-Added New Relic for Agent version 9.15 - Add New Relic Layer and Readme
+- Added NewRelic extension
+- Added Imap extension
 
 ## 0.9.3
 
