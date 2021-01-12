@@ -1,6 +1,8 @@
 # Bref Extra PHP Extension
 
-This repository has some AWS Lambda layers with PHP extensions. This is useful when you want something "off the shelf".
+This repository provides PHP extensions for [Bref](https://bref.sh/) applications via AWS Lambda layers.
+
+This is useful when you want something "off the shelf".
 If you ever need more than 2-3 layer you should consider creating your own layer. That is because AWS has
 a limit of 5 layers per Lambda. You can also utilise the provided docker images for local development.
 
@@ -117,6 +119,10 @@ The SQL Server layer includes both the SQLSRV extension and the PDO_SQLSRV exten
 If you are unsure of which extension to use, this [stackoverflow post](https://stackoverflow.com/questions/11614536/sqlsrv-driver-vs-pdo-driver-for-php-with-ms-sql-server) may be helpful.
 You need to set the environment variable `ODBCSYSINI: /opt/microsoft/conf/`
 in your `serverless.yaml` in order to tell unixODBC to load the required ini files.
+
+### New Relic
+
+Read [the New Relic tutorial](docs/newrelic.md).
 
 ## Docker images
 
