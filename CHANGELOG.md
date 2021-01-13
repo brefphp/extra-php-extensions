@@ -1,5 +1,11 @@
 # Change log
 
+## 0.9.5
+
+### Added
+
+- Updated Blackfire to version 1.49.0.
+
 ## 0.9.4
 
 - Added NewRelic extension
