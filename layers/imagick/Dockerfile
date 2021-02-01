@@ -79,6 +79,12 @@ COPY --from=ext /usr/lib64/libcups.so.2 /opt/bref/lib/libcups.so.2
 COPY --from=ext /usr/lib64/libfontconfig.so.1.11.1 /opt/bref/lib/libfontconfig.so.1
 COPY --from=ext /usr/lib64/libxcb.so.1.1.0 /opt/bref/lib/libxcb.so.1
 COPY --from=ext /usr/lib64/libXau.so.6.0.0 /opt/bref/lib/libXau.so.6
+COPY --from=ext /usr/lib64/libavahi-common.so.3 /opt/bref/lib/libavahi-common.so.3
+COPY --from=ext /usr/lib64/libavahi-client.so.3 /opt/bref/lib/libavahi-client.so.3
+COPY --from=ext /usr/lib64/libdbus-1.so.3 /opt/bref/lib/libdbus-1.so.3
+COPY --from=ext /usr/lib64/libsystemd.so.0 /opt/bref/lib/libsystemd.so.0
+COPY --from=ext /usr/lib64/liblz4.so.1 /opt/bref/lib/liblz4.so.1
+COPY --from=ext /usr/lib64/libdw.so.1 /opt/bref/lib/libdw.so.1
 COPY --from=ext /opt/bref/lib/libde265.so.0.0.12 /opt/bref/lib/libde265.so.0
 COPY --from=ext /opt/bref/lib/libheif.so.1.6.2 /opt/bref/lib/libheif.so.1
 
