@@ -83,6 +83,7 @@ publish-docker-images: docker-images
 			echo "Image name: $$publicImage"; \
 			echo ""; \
 			echo "docker push $$publicImage:latest"; \
+			docker tag $$privateImage:latest $$publicImage:latest; \
 			docker push $$publicImage:latest; \
 			if (test $(DOCKER_TAG)); then \
 			  echo "Pushing tagged images"; \

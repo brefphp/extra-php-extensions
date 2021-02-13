@@ -29,6 +29,8 @@ jobs:
     name: Build & publish layer
     runs-on: ubuntu-latest
     if: ${{ github.actor != 'bref-bot' }}
+    env:
+      DOCKER_BUILDKIT: '1'
     strategy:
       fail-fast: false
       matrix:
