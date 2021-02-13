@@ -10,7 +10,6 @@ tests/                       export-ignore
 .phpcs.xml.dist              export-ignore
 .prettyci.composer.json      export-ignore
 bref-extra                   export-ignore
-checksums.json               export-ignore
 config.json                  export-ignore
 Makefile                     export-ignore
 new-docker-tags.php          export-ignore

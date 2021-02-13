@@ -29,10 +29,6 @@ class PublishCommand
 
     public function __invoke(OutputInterface $output): int
     {
-        $checksums = json_decode(file_get_contents($this->projectDir . '/checksums.json'), true);
-        $discoveredChecksums = [];
-
-        $sameChecksumCount = 0;
         $layers = [];
         $finder = new Finder;
         $finder->in($this->projectDir . '/export')->name('layer-*');
@@ -40,14 +36,7 @@ class PublishCommand
             /** @var \SplFileInfo $file */
             $layerFile = $file->getRealPath();
             $layerName = substr($file->getFilenameWithoutExtension(), 6);
-            $md5 = md5_file($layerFile);
-            if ($md5 !== ($checksums[$layerName] ?? '')) {
-                // This layer is new.
-                $discoveredChecksums[$layerName] = $md5;
-                $layers[$layerName] = $layerFile;
-            } else {
-                $sameChecksumCount++;
-            }
+            $layers[$layerName] = $layerFile;
         }
 
         ksort($layers);
@@ -69,15 +58,9 @@ class PublishCommand
             exit(1);
         }
 
-        $checksums = array_merge($checksums, $discoveredChecksums);
-        ksort($checksums);
-        // Dump checksums
-        file_put_contents($this->projectDir . '/checksums.json', json_encode($checksums, \JSON_PRETTY_PRINT));
-
         $output->writeln('');
         $output->writeln('');
         $output->writeln('Done');
-        $output->writeln('Remember to commit and push changes to ./checksums.json');
 
         return 0;
     }

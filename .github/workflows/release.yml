@@ -87,8 +87,8 @@ jobs:
           git config --local user.email "github-bot@bref.sh"
           git config --local user.name "Bref Bot"
 
-          git add checksums.json layers.json
-          git commit -m "Updated checksums.json and layers.json"
+          git add layers.json
+          git commit -m "Updated layers.json"
 
       - name: Push changes
         uses: ad-m/github-push-action@master
