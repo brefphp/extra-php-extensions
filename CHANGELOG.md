@@ -5,6 +5,11 @@
 ### Added
 
 - Updated Blackfire to version 1.49.1.
+- Added msgpack for PHP8
+
+### Fixed
+
+- Bug in imagick when writing texts
 
 ## 0.9.5
 

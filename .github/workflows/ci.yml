@@ -6,41 +6,32 @@ on:
       - layers/**
 
 jobs:
+  matrix:
+    name: Find layers
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - id: find-layers
+        run: echo "::set-output name=list::$(ls layers | jq -R -s -c 'split("\n")[:-1]')"
+
+    outputs:
+      # Make the outputs accessible outside this job
+      list: ${{ steps.find-layers.outputs.list }}
+
   build:
-    name: Layers
+    needs: matrix
+    name: Build and test layer
     runs-on: ubuntu-latest
     env:
       DOCKER_BUILDKIT: '1'
     strategy:
       fail-fast: false
       matrix:
-        layer:
-          - amqp
-          - blackfire
-          - cassandra
-          - ds
-          - gd
-          - gmp
-          - grpc
-          - igbinary
-          - imagick
-          - imap
-          - ldap
-          - mailparse
-          - memcache
-          - memcached
-          - mongodb
-          - msgpack
-          - newrelic
-          - odbc-snowflake
-          - pcov
-          - pgsql
-          - redis
-          - scrypt
-          - sqlsrv
-          - uuid
-          - xdebug
-          - yaml
+        layer: ${{ fromJson(needs.matrix.outputs.list) }}
 
     steps:
       - name: Checkout code

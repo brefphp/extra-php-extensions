@@ -173,9 +173,7 @@ Contributions to add new extensions are welcomed. When you built new extension, 
 In order to contribute, you should do a little more work.
 
 * Make sure that it works with each PHP versions in the way described above
-* Update the document and CI settings as follows
-
-Update the table in the `Readme.md` in alphabetical order.
+* Update the table in the `Readme.md` in alphabetical order.
 
 ```diff
  ### Available layers
@@ -191,18 +189,6 @@ Update the table in the `Readme.md` in alphabetical order.
  | Xdebug | `${bref:extra.xdebug-php-74}` | `zend_extension=/opt/bref-extra/xdebug.so` |
 
  Note that the "Memcached" layer provides both extension for [Memcache](https://pecl.php.net/package/memcache) and [Memcached](https://pecl.php.net/package/memcached).
-```
-
-Update `.travis.yml` as follows.
-
-```diff
- env:
-   - LAYER=amqp PHP="72 73 74"
-   - LAYER=blackfire PHP="72 73 74"
-   - LAYER=gmp PHP="72 73 74"
-   - LAYER=memcached PHP="72 73 74"
-+  - LAYER=pgsql PHP="72 73 74"
-   - LAYER=xdebug PHP="72 73 74"
 ```
 
 Once you have done above please submit the PR.
