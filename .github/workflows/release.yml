@@ -64,7 +64,7 @@ jobs:
 
   build:
     needs: matrix
-    name: Build & publish layers
+    name: Build & publish layer
     runs-on: ubuntu-latest
     if: ${{ github.actor != 'bref-bot' }}
     strategy:
@@ -95,14 +95,23 @@ jobs:
 #          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
 #          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_ACCESS_SECRET }}
         #run: php ./bref-extra publish
-        run: echo "Pretent to publish"
+        run: echo "Pretend to publish"
 
-#
-#      - name: Publish layers
-#        env:
-#          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
-#          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_ACCESS_SECRET }}
-#        run: php ./bref-extra publish
+  list:
+    needs: build
+    name: List layer
+    runs-on: ubuntu-latest
+    if: ${{ github.actor != 'bref-bot' }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Download dependencies
+        run: composer update --no-interaction --prefer-dist --optimize-autoloader --prefer-stable
+
 #
 #      - name: List layers
 #        env:

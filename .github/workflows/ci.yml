@@ -23,7 +23,8 @@ jobs:
       list: ${{ steps.find-layers.outputs.list }}
 
   build:
-    name: Layers
+    needs: matrix
+    name: Build and test layer
     runs-on: ubuntu-latest
     env:
       DOCKER_BUILDKIT: '1'
