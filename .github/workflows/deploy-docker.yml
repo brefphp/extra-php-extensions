@@ -18,11 +18,7 @@ jobs:
         with:
           fetch-depth: 100
 
-        # Only find layers that have changed since last tag
-      - id: find-layers
-        run: echo "::set-output name=list::$(git diff --name-only HEAD $(git describe --tags --abbrev=0) | grep layers/ | cut -d / -f 2  | sort | uniq | jq -R -s -c 'split("\n")[:-1]')"
-
-      - name: Get the version1
+      - name: Get the version
         id: get-version
         run: |
           REF=${GITHUB_REF#refs/tags/}
@@ -30,6 +26,15 @@ jobs:
             REF=""
           fi
           echo ::set-output name=VERSION::$REF
+
+        # Only find layers that have changed since last tag OR if tag then get all
+      - id: find-layers
+        run: |
+          if [ "${{ steps.get-version.outputs.VERSION }} = "" ]; then
+            echo "::set-output name=list::$(git diff --name-only HEAD $(git describe --tags --abbrev=0) | grep layers/ | cut -d / -f 2  | sort | uniq | jq -R -s -c 'split("\n")[:-1]')"
+          else
+            echo "::set-output name=list::$(ls layers | jq -R -s -c 'split("\n")[:-1]')"
+          fi
 
     outputs:
       # Make the outputs accessible outside this job
@@ -50,6 +55,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 2
 
       - name: Set up PHP
         uses: shivammathur/setup-php@2.1.2
@@ -73,7 +80,6 @@ jobs:
         env:
           DOCKER_TAG: ${{ needs.matrix.outputs.version }}
         run: layer=${{ matrix.layer }} make publish-docker-images
-
 
   update:
     needs: publish
