@@ -1,5 +1,11 @@
 # Change log
 
+## 0.10.0
+
+### Changed
+
+- Using bref/build-php-XX:1.1.4 as base image
+
 ## 0.9.7
 
 ### Added
