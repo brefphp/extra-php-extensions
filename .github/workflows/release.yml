@@ -49,6 +49,9 @@ jobs:
       - name: Download dependencies
         run: composer update --no-interaction --prefer-dist --optimize-autoloader --prefer-stable
 
+      - name: Clean export directory
+        run: make clean
+
       - name: Build layers
         run: layer=${{ matrix.layer }} make layers
 
