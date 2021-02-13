@@ -1,5 +1,5 @@
 ARG PHP_VERSION
-FROM bref/build-php-$PHP_VERSION:1.0.2 AS ext
+FROM bref/build-php-$PHP_VERSION:1.1.4 AS ext
 
 RUN pecl install igbinary
 RUN cp `php-config --extension-dir`/igbinary.so /tmp/igbinary.so

@@ -1,14 +1,13 @@
 ARG PHP_VERSION
-FROM bref/build-php-$PHP_VERSION:1.0.0 AS ext
+FROM bref/build-php-$PHP_VERSION:1.1.4 AS ext
 
-ENV LD_LIBRARY_PATH=/usr/lib:/usr/lib64:$LD_LIBRARY_PATH
-
-RUN amazon-linux-extras install epel -y
-RUN yum -y install uw-imap-devel krb5-devel openssl-devel
+RUN LD_LIBRARY_PATH=/lib:/lib64 yum -y install amazon-linux-extras
+RUN LD_LIBRARY_PATH=/lib:/lib64 amazon-linux-extras install epel -y
+RUN LD_LIBRARY_PATH=/lib:/lib64 yum -y install uw-imap-devel krb5-devel openssl-devel libc-client-devel
 
 WORKDIR ${PHP_BUILD_DIR}/ext/imap
 RUN phpize
-RUN ./configure --with-imap --with-kerberos --with-imap-ssl --with-libdir=lib64
+RUN ./configure --with-imap --with-kerberos --with-imap-ssl --with-libdir=lib64 --disable-static
 RUN make -j `nproc` && make install
 
 RUN cp `php-config --extension-dir`/imap.so /tmp/imap.so
