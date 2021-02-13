@@ -3,7 +3,7 @@
 require __DIR__.'/vendor/autoload.php';
 
 $app = new Bref\Extra\Application();
-$app->command('publish', \Bref\Extra\Command\PublishCommand::class)->descriptions('Publish new layers. Create checksums.json');
+$app->command('publish', \Bref\Extra\Command\PublishCommand::class)->descriptions('Publish new layers.');
 $app->command('list', \Bref\Extra\Command\ListCommand::class)->descriptions('Create layer.json');
 $app->command('help', \Bref\Extra\Command\HelpCommand::class)->descriptions('Prints some help texts.');
 

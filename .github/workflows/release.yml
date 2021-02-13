@@ -14,11 +14,12 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
 
+        # Only find layers that have changed since last tag
       - id: find-layers
-        run: echo "::set-output name=list::$(ls layers | jq -R -s -c 'split("\n")[:-1]')"
+        run: |
+          git fetch --prune --unshallow
+          echo "::set-output name=list::$(git diff --name-only HEAD $(git describe --tags --abbrev=0) | grep layers/ | cut -d / -f 2  | sort | uniq | jq -R -s -c 'split("\n")[:-1]')"
 
     outputs:
       # Make the outputs accessible outside this job
@@ -89,8 +90,8 @@ jobs:
           git config --local user.email "github-bot@bref.sh"
           git config --local user.name "Bref Bot"
 
-          git add checksums.json layers.json
-          git commit -m "Updated checksums.json and layers.json"
+          git add layers.json
+          git commit -m "Updated layers.json"
 
       - name: Push changes
         uses: ad-m/github-push-action@master

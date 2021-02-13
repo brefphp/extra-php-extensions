@@ -192,8 +192,7 @@ layer=imagick php_versions=74 make test
 #### Use Github actions
 
 Prepare the changelog with some release notes. Then push your changes to `prepare-release` branch.
-The Github Action will build an publish layers and then commit the `checksums.json`
-and `layers.json` to your PR.
+The Github Action will build an publish layers and then commit the `layers.json` to your PR.
 
 Now you will just merge and create a tag.
 
@@ -202,7 +201,7 @@ Now you will just merge and create a tag.
 ```
 export AWS_PROFILE=my_profile
 make publish
-git add checksums.json layers.json
+git add layers.json
 git commit -m "New version of layers"
 git push
 ```
