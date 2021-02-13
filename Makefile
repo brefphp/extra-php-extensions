@@ -81,6 +81,9 @@ publish-docker-images: docker-images
 			privateImage="bref/$${dir}-php-$${php_version}"; \
 			publicImage=$${privateImage/layers\//extra-}; \
 			echo "Image name: $$publicImage"; \
+			echo ""; \
+			echo "docker push $$publicImage:latest"; \
+			docker push $$publicImage:latest; \
 			if (test $(DOCKER_TAG)); then \
 			  echo "Pushing tagged images"; \
 			  for tag in $(call resolve_tags); do \
