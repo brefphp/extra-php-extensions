@@ -36,15 +36,6 @@ functions:
             - ${bref:layer.console}
 ```
 
-### Extra configuration files
-
-You may add extra configuration files for PHP in the ``php/conf.d/`` directory.
-
-```ini
-;php/conf.d/php.ini
-memory_limit=128M
-```
-
 ### Available layers
 
 | Name               | Serverless config (php 7.4)           |
