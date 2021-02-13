@@ -88,7 +88,7 @@ jobs:
         run: composer update --no-interaction --prefer-dist --optimize-autoloader --prefer-stable
 
       - name: Build layers
-        run: make layers layer={{ matrix.layer }}
+        run: layer=${{ matrix.layer }} make layers
 
       - name: Publish layers
 #        env:
