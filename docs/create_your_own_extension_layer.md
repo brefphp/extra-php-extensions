@@ -28,8 +28,8 @@ FROM scratch
 ```
 
 The environment variable `PHP_VERSION` is passed from the Makefile as an argument
-to docker build. It may have values like: `72`, `73`, `74`. A docker image is created
-for each PHP_VERSION. If the build procedure of your extension differs for each version,
+to docker build. It may have values like: `73`, `74`, `80`. A docker image is created
+for each `PHP_VERSION`. If the build procedure of your extension differs for each version,
 you may use this variable to switch processing in Dockerfile.
 
 There are some other env variables available,`PHP_BUILD_DIR` is `/tmp/build/php`, `INSTALL_DIR` is `/opt/bref`.
@@ -59,15 +59,17 @@ The Dockerfiles for [these](../layers) extensions could be very helpful.
 
 ### Copy files
 
-
-The extension layer consists of a zip archive of files that overlay the PHP layer,
-so copy the files and create the layer file structure here. Extension and all related
-files that need to be installed should be placed `/opt` directory in the final image.
-Because only `/opt` directory is allowed to put things in Lambda custom runtime
-environment.
+The final extension layer is just a zip archive of files that overlay the PHP layer.
+The extension and all related files that need to be installed should be placed `/opt`
+directory in the final image.
 
 ```Dockerfile
+RUN echo 'extension=/opt/bref-extra/pgsql.so' > /tmp/ext.ini
+
+FROM scratch
+
 COPY --from=ext /tmp/pgsql.so /opt/bref-extra/pgsql.so
+COPY --from=ext /tmp/ext.ini /opt/bref/etc/php/conf.d/ext-pgsql.ini
 ```
 
 ### Making a layer
@@ -97,7 +99,15 @@ Register the zip file generated above to AWS as Lambda Layer. It also able to ad
 $ aws lambda publish-layer-version --layer-name pgsql-php-73 --zip-file fileb://./export/layer-pgsql-php-73.zip
 ```
 
-# How to test layers
+# Test layers
+
+## Automated tests
+
+Create a file called `test.php` in your later directory (`layers/pgsql/test.php`).
+That PHP script should check if your extension is properly loaded. If something is
+wrote, the script must exit with code 1.
+
+## How to test layers in a real application
 
 Create a Bref App for testing. The usage of `bref` and `serverless`, please refer [here](https://bref.sh/docs/installation.html).
 
