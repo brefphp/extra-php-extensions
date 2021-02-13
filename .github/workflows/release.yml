@@ -6,10 +6,71 @@ on:
       - prepare-release
 
 jobs:
-  build:
-    name: Create layers
+  matrix:
+    name: Find layers
     runs-on: ubuntu-latest
     if: ${{ github.actor != 'bref-bot' }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - id: find-layers
+        run: |
+          echo "::set-output name=list::$(ls layers)"
+#          echo "::set-output name=list1::$(bundle exec rake ci:matrix)"
+#          echo "::set-output name=list2::$(bundle exec rake ci:matrix)"
+
+    outputs:
+      # Make the outputs accessible outside this job
+      list: ${{ steps.find-layers.outputs.list }}
+#      list1: ${{ steps.find-layers.outputs.list1 }}
+#      list2: ${{ steps.find-layers.outputs.list2 }}
+#
+#  build0:
+#    needs: matrix
+#    name: Build layers 0
+#    runs-on: ubuntu-latest
+#    if: ${{ github.actor != 'bref-bot' }}
+#    strategy:
+#      fail-fast: false
+#      matrix: ${{ needs.matrix.outputs.list0 }}
+#
+#    steps:
+#      - name: Set up PHP
+#        uses: shivammathur/setup-php@2.1.2
+#        with:
+#          php-version: 7.4
+#          coverage: none
+#
+#      - name: Checkout code
+#        uses: actions/checkout@v2
+#        with:
+#          fetch-depth: 0
+#
+#      - name: Download dependencies
+#        run: composer update --no-interaction --prefer-dist --optimize-autoloader --prefer-stable
+#
+#      - name: Build layers
+#        run: make layers layer={{ matrix.layer }}
+#
+#      - name: Publish layers
+#        env:
+##          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
+##          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_ACCESS_SECRET }}
+#        run: php ./bref-extra publish
+
+  build:
+    needs: matrix
+    name: Build & publish layers
+    runs-on: ubuntu-latest
+    if: ${{ github.actor != 'bref-bot' }}
+    strategy:
+      fail-fast: false
+      matrix:
+        layer: ${{ needs.matrix.outputs.list }}
 
     steps:
       - name: Set up PHP
@@ -23,40 +84,43 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: satackey/action-docker-layer-caching@v0.0.8
-        continue-on-error: true
-
       - name: Download dependencies
-        run: |
-          composer update --no-interaction --prefer-dist --optimize-autoloader --prefer-stable
+        run: composer update --no-interaction --prefer-dist --optimize-autoloader --prefer-stable
 
       - name: Build layers
-        run: |
-          make clean
-          make layers
+        run: make layers layer={{ matrix.layer }}
 
       - name: Publish layers
         env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_ACCESS_SECRET }}
-        run: php ./bref-extra publish
+#          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
+#          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_ACCESS_SECRET }}
+        #run: php ./bref-extra publish
+        run: echo "Pretent to publish"
 
-      - name: List layers
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_ACCESS_SECRET }}
-        run: php ./bref-extra list
+#
+#      - name: Publish layers
+#        env:
+#          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
+#          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_ACCESS_SECRET }}
+#        run: php ./bref-extra publish
+#
+#      - name: List layers
+#        env:
+#          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
+#          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_ACCESS_SECRET }}
+#        run: php ./bref-extra list
+#
+#      - name: Commit changes
+#        run: |
+#          git config --local user.email "github-bot@bref.sh"
+#          git config --local user.name "Bref Bot"
+#
+#          git add checksums.json layers.json
+#          git commit -m "Updated checksums.json and layers.json"
+#
+#      - name: Push changes
+#        uses: ad-m/github-push-action@master
+#        with:
+#          github_token: ${{ secrets.BOT_GITHUB_TOKEN }}
+#          branch: prepare-release
 
-      - name: Commit changes
-        run: |
-          git config --local user.email "github-bot@bref.sh"
-          git config --local user.name "Bref Bot"
-
-          git add checksums.json layers.json
-          git commit -m "Updated checksums.json and layers.json"
-
-      - name: Push changes
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.BOT_GITHUB_TOKEN }}
-          branch: prepare-release
