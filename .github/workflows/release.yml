@@ -15,10 +15,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
         with:
-          fetch-depth: 0
+          fetch-depth: 100
 
+        # Only find layers that have changed since last tag
       - id: find-layers
-        run: echo "::set-output name=list::$(ls layers | jq -R -s -c 'split("\n")[:-1]')"
+        run: echo "::set-output name=list::$(git diff --name-only HEAD $(git describe --tags --abbrev=0) | grep layers/ | cut -d / -f 2  | sort | uniq | jq -R -s -c 'split("\n")[:-1]')"
 
     outputs:
       # Make the outputs accessible outside this job
