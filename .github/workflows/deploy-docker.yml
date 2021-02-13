@@ -15,8 +15,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-        with:
-          fetch-depth: 100
 
       - name: Get the version
         id: get-version
@@ -30,7 +28,8 @@ jobs:
         # Only find layers that have changed since last tag OR if tag then get all
       - id: find-layers
         run: |
-          if [ "${{ steps.get-version.outputs.VERSION }} = "" ]; then
+          if [ "${{ steps.get-version.outputs.VERSION }}" = "" ]; then
+            git fetch --prune --unshallow
             echo "::set-output name=list::$(git diff --name-only HEAD $(git describe --tags --abbrev=0) | grep layers/ | cut -d / -f 2  | sort | uniq | jq -R -s -c 'split("\n")[:-1]')"
           else
             echo "::set-output name=list::$(ls layers | jq -R -s -c 'split("\n")[:-1]')"
