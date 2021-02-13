@@ -19,7 +19,7 @@ jobs:
 
       - id: find-layers
         run: |
-          echo "::set-output name=list::$(ls layers)"
+          echo "::set-output name=list::$(ls layers | jq -R -s -c 'split("\n")[:-1]')"
 #          echo "::set-output name=list1::$(bundle exec rake ci:matrix)"
 #          echo "::set-output name=list2::$(bundle exec rake ci:matrix)"
 
@@ -70,7 +70,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        layer: ${{ needs.matrix.outputs.list }}
+        layer: ${{ fromJson(needs.matrix.outputs.list) }}
 
     steps:
       - name: Set up PHP
