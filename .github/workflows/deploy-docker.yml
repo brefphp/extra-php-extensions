@@ -78,7 +78,7 @@ jobs:
         run: layer=${{ matrix.layer }} make publish-docker-images
 
   update:
-    needs: publish
+    needs: [matrix, publish]
     name: Update tags
     runs-on: ubuntu-latest
 
