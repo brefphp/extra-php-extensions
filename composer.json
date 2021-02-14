@@ -18,7 +18,7 @@
         }
     },
     "conflict": {
-        "bref/bref": "<0.100.0"
+        "bref/bref": "<1.1.4"
     },
     "license": "MIT",
     "authors": [
