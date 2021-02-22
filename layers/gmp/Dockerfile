@@ -1,5 +1,5 @@
 ARG PHP_VERSION
-FROM bref/build-php-$PHP_VERSION:1.0.0 AS ext
+FROM bref/build-php-$PHP_VERSION:1.1.4 AS ext
 
 # Fix library path
 ENV LD_LIBRARY_PATH=/usr/lib:/usr/lib64:$LD_LIBRARY_PATH
@@ -20,7 +20,7 @@ RUN cp /opt/bref/lib/php/extensions/no-debug-non-zts-*/gmp.so /tmp/gmp.so
 RUN echo 'extension=/opt/bref-extra/gmp.so' > /tmp/ext.ini
 
 
-# Build the final image from the lambci image that is close to the production environment
+# Build the final image with just the files we need
 FROM scratch
 
 # Copy things we installed to the final image

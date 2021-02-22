@@ -1,5 +1,5 @@
 ARG PHP_VERSION
-FROM bref/build-php-$PHP_VERSION:1.0.0 AS ext
+FROM bref/build-php-$PHP_VERSION:1.1.4 AS ext
 
 ENV LD_LIBRARY_PATH=/usr/lib:/usr/lib64:$LD_LIBRARY_PATH
 RUN yum install -y unixODBC unixODBC-devel
@@ -20,7 +20,7 @@ RUN curl https://sfc-repo.snowflakecomputing.com/odbc/linux/2.21.3/snowflake_lin
 # modify the config files for the new final location in /opt/snowflake_odbc
 RUN sed -i 's#/path/to/your/#/opt/snowflake_odbc/lib/#g' /tmp/snowflake_odbc/conf/*
 
-# Build the final image from the lambci image that is close to the production environment
+# Build the final image with just the files we need
 FROM scratch
 
 COPY --from=ext /usr/lib64/libodb* /opt/bref/lib64/

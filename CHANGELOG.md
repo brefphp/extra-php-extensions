@@ -1,5 +1,88 @@
 # Change log
 
+## 0.10.0
+
+### Changed
+
+- Using bref/build-php-XX:1.1.4 as base image
+
+## 0.9.7
+
+### Added
+
+- Updated Blackfire to version 1.50.0.
+
+## 0.9.6
+
+### Added
+
+- Updated Blackfire to version 1.49.1.
+- Added msgpack for PHP8
+
+### Fixed
+
+- Bug in imagick when writing texts
+
+## 0.9.5
+
+### Added
+
+- Updated Blackfire to version 1.49.0.
+
+## 0.9.4
+
+- Added NewRelic extension
+- Added Imap extension
+
+## 0.9.3
+
+### Added
+
+- Updated Blackfire to version 1.48.1.
+
+## 0.9.2
+
+### Added
+
+- Updated Blackfire to version 1.48.0.
+
+## 0.9.1
+
+### Added
+
+- Updated Blackfire to version 1.47.0.
+
+## 0.9.0
+
+### Added
+
+- Support for Imagick on PHP 8.
+
+### Changed
+
+- Separated Memcache and Memcached layers. Memcache users should use the new
+`${bref:extra.memcache-php-74}` layer. Memcached users dont need to include the
+`memcached.so` file anymore, it is done automatically.
+
+## 0.8.1
+
+No changes to the layers compared to 0.8.0. This version and future versions will
+add more tag on the docker images. It will tag images for major, minor and patch
+versions.
+
+## 0.8.0
+
+This is just a super small BC break. If you are not using Microsoft SQLSRV layer
+then you can upgrade with no worry.
+
+### Changed
+
+- You dont need to add `extension=/opt/bref-extra/sqlsrv.so` or `extension=/opt/bref-extra/pdo_sqlsrv.so` in your php.ini anymore.
+
+### Fixed
+
+- Issue another issue with SQLSRV extension.
+
 ## 0.7.3
 
 ### Fixed

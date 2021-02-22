@@ -1,5 +1,5 @@
 ARG PHP_VERSION
-FROM bref/build-php-$PHP_VERSION:1.0.0 AS ext
+FROM bref/build-php-$PHP_VERSION:1.1.4 AS ext
 
 RUN version=$(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") \
     && curl -A "Docker" -o /tmp/blackfire-probe.tar.gz -D - -L -s https://blackfire.io/api/v1/releases/probe/php/linux/amd64/$version \
@@ -11,7 +11,7 @@ RUN version=$(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") \
 RUN echo 'extension=/opt/bref-extra/blackfire.so' > /tmp/ext.ini
 
 
-# Build the final image from the lambci image that is close to the production environment
+# Build the final image with just the files we need
 FROM scratch
 
 # Copy things we installed to the final image

@@ -25,7 +25,7 @@ class Application extends \Silly\Edition\PhpDi\Application
     {
         $builder = new ContainerBuilder;
         $projectDir = dirname(__DIR__);
-        $localLayers = array_keys(json_decode(file_get_contents($projectDir . '/checksums.json'), true));
+        $localLayers = array_keys(json_decode(file_get_contents($projectDir . '/layers.json'), true));
 
         $builder->addDefinitions([
             'project_dir' => $projectDir,

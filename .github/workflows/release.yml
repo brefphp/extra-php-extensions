@@ -6,10 +6,36 @@ on:
       - prepare-release
 
 jobs:
-  build:
-    name: Create layers
+  matrix:
+    name: Find layers
     runs-on: ubuntu-latest
     if: ${{ github.actor != 'bref-bot' }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+        # Only find layers that have changed since last tag
+      - id: find-layers
+        run: |
+          git fetch --prune --unshallow
+          echo "::set-output name=list::$(git diff --name-only HEAD $(git describe --tags --abbrev=0) | grep layers/ | cut -d / -f 2  | sort | uniq | jq -R -s -c 'split("\n")[:-1]')"
+
+    outputs:
+      # Make the outputs accessible outside this job
+      list: ${{ steps.find-layers.outputs.list }}
+
+  build:
+    needs: matrix
+    name: Build & publish layer
+    runs-on: ubuntu-latest
+    if: ${{ github.actor != 'bref-bot' }}
+    env:
+      DOCKER_BUILDKIT: '1'
+    strategy:
+      fail-fast: false
+      matrix:
+        layer: ${{ fromJson(needs.matrix.outputs.list) }}
 
     steps:
       - name: Set up PHP
@@ -23,23 +49,35 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: satackey/action-docker-layer-caching@v0.0.8
-        continue-on-error: true
-
       - name: Download dependencies
-        run: |
-          composer update --no-interaction --prefer-dist --optimize-autoloader --prefer-stable
+        run: composer update --no-interaction --prefer-dist --optimize-autoloader --prefer-stable
+
+      - name: Clean export directory
+        run: make clean
 
       - name: Build layers
-        run: |
-          make clean
-          make layers
+        run: layer=${{ matrix.layer }} make layers
 
       - name: Publish layers
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_ACCESS_SECRET }}
         run: php ./bref-extra publish
+
+  list:
+    needs: build
+    name: List layer
+    runs-on: ubuntu-latest
+    if: ${{ github.actor != 'bref-bot' }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Download dependencies
+        run: composer update --no-interaction --prefer-dist --optimize-autoloader --prefer-stable
 
       - name: List layers
         env:
@@ -52,11 +90,12 @@ jobs:
           git config --local user.email "github-bot@bref.sh"
           git config --local user.name "Bref Bot"
 
-          git add checksums.json layers.json
-          git commit -m "Updated checksums.json and layers.json"
+          git add layers.json
+          git commit -m "Updated layers.json"
 
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.BOT_GITHUB_TOKEN }}
           branch: prepare-release
+

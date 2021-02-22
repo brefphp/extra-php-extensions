@@ -1,15 +1,7 @@
 SHELL := /bin/bash
 layer ?= *
-parallel ?= $(if $(shell which parallel),true,false)
 resolve_php_versions = $(or $(php_versions),`jq -r '.php | join(" ")' ${1}/config.json`)
-
-define generate_list
-	for dir in layers/${layer}; do \
-		for php_version in $(call resolve_php_versions,$${dir}); do \
-		    echo "$${dir} $${php_version}"; \
-		done \
-	done
-endef
+resolve_tags = `./new-docker-tags.php $(DOCKER_TAG)`
 
 define build_docker_image
 	docker build -t bref/${1}-php-${2} --build-arg PHP_VERSION=${2} ${DOCKER_BUILD_FLAGS} ${1}
@@ -17,21 +9,17 @@ endef
 
 docker-images:
 	if [ "${layer}" != "*" ]; then test -d layers/${layer}; fi
-	if $(parallel); then \
-		$(call generate_list) | parallel --colsep ' ' $(call build_docker_image,{1},{2}) ; \
-	else  \
-		set -e; \
-		for dir in layers/${layer}; do \
-			for php_version in $(call resolve_php_versions,$${dir}); do \
-				echo "###############################################"; \
-				echo "###############################################"; \
-				echo "### Building $${dir} PHP$${php_version}"; \
-				echo "###"; \
-				$(call build_docker_image,$${dir},$${php_version}) ; \
-				echo ""; \
-			done \
+	set -e; \
+	for dir in layers/${layer}; do \
+		for php_version in $(call resolve_php_versions,$${dir}); do \
+			echo "###############################################"; \
+			echo "###############################################"; \
+			echo "### Building $${dir} PHP$${php_version}"; \
+			echo "###"; \
+			$(call build_docker_image,$${dir},$${php_version}) ; \
+			echo ""; \
 		done \
-	fi;
+	done
 
 test: docker-images
 	if [ "${layer}" != "*" ]; then test -d layers/${layer}; fi
@@ -43,9 +31,10 @@ test: docker-images
 			echo "### Testing $${dir} PHP$${php_version}"; \
 			echo "###"; \
 			docker build --build-arg PHP_VERSION=$${php_version} --build-arg TARGET_IMAGE=$${dir}-php-$${php_version} -t bref/test-$${dir}-$${php_version} tests ; \
-			echo "docker run --rm -v $$(pwd)/$${dir}:/var/task bref/test-$${dir}-$${php_version} /opt/bin/php /var/task/test.php" ; \
-			docker run --rm -v $$(pwd)/$${dir}:/var/task bref/test-$${dir}-$${php_version} /opt/bin/php /var/task/test.php ; \
-			if docker run --rm -v $$(pwd)/$${dir}:/var/task bref/test-$${dir}-$${php_version} /opt/bin/php -v 2>&1 >/dev/null | grep -q 'Unable\|Warning'; then exit 1; fi ; \
+			docker run --entrypoint= --rm -v $$(pwd)/$${dir}:/var/task bref/test-$${dir}-$${php_version} /opt/bin/php /var/task/test.php ; \
+			if docker run --entrypoint= --rm -v $$(pwd)/$${dir}:/var/task bref/test-$${dir}-$${php_version} /opt/bin/php -v 2>&1 >/dev/null | grep -q 'Unable\|Warning'; then exit 1; fi ; \
+			echo ""; \
+			echo " - Test passed"; \
 			echo ""; \
 		done \
 	done;
@@ -92,12 +81,18 @@ publish-docker-images: docker-images
 			privateImage="bref/$${dir}-php-$${php_version}"; \
 			publicImage=$${privateImage/layers\//extra-}; \
 			echo "Image name: $$publicImage"; \
-			docker tag $$privateImage:latest $$publicImage:latest ; \
+			echo ""; \
+			echo "docker push $$publicImage:latest"; \
+			docker tag $$privateImage:latest $$publicImage:latest; \
 			docker push $$publicImage:latest; \
 			if (test $(DOCKER_TAG)); then \
 			  echo "Pushing tagged images"; \
-			  docker tag $$privateImage:latest $$publicImage:${DOCKER_TAG}; \
-			  docker push $$publicImage:${DOCKER_TAG}; \
+			  for tag in $(call resolve_tags); do \
+			    echo ""; \
+			    echo "docker push $$publicImage:$${tag}"; \
+			    docker tag $$privateImage:latest $$publicImage:$${tag}; \
+			    docker push $$publicImage:$${tag}; \
+			  done; \
 			fi; \
 			echo ""; \
 		done \
