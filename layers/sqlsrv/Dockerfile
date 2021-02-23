@@ -4,7 +4,7 @@ FROM bref/build-php-$PHP_VERSION:1.1.4 AS ext
 ENV LD_LIBRARY_PATH=/usr/lib:/usr/lib64:$LD_LIBRARY_PATH
 
 RUN curl https://packages.microsoft.com/config/rhel/7/prod.repo > /etc/yum.repos.d/mssql-release.repo
-RUN ACCEPT_EULA=Y yum -y install msodbcsql17-17.7.1.1-1.x86_64 mssql-tools-17.7.1.1-1.x86_64
+RUN ACCEPT_EULA=Y yum -y install msodbcsql17-17.7.1.1-1.x86_64
 RUN ACCEPT_EULA=Y yum -y install unixODBC-devel-2.3.7-1.rh.x86_64
 
 RUN pecl install -f sqlsrv-5.9.0
