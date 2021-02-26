@@ -12,9 +12,6 @@ foreach (['PNG', 'JPG', 'GIF', 'WEBP', 'HEIC'] as $format) {
     }
 }
 
-exit(0);
-
-// This test is disabled because it causes Docker to segfault. See https://github.com/brefphp/extra-php-extensions/pull/156
 try {
     $draw = new \ImagickDraw();
     $draw->setFont(__DIR__.'/Arial.ttf');
