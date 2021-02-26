@@ -85,6 +85,9 @@ COPY --from=ext /usr/lib64/libdbus-1.* /opt/bref/lib/
 COPY --from=ext /usr/lib64/libsystemd.* /opt/bref/lib/
 COPY --from=ext /usr/lib64/liblz4.* /opt/bref/lib/
 COPY --from=ext /usr/lib64/libdw.* /opt/bref/lib/
+COPY --from=ext /usr/lib64/libidn.* /opt/bref/lib/
+COPY --from=ext /usr/lib64/libpaper.* /opt/bref/lib/
+COPY --from=ext /usr/lib64/libopenjp2.* /opt/bref/lib/
 COPY --from=ext /opt/bref/lib/libde265.* /opt/bref/lib/
 COPY --from=ext /opt/bref/lib/libheif.* /opt/bref/lib/
 
