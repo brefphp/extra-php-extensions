@@ -15,9 +15,8 @@ if (!extension_loaded('pdo_sqlsrv')) {
 }
 
 // This test attempts a connection, forcing MS odbc libraries to be loaded
-if (!sqlsrv_connect('localhost', ['LoginTimeout' => 1])) { 
+if (!sqlsrv_connect('localhost', ['LoginTimeout' => 1])) {
     foreach (sqlsrv_errors() as $error) {
-        var_dump($error);
         if ($error['SQLSTATE'] == '01000') {
             echo sprintf('FAIL: sqlsrv extension library not loaded. %s', $error['message']).PHP_EOL;
             exit(1);
