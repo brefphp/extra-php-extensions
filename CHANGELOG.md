@@ -1,5 +1,12 @@
 # Change log
 
+## 0.10.2
+
+## Fixed
+
+- Updated extension version for Imagick
+- Updated extension version for sqlsrv
+
 ## 0.10.1
 
 ### Added
