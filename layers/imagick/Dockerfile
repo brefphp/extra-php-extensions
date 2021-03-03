@@ -88,8 +88,13 @@ COPY --from=ext /usr/lib64/libdw.so.1 /opt/bref/lib/libdw.so.1
 COPY --from=ext /usr/lib64/libidn.so.11 /opt/bref/lib/libidn.so.11
 COPY --from=ext /usr/lib64/libpaper.so.1 /opt/bref/lib/libpaper.so.1
 COPY --from=ext /usr/lib64/libopenjp2.so.7 /opt/bref/lib/libopenjp2.so.7
+
 COPY --from=ext /opt/bref/lib/libde265.so.0 /opt/bref/lib/libde265.so.0
+COPY --from=ext /opt/bref/lib/libde265.a /opt/bref/lib/libde265.a
+COPY --from=ext /opt/bref/lib/libde265.la /opt/bref/lib/libde265.la
 COPY --from=ext /opt/bref/lib/libheif.so.1 /opt/bref/lib/libheif.so.1
+COPY --from=ext /opt/bref/lib/libheif.a /opt/bref/lib/libheif.a
+COPY --from=ext /opt/bref/lib/libheif.la /opt/bref/lib/libheif.la
 
 COPY --from=ext /tmp/imagick.so /opt/bref-extra/imagick.so
 COPY --from=ext /tmp/ext.ini /opt/bref/etc/php/conf.d/ext-imagick.ini
