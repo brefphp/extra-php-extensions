@@ -25,12 +25,21 @@ RUN ./configure --prefix ${INSTALL_DIR} --exec-prefix ${INSTALL_DIR}
 RUN make -j $(nproc)
 RUN make install
 
+# Compile gs
+WORKDIR ${IMAGICK_BUILD_DIR}
+RUN wget https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs9533/ghostscript-9.53.3.tar.gz -O ghostscript.tar.gz
+RUN tar xzf ghostscript.tar.gz
+WORKDIR ${IMAGICK_BUILD_DIR}/ghostscript-9.53.3
+RUN ./configure --prefix ${INSTALL_DIR} --exec-prefix ${INSTALL_DIR} --without-x
+RUN make -j $(nproc)
+RUN cp bin/gs /tmp/gs
+
 # Compile the ImageMagick library
 WORKDIR ${IMAGICK_BUILD_DIR}
 RUN wget https://github.com/ImageMagick/ImageMagick/archive/7.0.10-43.tar.gz -O ImageMagick.tar.gz
 RUN tar xzf ImageMagick.tar.gz
 WORKDIR ${IMAGICK_BUILD_DIR}/ImageMagick-7.0.10-43
-RUN ./configure --prefix ${INSTALL_DIR} --exec-prefix ${INSTALL_DIR} --with-webp --with-heic --disable-static --with-freetype=yes --with-gslib=yes
+RUN ./configure --prefix ${INSTALL_DIR} --exec-prefix ${INSTALL_DIR} --with-webp --with-heic --disable-static --with-freetype=yes
 RUN make -j $(nproc)
 RUN make install
 
@@ -67,7 +76,6 @@ COPY --from=ext /usr/lib64/libtiff.so.5 /opt/bref/lib/libtiff.so.5
 COPY --from=ext /usr/lib64/libfreetype.so.6 /opt/bref/lib/libfreetype.so.6
 COPY --from=ext /usr/lib64/libXext.so.6 /opt/bref/lib/libXext.so.6
 COPY --from=ext /usr/lib64/libXt.so.6 /opt/bref/lib/libXt.so.6
-COPY --from=ext /usr/lib64/libgs.so.9 /opt/bref/lib/libgs.so.9
 COPY --from=ext /usr/lib64/libSM.so.6 /opt/bref/lib/libSM.so.6
 COPY --from=ext /usr/lib64/libICE.so.6 /opt/bref/lib/libICE.so.6
 COPY --from=ext /usr/lib64/libX11.so.6 /opt/bref/lib/libX11.so.6
@@ -96,5 +104,6 @@ COPY --from=ext /opt/bref/lib/libheif.so.1 /opt/bref/lib/libheif.so.1
 COPY --from=ext /opt/bref/lib/libheif.a /opt/bref/lib/libheif.a
 COPY --from=ext /opt/bref/lib/libheif.la /opt/bref/lib/libheif.la
 
+COPY --from=ext /tmp/gs /opt/bin/gs
 COPY --from=ext /tmp/imagick.so /opt/bref-extra/imagick.so
 COPY --from=ext /tmp/ext.ini /opt/bref/etc/php/conf.d/ext-imagick.ini
