@@ -160,7 +160,6 @@ be in their "standard" location.
 1. Add your Dockerfile
 1. Create a config.json file at root of your layer directory specifying php versions it is built for
 1. Create a test.php file with a small test that makes sure the extension is loaded
-1. Update .travis.yml to include your extension
 1. Update the table in the readme
 
 Please refer [here](docs/create_your_own_extension_layer.md) for more details.

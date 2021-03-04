@@ -40,7 +40,7 @@ class PublishCommand
         }
 
         ksort($layers);
-        $output->writeln(sprintf('Found %d new layers and %d layers with the same checksum. They new layers are:', count($layers), $sameChecksumCount));
+        $output->writeln(sprintf('Found %d new layers:', count($layers)));
         foreach ($layers as $layer => $file) {
             $output->writeln('- ' . $layer);
         }
