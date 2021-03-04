@@ -27,4 +27,16 @@ try {
     exit(1);
 }
 
+try {
+    $image = new \Imagick(__DIR__.'/test.pdf');
+    $image->writeImage('/tmp/imagick-test.jpg');
+    assert(file_exists('/tmp/imagick-test.jpg'));
+} catch(\ImagickException $e) {
+    echo sprintf('FAIL: Imagick cannot convert PDF "%s".', $e->getMessage()).PHP_EOL;
+    exit(1);
+} catch (\Throwable $e) {
+    echo sprintf('FAIL: Imagick failed with "%s" exception: %s', get_class($e), $e->getMessage()).PHP_EOL;
+    exit(1);
+}
+
 exit(0);
