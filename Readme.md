@@ -62,6 +62,7 @@ functions:
 | PostgreSQL         | `${bref:extra.pgsql-php-74}`          |
 | Redis              | `${bref:extra.redis-php-74}`          |
 | Scrypt             | `${bref:extra.scrypt-php-74}`         |
+| SPX                | `${bref:extra.spx-php-74}`            |
 | Microsoft SQLSRV   | `${bref:extra.sqlsrv-php-74}`         |
 | UUID               | `${bref:extra.uuid-php-74}`           |
 | Xdebug             | `${bref:extra.xdebug-php-74}`         |
