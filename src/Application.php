@@ -64,15 +64,15 @@ class Application extends \Silly\Edition\PhpDi\Application
      */
     protected function getLayers(string $projectDir): array
     {
-        $finder = new Finder();
-        $finder->in($projectDir.'/layers')
+        $finder = new Finder;
+        $finder->in($projectDir . '/layers')
             ->depth(0)
             ->directories();
 
         $layers = [];
         foreach ($finder as $dir) {
             $layerName = $dir->getBasename();
-            $configFile = $dir->getPathname().'/config.json';
+            $configFile = $dir->getPathname() . '/config.json';
             if (file_exists($configFile)) {
                 $config = json_decode(file_get_contents($configFile), true);
                 foreach ($config['php'] ?? [] as $version) {
