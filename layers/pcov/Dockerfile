@@ -7,7 +7,6 @@ RUN echo 'extension=/opt/bref-extra/pcov.so' > /tmp/ext.ini
 
 # Build the final image with just the files we need
 FROM scratch
-#Temo
 
 # Copy things we installed to the final image
 COPY --from=ext /tmp/pcov.so /opt/bref-extra/pcov.so

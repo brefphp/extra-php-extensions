@@ -15,6 +15,7 @@ RUN cp `php-config --extension-dir`/spx.so /tmp/spx.so
 RUN cp -r /opt/bref/share/misc/php-spx/assets /tmp/spx-assets
 RUN echo 'extension=/opt/bref-extra/spx.so' > /tmp/ext.ini
 
+
 # Build the final image with just the files we need
 FROM scratch
 
