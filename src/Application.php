@@ -15,6 +15,7 @@ use DI\ContainerBuilder;
 use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
+use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\HttpClient\RetryableHttpClient;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
@@ -25,7 +26,7 @@ class Application extends \Silly\Edition\PhpDi\Application
     {
         $builder = new ContainerBuilder;
         $projectDir = dirname(__DIR__);
-        $localLayers = array_keys(json_decode(file_get_contents($projectDir . '/layers.json'), true));
+        $localLayers = $this->getLayers($projectDir);
 
         $builder->addDefinitions([
             'project_dir' => $projectDir,
@@ -56,5 +57,30 @@ class Application extends \Silly\Edition\PhpDi\Application
         ]);
 
         return $builder->build();
+    }
+
+    /**
+     * Search in the local filesystem for all layer versions.
+     */
+    protected function getLayers(string $projectDir): array
+    {
+        $finder = new Finder;
+        $finder->in($projectDir . '/layers')
+            ->depth(0)
+            ->directories();
+
+        $layers = [];
+        foreach ($finder as $dir) {
+            $layerName = $dir->getBasename();
+            $configFile = $dir->getPathname() . '/config.json';
+            if (file_exists($configFile)) {
+                $config = json_decode(file_get_contents($configFile), true);
+                foreach ($config['php'] ?? [] as $version) {
+                    $layers[] = sprintf('%s-php-%s', $layerName, $version);
+                }
+            }
+        }
+
+        return $layers;
     }
 }

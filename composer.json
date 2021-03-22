@@ -4,7 +4,7 @@
     "type": "library",
     "require-dev": {
         "symfony/process": "^5.0",
-        "symfony/finder": "^5.0",
+        "symfony/finder": "^5.2",
         "mnapoli/silly": "^1.7",
         "mnapoli/silly-php-di": "^1.2",
         "async-aws/core": "^1.7",
