@@ -15,8 +15,12 @@ jobs:
         with:
           fetch-depth: 0
 
-      - id: find-layers
-        run: echo "::set-output name=list::$(ls layers | jq -R -s -c 'split("\n")[:-1]')"
+      - name: Fetch master from where the PR started
+        run: git fetch --no-tags --prune --depth=1 origin +refs/heads/*:refs/remotes/origin/*
+
+      - name: Find layers
+        id: find-layers
+        run: echo "::set-output name=list::$(git diff --name-only origin/${{ github.base_ref }} HEAD | grep layers/ | cut -d / -f 2 | sort | uniq | jq -R -s -c 'split("\n")[:-1]')"
 
     outputs:
       # Make the outputs accessible outside this job
