@@ -1,5 +1,12 @@
 # Change log
 
+## 0.10.5
+
+### Added
+
+- Added SPX extension.
+- Added Blackfire support on PHP8.
+
 ## 0.10.4
 
 ### Added
