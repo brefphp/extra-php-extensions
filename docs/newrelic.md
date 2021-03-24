@@ -6,12 +6,12 @@ Install the PHP extension like any other extension. When you added the layer, yo
 need add some extra php configuration for you License Key and Daemon Address.
 The License Key should be your New Relic account License Key to ensure this app
 reports to your account. The daemon address should be the location of a remote New
-Relic PHP Daemon listening for an agent connection. This can be ran in a layer if
-you desired but can lead to race conditions in cold starts. So a ready listening
+Relic PHP Daemon listening for an agent connection. This can be run in a layer if
+desired but can lead to race conditions in cold starts. So a ready, listening
 daemon running on a container or available machine is advisable.
 
 You should configure your settings for the New Relic PHP Agent in `php/conf.d/newrelic-settings.ini`
-within your Bref application. This will mean your configuration of your agent is
+within your Bref application. This will mean that the configuration of your agent is
 controlled in your deployed application code.
 
 Below are some suggested configuration settings to use.
@@ -25,7 +25,7 @@ newrelic.daemon.address = xx.xx.xxx.xxx:31339
 newrelic.logfile = /proc/self/fd/2
 ```
 
-You find all available options in the [New Relic documentation](https://docs.newrelic.com/docs/agents/php-agent/configuration/php-agent-configuration).
+You can find all available options in the [New Relic documentation](https://docs.newrelic.com/docs/agents/php-agent/configuration/php-agent-configuration).
 
 ### Can I Use Environment Variables?
 
@@ -43,9 +43,9 @@ newrelic.daemon.app_connect_timeout = ${NEW_RELIC_DAEMON_APP_CONNECT_TIMEOUT}
 newrelic.daemon.start_timeout = ${NEW_RELIC_DAEMON_START_TIMEOUT}
 ```
 
-After changing your configuration to reference the ENVIRONMENT VARIABLES you can
-then set their values in Lambda and replace them using your KMS. Giving additional
-security to your deployed code rather than having license key. If using a KMS it
+After changing your configuration to reference the ENVIRONMENT VARIABLES, you can
+then set their values in Lambda and replace them using your KMS. This provides additional
+security to your deployed code over using the license key. If using a KMS it
 will make it easy to globally change across numerous Lambda's the location of
 a daemon, the log level or the license key if you need to change where the data
 reports.
