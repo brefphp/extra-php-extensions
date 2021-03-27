@@ -1,5 +1,6 @@
 ARG PHP_VERSION
 FROM bref/build-php-$PHP_VERSION:1.1.4 AS ext
+ARG PHP_VERSION
 
 ENV LIBRABBITMQ_BUILD_DIR=${BUILD_DIR}/librabbitmq
 
@@ -16,7 +17,6 @@ WORKDIR  ${LIBRABBITMQ_BUILD_DIR}/rabbitmq-c-0.9.0/
 RUN set -xe; \
     cmake -DCMAKE_INSTALL_PREFIX=${INSTALL_DIR} . && \
     cmake --build . --target install
-
 
 RUN if [[ "$PHP_VERSION" = "80" ]] ; then pecl install amqp-1.11.0beta ; else pecl install amqp ; fi
 RUN cp /opt/bref/lib/php/extensions/no-debug-non-zts-*/amqp.so /tmp/amqp.so
