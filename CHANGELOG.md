@@ -4,7 +4,7 @@
 
 ### Added
 
-- Updated Blackfire to version 1.53.0.
+- Updated Blackfire to version 1.54.0.
 
 ## 0.10.5
 
