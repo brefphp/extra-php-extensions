@@ -42,6 +42,7 @@ functions:
 |:-------------------|:--------------------------------------|
 | AMQP               | `${bref:extra.amqp-php-74}`           |
 | Blackfire          | `${bref:extra.blackfire-php-74}`      |
+| Calendar           | `${bref:extra.calendar-php-74}`       |
 | Cassandra          | `${bref:extra.cassandra-php-74}`      |
 | DS                 | `${bref:extra.ds-php-74}`             |
 | GD                 | `${bref:extra.gd-php-74}`             |
