@@ -1,5 +1,12 @@
 # Change log
 
+## 0.10.7
+
+### Added
+
+- Added Calendar extension.
+- Added AMQP support on PHP8.
+
 ## 0.10.6
 
 ### Added
