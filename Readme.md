@@ -32,7 +32,7 @@ functions:
         handler: bin/console
         layers:
             - ${bref:layer.php-74}
-            - ${bref:extra.amqp-php-74} # <----- Example for AMQP layer
+            - ${bref-extra:amqp-php-74} # <----- Example for AMQP layer
             - ${bref:layer.console}
 ```
 
@@ -40,34 +40,34 @@ functions:
 
 | Name               | Serverless config (php 7.4)           |
 |:-------------------|:--------------------------------------|
-| AMQP               | `${bref:extra.amqp-php-74}`           |
-| Blackfire          | `${bref:extra.blackfire-php-74}`      |
-| Calendar           | `${bref:extra.calendar-php-74}`       |
-| Cassandra          | `${bref:extra.cassandra-php-74}`      |
-| DS                 | `${bref:extra.ds-php-74}`             |
-| GD                 | `${bref:extra.gd-php-74}`             |
-| GMP                | `${bref:extra.gmp-php-74}`            |
-| gRPC               | `${bref:extra.grpc-php-74}`           |
-| Igbinary           | `${bref:extra.igbinary-php-74}`       |
-| Imagick            | `${bref:extra.imagick-php-74}`        |
-| IMAP               | `${bref:extra.imap-php-74}`           |
-| LDAP               | `${bref:extra.ldap-php-74}`           |
-| Mailparse          | `${bref:extra.mailparse-php-74}`      |
-| Memcache           | `${bref:extra.memcache-php-74}`       |
-| Memcached          | `${bref:extra.memcached-php-74}`      |
-| MongoDB            | `${bref:extra.mongodb-php-74}`        |
-| MsgPack            | `${bref:extra.msgpack-php-74}`        |
-| Newrelic           | `${bref:extra.newrelic-php-74}`       |
-| ODBC Snowflake     | `${bref:extra.odbc-snowflake-php-74}` |
-| Pcov               | `${bref:extra.pcov-php-74}`           |
-| PostgreSQL         | `${bref:extra.pgsql-php-74}`          |
-| Redis              | `${bref:extra.redis-php-74}`          |
-| Scrypt             | `${bref:extra.scrypt-php-74}`         |
-| SPX                | `${bref:extra.spx-php-74}`            |
-| Microsoft SQLSRV   | `${bref:extra.sqlsrv-php-74}`         |
-| UUID               | `${bref:extra.uuid-php-74}`           |
-| Xdebug             | `${bref:extra.xdebug-php-74}`         |
-| Yaml               | `${bref:extra.yaml-php-74}`           |
+| AMQP               | `${bref-extra:amqp-php-74}`           |
+| Blackfire          | `${bref-extra:blackfire-php-74}`      |
+| Calendar           | `${bref-extra:calendar-php-74}`       |
+| Cassandra          | `${bref-extra:cassandra-php-74}`      |
+| DS                 | `${bref-extra:ds-php-74}`             |
+| GD                 | `${bref-extra:gd-php-74}`             |
+| GMP                | `${bref-extra:gmp-php-74}`            |
+| gRPC               | `${bref-extra:grpc-php-74}`           |
+| Igbinary           | `${bref-extra:igbinary-php-74}`       |
+| Imagick            | `${bref-extra:imagick-php-74}`        |
+| IMAP               | `${bref-extra:imap-php-74}`           |
+| LDAP               | `${bref-extra:ldap-php-74}`           |
+| Mailparse          | `${bref-extra:mailparse-php-74}`      |
+| Memcache           | `${bref-extra:memcache-php-74}`       |
+| Memcached          | `${bref-extra:memcached-php-74}`      |
+| MongoDB            | `${bref-extra:mongodb-php-74}`        |
+| MsgPack            | `${bref-extra:msgpack-php-74}`        |
+| Newrelic           | `${bref-extra:newrelic-php-74}`       |
+| ODBC Snowflake     | `${bref-extra:odbc-snowflake-php-74}` |
+| Pcov               | `${bref-extra:pcov-php-74}`           |
+| PostgreSQL         | `${bref-extra:pgsql-php-74}`          |
+| Redis              | `${bref-extra:redis-php-74}`          |
+| Scrypt             | `${bref-extra:scrypt-php-74}`         |
+| SPX                | `${bref-extra:spx-php-74}`            |
+| Microsoft SQLSRV   | `${bref-extra:sqlsrv-php-74}`         |
+| UUID               | `${bref-extra:uuid-php-74}`           |
+| Xdebug             | `${bref-extra:xdebug-php-74}`         |
+| Yaml               | `${bref-extra:yaml-php-74}`           |
 
 ### Blackfire installation
 

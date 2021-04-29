@@ -190,13 +190,13 @@ In order to contribute, you should do a little more work.
 
  | Name | Serverless config (php 7.4) | php.ini config |
  | ---- | ----------------------------| -------------- |
- | AMQP | `${bref:extra.amqp-php-74}` | `extension=/opt/bref-extra/amqp.so` |
- | Blackfire | `${bref:extra.blackfire-php-74}` | `extension=/opt/bref-extra/blackfire.so` |
- | GMP | `${bref:extra.gmp-php-74}` | `extension=/opt/bref-extra/gmp.so` |
- | Memcache | `${bref:extra.memcached-php-74}` | `extension=/opt/bref-extra/memcache.so` |
- | Memcached | `${bref:extra.memcached-php-74}` | `extension=/opt/bref-extra/memcached.so` |
-+| PostgreSQL | `${bref:extra.pgsql-php-74}` | `extension=/opt/bref-extra/pgsql.so` |
- | Xdebug | `${bref:extra.xdebug-php-74}` | `zend_extension=/opt/bref-extra/xdebug.so` |
+ | AMQP | `${bref-extra:amqp-php-74}` | `extension=/opt/bref-extra/amqp.so` |
+ | Blackfire | `${bref-extra:blackfire-php-74}` | `extension=/opt/bref-extra/blackfire.so` |
+ | GMP | `${bref-extra:gmp-php-74}` | `extension=/opt/bref-extra/gmp.so` |
+ | Memcache | `${bref-extra:memcached-php-74}` | `extension=/opt/bref-extra/memcache.so` |
+ | Memcached | `${bref-extra:memcached-php-74}` | `extension=/opt/bref-extra/memcached.so` |
++| PostgreSQL | `${bref-extra:pgsql-php-74}` | `extension=/opt/bref-extra/pgsql.so` |
+ | Xdebug | `${bref-extra:xdebug-php-74}` | `zend_extension=/opt/bref-extra/xdebug.so` |
 
  Note that the "Memcached" layer provides both extension for [Memcache](https://pecl.php.net/package/memcache) and [Memcached](https://pecl.php.net/package/memcached).
 ```
