@@ -1,5 +1,17 @@
 # Change log
 
+## 0.11.0
+
+### Changed
+
+Added support for Serverless new variable system. This means we had to add a small
+BC break to update the names of the layers.
+
+```diff
+- ${bref:extra.gd-php-74
++ ${bref-extra:gd-php-74}
+```
+
 ## 0.10.10
 
 ### Added
