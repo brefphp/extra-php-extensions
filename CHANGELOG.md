@@ -1,5 +1,11 @@
 # Change log
 
+## 0.11.2
+
+### Added
+
+- Added NewRelic support on PHP8.
+
 ## 0.11.1
 
 ### Added
