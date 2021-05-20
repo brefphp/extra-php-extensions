@@ -26,3 +26,5 @@ FROM scratch
 # newrelic.so should become a layered extension.
 COPY --from=ext /tmp/newrelic.so /opt/bref-extra/newrelic.so
 COPY --from=ext /tmp/newrelic.ini /opt/bref/etc/php/conf.d/ext-newrelic.ini
+COPY --from=ext /usr/bin/newrelic-daemon /opt/extensions/bin/newrelic-daemon
+COPY extensions/newrelic-daemon.sh /opt/extensions/newrelic-daemon.sh
