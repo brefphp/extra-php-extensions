@@ -64,6 +64,7 @@ functions:
 | Redis              | `${bref-extra:redis-php-74}`          |
 | Scrypt             | `${bref-extra:scrypt-php-74}`         |
 | SPX                | `${bref-extra:spx-php-74}`            |
+| Symfony Runtime    | `${bref-extra:symfony-runtime-php-74}`|
 | Microsoft SQLSRV   | `${bref-extra:sqlsrv-php-74}`         |
 | UUID               | `${bref-extra:uuid-php-74}`           |
 | Xdebug             | `${bref-extra:xdebug-php-74}`         |
@@ -105,6 +106,10 @@ You can then use snowflake like this: `odbc_connect('DRIVER=SnowflakeDSIIDriver;
 There is more information about the driver ini configuration in the [snowflake client documentation](https://docs.snowflake.com/en/user-guide/odbc-linux.html#step-4-configure-the-odbc-driver)
 but the default configuration is enough in most cases.
 The easiest way review those is to download the [`snowflake_odbc` directory](https://sfc-repo.snowflakecomputing.com/odbc/linux/index.html).
+
+### Symfony Runtime
+
+Read [docs at runtime/bref](https://github.com/php-runtime/bref).
 
 ### SQL Server setup
 
