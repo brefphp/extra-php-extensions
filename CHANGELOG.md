@@ -1,5 +1,12 @@
 # Change log
 
+## 0.11.4
+
+### Added
+
+- Added layer for Symfony Runtime
+- Added gRPC support on PHP8.
+
 ## 0.11.3
 
 ### Added
