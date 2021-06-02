@@ -5,6 +5,7 @@
 ### Added
 
 - Updated Blackfire to version 1.59.1.
+- Added SQL Server support on PHP8.
 
 ## 0.11.4
 
