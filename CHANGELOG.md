@@ -5,6 +5,7 @@
 ### Added
 
 - Updated Blackfire to version 1.59.2.
+- Fixed broken CI job for GD layer.
 
 ## 0.11.5
 
