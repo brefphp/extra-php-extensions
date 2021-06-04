@@ -52,7 +52,7 @@ FROM scratch
 COPY --from=ext /usr/lib64/libXpm.so.4 /opt/bref/lib64/libXpm.so.4
 COPY --from=ext /usr/lib64/libX11.so.6.3.0 /opt/bref/lib64/libX11.so.6
 COPY --from=ext /usr/lib64/libpng15.so.15.13.0 /opt/bref/lib64/libpng15.so.15
-COPY --from=ext /usr/lib64/libjpeg.so.62.1.0 /opt/bref/lib64/libjpeg.so.62
+COPY --from=ext /usr/lib64/libjpeg.so.* /opt/bref/lib64/
 COPY --from=ext /usr/lib64/libfreetype.so.6.14.0 /opt/bref/lib64/libfreetype.so.6
 COPY --from=ext /usr/lib64/libxcb.so.1.1.0 /opt/bref/lib64/libxcb.so.1
 COPY --from=ext /usr/lib64/libXau.so.6.0.0 /opt/bref/lib64/libXau.so.6
