@@ -1,5 +1,11 @@
 # Change log
 
+## 0.11.12
+
+### Added
+
+- Updated Oracle (oci8) extension.
+
 ## 0.11.11
 
 ### Added
