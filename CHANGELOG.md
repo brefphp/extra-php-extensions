@@ -1,5 +1,11 @@
 # Change log
 
+## 0.11.13
+
+### Added
+
+- Updated Kafka (rdkafka) extension.
+
 ## 0.11.12
 
 ### Added
