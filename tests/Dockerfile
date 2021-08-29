@@ -2,6 +2,6 @@ ARG PHP_VERSION
 ARG TARGET_IMAGE
 
 FROM bref/$TARGET_IMAGE AS ext
-FROM bref/php-$PHP_VERSION:1.1.4
+FROM bref/php-$PHP_VERSION:1.2.12
 
 COPY --from=ext /opt /opt
