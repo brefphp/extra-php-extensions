@@ -22,6 +22,7 @@
 - Support for pgsql on PHP 8.1.
 - Support for Redis on PHP 8.1.
 - Support for UUID on PHP 8.1.
+- Support for Xdebug (master) on PHP 8.1.
 
 ## 0.11.14
 
