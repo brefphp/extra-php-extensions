@@ -4,7 +4,7 @@
 
 ### Changed
 
-- Using bref/build-php-XX:1.2.12 as base image
+- Using bref/build-php-XX:1.2.13 as base image
 
 ### Added
 

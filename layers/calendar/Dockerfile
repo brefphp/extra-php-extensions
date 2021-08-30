@@ -1,5 +1,5 @@
 ARG PHP_VERSION
-FROM bref/build-php-$PHP_VERSION:1.2.12 AS ext
+FROM bref/build-php-$PHP_VERSION:1.2.13 AS ext
 
 WORKDIR ${PHP_BUILD_DIR}/ext/calendar
 RUN phpize && \
