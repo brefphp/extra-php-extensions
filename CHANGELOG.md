@@ -1,5 +1,29 @@
 # Change log
 
+## 0.12.0
+
+### Changed
+
+- Using bref/build-php-XX:1.2.13 as base image
+
+### Added
+
+- Support for Calendar on PHP 8.1.
+- Support for GD on PHP 8.1.
+- Support for GMP on PHP 8.1.
+- Support for gRPC on PHP 8.1.
+- Support for Igbinary on PHP 8.1.
+- Support for Imap on PHP 8.1.
+- Support for LDAP on PHP 8.1.
+- Support for Memcached on PHP 8.1.
+- Support for msgpack on PHP 8.1.
+- Support for ODBC Snowflake on PHP 8.1.
+- Support for pcov on PHP 8.1.
+- Support for pgsql on PHP 8.1.
+- Support for Redis on PHP 8.1.
+- Support for UUID on PHP 8.1.
+- Support for Xdebug (master) on PHP 8.1.
+
 ## 0.11.14
 
 ### Added

@@ -1,9 +1,21 @@
 ARG PHP_VERSION
-FROM bref/build-php-$PHP_VERSION:1.1.4 AS ext
+FROM bref/build-php-$PHP_VERSION:1.2.13 AS ext
 
-RUN pecl install xdebug
-RUN cp `php-config --extension-dir`/xdebug.so /tmp/xdebug.so
-RUN echo 'zend_extension=/opt/bref-extra/xdebug.so' > /tmp/ext.ini
+RUN set -xe; \
+  if [ $PHP_VERSION != "81" ] ; \
+  then \
+    pecl install xdebug; \
+  else \
+    cd /tmp; \
+    git clone --depth=1 https://github.com/xdebug/xdebug.git; \
+    cd xdebug; \
+    phpize; \
+    ./configure; \
+    make; \
+    make install; \
+  fi; \
+  cp `php-config --extension-dir`/xdebug.so /tmp/xdebug.so; \
+  echo 'zend_extension=/opt/bref-extra/xdebug.so' > /tmp/ext.ini
 
 # Build the final image with just the files we need
 FROM scratch

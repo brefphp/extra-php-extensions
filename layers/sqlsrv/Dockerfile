@@ -1,5 +1,5 @@
 ARG PHP_VERSION
-FROM bref/build-php-$PHP_VERSION:1.1.4 AS ext
+FROM bref/build-php-$PHP_VERSION:1.2.13 AS ext
 
 ENV LD_LIBRARY_PATH=/usr/lib:/usr/lib64:$LD_LIBRARY_PATH
 
@@ -15,7 +15,7 @@ RUN cp /opt/bref/lib/php/extensions/no-debug-non-zts-*/sqlsrv.so /tmp/sqlsrv.so
 RUN cp /opt/bref/lib/php/extensions/no-debug-non-zts-*/pdo_sqlsrv.so /tmp/pdo_sqlsrv.so
 
 RUN echo $'extension=/opt/bref-extra/sqlsrv.so\n\
-extension=/opt/bref-extra/pdo_sqlsrv.so' > /tmp/ext.ini
+  extension=/opt/bref-extra/pdo_sqlsrv.so' > /tmp/ext.ini
 
 FROM scratch
 
