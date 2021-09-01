@@ -1,5 +1,77 @@
 # Change log
 
+## 0.11.15
+
+### Changed
+
+- Using bref/build-php-XX:1.2.13 as base image
+
+### Added
+
+- Support for Calendar on PHP 8.1.
+- Support for GD on PHP 8.1.
+- Support for GMP on PHP 8.1.
+- Support for gRPC on PHP 8.1.
+- Support for Igbinary on PHP 8.1.
+- Support for Imap on PHP 8.1.
+- Support for LDAP on PHP 8.1.
+- Support for Memcached on PHP 8.1.
+- Support for msgpack on PHP 8.1.
+- Support for ODBC Snowflake on PHP 8.1.
+- Support for pcov on PHP 8.1.
+- Support for pgsql on PHP 8.1.
+- Support for Redis on PHP 8.1.
+- Support for UUID on PHP 8.1.
+- Support for Xdebug (master) on PHP 8.1.
+
+## 0.11.14
+
+### Added
+
+- Updated Blackfire to version 1.65.0.
+
+## 0.11.13
+
+### Added
+
+- Updated Kafka (rdkafka) extension.
+
+## 0.11.12
+
+### Added
+
+- Updated Oracle (oci8) extension.
+
+## 0.11.11
+
+### Added
+
+- Updated Blackfire to version 1.64.0.
+
+## 0.11.10
+
+### Added
+
+- Updated Blackfire to version 1.63.0.
+
+## 0.11.9
+
+### Added
+
+- Updated Blackfire to version 1.62.0.
+
+## 0.11.8
+
+### Added
+
+- Updated Blackfire to version 1.61.0.
+
+## 0.11.7
+
+### Added
+
+- Updated Blackfire to version 1.60.0.
+
 ## 0.11.6
 
 ### Added

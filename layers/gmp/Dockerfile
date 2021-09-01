@@ -1,5 +1,5 @@
 ARG PHP_VERSION
-FROM bref/build-php-$PHP_VERSION:1.1.4 AS ext
+FROM bref/build-php-$PHP_VERSION:1.2.13 AS ext
 
 # Fix library path
 ENV LD_LIBRARY_PATH=/usr/lib:/usr/lib64:$LD_LIBRARY_PATH
