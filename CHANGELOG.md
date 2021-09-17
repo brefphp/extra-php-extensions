@@ -1,5 +1,11 @@
 # Change log
 
+## 0.11.17
+
+### Added
+
+- New version of Oracle extension.
+
 ## 0.11.16
 
 ### Added
