@@ -67,6 +67,7 @@ functions:
 | SPX                | `${bref-extra:spx-php-74}`            |
 | Symfony Runtime    | `${bref-extra:symfony-runtime-php-74}`|
 | Microsoft SQLSRV   | `${bref-extra:sqlsrv-php-74}`         |
+| Tidy               | `${bref-extra:tidy-php-74}`           |
 | UUID               | `${bref-extra:uuid-php-74}`           |
 | Xdebug             | `${bref-extra:xdebug-php-74}`         |
 | Yaml               | `${bref-extra:yaml-php-74}`           |
