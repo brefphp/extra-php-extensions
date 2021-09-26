@@ -8,12 +8,14 @@ RUN yum install -y libtidy
 RUN yum install -y php-tidy
 
 RUN cp /usr/lib64/php/modules/tidy.so /tmp/tidy.so
+RUN cp /usr/lib64/libtidy-0.99.so.0 /tmp/libtidy-0.99.so.0
 RUN echo 'extension=/opt/bref-extra/tidy.so' > /tmp/ext.ini
 
 # Build the final image with just the files we need
 FROM scratch
 
 # Copy things we installed to the final image
+COPY --from=ext /tmp/libtidy-0.99.so.0 /opt/bref/lib64/libtidy-0.99.so.0
 COPY --from=ext /tmp/tidy.so /opt/bref-extra/tidy.so
 COPY --from=ext /tmp/ext.ini /opt/bref/etc/php/conf.d/ext-tidy.ini
 
