@@ -6,9 +6,12 @@ RUN yum -y install amazon-linux-extras
 RUN amazon-linux-extras install epel -y
 RUN yum install -y libtidy-devel
 RUN yum install -y php-tidy
-
-RUN cp /usr/lib64/libtidy* /tmp/
-RUN cp /usr/lib64/php/modules/tidy.so /tmp/tidy.so
+WORKDIR ${PHP_BUILD_DIR}/ext/tidy
+RUN phpize
+RUN ls /usr/lib64/libtidy*
+RUN ./configure --with-tidy --with-libdir=lib64
+RUN make -j `nproc` && make install
+RUN cp `php-config --extension-dir`/tidy.so /tmp/tidy.so
 RUN echo 'extension=/opt/bref-extra/tidy.so' > /tmp/ext.ini
 
 # Build the final image with just the files we need
