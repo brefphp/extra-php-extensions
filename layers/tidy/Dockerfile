@@ -4,7 +4,7 @@ FROM bref/build-php-$PHP_VERSION AS ext
 ENV LD_LIBRARY_PATH=/usr/lib:/usr/lib64:$LD_LIBRARY_PATH
 RUN yum -y install amazon-linux-extras
 RUN amazon-linux-extras install epel -y
-RUN yum install -y libtidy
+RUN yum install -y libtidy-devel
 RUN yum install -y php-tidy
 
 RUN cp /usr/lib64/libtidy* /tmp/
