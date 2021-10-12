@@ -8,7 +8,6 @@ RUN yum install -y libtidy-devel
 RUN yum install -y php-tidy
 WORKDIR ${PHP_BUILD_DIR}/ext/tidy
 RUN phpize
-RUN ls /usr/lib64/libtidy*
 RUN ./configure --with-tidy --with-libdir=lib64
 RUN make -j `nproc` && make install
 RUN cp `php-config --extension-dir`/tidy.so /tmp/tidy.so
