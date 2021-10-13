@@ -1,5 +1,11 @@
 # Change log
 
+## 0.11.19
+
+### Added
+
+- Support for Tidy extension (#272)
+
 ## 0.11.18
 
 ### Added
