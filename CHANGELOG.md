@@ -6,11 +6,23 @@
 
 - Support for Tidy extension (#272)
 
+## 0.11.19
+
+### Added
+
+- Updated Blackfire to version 1.69.0.
+
 ## 0.11.18
 
 ### Added
 
 - Updated Blackfire to version 1.67.0.
+
+## 0.11.19
+
+### Added
+
+- Updated Blackfire to version 1.69.0.
 
 ## 0.11.18
 
