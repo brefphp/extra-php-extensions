@@ -66,6 +66,7 @@ functions:
 | Redis-Igbinary     | `${bref-extra:redis-igbinary-php-74}` |
 | Scrypt             | `${bref-extra:scrypt-php-74}`         |
 | SPX                | `${bref-extra:spx-php-74}`            |
+| SSH2               | `${bref-extra:ssh2-php-74}`           |
 | Symfony Runtime    | `${bref-extra:symfony-runtime-php-74}`|
 | Microsoft SQLSRV   | `${bref-extra:sqlsrv-php-74}`         |
 | Tidy               | `${bref-extra:tidy-php-74}`           |
