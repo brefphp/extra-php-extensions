@@ -5,13 +5,14 @@
 ### Added
 
 - Support for Tidy extension
+- Support for SSH2 extension
 - Support for Redis with Igbinary Serializer
 - Updated Blackfire to version 1.69.0.
 - Mailparse support for PHP 8.1
 
 ### Fixed
 
-- Update Redis Dockerfile to compile with latest version of bref
+- Update all Dockerfile to compile with latest version of bref
 
 ## 0.11.18
 
