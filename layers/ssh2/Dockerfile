@@ -1,7 +1,7 @@
 ARG PHP_VERSION
 FROM bref/build-php-$PHP_VERSION:1.3.3 AS ext
 
-RUN pecl install ssh2
+RUN pecl install ssh2-beta
 RUN cp `php-config --extension-dir`/ssh2.so /tmp/ssh2.so
 RUN echo 'extension=/opt/bref-extra/ssh2.so' > /tmp/ext.ini
 
