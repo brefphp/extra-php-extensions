@@ -63,6 +63,7 @@ functions:
 | Pcov               | `${bref-extra:pcov-php-74}`           |
 | PostgreSQL         | `${bref-extra:pgsql-php-74}`          |
 | Redis              | `${bref-extra:redis-php-74}`          |
+| Redis-Igbinary     | `${bref-extra:redis-igbinary-php-74}` |
 | Scrypt             | `${bref-extra:scrypt-php-74}`         |
 | SPX                | `${bref-extra:spx-php-74}`            |
 | Symfony Runtime    | `${bref-extra:symfony-runtime-php-74}`|
