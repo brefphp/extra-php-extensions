@@ -5,7 +5,7 @@ ARG PHP_VERSION
 # Prepare environment
 ENV IMAGICK_BUILD_DIR=${BUILD_DIR}/imagick
 RUN mkdir -p ${IMAGICK_BUILD_DIR}
-RUN LD_LIBRARY_PATH= yum -y install libwebp-devel wget libpng-devel libjpeg-devel ImageMagick-devel
+RUN LD_LIBRARY_PATH= yum -y install libwebp-devel wget libpng-devel libjpeg-devel lcms2-devel ImageMagick-devel
 
 # Compile libde265 (libheif dependency)
 WORKDIR ${IMAGICK_BUILD_DIR}
