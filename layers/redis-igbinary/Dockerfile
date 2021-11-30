@@ -1,8 +1,8 @@
 ARG PHP_VERSION
-FROM bref/build-php-$PHP_VERSION:1.2.13 AS ext
+FROM bref/build-php-$PHP_VERSION:1.3.3 AS ext
 
 RUN pecl install igbinary && \
-    pecl install -D 'enable-redis-igbinary="yes" enable-redis-lzf="no" enable-redis-zstd="no"' redis && \
+    pecl install -D 'enable-redis-igbinary="yes"' redis && \
     cp `php-config --extension-dir`/igbinary.so /tmp/igbinary.so && \
     cp `php-config --extension-dir`/redis.so /tmp/redis.so && \
     echo 'extension=/opt/bref-extra/igbinary.so' > /tmp/ext-igbinary.ini && \
