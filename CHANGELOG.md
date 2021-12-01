@@ -1,5 +1,11 @@
 # Change log
 
+## 0.11.20
+
+### Added
+
+- Updated Blackfire to version 1.70.0.
+
 ## 0.11.19
 
 ### Added
@@ -19,6 +25,12 @@
 ### Added
 
 - Updated Blackfire to version 1.67.0.
+
+## 0.11.20
+
+### Added
+
+- Updated Blackfire to version 1.70.0.
 
 ## 0.11.19
 
