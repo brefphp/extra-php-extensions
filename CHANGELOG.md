@@ -5,6 +5,9 @@
 ### Added
 
 - Updated Blackfire to version 1.70.0.
+- Add lcms2 library for icc profile manipulation for imagick extension
+- sqlsrv support for PHP 8.1
+- Redis with Igbinary Serializer support for PHP 8.1
 
 ## 0.11.19
 
