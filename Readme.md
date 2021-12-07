@@ -62,6 +62,7 @@ functions:
 | Oracle             | `${bref-extra:oci8-php-80}`           |
 | Pcov               | `${bref-extra:pcov-php-74}`           |
 | PostgreSQL         | `${bref-extra:pgsql-php-74}`          |
+| RdKafka            | `${bref-extra:rdkafka-php-74}`        |
 | Redis              | `${bref-extra:redis-php-74}`          |
 | Redis-Igbinary     | `${bref-extra:redis-igbinary-php-74}` |
 | Scrypt             | `${bref-extra:scrypt-php-74}`         |
