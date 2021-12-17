@@ -9,18 +9,18 @@ RUN LD_LIBRARY_PATH= yum -y install libwebp-devel wget libpng-devel libjpeg-deve
 
 # Compile libde265 (libheif dependency)
 WORKDIR ${IMAGICK_BUILD_DIR}
-RUN wget https://github.com/strukturag/libde265/releases/download/v1.0.5/libde265-1.0.5.tar.gz -O libde265.tar.gz
+RUN wget https://github.com/strukturag/libde265/releases/download/v1.0.8/libde265-1.0.8.tar.gz -O libde265.tar.gz
 RUN tar xzf libde265.tar.gz
-WORKDIR ${IMAGICK_BUILD_DIR}/libde265-1.0.5
+WORKDIR ${IMAGICK_BUILD_DIR}/libde265-1.0.8
 RUN ./configure --prefix ${INSTALL_DIR} --exec-prefix ${INSTALL_DIR}
 RUN make -j $(nproc)
 RUN make install
 
 # Compile libheif
 WORKDIR ${IMAGICK_BUILD_DIR}
-RUN wget https://github.com/strukturag/libheif/releases/download/v1.6.2/libheif-1.6.2.tar.gz -O libheif.tar.gz
+RUN wget https://github.com/strukturag/libheif/releases/download/v1.12.0/libheif-1.12.0.tar.gz -O libheif.tar.gz
 RUN tar xzf libheif.tar.gz
-WORKDIR ${IMAGICK_BUILD_DIR}/libheif-1.6.2
+WORKDIR ${IMAGICK_BUILD_DIR}/libheif-1.12.0
 RUN ./configure --prefix ${INSTALL_DIR} --exec-prefix ${INSTALL_DIR}
 RUN make -j $(nproc)
 RUN make install
