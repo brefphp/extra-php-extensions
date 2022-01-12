@@ -1,5 +1,15 @@
 # Change log
 
+## 0.11.22
+
+### Added
+
+- Kafka extension update dto 1.8.2
+- Kafka support for PHP 8.1
+- MongoDB support for PHP 8.1
+- Tidy support for PHP 8.1
+- Yaml support for PHP 8.1
+
 ## 0.11.21
 
 ### Added
