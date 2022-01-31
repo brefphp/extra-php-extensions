@@ -9,6 +9,7 @@
 - MongoDB support for PHP 8.1
 - Tidy support for PHP 8.1
 - Yaml support for PHP 8.1
+- Serverless Framework v3 support
 
 ## 0.11.21
 
