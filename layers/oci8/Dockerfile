@@ -1,7 +1,7 @@
 ARG PHP_VERSION
 FROM bref/build-php-$PHP_VERSION:1.3.3 AS ext
 
-# Fix library path
+# Specify library path
 ENV LD_LIBRARY_PATH=/usr/lib:/usr/lib64:$LD_LIBRARY_PATH
 ENV ORACLE_BUILD_DIR=${BUILD_DIR}/oracle
 
