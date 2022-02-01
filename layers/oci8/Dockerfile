@@ -1,5 +1,6 @@
 ARG PHP_VERSION
 FROM bref/build-php-$PHP_VERSION:1.3.3 AS ext
+ARG PHP_VERSION
 
 # Specify library path
 ENV LD_LIBRARY_PATH=/usr/lib:/usr/lib64:$LD_LIBRARY_PATH
