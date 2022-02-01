@@ -16,11 +16,13 @@ RUN mkdir -p ${ORACLE_BUILD_DIR}; \
     curl -o oci-sdk.zip https://download.oracle.com/otn_software/linux/instantclient/213000/instantclient-sdk-linux.x64-21.3.0.0.0.zip && \
     unzip oci-sdk.zip -d src
 
-RUN if [[ "$PHP_VERSION" = "80" ]] ; then \
-      echo "instantclient,${ORACLE_BUILD_DIR}/src/instantclient_21_3" | pecl install oci8-3.0.1 ;  \
-    else  \
-        echo "instantclient,${ORACLE_BUILD_DIR}/src/instantclient_21_3" | pecl install oci8 ;  \
-    fi
+RUN set -xe; \
+    if [[ "$PHP_VERSION" = "80" ]] ; \
+    then \
+      echo "instantclient,${ORACLE_BUILD_DIR}/src/instantclient_21_3" | pecl install oci8-3.0.1; \
+    else \
+      echo "instantclient,${ORACLE_BUILD_DIR}/src/instantclient_21_3" | pecl install oci8; \
+    fi;
 
 RUN cp /usr/lib64/libaio.so.1 /tmp/libaio.so.1
 RUN cp ${ORACLE_BUILD_DIR}/src/instantclient_21_3/libclntshcore.so.21.1 /tmp/libclntshcore.so.21.1
