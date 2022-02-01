@@ -4,7 +4,7 @@
 
 ### Added
 
-- Kafka extension update dto 1.8.2
+- Kafka extension updated to 1.8.2
 - Kafka support for PHP 8.1
 - MongoDB support for PHP 8.1
 - Tidy support for PHP 8.1
