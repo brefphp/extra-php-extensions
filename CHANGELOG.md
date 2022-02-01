@@ -5,6 +5,10 @@
 ### Added
 
 - Updated Blackfire to version 1.73.0.
+- Imagick support for PHP 8.1
+- Blackfire support for PHP 8.1
+- AMQP support for PHP 8.1
+- DS support for PHP 8.1
 
 ## 0.11.22
 
