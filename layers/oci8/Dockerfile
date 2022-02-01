@@ -1,7 +1,8 @@
 ARG PHP_VERSION
 FROM bref/build-php-$PHP_VERSION:1.3.3 AS ext
+ARG PHP_VERSION
 
-# Fix library path
+# Specify library path
 ENV LD_LIBRARY_PATH=/usr/lib:/usr/lib64:$LD_LIBRARY_PATH
 ENV ORACLE_BUILD_DIR=${BUILD_DIR}/oracle
 
@@ -15,7 +16,7 @@ RUN mkdir -p ${ORACLE_BUILD_DIR}; \
     curl -o oci-sdk.zip https://download.oracle.com/otn_software/linux/instantclient/213000/instantclient-sdk-linux.x64-21.3.0.0.0.zip && \
     unzip oci-sdk.zip -d src
 
-RUN echo "instantclient,${ORACLE_BUILD_DIR}/src/instantclient_21_3" | pecl install oci8
+RUN echo "instantclient,${ORACLE_BUILD_DIR}/src/instantclient_21_3" | pecl install oci8-3.0.1;
 
 RUN cp /usr/lib64/libaio.so.1 /tmp/libaio.so.1
 RUN cp ${ORACLE_BUILD_DIR}/src/instantclient_21_3/libclntshcore.so.21.1 /tmp/libclntshcore.so.21.1
