@@ -52,7 +52,7 @@ WORKDIR ${IMAGICK_BUILD_DIR}
 # @see https://github.com/brefphp/extra-php-extensions/pull/143/files#r541977286
 RUN git clone https://github.com/Imagick/imagick
 WORKDIR ${IMAGICK_BUILD_DIR}/imagick
-RUN if [[ "${PHP_VERSION}" = "80" ]]; then git checkout 132a11fd26675db9eb9f0e9a3e2887c161875206 ; else git checkout 3.4.4 ; fi
+RUN git checkout 3.7.0
 RUN phpize
 RUN ./configure --with-imagick=${INSTALL_DIR}
 RUN make -j $(nproc)
