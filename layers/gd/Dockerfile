@@ -1,5 +1,5 @@
 ARG PHP_VERSION
-FROM bref/build-php-$PHP_VERSION:1.2.13 AS ext
+FROM bref/build-php-$PHP_VERSION:1.3.3 AS ext
 
 # Install required build libraries
 RUN set -ue \

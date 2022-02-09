@@ -1,5 +1,5 @@
 ARG PHP_VERSION
-FROM bref/build-php-$PHP_VERSION:1.2.13 AS ext
+FROM bref/build-php-$PHP_VERSION:1.3.3 AS ext
 
 RUN pecl install msgpack
 RUN cp `php-config --extension-dir`/msgpack.so /tmp/msgpack.so
