@@ -62,11 +62,15 @@ functions:
 | Oracle             | `${bref-extra:oci8-php-80}`           |
 | Pcov               | `${bref-extra:pcov-php-74}`           |
 | PostgreSQL         | `${bref-extra:pgsql-php-74}`          |
+| RdKafka            | `${bref-extra:rdkafka-php-74}`        |
 | Redis              | `${bref-extra:redis-php-74}`          |
+| Redis-Igbinary     | `${bref-extra:redis-igbinary-php-74}` |
 | Scrypt             | `${bref-extra:scrypt-php-74}`         |
 | SPX                | `${bref-extra:spx-php-74}`            |
+| SSH2               | `${bref-extra:ssh2-php-74}`           |
 | Symfony Runtime    | `${bref-extra:symfony-runtime-php-74}`|
 | Microsoft SQLSRV   | `${bref-extra:sqlsrv-php-74}`         |
+| Tidy               | `${bref-extra:tidy-php-74}`           |
 | UUID               | `${bref-extra:uuid-php-74}`           |
 | Xdebug             | `${bref-extra:xdebug-php-74}`         |
 | Yaml               | `${bref-extra:yaml-php-74}`           |

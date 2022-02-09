@@ -1,5 +1,79 @@
 # Change log
 
+## 0.11.24
+
+### Added
+
+- Updated Blackfire to version 1.74.0.
+
+## 0.11.23
+
+### Added
+
+- Updated Blackfire to version 1.73.0.
+- Imagick support for PHP 8.1
+- Blackfire support for PHP 8.1
+- AMQP support for PHP 8.1
+- DS support for PHP 8.1
+
+## 0.11.22
+
+### Added
+
+- Kafka extension updated to 1.8.2
+- Kafka support for PHP 8.1
+- MongoDB support for PHP 8.1
+- Tidy support for PHP 8.1
+- Yaml support for PHP 8.1
+- Serverless Framework v3 support
+
+## 0.11.21
+
+### Added
+
+- Updated Blackfire to version 1.71.0.
+
+## 0.11.20
+
+### Added
+
+- Updated Blackfire to version 1.70.0.
+- Add lcms2 library for icc profile manipulation for imagick extension
+- sqlsrv support for PHP 8.1
+- Redis with Igbinary Serializer support for PHP 8.1
+
+## 0.11.19
+
+### Added
+
+- Support for Tidy extension
+- Support for SSH2 extension
+- Support for Redis with Igbinary Serializer
+- Updated Blackfire to version 1.69.0.
+- Mailparse support for PHP 8.1
+
+### Fixed
+
+- Update all Dockerfile to compile with latest version of bref
+
+## 0.11.18
+
+### Added
+
+- Updated Blackfire to version 1.68.0.
+
+## 0.11.17
+
+### Added
+
+- New version of Oracle extension.
+
+## 0.11.16
+
+### Added
+
+- Updated Blackfire to version 1.66.0.
+
 ## 0.11.15
 
 ### Changed

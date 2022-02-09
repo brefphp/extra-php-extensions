@@ -1,11 +1,11 @@
 ARG PHP_VERSION
-FROM bref/build-php-$PHP_VERSION:1.2.13 AS ext
+FROM bref/build-php-$PHP_VERSION:1.3.3 AS ext
 ARG PHP_VERSION
 
 # Prepare environment
 ENV IMAGICK_BUILD_DIR=${BUILD_DIR}/imagick
 RUN mkdir -p ${IMAGICK_BUILD_DIR}
-RUN LD_LIBRARY_PATH= yum -y install libwebp-devel wget libpng-devel libjpeg-devel ImageMagick-devel
+RUN LD_LIBRARY_PATH= yum -y install libwebp-devel wget libpng-devel libjpeg-devel lcms2-devel ImageMagick-devel
 
 # Compile libde265 (libheif dependency)
 WORKDIR ${IMAGICK_BUILD_DIR}
@@ -52,7 +52,7 @@ WORKDIR ${IMAGICK_BUILD_DIR}
 # @see https://github.com/brefphp/extra-php-extensions/pull/143/files#r541977286
 RUN git clone https://github.com/Imagick/imagick
 WORKDIR ${IMAGICK_BUILD_DIR}/imagick
-RUN if [[ "${PHP_VERSION}" = "80" ]]; then git checkout 132a11fd26675db9eb9f0e9a3e2887c161875206 ; else git checkout 3.4.4 ; fi
+RUN git checkout 3.7.0
 RUN phpize
 RUN ./configure --with-imagick=${INSTALL_DIR}
 RUN make -j $(nproc)
