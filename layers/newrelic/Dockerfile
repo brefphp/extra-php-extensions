@@ -1,10 +1,10 @@
 ARG PHP_VERSION
 FROM bref/build-php-$PHP_VERSION:1.3.3 AS ext
 
-# Build the New Relic Agent install silently for PHP Agent 9.17
-
+# Build the New Relic Agent install silently for PHP Agent 9.19
+ARG NEWRELIC_VERSION=9.19.0.309
 RUN \
-  curl -L https://download.newrelic.com/php_agent/archive/9.17.1.301/newrelic-php5-9.17.1.301-linux.tar.gz | tar -C /tmp -zx && \
+  curl -L https://download.newrelic.com/php_agent/archive/${NEWRELIC_VERSION}/newrelic-php5-${NEWRELIC_VERSION}-linux.tar.gz | tar -C /tmp -zx && \
   export NR_INSTALL_USE_CP_NOT_LN=1 && \
   export NR_INSTALL_SILENT=1 && \
   /tmp/newrelic-php5-*/newrelic-install install && \
