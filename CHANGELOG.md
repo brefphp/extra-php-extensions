@@ -5,6 +5,8 @@
 ### Added
 
 - Updated Blackfire to version 1.75.0.
+- OCI8 support for PHP 8.1
+- NewRelic support for PHP 8.1
 
 ## 0.11.25
 
