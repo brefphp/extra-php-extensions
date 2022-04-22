@@ -1,5 +1,11 @@
 # Change log
 
+## 0.11.28
+
+### Added
+
+- Added Maxminddb extension
+
 ## 0.11.27
 
 ### Added
