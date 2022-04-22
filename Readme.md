@@ -53,6 +53,7 @@ functions:
 | IMAP               | `${bref-extra:imap-php-74}`           |
 | LDAP               | `${bref-extra:ldap-php-74}`           |
 | Mailparse          | `${bref-extra:mailparse-php-74}`      |
+| MaxMind DB         | `${bref-extra:maxminddb-php-74}`      |
 | Memcache           | `${bref-extra:memcache-php-74}`       |
 | Memcached          | `${bref-extra:memcached-php-74}`      |
 | MongoDB            | `${bref-extra:mongodb-php-74}`        |
