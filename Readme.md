@@ -66,6 +66,7 @@ functions:
 | RdKafka            | `${bref-extra:rdkafka-php-74}`        |
 | Redis              | `${bref-extra:redis-php-74}`          |
 | Redis-Igbinary     | `${bref-extra:redis-igbinary-php-74}` |
+| Scout APM          | `${bref-extra:scoutapm-php-74}`       |
 | Scrypt             | `${bref-extra:scrypt-php-74}`         |
 | SPX                | `${bref-extra:spx-php-74}`            |
 | SSH2               | `${bref-extra:ssh2-php-74}`           |
