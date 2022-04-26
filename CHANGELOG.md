@@ -5,6 +5,7 @@
 ### Added
 
 - Updated Blackfire to version 1.77.0.
+- Added ScoutAMP extension
 
 ## 0.11.28
 
