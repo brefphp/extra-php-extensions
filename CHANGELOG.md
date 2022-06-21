@@ -5,6 +5,8 @@
 ### Added
 
 - Updated Blackfire to version 1.78.1.
+- Updated ODBC snowflake driver to version 2.25.0
+- Reduce size of ODBC layer
 
 ## 0.11.30
 
