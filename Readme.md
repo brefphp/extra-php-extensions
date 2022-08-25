@@ -45,6 +45,7 @@ functions:
 | Calendar           | `${bref-extra:calendar-php-74}`       |
 | Cassandra          | `${bref-extra:cassandra-php-74}`      |
 | DS                 | `${bref-extra:ds-php-74}`             |
+| Elastic APM        | `${bref-extra:elastic-apm-php-74}`    |
 | GD                 | `${bref-extra:gd-php-74}`             |
 | GMP                | `${bref-extra:gmp-php-74}`            |
 | gRPC               | `${bref-extra:grpc-php-74}`           |
