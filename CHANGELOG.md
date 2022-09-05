@@ -1,5 +1,25 @@
 # Change log
 
+## 0.12.0
+
+### Changed
+
+- Using bref/build-php-XX:1.7.4 as base image
+
+### Added
+
+- Extensions support for PHP 8.2, all except following ones:
+  - blackfire
+  - cassandra
+  - memcache
+  - newrelic
+  - newrelic
+  - oci8
+  - scrypt
+  - spx
+  - sqlsrv
+- Notice: as a consequence, xdebug extension cannot be built anymore for PHP 7.4 with the new base image
+
 ## 0.11.35
 
 ### Added

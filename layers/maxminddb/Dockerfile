@@ -1,5 +1,5 @@
 ARG PHP_VERSION
-FROM bref/build-php-$PHP_VERSION:1.3.3 AS ext
+FROM bref/build-php-$PHP_VERSION:1.7.4 AS ext
 ARG PHP_VERSION
 
 # Install libmaxminddb

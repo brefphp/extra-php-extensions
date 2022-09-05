@@ -1,5 +1,5 @@
 ARG PHP_VERSION
-FROM bref/build-php-$PHP_VERSION:1.3.3 AS ext
+FROM bref/build-php-$PHP_VERSION:1.7.4 AS ext
 
 # Build the New Relic Agent install silently for PHP Agent 9.19
 ARG NEWRELIC_VERSION=9.19.0.309

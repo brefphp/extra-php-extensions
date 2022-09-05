@@ -1,5 +1,5 @@
 ARG PHP_VERSION
-FROM bref/build-php-$PHP_VERSION:1.3.3 AS ext
+FROM bref/build-php-$PHP_VERSION:1.7.4 AS ext
 
 RUN git clone https://github.com/NoiseByNorthwest/php-spx.git \
     && cd php-spx \
