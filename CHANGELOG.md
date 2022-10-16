@@ -9,16 +9,35 @@
 ### Added
 
 - Extensions support for PHP 8.2, all except following ones:
-  - blackfire
-  - cassandra
-  - memcache
-  - newrelic
-  - newrelic
-  - oci8
-  - scrypt
-  - spx
-  - sqlsrv
-- Notice: as a consequence, xdebug extension cannot be built anymore for PHP 7.4 with the new base image
+  - amqp
+  - calendar
+  - ds
+  - gd
+  - gmp
+  - grpc
+  - igbinary
+  - imagick
+  - imap
+  - ldap
+  - mailparse
+  - maxminddb
+  - memcached
+  - mongodb
+  - msgpack
+  - odbc-snowflake
+  - pcov
+  - pgsql
+  - rdkafka
+  - redis
+  - redis-igbinary
+  - scoutapm
+  - ssh2
+  - symfony-runtime
+  - tidy
+  - uuid
+  - xdebug
+  - yaml
+- Notice: xdebug extension cannot be built anymore for PHP 7.3 with the new base image. Minimum maintained version is now PHP 7.4.
 
 ## 0.11.35
 
