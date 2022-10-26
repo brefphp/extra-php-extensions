@@ -7,14 +7,10 @@ ENV LD_LIBRARY_PATH=/usr/lib:/usr/lib64:$LD_LIBRARY_PATH
 RUN yum -y install unixODBC-devel-2.3.1-14.amzn2.x86_64
 
 RUN curl https://packages.microsoft.com/config/rhel/7/prod.repo > /etc/yum.repos.d/mssql-release.repo
-RUN ACCEPT_EULA=Y yum -y install msodbcsql17-17.7.1.1-1.x86_64
+RUN ACCEPT_EULA=Y yum -y install msodbcsql17-17.10.1.1-1.x86_64
 
-RUN if [ "$PHP_VERSION" = "81" ]; \
-    then SQLSRV_VERSION=5.10.0beta1 ; \
-    else SQLSRV_VERSION=5.9.0 ; \
-    fi ; \
-    pecl install sqlsrv-${SQLSRV_VERSION} && \
-    pecl install pdo_sqlsrv-${SQLSRV_VERSION}
+RUN pecl install sqlsrv-5.10.1 && \
+    pecl install pdo_sqlsrv-5.10.1
 
 RUN cp /opt/bref/lib/php/extensions/no-debug-non-zts-*/sqlsrv.so /tmp/sqlsrv.so
 RUN cp /opt/bref/lib/php/extensions/no-debug-non-zts-*/pdo_sqlsrv.so /tmp/pdo_sqlsrv.so
