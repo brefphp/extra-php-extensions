@@ -5,6 +5,9 @@
 ### Added
 
 - Updated Blackfire to version 1.84.0.
+- Added Xlswriter extension
+- Added Elastic APM extension
+- Updated dependencies for sqlsrv
 
 ## 0.11.34
 
