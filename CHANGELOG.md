@@ -1,5 +1,44 @@
 # Change log
 
+## 0.12.0
+
+### Changed
+
+- Using bref/build-php-XX:1.7.4 as base image
+
+### Added
+
+- Extensions support for PHP 8.2, all except following ones:
+  - amqp
+  - calendar
+  - ds
+  - gd
+  - gmp
+  - grpc
+  - igbinary
+  - imagick
+  - imap
+  - ldap
+  - mailparse
+  - maxminddb
+  - memcached
+  - mongodb
+  - msgpack
+  - odbc-snowflake
+  - pcov
+  - pgsql
+  - rdkafka
+  - redis
+  - redis-igbinary
+  - scoutapm
+  - ssh2
+  - symfony-runtime
+  - tidy
+  - uuid
+  - xdebug
+  - yaml
+- Notice: xdebug extension cannot be built anymore for PHP 7.3 with the new base image. Minimum maintained version is now PHP 7.4.
+
 ## 0.11.35
 
 ### Added

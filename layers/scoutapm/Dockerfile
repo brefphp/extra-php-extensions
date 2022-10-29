@@ -1,5 +1,5 @@
 ARG PHP_VERSION
-FROM bref/build-php-$PHP_VERSION:1.3.3 AS ext
+FROM bref/build-php-$PHP_VERSION:1.7.4 AS ext
 RUN pecl install --force scoutapm
 RUN cp `php-config --extension-dir`/scoutapm.so /tmp/scoutapm.so
 RUN echo 'zend_extension=/opt/bref-extra/scoutapm.so' > /tmp/ext.ini
