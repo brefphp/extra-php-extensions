@@ -2,7 +2,7 @@ ARG PHP_VERSION
 FROM bref/build-php-$PHP_VERSION:1.7.4 AS ext
 
 RUN set -xe; \
-  if [ $PHP_VERSION != "81" ] ; \
+  if [ $PHP_VERSION != "82" ] ; \
   then \
     pecl install xdebug; \
   else \
