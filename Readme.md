@@ -44,6 +44,7 @@ functions:
 | Blackfire          | `${bref-extra:blackfire-php-81}`      |
 | Calendar           | `${bref-extra:calendar-php-81}`       |
 | Cassandra          | `${bref-extra:cassandra-php-81}`      |
+| Decimal            | `${bref-extra:decimal-php-81}`        |
 | DS                 | `${bref-extra:ds-php-81}`             |
 | Elastic APM        | `${bref-extra:elastic-apm-php-81}`    |
 | GD                 | `${bref-extra:gd-php-81}`             |
