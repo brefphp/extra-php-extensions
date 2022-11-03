@@ -14,5 +14,9 @@ RUN echo 'extension=/opt/bref-extra/decimal.so' > /tmp/ext.ini
 FROM scratch
 
 # Copy things we installed to the final image
+COPY --from=ext /usr/lib64/libmpdec.so.2.4.2 /opt/bref/lib64/libmpdec.so.2.4.2
+COPY --from=ext /usr/lib64/libmpdec.so.2 /opt/bref/lib64/libmpdec.so.2
+COPY --from=ext /usr/lib64/libmpdec.so /opt/bref/lib64/libmpdec.so
+
 COPY --from=ext /tmp/decimal.so /opt/bref-extra/decimal.so
 COPY --from=ext /tmp/ext.ini /opt/bref/etc/php/conf.d/ext-decimal.ini
