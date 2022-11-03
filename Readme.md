@@ -48,6 +48,7 @@ functions:
 | DS                 | `${bref-extra:ds-php-81}`             |
 | Elastic APM        | `${bref-extra:elastic-apm-php-81}`    |
 | GD                 | `${bref-extra:gd-php-81}`             |
+| gnupg              | `${bref-extra:gnupg-php-81}`          |
 | GMP                | `${bref-extra:gmp-php-81}`            |
 | gRPC               | `${bref-extra:grpc-php-81}`           |
 | Igbinary           | `${bref-extra:igbinary-php-81}`       |
