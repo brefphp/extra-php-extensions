@@ -24,19 +24,7 @@ ENV EXT_CONFIGURE_OPTS=" \
     --with-xpm \
     --with-zlib \
     "
-RUN if [ "$PHP_VERSION" = "73" ] ; \
-    then \
-    EXT_CONFIGURE_OPTS=" \
-    --with-freetype-dir=${INSTALL_DIR} \
-    --with-gd \
-    --with-jpeg-dir=${INSTALL_DIR} \
-    --with-png-dir=${INSTALL_DIR} \
-    --with-webp-dir=${INSTALL_DIR} \
-    --with-xpm-dir=${INSTALL_DIR} \
-    --with-zlib-dir=${INSTALL_DIR} \
-    " ; \
-    fi; \
-    ./configure \
+RUN ./configure \
     --disable-static \
     --enable-gd-jis-conv \
     --enable-shared \

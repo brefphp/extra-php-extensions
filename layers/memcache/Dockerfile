@@ -23,7 +23,7 @@ RUN set -xe; \
     make && \
     make install
 
-RUN if [[ "${PHP_VERSION}" = "80" ]]; then pecl install memcache ; else pecl install memcache-4.0.5.2 ; fi
+RUN pecl install memcache
 RUN cp /opt/bref/lib/php/extensions/no-debug-non-zts-*/memcache.so /tmp/memcache.so
 RUN echo 'extension=/opt/bref-extra/memcache.so' > /tmp/ext.ini
 

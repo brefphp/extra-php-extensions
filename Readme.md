@@ -31,53 +31,53 @@ functions:
     console:
         handler: bin/console
         layers:
-            - ${bref:layer.php-74}
-            - ${bref-extra:amqp-php-74} # <----- Example for AMQP layer
+            - ${bref:layer.php-81}
+            - ${bref-extra:amqp-php-81} # <----- Example for AMQP layer
             - ${bref:layer.console}
 ```
 
 ### Available layers
 
-| Name               | Serverless config (php 7.4)           |
+| Name               | Serverless config (php 8.1)           |
 |:-------------------|:--------------------------------------|
-| AMQP               | `${bref-extra:amqp-php-74}`           |
-| Blackfire          | `${bref-extra:blackfire-php-74}`      |
-| Calendar           | `${bref-extra:calendar-php-74}`       |
-| Cassandra          | `${bref-extra:cassandra-php-74}`      |
-| DS                 | `${bref-extra:ds-php-74}`             |
-| Elastic APM        | `${bref-extra:elastic-apm-php-74}`    |
-| GD                 | `${bref-extra:gd-php-74}`             |
-| GMP                | `${bref-extra:gmp-php-74}`            |
-| gRPC               | `${bref-extra:grpc-php-74}`           |
-| Igbinary           | `${bref-extra:igbinary-php-74}`       |
-| Imagick            | `${bref-extra:imagick-php-74}`        |
-| IMAP               | `${bref-extra:imap-php-74}`           |
-| LDAP               | `${bref-extra:ldap-php-74}`           |
-| Mailparse          | `${bref-extra:mailparse-php-74}`      |
-| MaxMind DB         | `${bref-extra:maxminddb-php-74}`      |
-| Memcache           | `${bref-extra:memcache-php-74}`       |
-| Memcached          | `${bref-extra:memcached-php-74}`      |
-| MongoDB            | `${bref-extra:mongodb-php-74}`        |
-| MsgPack            | `${bref-extra:msgpack-php-74}`        |
-| Newrelic           | `${bref-extra:newrelic-php-74}`       |
-| ODBC Snowflake     | `${bref-extra:odbc-snowflake-php-74}` |
+| AMQP               | `${bref-extra:amqp-php-81}`           |
+| Blackfire          | `${bref-extra:blackfire-php-81}`      |
+| Calendar           | `${bref-extra:calendar-php-81}`       |
+| Cassandra          | `${bref-extra:cassandra-php-81}`      |
+| DS                 | `${bref-extra:ds-php-81}`             |
+| Elastic APM        | `${bref-extra:elastic-apm-php-81}`    |
+| GD                 | `${bref-extra:gd-php-81}`             |
+| GMP                | `${bref-extra:gmp-php-81}`            |
+| gRPC               | `${bref-extra:grpc-php-81}`           |
+| Igbinary           | `${bref-extra:igbinary-php-81}`       |
+| Imagick            | `${bref-extra:imagick-php-81}`        |
+| IMAP               | `${bref-extra:imap-php-81}`           |
+| LDAP               | `${bref-extra:ldap-php-81}`           |
+| Mailparse          | `${bref-extra:mailparse-php-81}`      |
+| MaxMind DB         | `${bref-extra:maxminddb-php-81}`      |
+| Memcache           | `${bref-extra:memcache-php-81}`       |
+| Memcached          | `${bref-extra:memcached-php-81}`      |
+| MongoDB            | `${bref-extra:mongodb-php-81}`        |
+| MsgPack            | `${bref-extra:msgpack-php-81}`        |
+| Newrelic           | `${bref-extra:newrelic-php-81}`       |
+| ODBC Snowflake     | `${bref-extra:odbc-snowflake-php-81}` |
 | Oracle             | `${bref-extra:oci8-php-80}`           |
-| Pcov               | `${bref-extra:pcov-php-74}`           |
-| PostgreSQL         | `${bref-extra:pgsql-php-74}`          |
-| RdKafka            | `${bref-extra:rdkafka-php-74}`        |
-| Redis              | `${bref-extra:redis-php-74}`          |
-| Redis-Igbinary     | `${bref-extra:redis-igbinary-php-74}` |
-| Scout APM          | `${bref-extra:scoutapm-php-74}`       |
-| Scrypt             | `${bref-extra:scrypt-php-74}`         |
-| SPX                | `${bref-extra:spx-php-74}`            |
-| SSH2               | `${bref-extra:ssh2-php-74}`           |
-| Symfony Runtime    | `${bref-extra:symfony-runtime-php-74}`|
-| Microsoft SQLSRV   | `${bref-extra:sqlsrv-php-74}`         |
-| Tidy               | `${bref-extra:tidy-php-74}`           |
-| UUID               | `${bref-extra:uuid-php-74}`           |
-| Xdebug             | `${bref-extra:xdebug-php-74}`         |
+| Pcov               | `${bref-extra:pcov-php-81}`           |
+| PostgreSQL         | `${bref-extra:pgsql-php-81}`          |
+| RdKafka            | `${bref-extra:rdkafka-php-81}`        |
+| Redis              | `${bref-extra:redis-php-81}`          |
+| Redis-Igbinary     | `${bref-extra:redis-igbinary-php-81}` |
+| Scout APM          | `${bref-extra:scoutapm-php-81}`       |
+| Scrypt             | `${bref-extra:scrypt-php-81}`         |
+| SPX                | `${bref-extra:spx-php-81}`            |
+| SSH2               | `${bref-extra:ssh2-php-81}`           |
+| Symfony Runtime    | `${bref-extra:symfony-runtime-php-81}`|
+| Microsoft SQLSRV   | `${bref-extra:sqlsrv-php-81}`         |
+| Tidy               | `${bref-extra:tidy-php-81}`           |
+| UUID               | `${bref-extra:uuid-php-81}`           |
+| Xdebug             | `${bref-extra:xdebug-php-81}`         |
 | Xlswriter          | `${bref-extra:xlswriter-php-81}`      |
-| Yaml               | `${bref-extra:yaml-php-74}`           |
+| Yaml               | `${bref-extra:yaml-php-81}`           |
 
 ### Blackfire installation
 
@@ -142,7 +142,7 @@ the `/opt` directory in the image.
 
 ### Local Development
 
-When developing locally you can build your own images with the required extensions. Example with PHP 7.4 and MongoDB Extension:
+When developing locally you can build your own images with the required extensions. Example with PHP 8.2 and MongoDB Extension:
 
 docker-compose.yml
 ```
@@ -156,8 +156,8 @@ docker-compose.yml
 
 Dockerfile-phpFpm
 ```
-FROM bref/extra-mongodb-php-74 as mongodbextra
-FROM bref/php-74-fpm-dev
+FROM bref/extra-mongodb-php-82 as mongodbextra
+FROM bref/php-82-fpm-dev
 COPY --from=mongodbextra /opt /opt
 ```
 
