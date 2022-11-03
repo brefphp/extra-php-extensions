@@ -2,6 +2,10 @@
 
 ## 0.12.0
 
+### Removed
+
+- PHP 7 support
+
 ### Changed
 
 - Using bref/build-php-XX:1.7.4 as base image
