@@ -1,8 +1,9 @@
 ARG PHP_VERSION
 FROM bref/build-php-$PHP_VERSION:1.7.4 AS ext
 
-RUN pecl install grpc > /dev/null
+RUN MAKEFLAGS="-j $(nproc)" && pecl install grpc > /dev/null
 RUN cp `php-config --extension-dir`/grpc.so /tmp/grpc.so
+RUN strip --strip-debug /tmp/grpc.so
 RUN echo 'extension=/opt/bref-extra/grpc.so' > /tmp/ext.ini
 
 # Build the final image with just the files we need
