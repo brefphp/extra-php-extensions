@@ -1,5 +1,5 @@
 ARG PHP_VERSION
-FROM bref/build-php-$PHP_VERSION:1.7.4 AS ext
+FROM bref/build-php-$PHP_VERSION:1.7.14 AS ext
 ARG PHP_VERSION
 
 ENV LD_LIBRARY_PATH=/usr/lib:/usr/lib64:$LD_LIBRARY_PATH
@@ -10,7 +10,7 @@ RUN curl https://packages.microsoft.com/config/rhel/7/prod.repo > /etc/yum.repos
 RUN ACCEPT_EULA=Y yum -y install msodbcsql17-17.10.1.1-1.x86_64
 
 RUN pecl install sqlsrv-5.10.1 && \
-    pecl install pdo_sqlsrv-5.10.1
+  pecl install pdo_sqlsrv-5.10.1
 
 RUN cp /opt/bref/lib/php/extensions/no-debug-non-zts-*/sqlsrv.so /tmp/sqlsrv.so
 RUN cp /opt/bref/lib/php/extensions/no-debug-non-zts-*/pdo_sqlsrv.so /tmp/pdo_sqlsrv.so

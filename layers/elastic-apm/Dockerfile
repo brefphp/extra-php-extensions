@@ -1,5 +1,5 @@
 ARG PHP_VERSION
-FROM bref/build-php-$PHP_VERSION:1.5.4 AS ext
+FROM bref/build-php-$PHP_VERSION:1.7.14 AS ext
 
 RUN \
     LD_LIBRARY_PATH=/lib64:/lib yum install -y libcurl-devel openssl-devel \
