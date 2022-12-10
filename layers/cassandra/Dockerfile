@@ -1,5 +1,5 @@
 ARG PHP_VERSION
-FROM bref/build-php-$PHP_VERSION:1.7.4 AS ext
+FROM bref/build-php-$PHP_VERSION:1.7.14 AS ext
 
 # Datastax is providing a PHP Cassandra driver, but this hasn't been updated for a while and doesn't work with PHP 7.2 or higher
 # Datastax indicated there will be updates in the near future, so check https://docs.datastax.com/en/developer/php-driver/ if you want to avoid building your own :-)
