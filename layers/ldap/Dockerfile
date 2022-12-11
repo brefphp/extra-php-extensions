@@ -1,22 +1,15 @@
+# syntax = docker/dockerfile:1.4
 ARG PHP_VERSION
-FROM bref/build-php-$PHP_VERSION:1.7.4 AS ext
+FROM bref/build-php-$PHP_VERSION:2 AS ext
 
-ENV LD_LIBRARY_PATH=/usr/lib:/usr/lib64:$LD_LIBRARY_PATH
-
-RUN yum -y install openldap-devel
-
-WORKDIR ${PHP_BUILD_DIR}/ext/ldap
-RUN phpize
-RUN ls /usr/include/ldap*
-RUN ./configure --with-ldap --with-libdir=lib64
-RUN make -j `nproc` && make install
-
-RUN cp `php-config --extension-dir`/ldap.so /tmp/ldap.so
-RUN echo 'extension=/opt/bref-extra/ldap.so' > /tmp/ext.ini
+RUN <<eot bash -e
+yum install -y php-ldap
+echo 'extension=ldap.so' > /tmp/ext-ldap.ini
+eot
 
 # Build the final image with just the files we need
 FROM scratch
 
 # Copy things we installed to the final image
-COPY --from=ext /tmp/ldap.so /opt/bref-extra/ldap.so
-COPY --from=ext /tmp/ext.ini /opt/bref/etc/php/conf.d/ext-ldap.ini
+COPY --link --from=ext /usr/lib64/php/modules/ldap.so /opt/bref/extensions/
+COPY --link --from=ext /tmp/*.ini /opt/bref/etc/php/conf.d/
