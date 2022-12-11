@@ -1,50 +1,16 @@
+# syntax = docker/dockerfile:1.4
 ARG PHP_VERSION
-FROM bref/build-php-$PHP_VERSION:1.7.4 AS ext
+FROM bref/build-php-$PHP_VERSION:2 AS ext
 
-# Install required build libraries
-RUN set -ue \
-    ; LD_LIBRARY_PATH= \
-    ; yum -y install \
-    libwebp-devel \
-    libXpm-devel \
-    libpng-devel \
-    libjpeg-devel \
-    freetype-devel \
-    ;
+RUN <<eot bash -e
+yum install -y php-gd
+echo 'extension=gd.so' > /tmp/ext-gd.ini
+eot
 
-WORKDIR ${PHP_BUILD_DIR}/ext/gd
-RUN phpize
-ARG PHP_VERSION
-ENV EXT_CONFIGURE_OPTS=" \
-    --with-freetype \
-    --enable-gd \
-    --with-jpeg \
-    --with-png \
-    --with-webp \
-    --with-xpm \
-    --with-zlib \
-    "
-RUN ./configure \
-    --disable-static \
-    --enable-gd-jis-conv \
-    --enable-shared \
-    ${EXT_CONFIGURE_OPTS} \
-    ;
-RUN make -j $(nproc)
-RUN make install
-RUN cp "$(php-config --extension-dir)/gd.so" /tmp/gd.so
-RUN echo 'extension=/opt/bref-extra/gd.so' > /tmp/ext.ini
-
+# Build the final image with just the files we need
 FROM scratch
 
-COPY --from=ext /usr/lib64/libXpm.so.4 /opt/bref/lib64/libXpm.so.4
-COPY --from=ext /usr/lib64/libX11.so.6.3.0 /opt/bref/lib64/libX11.so.6
-COPY --from=ext /usr/lib64/libpng15.so.15.13.0 /opt/bref/lib64/libpng15.so.15
-COPY --from=ext /usr/lib64/libjpeg.so.* /opt/bref/lib64/
-COPY --from=ext /usr/lib64/libfreetype.so.6.14.0 /opt/bref/lib64/libfreetype.so.6
-COPY --from=ext /usr/lib64/libxcb.so.1.1.0 /opt/bref/lib64/libxcb.so.1
-COPY --from=ext /usr/lib64/libXau.so.6.0.0 /opt/bref/lib64/libXau.so.6
-COPY --from=ext /usr/lib64/libwebp.so.4 /opt/bref/lib64/libwebp.so.4
-
-COPY --from=ext /tmp/gd.so /opt/bref-extra/gd.so
-COPY --from=ext /tmp/ext.ini /opt/bref/etc/php/conf.d/ext-gd.ini
+# Copy things we installed to the final image
+COPY --link --from=ext /usr/lib64/libgd.so* /opt/lib/
+COPY --link --from=ext /usr/lib64/php/modules/gd.so /opt/bref/extensions/
+COPY --link --from=ext /tmp/*.ini /opt/bref/etc/php/conf.d/
