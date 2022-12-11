@@ -1,16 +1,15 @@
+# syntax = docker/dockerfile:1.4
 ARG PHP_VERSION
-FROM bref/build-php-$PHP_VERSION:1.7.4 AS ext
+FROM bref/build-php-$PHP_VERSION:2 AS ext
 
-ENV LD_LIBRARY_PATH=/usr/lib:/usr/lib64:$LD_LIBRARY_PATH
-RUN yum install -y re2c
-
-RUN pecl install mailparse
-RUN cp `php-config --extension-dir`/mailparse.so /tmp/mailparse.so
-RUN echo 'extension=/opt/bref-extra/mailparse.so' > /tmp/ext.ini
+RUN <<eot bash -e
+yum install -y php-mailparse
+echo 'extension=mailparse.so' > /tmp/ext-mailparse.ini
+eot
 
 # Build the final image with just the files we need
 FROM scratch
 
 # Copy things we installed to the final image
-COPY --from=ext /tmp/mailparse.so /opt/bref-extra/mailparse.so
-COPY --from=ext /tmp/ext.ini /opt/bref/etc/php/conf.d/ext-mailparse.ini
+COPY --link --from=ext /usr/lib64/php/modules/mailparse.so /opt/bref/extensions/
+COPY --link --from=ext /tmp/*.ini /opt/bref/etc/php/conf.d/
