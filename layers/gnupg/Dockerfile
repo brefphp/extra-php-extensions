@@ -1,18 +1,15 @@
+# syntax = docker/dockerfile:1.4
 ARG PHP_VERSION
-FROM bref/build-php-$PHP_VERSION:1.7.4 AS ext
+FROM bref/build-php-$PHP_VERSION:2 AS ext
 
-ENV LD_LIBRARY_PATH=/usr/lib:/usr/lib64:$LD_LIBRARY_PATH
-
-RUN yum install -y gpgme-devel
-
-RUN pecl install gnupg
-RUN cp `php-config --extension-dir`/gnupg.so /tmp/gnupg.so
-RUN echo 'extension=/opt/bref-extra/gnupg.so' > /tmp/ext.ini
+RUN <<eot bash -e
+yum install -y php-gnupg
+echo 'extension=gnupg.so' > /tmp/ext-gnupg.ini
+eot
 
 # Build the final image with just the files we need
 FROM scratch
 
 # Copy things we installed to the final image
-
-COPY --from=ext /tmp/gnupg.so /opt/bref-extra/gnupg.so
-COPY --from=ext /tmp/ext.ini /opt/bref/etc/php/conf.d/ext-gnupg.ini
+COPY --link --from=ext /usr/lib64/php/modules/gnupg.so /opt/bref/extensions/
+COPY --link --from=ext /tmp/*.ini /opt/bref/etc/php/conf.d/
