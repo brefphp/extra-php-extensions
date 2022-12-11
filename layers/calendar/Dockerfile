@@ -1,17 +1,15 @@
+# syntax = docker/dockerfile:1.4
 ARG PHP_VERSION
-FROM bref/build-php-$PHP_VERSION:1.7.4 AS ext
+FROM bref/build-php-$PHP_VERSION:2 AS ext
 
-WORKDIR ${PHP_BUILD_DIR}/ext/calendar
-RUN phpize && \
-    ./configure \
-    --enable-calendar
+RUN <<eot bash -e
+yum install -y php-calendar
+echo 'extension=calendar.so' > /tmp/ext-calendar.ini
+eot
 
-RUN make -j $(nproc)
-RUN make install
-RUN cp "$(php-config --extension-dir)/calendar.so" /tmp/calendar.so
-RUN echo 'extension=/opt/bref-extra/calendar.so' > /tmp/ext.ini
-
+# Build the final image with just the files we need
 FROM scratch
 
-COPY --from=ext /tmp/calendar.so /opt/bref-extra/calendar.so
-COPY --from=ext /tmp/ext.ini /opt/bref/etc/php/conf.d/ext-calendar.ini
+# Copy things we installed to the final image
+COPY --link --from=ext /usr/lib64/php/modules/calendar.so /opt/bref/extensions/
+COPY --link --from=ext /tmp/*.ini /opt/bref/etc/php/conf.d/
