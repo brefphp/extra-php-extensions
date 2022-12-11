@@ -1,22 +1,17 @@
+# syntax = docker/dockerfile:1.4
 ARG PHP_VERSION
-FROM bref/build-php-$PHP_VERSION:1.7.4 AS ext
+FROM bref/build-php-$PHP_VERSION:2 AS ext
 
-ENV LD_LIBRARY_PATH=/usr/lib:/usr/lib64:$LD_LIBRARY_PATH
-RUN yum -y install amazon-linux-extras
-RUN amazon-linux-extras install epel -y
-RUN yum install -y mpdecimal-devel
-
-RUN pecl install decimal
-RUN cp `php-config --extension-dir`/decimal.so /tmp/decimal.so
-RUN echo 'extension=/opt/bref-extra/decimal.so' > /tmp/ext.ini
+RUN <<eot bash -e
+yum install -y php-decimal
+echo 'extension=decimal.so' > /tmp/ext-decimal.ini
+eot
 
 # Build the final image with just the files we need
 FROM scratch
 
 # Copy things we installed to the final image
-COPY --from=ext /usr/lib64/libmpdec.so.2.4.2 /opt/bref/lib64/libmpdec.so.2.4.2
-COPY --from=ext /usr/lib64/libmpdec.so.2 /opt/bref/lib64/libmpdec.so.2
-COPY --from=ext /usr/lib64/libmpdec.so /opt/bref/lib64/libmpdec.so
-
-COPY --from=ext /tmp/decimal.so /opt/bref-extra/decimal.so
-COPY --from=ext /tmp/ext.ini /opt/bref/etc/php/conf.d/ext-decimal.ini
+# COPY --link --from=ext /usr/lib64/liblz4.so* /opt/lib/
+COPY --link --from=ext /usr/lib64/libmpdec.so* /opt/lib/
+COPY --link --from=ext /usr/lib64/php/modules/decimal.so /opt/bref/extensions/
+COPY --link --from=ext /tmp/*.ini /opt/bref/etc/php/conf.d/
