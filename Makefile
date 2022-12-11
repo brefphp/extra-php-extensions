@@ -4,7 +4,7 @@ resolve_php_versions = $(or $(php_versions),`jq -r '.php | join(" ")' ${1}/confi
 resolve_tags = `./new-docker-tags.php $(DOCKER_TAG)`
 
 define build_docker_image
-	docker build -t bref/${1}-php-${2} --build-arg PHP_VERSION=${2} ${DOCKER_BUILD_FLAGS} ${1}
+	docker buildx build --platform=linux/amd64 -t bref/${1}-php-${2} --build-arg PHP_VERSION=${2} ${DOCKER_BUILD_FLAGS} ${1}
 endef
 
 docker-images:
@@ -30,7 +30,7 @@ test: docker-images
 			echo "###############################################"; \
 			echo "### Testing $${dir} PHP$${php_version}"; \
 			echo "###"; \
-			docker build --build-arg PHP_VERSION=$${php_version} --build-arg TARGET_IMAGE=$${dir}-php-$${php_version} -t bref/test-$${dir}-$${php_version} tests ; \
+			docker buildx build  --platform=linux/amd64 --build-arg PHP_VERSION=$${php_version} --build-arg TARGET_IMAGE=$${dir}-php-$${php_version} -t bref/test-$${dir}-$${php_version} tests ; \
 			docker run --entrypoint= --rm -v $$(pwd)/$${dir}:/var/task bref/test-$${dir}-$${php_version} /opt/bin/php /var/task/test.php ; \
 			if docker run --entrypoint= --rm -v $$(pwd)/$${dir}:/var/task bref/test-$${dir}-$${php_version} /opt/bin/php -v 2>&1 >/dev/null | grep -q 'Unable\|Warning'; then exit 1; fi ; \
 			echo ""; \
