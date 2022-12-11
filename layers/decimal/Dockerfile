@@ -11,7 +11,6 @@ eot
 FROM scratch
 
 # Copy things we installed to the final image
-# COPY --link --from=ext /usr/lib64/liblz4.so* /opt/lib/
 COPY --link --from=ext /usr/lib64/libmpdec.so* /opt/lib/
 COPY --link --from=ext /usr/lib64/php/modules/decimal.so /opt/bref/extensions/
 COPY --link --from=ext /tmp/*.ini /opt/bref/etc/php/conf.d/
