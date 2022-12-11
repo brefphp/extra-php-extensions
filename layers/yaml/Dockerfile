@@ -1,35 +1,17 @@
+# syntax = docker/dockerfile:1.4
 ARG PHP_VERSION
-FROM bref/build-php-$PHP_VERSION:1.7.4 AS ext
+FROM bref/build-php-$PHP_VERSION:2 AS ext
 
-ENV LIBYAML_BUILD_DIR=${BUILD_DIR}/libyaml
+RUN <<eot bash -e
+yum install -y php-yaml
+echo 'extension=yaml.so' > /tmp/ext.ini
+eot
 
-RUN set -xe; \
-    mkdir -p ${LIBYAML_BUILD_DIR}; \
-    # Download and upack the source code
-    curl -Ls https://github.com/yaml/libyaml/archive/0.2.5.tar.gz  \
-    | tar xzC ${LIBYAML_BUILD_DIR}
-
-# Move into the unpackaged code directory
-WORKDIR  ${LIBYAML_BUILD_DIR}/libyaml-0.2.5/
-
-# Install
-RUN set -xe; \
-    ./bootstrap; \
-    ./configure --prefix ${INSTALL_DIR} --exec-prefix ${INSTALL_DIR}; \
-    make -j $(nproc); \
-    make install
-
-RUN pecl install yaml
-RUN cp /opt/bref/lib/php/extensions/no-debug-non-zts-*/yaml.so /tmp/yaml.so
-RUN echo 'extension=/opt/bref-extra/yaml.so' > /tmp/ext.ini
-
+# Build the final image with just the files we need
 FROM scratch
 
-COPY --from=ext /opt/bref/lib/libyaml-0.so.2 /opt/bref/lib64/libyaml-0.so.2
-COPY --from=ext /opt/bref/lib/libyaml-0.so.2.0.9 /opt/bref/lib64/libyaml-0.so.2.0.9
-COPY --from=ext /opt/bref/lib/libyaml.a /opt/bref/lib64/libyaml.a
-COPY --from=ext /opt/bref/lib/libyaml.la /opt/bref/lib64/libyaml.la
-COPY --from=ext /opt/bref/lib/libyaml.so /opt/bref/lib64/libyaml.so
+# Copy things we installed to the final image
+COPY --link --from=ext /usr/lib64/libyaml*.so* /opt/lib/
+COPY --link --from=ext /usr/lib64/php/modules/yaml.so /opt/bref/extensions/
+COPY --link --from=ext /tmp/ext.ini /opt/bref/etc/php/conf.d/ext-yaml.ini
 
-COPY --from=ext /tmp/yaml.so /opt/bref-extra/yaml.so
-COPY --from=ext /tmp/ext.ini /opt/bref/etc/php/conf.d/ext-yaml.ini
