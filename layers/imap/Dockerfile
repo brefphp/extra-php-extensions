@@ -11,9 +11,9 @@ eot
 FROM scratch
 
 # Copy things we installed to the final image
-COPY --from=ext /usr/lib64/libc-client.so* /opt/lib/
-COPY --from=ext /usr/lib64/libpam.so* /opt/lib/
-COPY --from=ext /usr/lib64/libaudit.so* /opt/lib/
-COPY --from=ext /usr/lib64/libcap-ng.so* /opt/lib/
+COPY --link --from=ext /usr/lib64/libc-client.so* /opt/lib/
+COPY --link --from=ext /usr/lib64/libpam.so* /opt/lib/
+COPY --link --from=ext /usr/lib64/libaudit.so* /opt/lib/
+COPY --link --from=ext /usr/lib64/libcap-ng.so* /opt/lib/
 COPY --link --from=ext /usr/lib64/php/modules/imap.so /opt/bref/extensions/
 COPY --link --from=ext /tmp/ext.ini /opt/bref/etc/php/conf.d/ext-imap.ini
