@@ -4,7 +4,7 @@ FROM bref/build-php-$PHP_VERSION:2 AS ext
 
 RUN <<eot bash -e
 yum install -y php-yaml
-echo 'extension=yaml.so' > /tmp/ext.ini
+echo 'extension=yaml.so' > /tmp/ext-yaml.ini
 eot
 
 # Build the final image with just the files we need
@@ -13,5 +13,5 @@ FROM scratch
 # Copy things we installed to the final image
 COPY --link --from=ext /usr/lib64/libyaml*.so* /opt/lib/
 COPY --link --from=ext /usr/lib64/php/modules/yaml.so /opt/bref/extensions/
-COPY --link --from=ext /tmp/ext.ini /opt/bref/etc/php/conf.d/ext-yaml.ini
+COPY --link --from=ext /tmp/*.ini /opt/bref/etc/php/conf.d/
 
