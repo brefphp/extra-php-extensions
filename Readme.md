@@ -63,6 +63,7 @@ functions:
 | MsgPack            | `${bref-extra:msgpack-php-81}`        |
 | Newrelic           | `${bref-extra:newrelic-php-81}`       |
 | ODBC Snowflake     | `${bref-extra:odbc-snowflake-php-81}` |
+| OpenSwoole         | `${bref-extra:openswoole-php-81}`     |
 | Oracle             | `${bref-extra:oci8-php-80}`           |
 | Pcov               | `${bref-extra:pcov-php-81}`           |
 | PostgreSQL         | `${bref-extra:pgsql-php-81}`          |
