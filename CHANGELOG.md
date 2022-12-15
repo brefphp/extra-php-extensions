@@ -1,5 +1,15 @@
 # Change log
 
+## 0.12.2
+
+### Added
+
+- extensions compiled against PHP 8.2.0 stable release
+
+### Changed
+
+- Using bref/build-php-XX:1.7.14 as base image
+
 ## 0.12.1
 
 ### Added
@@ -14,7 +24,7 @@
 
 ### Changed
 
-- Using bref/build-php-XX:1.7.4 as base image
+- Using bref/build-php-XX:1.7.14 as base image
 
 ### Added
 
