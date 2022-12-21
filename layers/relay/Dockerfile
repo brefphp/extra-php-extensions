@@ -19,7 +19,7 @@ RUN yum install -y openssl11-libs # libssl 1.1 and libcrypto 1.1 (system version
 RUN <<'END' bash -e
     mkdir -p /tmp/relay
     export version=$(php -r "echo PHP_MAJOR_VERSION.'.'.PHP_MINOR_VERSION;")
-    curl -sSL "https://cachewerk.s3.amazonaws.com/relay/v$RELAY_VERSION/relay-v$RELAY_VERSION-php$version-centos7-x86-64.tar.gz" | tar -xz --strip-components=1 -C /tmp/relay
+   curl -sSL "https://builds.r2.relay.so/v$RELAY_VERSION/relay-v$RELAY_VERSION-php$version-centos7-x86-64.tar.gz" | tar -xz --strip-components=1 -C
     sed -i "s/00000000-0000-0000-0000-000000000000/$(cat /proc/sys/kernel/random/uuid)/" /tmp/relay/relay-pkg.so
     cp /tmp/relay/relay-pkg.so /tmp/relay.so
     cp /tmp/relay/relay.ini /tmp/ext-relay.ini
