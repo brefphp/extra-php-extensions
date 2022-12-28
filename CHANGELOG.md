@@ -7,6 +7,7 @@
 - extensions compiled against PHP 8.2.0 stable release
 - OpenSwoole extension
 - Support for sqlsrv on PHP 8.2
+- Added more AWS regions
 
 ### Changed
 
