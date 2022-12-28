@@ -5,10 +5,14 @@
 ### Added
 
 - extensions compiled against PHP 8.2.0 stable release
+- OpenSwoole extension
+- Support for sqlsrv on PHP 8.2
+- Added more AWS regions
 
 ### Changed
 
 - Using bref/build-php-XX:1.7.14 as base image
+- Updated NewRelic Agent to 10.3.0.315
 
 ## 0.12.1
 
