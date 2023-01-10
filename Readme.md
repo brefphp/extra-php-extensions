@@ -68,7 +68,7 @@ functions:
 | Pcov               | `${bref-extra:pcov-php-81}`           |
 | PostgreSQL         | `${bref-extra:pgsql-php-81}`          |
 | RdKafka            | `${bref-extra:rdkafka-php-81}`        |
-| Redis              | `${bref-extra:redis-php-81}`          |
+| Redis (phpredis)   | `${bref-extra:redis-php-81}`          |
 | Redis-Igbinary     | `${bref-extra:redis-igbinary-php-81}` |
 | Scout APM          | `${bref-extra:scoutapm-php-81}`       |
 | Scrypt             | `${bref-extra:scrypt-php-81}`         |
