@@ -3,8 +3,13 @@
 ## 0.12.3
 
 ### Added
+- Support for PHP 8.2 for Xlswriter
+- Support for PHP 8.2 for oci8
+
+### Updated
 
 - Updated Blackfire to version 1.86.3.
+- NewRelic agent to 10.4.0.316
 
 ## 0.12.2
 
