@@ -77,6 +77,7 @@ functions:
 | SSH2               | `${bref-extra:ssh2-php-81}`           |
 | Symfony Runtime    | `${bref-extra:symfony-runtime-php-81}`|
 | Microsoft SQLSRV   | `${bref-extra:sqlsrv-php-81}`         |
+| Tideways           | `${bref-extra:tideways-php-81}`       |
 | Tidy               | `${bref-extra:tidy-php-81}`           |
 | UUID               | `${bref-extra:uuid-php-81}`           |
 | Xdebug             | `${bref-extra:xdebug-php-81}`         |
