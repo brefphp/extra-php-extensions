@@ -2,7 +2,7 @@
 ARG PHP_VERSION
 FROM bref/build-php-$PHP_VERSION:1.7.14 AS ext
 
-ARG RELAY_VERSION=0.5.1
+ARG RELAY_VERSION=0.6.0
 
 # Docs: https://relay.so/docs/1.x/installation#manual-installation
 
