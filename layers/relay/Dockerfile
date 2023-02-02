@@ -6,7 +6,7 @@ ARG RELAY_VERSION=0.6.0
 
 # Docs: https://relay.so/docs/1.x/installation#manual-installation
 
-# Install extensions needed by Relay
+# Install extensions required by Relay
 RUN pecl install igbinary msgpack && \
     cp `php-config --extension-dir`/igbinary.so /tmp/igbinary.so && \
     cp `php-config --extension-dir`/msgpack.so /tmp/msgpack.so && \
@@ -23,10 +23,9 @@ RUN <<'END' bash -e
 END
 
 RUN <<'END' bash -e
+    export php_version=$(php-config --version | cut -c -3)
     mkdir -p /tmp/relay
-    cd /tmp/relay
-    export version=$(php -r "echo PHP_MAJOR_VERSION.'.'.PHP_MINOR_VERSION;")
-    curl -sSL "https://builds.r2.relay.so/v$RELAY_VERSION/relay-v$RELAY_VERSION-php$version-centos7-x86-64.tar.gz" | tar -xz --strip-components=1 -C /tmp/relay
+    curl -sSL "https://builds.r2.relay.so/v$RELAY_VERSION/relay-v$RELAY_VERSION-php$php_version-centos7-x86-64.tar.gz" | tar -xz --strip-components=1 -C /tmp/relay
     sed -i "s/00000000-0000-0000-0000-000000000000/$(cat /proc/sys/kernel/random/uuid)/" /tmp/relay/relay-pkg.so
     cp /tmp/relay/relay-pkg.so /tmp/relay.so
     echo 'extension=/opt/bref-extra/relay.so' > /tmp/ext-relay.ini
