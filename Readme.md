@@ -197,6 +197,13 @@ layer=imagick make test
 layer=imagick php_versions=74 make test
 ```
 
+You can publish the layer in your AWS account to test it in AWS Lambda as well:
+
+```
+# Publish a single layer on a single PHP version in a single region
+layer=imagick php_versions=81 only_region=us-east-1 make publish
+```
+
 ### Deploy new versions
 
 #### Use Github actions
