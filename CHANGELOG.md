@@ -1,8 +1,17 @@
 # Change log
 
+## 0.12.4
+
+### Added
+
+- Relay extension
+- Tideways extension
+- Update NewRelic
+
 ## 0.12.3
 
 ### Added
+
 - Support for PHP 8.2 for Xlswriter
 - Support for PHP 8.2 for oci8
 
