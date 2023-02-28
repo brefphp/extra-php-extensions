@@ -4,7 +4,7 @@ FROM bref/build-php-$PHP_VERSION:1.7.14 AS ext
 RUN \
     LD_LIBRARY_PATH=/lib64:/lib yum install -y libcurl-devel openssl-devel \
     && mkdir /tmp/apm \
-    && curl -L https://github.com/elastic/apm-agent-php/archive/refs/tags/v1.6.tar.gz | tar -C /tmp/apm -zx --strip-components=1 \
+    && curl -L https://github.com/elastic/apm-agent-php/archive/refs/tags/v1.8.0.tar.gz | tar -C /tmp/apm -zx --strip-components=1 \
     && cd /tmp/apm/src/ext \
     && phpize \
     && CFLAGS="-std=gnu99" ./configure --enable-elastic_apm \
