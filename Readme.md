@@ -44,6 +44,7 @@ functions:
 | Blackfire          | `${bref-extra:blackfire-php-81}`      |
 | Calendar           | `${bref-extra:calendar-php-81}`       |
 | Cassandra          | `${bref-extra:cassandra-php-81}`      |
+| Datadog            | `${bref-extra:datadog-php-81}`        |
 | Decimal            | `${bref-extra:decimal-php-81}`        |
 | DS                 | `${bref-extra:ds-php-81}`             |
 | Elastic APM        | `${bref-extra:elastic-apm-php-81}`    |
@@ -135,6 +136,10 @@ in your `serverless.yaml` in order to tell unixODBC to load the required ini fil
 ### New Relic
 
 Read [the New Relic tutorial](docs/newrelic.md).
+
+### Datadog
+
+Read [the notes on configuring the Datadog layer](docs/datadog.md).
 
 ## Docker images
 
