@@ -23,11 +23,13 @@ RUN curl https://sfc-repo.snowflakecomputing.com/odbc/linux/2.25.0/snowflake_lin
 # modify the config files for the new final location in /opt/snowflake_odbc
 RUN sed -i 's#/path/to/your/#/opt/snowflake_odbc/lib/#g' /tmp/snowflake_odbc/conf/*
 
+RUN php /bref/lib-copy/copy-dependencies.php /tmp/odbc.so /tmp/extension-libs
+
+
 # Build the final image with just the files we need
 FROM scratch
 
-COPY --from=ext /usr/lib64/libodb* /opt/bref/lib64/
-COPY --from=ext /usr/lib64/libltdl.so.7.3.0 /opt/bref/lib64/libltdl.so.7
 COPY --from=ext /tmp/snowflake_odbc/ /opt/snowflake_odbc/
 COPY --from=ext /tmp/odbc.so /opt/bref/extensions/
 COPY --from=ext /tmp/ext.ini /opt/bref/etc/php/conf.d/ext-odbc.ini
+COPY --from=ext /tmp/extension-libs /opt/lib

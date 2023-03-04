@@ -20,19 +20,13 @@ RUN make -j $(nproc) install
 RUN cp `php-config --extension-dir`/gmp.so /tmp/gmp.so
 RUN echo 'extension=gmp.so' > /tmp/ext.ini
 
+RUN php /bref/lib-copy/copy-dependencies.php /tmp/gmp.so /tmp/extension-libs
+
 
 # Build the final image with just the files we need
 FROM scratch
 
 # Copy things we installed to the final image
-COPY --from=ext /usr/include/gmp-mparam-x86_64.h /opt/bref/include/gmp-mparam-x86_64.h
-COPY --from=ext /usr/include/gmp-mparam.h /opt/bref/include/gmp-mparam.h
-COPY --from=ext /usr/include/gmp-x86_64.h /opt/bref/include/gmp-x86_64.h
-COPY --from=ext /usr/include/gmp.h /opt/bref/include/gmp.h
-COPY --from=ext /usr/include/gmpxx.h /opt/bref/include/gmpxx.h
-
-COPY --from=ext /usr/lib64/libgmp.so /opt/bref/lib64/libgmp.so
-COPY --from=ext /usr/lib64/libgmpxx.so /opt/bref/lib64/libgmpxx.so
-
 COPY --from=ext /tmp/gmp.so /opt/bref/extensions/gmp.so
 COPY --from=ext /tmp/ext.ini /opt/bref/etc/php/conf.d/ext-gmp.ini
+COPY --from=ext /tmp/extension-libs /opt/lib
