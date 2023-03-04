@@ -6,14 +6,14 @@ RUN git clone https://github.com/NoiseByNorthwest/php-spx.git \
     && cd php-spx \
     && git reset --hard v0.4.10 \
     && phpize \
-    && ./configure \
-    && make \
+    && ./configure --prefix ${INSTALL_DIR} --exec-prefix ${INSTALL_DIR} \
+    && make -j $(nproc) \
     && make install \
     && cd ../ \
     && rm -rf php-spx
 
 RUN cp `php-config --extension-dir`/spx.so /tmp/spx.so
-RUN cp -r /opt/bref/share/misc/php-spx/assets /tmp/spx-assets
+RUN cp -r ${INSTALL_DIR}/share/misc/php-spx/assets /tmp/spx-assets
 RUN echo 'extension=spx.so' > /tmp/ext.ini
 
 
