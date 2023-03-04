@@ -47,6 +47,8 @@ RUN ./configure --with-pgsql=${INSTALL_DIR}
 RUN make -j `nproc` && make install
 
 RUN cp `php-config --extension-dir`/pgsql.so /tmp/pgsql.so
+RUN echo 'extension=pgsql.so' > /tmp/ext.ini
+RUN php /bref/lib-copy/copy-dependencies.php /tmp/pgsql.so /tmp/extension-libs
 ```
 
 You may need to:
@@ -56,6 +58,9 @@ You may need to:
  - etc.
 
 The Dockerfiles for [these](../layers) extensions could be very helpful.
+
+> **Note:**
+> The `/bref/lib-copy/copy-dependencies.php` script will automatically copy system dependencies (libraries) used by the extension provided as a first argument.
 
 ### Copy files
 
@@ -70,6 +75,7 @@ FROM scratch
 
 COPY --from=ext /tmp/pgsql.so /opt/bref/extensions/pgsql.so
 COPY --from=ext /tmp/ext.ini /opt/bref/etc/php/conf.d/ext-pgsql.ini
+COPY --from=ext /tmp/extension-libs /opt/lib
 ```
 
 ### Making a layer
@@ -118,10 +124,9 @@ $ composer init
 $ composer require bref/bref
 $ vendor/bin/bref init
  What kind of lambda do you want to create? (you will be able to add more functions later by editing `serverless.yml`) [PHP function]:
-  [0] PHP function
-  [1] HTTP application
-  [2] Console application
- > 1
+  [0] Web application
+  [1] PHP function
+ > 0
 ## Select suitable for check your extension.
 ```
 
@@ -134,7 +139,7 @@ provider:
     name: aws
 -    region: us-east-1
 +    region: <YOUR AWS REGION>
-    runtime: provided
+    runtime: provided.al2
 
 plugins:
     - ./vendor/bref/bref
@@ -149,29 +154,21 @@ functions:
 +            - arn:aws:lambda:<YOUR AWS REGION>:<YOUR AWS ID>:layer:pgsql-php-80:3
 
         events:
-            -   http: 'ANY /'
-            -   http: 'ANY /{proxy+}'
+            -   httpApi: '*'
 ```
 
-Update `index.php` to be allowed you to check the extension.
+Update `index.php` to check that the extension is automatically loaded and works.
 
 ```diff
 <?php
 
 - echo "Hello World";
 + #
-+ # Add some check processing
++ # Check the extension works
 + #
 ```
 
-Add a setting to load the extension.
-
-```bash
-$ mkdir -p php/conf.d
-$ echo "extension=pgsql.so" > php/conf.d/pgsql.ini
-```
-
-Finally deploy and test this function.
+Finally, deploy and test this function.
 
 ```bash
 $ serverless deploy
@@ -188,15 +185,15 @@ In order to contribute, you should do a little more work.
 ```diff
  ### Available layers
 
- | Name | Serverless config (php 7.4) | php.ini config |
- | ---- | ----------------------------| -------------- |
- | AMQP | `${bref-extra:amqp-php-74}` | `extension=amqp.so` |
- | Blackfire | `${bref-extra:blackfire-php-74}` | `extension=blackfire.so` |
- | GMP | `${bref-extra:gmp-php-74}` | `extension=gmp.so` |
- | Memcache | `${bref-extra:memcached-php-74}` | `extension=memcache.so` |
- | Memcached | `${bref-extra:memcached-php-74}` | `extension=memcached.so` |
-+| PostgreSQL | `${bref-extra:pgsql-php-74}` | `extension=pgsql.so` |
- | Xdebug | `${bref-extra:xdebug-php-74}` | `zend_extension=xdebug.so` |
+ | Name | Serverless config (php 8.1) |
+ | ---- | ----------------------------|
+ | AMQP | `${bref-extra:amqp-php-81}` |
+ | Blackfire | `${bref-extra:blackfire-php-81}` |
+ | GMP | `${bref-extra:gmp-php-81}` |
+ | Memcache | `${bref-extra:memcached-php-81}` |
+ | Memcached | `${bref-extra:memcached-php-81}` |
++| PostgreSQL | `${bref-extra:pgsql-php-81}` |
+ | Xdebug | `${bref-extra:xdebug-php-81}` |
 
  Note that the "Memcached" layer provides both extension for [Memcache](https://pecl.php.net/package/memcache) and [Memcached](https://pecl.php.net/package/memcached).
 ```
