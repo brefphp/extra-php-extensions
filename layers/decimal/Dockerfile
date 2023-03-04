@@ -9,7 +9,7 @@ RUN yum install -y mpdecimal-devel
 
 RUN pecl install decimal
 RUN cp `php-config --extension-dir`/decimal.so /tmp/decimal.so
-RUN echo 'extension=/opt/bref-extra/decimal.so' > /tmp/ext.ini
+RUN echo 'extension=decimal.so' > /tmp/ext.ini
 
 # Build the final image with just the files we need
 FROM scratch
@@ -19,5 +19,5 @@ COPY --from=ext /usr/lib64/libmpdec.so.2.4.2 /opt/bref/lib64/libmpdec.so.2.4.2
 COPY --from=ext /usr/lib64/libmpdec.so.2 /opt/bref/lib64/libmpdec.so.2
 COPY --from=ext /usr/lib64/libmpdec.so /opt/bref/lib64/libmpdec.so
 
-COPY --from=ext /tmp/decimal.so /opt/bref-extra/decimal.so
+COPY --from=ext /tmp/decimal.so /opt/bref/extensions/decimal.so
 COPY --from=ext /tmp/ext.ini /opt/bref/etc/php/conf.d/ext-decimal.ini

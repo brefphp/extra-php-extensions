@@ -10,9 +10,9 @@ RUN phpize && \
 RUN make -j $(nproc)
 RUN make install
 RUN cp "$(php-config --extension-dir)/calendar.so" /tmp/calendar.so
-RUN echo 'extension=/opt/bref-extra/calendar.so' > /tmp/ext.ini
+RUN echo 'extension=calendar.so' > /tmp/ext.ini
 
 FROM scratch
 
-COPY --from=ext /tmp/calendar.so /opt/bref-extra/calendar.so
+COPY --from=ext /tmp/calendar.so /opt/bref/extensions/calendar.so
 COPY --from=ext /tmp/ext.ini /opt/bref/etc/php/conf.d/ext-calendar.ini

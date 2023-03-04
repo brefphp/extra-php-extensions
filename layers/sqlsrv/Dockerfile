@@ -16,8 +16,8 @@ RUN pecl install sqlsrv-5.10.1 && \
 RUN cp /opt/bref/lib/php/extensions/no-debug-non-zts-*/sqlsrv.so /tmp/sqlsrv.so
 RUN cp /opt/bref/lib/php/extensions/no-debug-non-zts-*/pdo_sqlsrv.so /tmp/pdo_sqlsrv.so
 
-RUN echo $'extension=/opt/bref-extra/sqlsrv.so\n\
-  extension=/opt/bref-extra/pdo_sqlsrv.so' > /tmp/ext.ini
+RUN echo $'extension=sqlsrv.so\n\
+  extension=pdo_sqlsrv.so' > /tmp/ext.ini
 
 FROM scratch
 
@@ -38,8 +38,8 @@ COPY --from=ext /usr/lib64/libtdsS* /opt/bref/lib64/
 COPY --from=ext /usr/lib64/libtemplate* /opt/bref/lib64/
 COPY --from=ext /usr/lib64/libltdl* /opt/bref/lib64/
 
-COPY --from=ext /tmp/sqlsrv.so /opt/bref-extra/sqlsrv.so
-COPY --from=ext /tmp/pdo_sqlsrv.so /opt/bref-extra/pdo_sqlsrv.so
+COPY --from=ext /tmp/sqlsrv.so /opt/bref/extensions/sqlsrv.so
+COPY --from=ext /tmp/pdo_sqlsrv.so /opt/bref/extensions/pdo_sqlsrv.so
 COPY --from=ext /tmp/ext.ini /opt/bref/etc/php/conf.d/ext-sqlsrv.ini
 
 COPY --from=ext /etc/odbcinst.ini /opt/microsoft/conf/odbcinst.ini

@@ -19,7 +19,7 @@ RUN make install
 # Install maxminddb
 RUN pecl install maxminddb
 RUN cp `php-config --extension-dir`/maxminddb.so /tmp/maxminddb.so
-RUN echo 'extension=/opt/bref-extra/maxminddb.so' > /tmp/ext.ini
+RUN echo 'extension=maxminddb.so' > /tmp/ext.ini
 
 # Build the final image with just the files we need
 FROM scratch
@@ -31,5 +31,5 @@ COPY --from=ext /opt/bref/include/maxminddb_config.h /opt/bref/include/maxminddb
 COPY --from=ext /opt/bref/lib/libmaxminddb.* /opt/bref/lib/
 COPY --from=ext /opt/bref/lib/pkgconfig/libmaxminddb.pc /opt/bref/lib/pkgconfig/libmaxminddb.pc
 
-COPY --from=ext /tmp/maxminddb.so /opt/bref-extra/maxminddb.so
+COPY --from=ext /tmp/maxminddb.so /opt/bref/extensions/maxminddb.so
 COPY --from=ext /tmp/ext.ini /opt/bref/etc/php/conf.d/ext-maxminddb.ini

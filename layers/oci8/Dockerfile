@@ -30,7 +30,7 @@ RUN cp ${ORACLE_BUILD_DIR}/src/instantclient_21_5/libocci.so.21.1 /tmp/libocci.s
 RUN cp ${ORACLE_BUILD_DIR}/src/instantclient_21_5/libnnz21.so /tmp/libnnz21.so
 RUN cp ${ORACLE_BUILD_DIR}/src/instantclient_21_5/libociicus.so /tmp/libociicus.so
 RUN cp `php-config --extension-dir`/oci8.so /tmp/oci8.so
-RUN echo 'extension=/opt/bref-extra/oci8.so' > /tmp/ext.ini
+RUN echo 'extension=oci8.so' > /tmp/ext.ini
 
 # Build the final image from the scratch image that contain files you want to export
 FROM scratch
@@ -41,5 +41,5 @@ COPY --from=ext /tmp/libclntsh.so.21.1 /opt/lib/libclntsh.so.21.1
 COPY --from=ext /tmp/libocci.so.21.1 /opt/lib/libocci.so.21.1
 COPY --from=ext /tmp/libnnz21.so /opt/lib/libnnz21.so
 COPY --from=ext /tmp/libociicus.so /opt/lib/libociicus.so
-COPY --from=ext /tmp/oci8.so /opt/bref-extra/oci8.so
+COPY --from=ext /tmp/oci8.so /opt/bref/extensions/oci8.so
 COPY --from=ext /tmp/ext.ini /opt/bref/etc/php/conf.d/ext-oci8.ini

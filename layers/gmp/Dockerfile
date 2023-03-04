@@ -18,7 +18,7 @@ RUN phpize && \
 
 RUN make -j $(nproc) install
 RUN cp /opt/bref/lib/php/extensions/no-debug-non-zts-*/gmp.so /tmp/gmp.so
-RUN echo 'extension=/opt/bref-extra/gmp.so' > /tmp/ext.ini
+RUN echo 'extension=gmp.so' > /tmp/ext.ini
 
 
 # Build the final image with just the files we need
@@ -34,5 +34,5 @@ COPY --from=ext /usr/include/gmpxx.h /opt/bref/include/gmpxx.h
 COPY --from=ext /usr/lib64/libgmp.so /opt/bref/lib64/libgmp.so
 COPY --from=ext /usr/lib64/libgmpxx.so /opt/bref/lib64/libgmpxx.so
 
-COPY --from=ext /tmp/gmp.so /opt/bref-extra/gmp.so
+COPY --from=ext /tmp/gmp.so /opt/bref/extensions/gmp.so
 COPY --from=ext /tmp/ext.ini /opt/bref/etc/php/conf.d/ext-gmp.ini

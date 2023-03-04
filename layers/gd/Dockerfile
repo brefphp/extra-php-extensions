@@ -34,7 +34,7 @@ RUN ./configure \
 RUN make -j $(nproc)
 RUN make install
 RUN cp "$(php-config --extension-dir)/gd.so" /tmp/gd.so
-RUN echo 'extension=/opt/bref-extra/gd.so' > /tmp/ext.ini
+RUN echo 'extension=gd.so' > /tmp/ext.ini
 
 FROM scratch
 
@@ -47,5 +47,5 @@ COPY --from=ext /usr/lib64/libxcb.so.1.1.0 /opt/bref/lib64/libxcb.so.1
 COPY --from=ext /usr/lib64/libXau.so.6.0.0 /opt/bref/lib64/libXau.so.6
 COPY --from=ext /usr/lib64/libwebp.so.4 /opt/bref/lib64/libwebp.so.4
 
-COPY --from=ext /tmp/gd.so /opt/bref-extra/gd.so
+COPY --from=ext /tmp/gd.so /opt/bref/extensions/gd.so
 COPY --from=ext /tmp/ext.ini /opt/bref/etc/php/conf.d/ext-gd.ini

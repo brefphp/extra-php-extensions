@@ -21,7 +21,7 @@ RUN set -xe; \
 
 RUN if [[ "$PHP_VERSION" = "80" ]] ; then pecl install amqp-1.11.0beta ; else pecl install amqp ; fi
 RUN cp /opt/bref/lib/php/extensions/no-debug-non-zts-*/amqp.so /tmp/amqp.so
-RUN echo 'extension=/opt/bref-extra/amqp.so' > /tmp/ext.ini
+RUN echo 'extension=amqp.so' > /tmp/ext.ini
 
 # Build the final image with just the files we need
 FROM scratch
@@ -38,5 +38,5 @@ COPY --from=ext /opt/bref/lib64/librabbitmq.so.4 /opt/bref/lib64/librabbitmq.so.
 COPY --from=ext /opt/bref/lib64/librabbitmq.so.4.3.0 /opt/bref/lib64/librabbitmq.so.4.3.0
 COPY --from=ext /opt/bref/lib64/pkgconfig/librabbitmq.pc /opt/bref/lib64/pkgconfig/librabbitmq.pc
 
-COPY --from=ext /tmp/amqp.so /opt/bref-extra/amqp.so
+COPY --from=ext /tmp/amqp.so /opt/bref/extensions/amqp.so
 COPY --from=ext /tmp/ext.ini /opt/bref/etc/php/conf.d/ext-amqp.ini

@@ -13,7 +13,7 @@ RUN <<'END' bash -e
     export version=$(php -r "echo PHP_MAJOR_VERSION.'.'.PHP_MINOR_VERSION;")
     curl -sSL "https://s3-eu-west-1.amazonaws.com/tideways/extension/${TIDEWAYS_VERSION}/tideways-php-${TIDEWAYS_VERSION}-x86_64.tar.gz" | tar -xz --strip-components=2 -C /tmp/tideways
     cp /tmp/tideways/tideways-php-${version}.so /tmp/tideways.so
-    echo 'extension=/opt/bref-extra/tideways.so' > /tmp/ext-tideways.ini
+    echo 'extension=tideways.so' > /tmp/ext-tideways.ini
 END
 
 
@@ -21,5 +21,5 @@ END
 FROM scratch
 
 # Copy things we installed to the final image
-COPY --link --from=ext /tmp/tideways.so /opt/bref-extra/
+COPY --link --from=ext /tmp/tideways.so /opt/bref/extensions/
 COPY --link --from=ext /tmp/*.ini /opt/bref/etc/php/conf.d/

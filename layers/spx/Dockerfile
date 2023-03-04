@@ -14,13 +14,13 @@ RUN git clone https://github.com/NoiseByNorthwest/php-spx.git \
 
 RUN cp `php-config --extension-dir`/spx.so /tmp/spx.so
 RUN cp -r /opt/bref/share/misc/php-spx/assets /tmp/spx-assets
-RUN echo 'extension=/opt/bref-extra/spx.so' > /tmp/ext.ini
+RUN echo 'extension=spx.so' > /tmp/ext.ini
 
 
 # Build the final image with just the files we need
 FROM scratch
 
 # Copy things we installed to the final image
-COPY --from=ext /tmp/spx.so /opt/bref-extra/spx.so
+COPY --from=ext /tmp/spx.so /opt/bref/extensions/spx.so
 COPY --from=ext /tmp/spx-assets /opt/bref/share/misc/php-spx/assets
 COPY --from=ext /tmp/ext.ini /opt/bref/etc/php/conf.d/ext-spx.ini

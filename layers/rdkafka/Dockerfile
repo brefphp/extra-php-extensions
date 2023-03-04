@@ -28,14 +28,14 @@ RUN pecl install --onlyreqdeps --nobuild rdkafka && \
     cd -
 
 RUN cp /opt/bref/lib/php/extensions/no-debug-non-zts-*/rdkafka.so /tmp/rdkafka.so
-RUN echo 'extension=/opt/bref-extra/rdkafka.so' > /tmp/ext.ini
+RUN echo 'extension=rdkafka.so' > /tmp/ext.ini
 
 
 # Build the final image with just the files we need
 FROM scratch
 
 # Copy things we installed to the final image
-COPY --from=ext /tmp/rdkafka.so /opt/bref-extra/rdkafka.so
+COPY --from=ext /tmp/rdkafka.so /opt/bref/extensions/rdkafka.so
 COPY --from=ext /tmp/ext.ini /opt/bref/etc/php/conf.d/ext-rdkafka.ini
 COPY --from=ext /opt/bref/lib/librdkafka* /opt/bref/lib/
 COPY --from=ext /opt/bref/include/librdkafka /opt/bref/include/

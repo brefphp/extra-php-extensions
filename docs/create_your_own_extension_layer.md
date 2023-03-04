@@ -64,11 +64,11 @@ The extension and all related files that need to be installed should be placed `
 directory in the final image.
 
 ```Dockerfile
-RUN echo 'extension=/opt/bref-extra/pgsql.so' > /tmp/ext.ini
+RUN echo 'extension=pgsql.so' > /tmp/ext.ini
 
 FROM scratch
 
-COPY --from=ext /tmp/pgsql.so /opt/bref-extra/pgsql.so
+COPY --from=ext /tmp/pgsql.so /opt/bref/extensions/pgsql.so
 COPY --from=ext /tmp/ext.ini /opt/bref/etc/php/conf.d/ext-pgsql.ini
 ```
 
@@ -168,7 +168,7 @@ Add a setting to load the extension.
 
 ```bash
 $ mkdir -p php/conf.d
-$ echo "extension=/opt/bref-extra/pgsql.so" > php/conf.d/pgsql.ini
+$ echo "extension=pgsql.so" > php/conf.d/pgsql.ini
 ```
 
 Finally deploy and test this function.
@@ -190,13 +190,13 @@ In order to contribute, you should do a little more work.
 
  | Name | Serverless config (php 7.4) | php.ini config |
  | ---- | ----------------------------| -------------- |
- | AMQP | `${bref-extra:amqp-php-74}` | `extension=/opt/bref-extra/amqp.so` |
- | Blackfire | `${bref-extra:blackfire-php-74}` | `extension=/opt/bref-extra/blackfire.so` |
- | GMP | `${bref-extra:gmp-php-74}` | `extension=/opt/bref-extra/gmp.so` |
- | Memcache | `${bref-extra:memcached-php-74}` | `extension=/opt/bref-extra/memcache.so` |
- | Memcached | `${bref-extra:memcached-php-74}` | `extension=/opt/bref-extra/memcached.so` |
-+| PostgreSQL | `${bref-extra:pgsql-php-74}` | `extension=/opt/bref-extra/pgsql.so` |
- | Xdebug | `${bref-extra:xdebug-php-74}` | `zend_extension=/opt/bref-extra/xdebug.so` |
+ | AMQP | `${bref-extra:amqp-php-74}` | `extension=amqp.so` |
+ | Blackfire | `${bref-extra:blackfire-php-74}` | `extension=blackfire.so` |
+ | GMP | `${bref-extra:gmp-php-74}` | `extension=gmp.so` |
+ | Memcache | `${bref-extra:memcached-php-74}` | `extension=memcache.so` |
+ | Memcached | `${bref-extra:memcached-php-74}` | `extension=memcached.so` |
++| PostgreSQL | `${bref-extra:pgsql-php-74}` | `extension=pgsql.so` |
+ | Xdebug | `${bref-extra:xdebug-php-74}` | `zend_extension=xdebug.so` |
 
  Note that the "Memcached" layer provides both extension for [Memcache](https://pecl.php.net/package/memcache) and [Memcached](https://pecl.php.net/package/memcached).
 ```
