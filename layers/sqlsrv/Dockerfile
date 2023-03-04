@@ -19,27 +19,15 @@ RUN cp `php-config --extension-dir`/pdo_sqlsrv.so /tmp/pdo_sqlsrv.so
 RUN echo $'extension=sqlsrv.so\n\
   extension=pdo_sqlsrv.so' > /tmp/ext.ini
 
+RUN php /bref/lib-copy/copy-dependencies.php /tmp/sqlsrv.so /tmp/extension-libs
+RUN php /bref/lib-copy/copy-dependencies.php /tmp/pdo_sqlsrv.so /tmp/extension-libs
+
+
 FROM scratch
-
-COPY --from=ext /opt/microsoft* /opt/microsoft
-
-COPY --from=ext /usr/lib64/libe2p* /opt/bref/lib64/
-COPY --from=ext /usr/lib64/libesoobS* /opt/bref/lib64/
-COPY --from=ext /usr/lib64/libext2fs* /opt/bref/lib64/
-COPY --from=ext /usr/lib64/libmimerS* /opt/bref/lib64/
-COPY --from=ext /usr/lib64/libmsodbcsql-17* /opt/bref/lib64/
-COPY --from=ext /usr/lib64/libnn* /opt/bref/lib64/
-COPY --from=ext /usr/lib64/libodbc* /opt/bref/lib64/
-COPY --from=ext /usr/lib64/liboplodbcS* /opt/bref/lib64/
-COPY --from=ext /usr/lib64/liboraodbcS* /opt/bref/lib64/
-COPY --from=ext /usr/lib64/libsapdbS* /opt/bref/lib64/
-COPY --from=ext /usr/lib64/libss* /opt/bref/lib64/
-COPY --from=ext /usr/lib64/libtdsS* /opt/bref/lib64/
-COPY --from=ext /usr/lib64/libtemplate* /opt/bref/lib64/
-COPY --from=ext /usr/lib64/libltdl* /opt/bref/lib64/
 
 COPY --from=ext /tmp/sqlsrv.so /opt/bref/extensions/sqlsrv.so
 COPY --from=ext /tmp/pdo_sqlsrv.so /opt/bref/extensions/pdo_sqlsrv.so
 COPY --from=ext /tmp/ext.ini /opt/bref/etc/php/conf.d/ext-sqlsrv.ini
+COPY --from=ext /tmp/extension-libs /opt/lib
 
 COPY --from=ext /etc/odbcinst.ini /opt/microsoft/conf/odbcinst.ini

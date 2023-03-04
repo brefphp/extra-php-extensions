@@ -24,13 +24,11 @@ RUN pecl install yaml
 RUN cp `php-config --extension-dir`/yaml.so /tmp/yaml.so
 RUN echo 'extension=yaml.so' > /tmp/ext.ini
 
-FROM scratch
+RUN php /bref/lib-copy/copy-dependencies.php /tmp/yaml.so /tmp/extension-libs
 
-COPY --from=ext /opt/bref/lib/libyaml-0.so.2 /opt/bref/lib64/libyaml-0.so.2
-COPY --from=ext /opt/bref/lib/libyaml-0.so.2.0.9 /opt/bref/lib64/libyaml-0.so.2.0.9
-COPY --from=ext /opt/bref/lib/libyaml.a /opt/bref/lib64/libyaml.a
-COPY --from=ext /opt/bref/lib/libyaml.la /opt/bref/lib64/libyaml.la
-COPY --from=ext /opt/bref/lib/libyaml.so /opt/bref/lib64/libyaml.so
+
+FROM scratch
 
 COPY --from=ext /tmp/yaml.so /opt/bref/extensions/yaml.so
 COPY --from=ext /tmp/ext.ini /opt/bref/etc/php/conf.d/ext-yaml.ini
+COPY --from=ext /tmp/extension-libs /opt/lib

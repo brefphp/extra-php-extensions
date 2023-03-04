@@ -21,6 +21,8 @@ RUN <<'END' bash -e
     cd /tmp/zstd
     curl -sSL "https://github.com/facebook/zstd/archive/refs/tags/v${ZSTD_VERSION}.tar.gz" | tar -xz --strip-components=1 -C .
     make -j$(nproc)
+    # Install the library
+    cp lib/libzstd.so* /opt/lib
 END
 
 RUN <<'END' bash -e
@@ -32,19 +34,17 @@ RUN <<'END' bash -e
     echo 'extension=relay.so' > /tmp/ext-relay.ini
 END
 
+RUN php /bref/lib-copy/copy-dependencies.php /tmp/relay.so /tmp/extension-libs
+RUN php /bref/lib-copy/copy-dependencies.php /tmp/igbinary.so /tmp/extension-libs
+RUN php /bref/lib-copy/copy-dependencies.php /tmp/msgpack.so /tmp/extension-libs
+
 
 # Build the final image with just the files we need
 FROM scratch
 
 # Copy things we installed to the final image
-#COPY --link --from=ext /usr/lib64/libpthread.so.0 /opt/lib/ # already in AL2
-COPY --link --from=ext /opt/bref/lib64/libssl.so.1.1* /opt/lib/
-COPY --link --from=ext /opt/bref/lib64/libcrypto.so.1.1* /opt/lib/
-COPY --link --from=ext /tmp/zstd/lib/libzstd.so.1 /opt/lib/
-COPY --link --from=ext /usr/lib64/liblz4.so* /opt/lib/
-#COPY --link --from=ext /usr/lib64/libanl.so.1 /opt/lib/ # already in AL2
-#COPY --link --from=ext /usr/lib64/libc.so.6 /opt/lib/ # already in AL2
 COPY --link --from=ext /tmp/relay.so /opt/bref/extensions/
 COPY --link --from=ext /tmp/igbinary.so /opt/bref/extensions/
 COPY --link --from=ext /tmp/msgpack.so /opt/bref/extensions/
 COPY --link --from=ext /tmp/*.ini /opt/bref/etc/php/conf.d/
+COPY --link --from=ext /tmp/extension-libs /opt/lib

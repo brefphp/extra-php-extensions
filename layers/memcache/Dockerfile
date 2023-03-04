@@ -21,27 +21,20 @@ WORKDIR  ${LIBMEMCACHED_BUILD_DIR}/libmemcached-1.0.18/
 RUN set -xe; \
     patch -d . -p0 < libmemcached-build.patch && \
     ./configure --prefix=${INSTALL_DIR} && \
-    make && \
+    make -j `nproc` && \
     make install
 
 RUN pecl install memcache
 RUN cp `php-config --extension-dir`/memcache.so /tmp/memcache.so
 RUN echo 'extension=memcache.so' > /tmp/ext.ini
 
+RUN php /bref/lib-copy/copy-dependencies.php /tmp/memcache.so /tmp/extension-libs
+
+
 # Build the final image with just the files we need
 FROM scratch
 
 # Copy things we installed to the final image
-COPY --from=ext /opt/bref/include/libmemcached/ /opt/bref/include/libmemcached/
-COPY --from=ext /opt/bref/include/libmemcached-1.0/ /opt/bref/include/libmemcached-1.0/
-COPY --from=ext /opt/bref/include/libmemcachedutil-1.0/ /opt/bref/include/libmemcachedutil-1.0/
-COPY --from=ext /opt/bref/include/libhashkit/ /opt/bref/include/libhashkit/
-COPY --from=ext /opt/bref/include/libhashkit-1.0/ /opt/bref/include/libhashkit-1.0/
-
-COPY --from=ext /opt/bref/lib/libhashkit.* /opt/bref/lib/
-COPY --from=ext /opt/bref/lib/libmemcached.* /opt/bref/lib/
-COPY --from=ext /opt/bref/lib/libmemcachedutil.* /opt/bref/lib/
-COPY --from=ext /opt/bref/lib/pkgconfig/libmemcached.pc /opt/bref/lib/pkgconfig/libmemcached.pc
-
 COPY --from=ext /tmp/memcache.so  /opt/bref/extensions/memcache.so
 COPY --from=ext /tmp/ext.ini /opt/bref/etc/php/conf.d/ext-memcache.ini
+COPY --from=ext /tmp/extension-libs /opt/lib
