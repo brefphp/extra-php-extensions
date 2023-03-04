@@ -1,6 +1,7 @@
 # syntax = docker/dockerfile:1.4
 ARG PHP_VERSION
-FROM bref/build-php-$PHP_VERSION:1.7.14 AS ext
+ARG BREF_VERSION
+FROM bref/build-php-$PHP_VERSION:2 AS ext
 
 ARG RELAY_VERSION=0.6.0
 

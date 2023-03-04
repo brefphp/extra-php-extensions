@@ -1,5 +1,6 @@
 ARG PHP_VERSION
-FROM bref/build-php-$PHP_VERSION:1.7.14 AS ext
+ARG BREF_VERSION
+FROM bref/build-php-$PHP_VERSION:$BREF_VERSION AS ext
 
 RUN LD_LIBRARY_PATH=/lib:/lib64 yum -y install amazon-linux-extras
 RUN LD_LIBRARY_PATH=/lib:/lib64 amazon-linux-extras install epel -y

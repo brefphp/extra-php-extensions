@@ -1,5 +1,6 @@
 ARG PHP_VERSION
-FROM bref/build-php-$PHP_VERSION:1.7.14 AS ext
+ARG BREF_VERSION
+FROM bref/build-php-$PHP_VERSION:$BREF_VERSION AS ext
 
 RUN pecl install pcov
 RUN cp `php-config --extension-dir`/pcov.so /tmp/pcov.so

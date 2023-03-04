@@ -1,5 +1,5 @@
-
 ARG PHP_VERSION
+ARG BREF_VERSION
 FROM bref/build-php-$PHP_VERSION:1.7.4 AS ext
 
 RUN pecl install openswoole-4.12.0
