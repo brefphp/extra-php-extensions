@@ -28,7 +28,7 @@ FROM scratch
 ```
 
 The environment variable `PHP_VERSION` is passed from the Makefile as an argument
-to docker build. It may have values like: `73`, `74`, `80`. A docker image is created
+to docker build. It may have values like: `80`, `81`. A docker image is created
 for each `PHP_VERSION`. If the build procedure of your extension differs for each version,
 you may use this variable to switch processing in Dockerfile.
 
@@ -96,7 +96,7 @@ $ make layers
 Register the zip file generated above to AWS as Lambda Layer. It also able to add from AWS console.
 
 ```bash
-$ aws lambda publish-layer-version --layer-name pgsql-php-73 --zip-file fileb://./export/layer-pgsql-php-73.zip
+$ aws lambda publish-layer-version --layer-name pgsql-php-80 --zip-file fileb://./export/layer-pgsql-php-80.zip
 ```
 
 # Test layers
@@ -145,8 +145,8 @@ functions:
         description: ''
         timeout: 28 # in seconds (API Gateway has a timeout of 29 seconds)
         layers:
-            - ${bref:layer.php-73-fpm}
-+            - arn:aws:lambda:<YOUR AWS REGION>:<YOUR AWS ID>:layer:pgsql-php-73:3
+            - ${bref:layer.php-80-fpm}
++            - arn:aws:lambda:<YOUR AWS REGION>:<YOUR AWS ID>:layer:pgsql-php-80:3
 
         events:
             -   http: 'ANY /'
