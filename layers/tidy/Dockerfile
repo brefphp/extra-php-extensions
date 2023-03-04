@@ -14,11 +14,14 @@ RUN make -j `nproc` && make install
 RUN cp `php-config --extension-dir`/tidy.so /tmp/tidy.so
 RUN echo 'extension=tidy.so' > /tmp/ext.ini
 
+RUN php /bref/lib-copy/copy-dependencies.php /tmp/tidy.so /tmp/extension-libs
+
+
 # Build the final image with just the files we need
 FROM scratch
 
 # Copy things we installed to the final image
-COPY --from=ext /usr/lib64/libtidy* /opt/bref/lib64/
 COPY --from=ext /tmp/tidy.so /opt/bref/extensions/tidy.so
 COPY --from=ext /tmp/ext.ini /opt/bref/etc/php/conf.d/ext-tidy.ini
+COPY --from=ext /tmp/extension-libs /opt/lib
 

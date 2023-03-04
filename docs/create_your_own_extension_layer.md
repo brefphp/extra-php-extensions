@@ -32,7 +32,7 @@ to docker build. It may have values like: `80`, `81`. A docker image is created
 for each `PHP_VERSION`. If the build procedure of your extension differs for each version,
 you may use this variable to switch processing in Dockerfile.
 
-There are some other env variables available,`PHP_BUILD_DIR` is `/tmp/build/php`, `INSTALL_DIR` is `/opt/bref`.
+There are some other env variables available, like `PHP_BUILD_DIR` or `INSTALL_DIR`.
 
 ### Building your extension
 

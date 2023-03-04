@@ -36,16 +36,11 @@ RUN make install
 RUN cp "$(php-config --extension-dir)/gd.so" /tmp/gd.so
 RUN echo 'extension=gd.so' > /tmp/ext.ini
 
-FROM scratch
+RUN php /bref/lib-copy/copy-dependencies.php /tmp/gd.so /tmp/extension-libs
 
-COPY --from=ext /usr/lib64/libXpm.so.4 /opt/bref/lib64/libXpm.so.4
-COPY --from=ext /usr/lib64/libX11.so.6.3.0 /opt/bref/lib64/libX11.so.6
-COPY --from=ext /usr/lib64/libpng15.so.15.13.0 /opt/bref/lib64/libpng15.so.15
-COPY --from=ext /usr/lib64/libjpeg.so.* /opt/bref/lib64/
-COPY --from=ext /usr/lib64/libfreetype.so.6.14.0 /opt/bref/lib64/libfreetype.so.6
-COPY --from=ext /usr/lib64/libxcb.so.1.1.0 /opt/bref/lib64/libxcb.so.1
-COPY --from=ext /usr/lib64/libXau.so.6.0.0 /opt/bref/lib64/libXau.so.6
-COPY --from=ext /usr/lib64/libwebp.so.4 /opt/bref/lib64/libwebp.so.4
+
+FROM scratch
 
 COPY --from=ext /tmp/gd.so /opt/bref/extensions/gd.so
 COPY --from=ext /tmp/ext.ini /opt/bref/etc/php/conf.d/ext-gd.ini
+COPY --from=ext /tmp/extension-libs /opt/lib

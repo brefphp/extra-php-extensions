@@ -14,13 +14,13 @@ RUN make -j `nproc` && make install
 RUN cp `php-config --extension-dir`/imap.so /tmp/imap.so
 RUN echo 'extension=imap.so' > /tmp/ext.ini
 
+RUN php /bref/lib-copy/copy-dependencies.php /tmp/imap.so /tmp/extension-libs
+
+
 # Build the final image with just the files we need
 FROM scratch
 
 # Copy things we installed to the final image
-COPY --from=ext /usr/lib64/libc-client.so.2007 /opt/bref/lib64/libc-client.so.2007
-COPY --from=ext /usr/lib64/libpam.so.0 /opt/bref/lib64/libpam.so.0
-COPY --from=ext /usr/lib64/libaudit.so.1 /opt/bref/lib64/libaudit.so.1
-COPY --from=ext /usr/lib64/libcap-ng.so.0 /opt/bref/lib64/libcap-ng.so.0
 COPY --from=ext /tmp/imap.so /opt/bref/extensions/imap.so
 COPY --from=ext /tmp/ext.ini /opt/bref/etc/php/conf.d/ext-imap.ini
+COPY --from=ext /tmp/extension-libs /opt/lib

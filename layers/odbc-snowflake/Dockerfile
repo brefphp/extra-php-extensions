@@ -6,7 +6,7 @@ ENV LD_LIBRARY_PATH=/usr/lib:/usr/lib64:$LD_LIBRARY_PATH
 RUN yum install -y unixODBC unixODBC-devel
 
 # strongly inspired by https://github.com/mlocati/docker-php-extension-installer/blob/master/install-php-extensions
-WORKDIR /tmp/build/php/ext/odbc
+WORKDIR ${PHP_BUILD_DIR}/ext/odbc
 RUN phpize \
   && sed -ri 's@^ *test +"\$PHP_.*" *= *"no" *&& *PHP_.*=yes *$@#&@g' configure \
   && ./configure --prefix=${INSTALL_DIR} --with-unixODBC=shared,/usr

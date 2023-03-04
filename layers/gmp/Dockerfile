@@ -9,7 +9,7 @@ ENV LD_LIBRARY_PATH=/usr/lib:/usr/lib64:$LD_LIBRARY_PATH
 RUN yum install -y gmp-devel
 
 # Build PHP extension
-WORKDIR /tmp/build/php/ext/gmp
+WORKDIR ${PHP_BUILD_DIR}/ext/gmp
 RUN phpize && \
     ./configure \
     --build=x86_64-pc-linux-gnu \
