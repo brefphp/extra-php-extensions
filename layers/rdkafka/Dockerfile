@@ -27,7 +27,7 @@ RUN pecl install --onlyreqdeps --nobuild rdkafka && \
     make install  && \
     cd -
 
-RUN cp /opt/bref/lib/php/extensions/no-debug-non-zts-*/rdkafka.so /tmp/rdkafka.so
+RUN cp `php-config --extension-dir`/rdkafka.so /tmp/rdkafka.so
 RUN echo 'extension=rdkafka.so' > /tmp/ext.ini
 
 

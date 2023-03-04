@@ -12,7 +12,7 @@ RUN phpize \
   && ./configure --prefix=${INSTALL_DIR} --with-unixODBC=shared,/usr
 
 RUN make -j $(nproc) install
-RUN cp /opt/bref/lib/php/extensions/no-debug-non-zts-*/odbc.so /tmp/odbc.so
+RUN cp `php-config --extension-dir`/odbc.so /tmp/odbc.so
 RUN echo 'extension=odbc.so' > /tmp/ext.ini
 
 # https://docs.snowflake.com/en/user-guide/odbc-download.html

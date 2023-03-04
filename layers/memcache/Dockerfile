@@ -25,7 +25,7 @@ RUN set -xe; \
     make install
 
 RUN pecl install memcache
-RUN cp /opt/bref/lib/php/extensions/no-debug-non-zts-*/memcache.so /tmp/memcache.so
+RUN cp `php-config --extension-dir`/memcache.so /tmp/memcache.so
 RUN echo 'extension=memcache.so' > /tmp/ext.ini
 
 # Build the final image with just the files we need

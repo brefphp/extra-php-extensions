@@ -31,7 +31,7 @@ RUN pecl install --onlyreqdeps --nobuild memcached && \
     make install  && \
     cd -
 
-RUN cp /opt/bref/lib/php/extensions/no-debug-non-zts-*/memcached.so /tmp/memcached.so
+RUN cp `php-config --extension-dir`/memcached.so /tmp/memcached.so
 RUN echo 'extension=memcached.so' > /tmp/ext.ini
 
 # Build the final image with just the files we need

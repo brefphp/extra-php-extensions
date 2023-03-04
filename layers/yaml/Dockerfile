@@ -21,7 +21,7 @@ RUN set -xe; \
     make install
 
 RUN pecl install yaml
-RUN cp /opt/bref/lib/php/extensions/no-debug-non-zts-*/yaml.so /tmp/yaml.so
+RUN cp `php-config --extension-dir`/yaml.so /tmp/yaml.so
 RUN echo 'extension=yaml.so' > /tmp/ext.ini
 
 FROM scratch

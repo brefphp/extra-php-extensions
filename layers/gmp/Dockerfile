@@ -17,7 +17,7 @@ RUN phpize && \
     --enable-option-checking=fatal
 
 RUN make -j $(nproc) install
-RUN cp /opt/bref/lib/php/extensions/no-debug-non-zts-*/gmp.so /tmp/gmp.so
+RUN cp `php-config --extension-dir`/gmp.so /tmp/gmp.so
 RUN echo 'extension=gmp.so' > /tmp/ext.ini
 
 
