@@ -59,7 +59,7 @@ You may need to:
 
 The Dockerfiles for [these](../layers) extensions could be very helpful.
 
-> **Note:**
+> **Note**
 > The `/bref/lib-copy/copy-dependencies.php` script will automatically copy system dependencies (libraries) used by the extension provided as a first argument.
 
 ### Copy files
