@@ -195,7 +195,7 @@ make test
 layer=imagick make test
 
 # Test a single layer on a single PHP version
-layer=imagick php_versions=74 make test
+layer=imagick php_versions=81 make test
 ```
 
 You can publish the layer in your AWS account to test it in AWS Lambda as well:
@@ -227,14 +227,14 @@ git push
 #### Config
 
 You can also build only one specific layer by providing `layer=blackfire` to `make`.
-Same thing for some specific version(s) of php by providing `php_versions="73 74"` to `make`.
+Same thing for some specific version(s) of php by providing `php_versions="80 81"` to `make`.
 You can invoke both ways:
 
 ```shell
 # First way: make with named arguments
-make layer=gd php_versions=74
+make layer=gd php_versions=81
 # Second way: environment variables passed to make
-layer=blackfire php_versions=80 make
+layer=blackfire php_versions=81 make
 ```
 
 ## Lambda layers in details
