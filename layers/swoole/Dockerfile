@@ -1,0 +1,21 @@
+ARG PHP_VERSION
+FROM bref/build-php-$PHP_VERSION:1.7.14 AS ext
+
+RUN set -ex && \
+    LD_LIBRARY_PATH=/lib64:/lib yum install -y libcurl-devel openssl-devel && \
+    mkdir ${PHP_BUILD_DIR}/ext/swoole && \
+    curl -sfL https://github.com/swoole/swoole-src/archive/v5.0.2.tar.gz -o swoole.tar.gz && \
+    tar xfz swoole.tar.gz --strip-components=1 -C ${PHP_BUILD_DIR}/ext/swoole && \
+    cd  ${PHP_BUILD_DIR}/ext/swoole && \
+    phpize && \
+    ./configure --enable-openssl --enable-sockets --enable-swoole-curl && \
+    make -j $(nproc) && \
+    make install && \
+    cp "$(php-config --extension-dir)/swoole.so" /tmp/swoole.so && \
+    echo 'extension=/opt/bref-extra/swoole.so' > /tmp/swoole.ini
+
+# Copy things we installed to the final image
+FROM scratch
+
+COPY --from=ext /tmp/swoole.so  /opt/bref-extra/swoole.so
+COPY --from=ext /tmp/swoole.ini /opt/bref/etc/php/conf.d/ext-swoole.ini

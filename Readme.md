@@ -75,6 +75,7 @@ functions:
 | Scrypt             | `${bref-extra:scrypt-php-81}`         |
 | SPX                | `${bref-extra:spx-php-81}`            |
 | SSH2               | `${bref-extra:ssh2-php-81}`           |
+| Swoole             | `${bref-extra:swoole-php-81}`         |
 | Symfony Runtime    | `${bref-extra:symfony-runtime-php-81}`|
 | Microsoft SQLSRV   | `${bref-extra:sqlsrv-php-81}`         |
 | Tideways           | `${bref-extra:tideways-php-81}`       |
