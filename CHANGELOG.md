@@ -1,16 +1,28 @@
 # Change log
 
-## 2.0.0
+## 1.0.0
 
 ## Breaking changes
 
 - Just like Bref v2, support for PHP 7.3 and 7.4 was dropped. PHP 8.0 or greater is required.
+- [Bref v2](https://bref.sh/docs/news/02-bref-2.0.html) is required. If you use Bref v1, use the `0.12` version of the Bref extra extensions.
 
 ## Internal changes
 
 These internal changes will not impact most users, however we list them in case you have an advanced use case:
 
 - The "bref-extra" PHP extensions are now installed in the official Bref directory for PHP extensions: `/opt/bref/extensions`. They were previously installed in `/opt/bref-extra`.
+
+If you were copying the layers in your Docker images, make sure to copy the entire `/opt` folder instead of the `/opt/bref-extra` folder:
+
+```dockerfile
+FROM bref/php-82-fpm:2
+
+# Don't do this:
+COPY --from=bref/extra-imagick-php-82:1 /opt/bref-extra /opt/bref-extra
+# Do this instead:
+COPY --from=bref/extra-imagick-php-82:1 /opt /opt
+```
 
 ## 0.12.5
 
