@@ -1,18 +1,19 @@
 ARG PHP_VERSION
-FROM bref/build-php-$PHP_VERSION:1.7.14 AS ext
+ARG BREF_VERSION
+FROM bref/build-php-$PHP_VERSION:$BREF_VERSION AS ext
 
 ENV LD_LIBRARY_PATH=/usr/lib:/usr/lib64:$LD_LIBRARY_PATH
 RUN yum install -y unixODBC unixODBC-devel
 
 # strongly inspired by https://github.com/mlocati/docker-php-extension-installer/blob/master/install-php-extensions
-WORKDIR /tmp/build/php/ext/odbc
+WORKDIR ${PHP_BUILD_DIR}/ext/odbc
 RUN phpize \
   && sed -ri 's@^ *test +"\$PHP_.*" *= *"no" *&& *PHP_.*=yes *$@#&@g' configure \
   && ./configure --prefix=${INSTALL_DIR} --with-unixODBC=shared,/usr
 
 RUN make -j $(nproc) install
-RUN cp /opt/bref/lib/php/extensions/no-debug-non-zts-*/odbc.so /tmp/odbc.so
-RUN echo 'extension=/opt/bref-extra/odbc.so' > /tmp/ext.ini
+RUN cp `php-config --extension-dir`/odbc.so /tmp/odbc.so
+RUN echo 'extension=odbc.so' > /tmp/ext.ini
 
 # https://docs.snowflake.com/en/user-guide/odbc-download.html
 # https://sfc-repo.snowflakecomputing.com/odbc/linux/2.25.0/index.html
@@ -22,11 +23,13 @@ RUN curl https://sfc-repo.snowflakecomputing.com/odbc/linux/2.25.0/snowflake_lin
 # modify the config files for the new final location in /opt/snowflake_odbc
 RUN sed -i 's#/path/to/your/#/opt/snowflake_odbc/lib/#g' /tmp/snowflake_odbc/conf/*
 
+RUN php /bref/lib-copy/copy-dependencies.php /tmp/odbc.so /tmp/extension-libs
+
+
 # Build the final image with just the files we need
 FROM scratch
 
-COPY --from=ext /usr/lib64/libodb* /opt/bref/lib64/
-COPY --from=ext /usr/lib64/libltdl.so.7.3.0 /opt/bref/lib64/libltdl.so.7
 COPY --from=ext /tmp/snowflake_odbc/ /opt/snowflake_odbc/
-COPY --from=ext /tmp/odbc.so /opt/bref-extra/
+COPY --from=ext /tmp/odbc.so /opt/bref/extensions/
 COPY --from=ext /tmp/ext.ini /opt/bref/etc/php/conf.d/ext-odbc.ini
+COPY --from=ext /tmp/extension-libs /opt/lib

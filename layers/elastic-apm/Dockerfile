@@ -1,5 +1,6 @@
 ARG PHP_VERSION
-FROM bref/build-php-$PHP_VERSION:1.7.14 AS ext
+ARG BREF_VERSION
+FROM bref/build-php-$PHP_VERSION:$BREF_VERSION AS ext
 
 RUN \
     LD_LIBRARY_PATH=/lib64:/lib yum install -y libcurl-devel openssl-devel \
@@ -11,11 +12,11 @@ RUN \
     && make clean \
     && make \
     && make install \
-    && echo 'extension=/opt/bref-extra/elastic_apm.so' > /tmp/elastic-apm.ini
+    && echo 'extension=elastic_apm.so' > /tmp/elastic-apm.ini
 
 # Build the final image from the scratch image that contain files you want to export
 FROM scratch
 
 # Copy the two key files to the correct location for the empty layer.
-COPY --from=ext /tmp/apm/src/ext/modules/elastic_apm.so /opt/bref-extra/elastic_apm.so
+COPY --from=ext /tmp/apm/src/ext/modules/elastic_apm.so /opt/bref/extensions/elastic_apm.so
 COPY --from=ext /tmp/elastic-apm.ini /opt/bref/etc/php/conf.d/elastic-apm.ini

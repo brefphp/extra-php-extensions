@@ -1,5 +1,6 @@
 ARG PHP_VERSION
-FROM bref/build-php-$PHP_VERSION:1.7.14 AS ext
+ARG BREF_VERSION
+FROM bref/build-php-$PHP_VERSION:$BREF_VERSION AS ext
 
 # Build the New Relic Agent - install silently
 ARG NEWRELIC_VERSION=10.6.0.318
@@ -17,12 +18,12 @@ RUN \
 # Copy the newrelic.so and php.ini file to the tmp folder
 
 RUN cp `php -i | grep extension_dir | sed 's/^.*=> \(.*\)$/\1/' | head -1`/newrelic.so /tmp/newrelic.so
-RUN echo 'extension=/opt/bref-extra/newrelic.so' > /tmp/newrelic.ini
+RUN echo 'extension=newrelic.so' > /tmp/newrelic.ini
 
 # Build the final image from the scratch image that contain files you want to export
 FROM scratch
 
 # Copy the two key files to the correct location for the empty layer.
 # newrelic.so should become a layered extension.
-COPY --from=ext /tmp/newrelic.so /opt/bref-extra/newrelic.so
+COPY --from=ext /tmp/newrelic.so /opt/bref/extensions/newrelic.so
 COPY --from=ext /tmp/newrelic.ini /opt/bref/etc/php/conf.d/ext-newrelic.ini

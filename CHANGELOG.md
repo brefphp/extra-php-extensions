@@ -1,5 +1,17 @@
 # Change log
 
+## 2.0.0
+
+## Breaking changes
+
+- Just like Bref v2, support for PHP 7.3 and 7.4 was dropped. PHP 8.0 or greater is required.
+
+## Internal changes
+
+These internal changes will not impact most users, however we list them in case you have an advanced use case:
+
+- The "bref-extra" PHP extensions are now installed in the official Bref directory for PHP extensions: `/opt/bref/extensions`. They were previously installed in `/opt/bref-extra`.
+
 ## 0.12.5
 
 ### Added
