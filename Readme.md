@@ -21,7 +21,6 @@ service: app
 provider:
     name: aws
     region: us-east-1
-    runtime: provided.al2
 
 plugins:
     - ./vendor/bref/bref
@@ -30,10 +29,9 @@ plugins:
 functions:
     console:
         handler: bin/console
+        runtime: php-81
         layers:
-            - ${bref:layer.php-81}
             - ${bref-extra:amqp-php-81} # <----- Example for AMQP layer
-            - ${bref:layer.console}
 ```
 
 ### Available layers
@@ -161,9 +159,8 @@ docker-compose.yml
 
 Dockerfile-phpFpm
 ```
-FROM bref/extra-mongodb-php-82 as mongodbextra
 FROM bref/php-82-fpm-dev
-COPY --from=mongodbextra /opt /opt
+COPY --from=bref/extra-mongodb-php-82 /opt /opt
 ```
 
 ## For contributors and maintainers
@@ -172,7 +169,7 @@ COPY --from=mongodbextra /opt /opt
 
 The idea is to start from bref/build-php-XX, install all libraries and extensions
 you want, then move all related files to `/opt`. Those files will be available in
-the same same location on the Lambda.
+the same location on the Lambda.
 
 Note that one can't just move files/libraries around. Most of them are expected to
 be in their "standard" location.
