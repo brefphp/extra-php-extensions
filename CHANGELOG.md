@@ -5,6 +5,7 @@
 ### Added
 
 - Updated Blackfire to version 1.86.5.
+- Updated NewRelic to version 10.7.0.319.
 
 ## 1.0.0
 
