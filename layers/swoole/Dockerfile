@@ -13,10 +13,11 @@ RUN set -ex && \
     make -j $(nproc) && \
     make install && \
     cp "$(php-config --extension-dir)/swoole.so" /tmp/swoole.so && \
-    echo 'extension=/opt/bref-extra/swoole.so' > /tmp/swoole.ini
+    echo 'extension=swoole.so' > /tmp/ext.ini
 
-# Copy things we installed to the final image
+# Build the final image with just the files we need
 FROM scratch
 
-COPY --from=ext /tmp/swoole.so  /opt/bref-extra/swoole.so
-COPY --from=ext /tmp/swoole.ini /opt/bref/etc/php/conf.d/ext-swoole.ini
+# Copy things we installed to the final image
+COPY --from=ext /tmp/swoole.so /opt/bref/extensions/swoole.so
+COPY --from=ext /tmp/ext.ini /opt/bref/etc/php/conf.d/ext-swoole.ini
