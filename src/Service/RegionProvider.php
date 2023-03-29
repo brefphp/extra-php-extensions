@@ -13,6 +13,6 @@ class RegionProvider
             return [getenv('only_region')];
         }
 
-        return json_decode(file_get_contents('https://raw.githubusercontent.com/brefphp/bref/master/runtime/layers/regions.json'), true);
+        return json_decode(file_get_contents('https://raw.githubusercontent.com/brefphp/bref/master/utils/layers.json/regions.json'), true);
     }
 }

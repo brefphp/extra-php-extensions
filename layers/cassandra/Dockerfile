@@ -1,5 +1,6 @@
 ARG PHP_VERSION
-FROM bref/build-php-$PHP_VERSION:1.7.14 AS ext
+ARG BREF_VERSION
+FROM bref/build-php-$PHP_VERSION:$BREF_VERSION AS ext
 
 # Datastax is providing a PHP Cassandra driver, but this hasn't been updated for a while and doesn't work with PHP 7.2 or higher
 # Datastax indicated there will be updates in the near future, so check https://docs.datastax.com/en/developer/php-driver/ if you want to avoid building your own :-)
@@ -24,21 +25,15 @@ RUN cd /tmp && \
     pecl install ext/package.xml
 
 RUN cp `php-config --extension-dir`/cassandra.so /tmp/cassandra.so
-RUN echo 'extension=/opt/bref-extra/cassandra.so' > /tmp/ext.ini
+RUN echo 'extension=cassandra.so' > /tmp/ext.ini
+
+RUN php /bref/lib-copy/copy-dependencies.php /tmp/cassandra.so /tmp/extension-libs
+
 
 # Build the final image with just the files we need
 FROM scratch
 
 # php extension binary
-COPY --from=ext /tmp/cassandra.so /opt/bref-extra/cassandra.so
+COPY --from=ext /tmp/cassandra.so /opt/bref/extensions/cassandra.so
 COPY --from=ext /tmp/ext.ini /opt/bref/etc/php/conf.d/ext-cassandra.ini
-
-COPY --from=ext /usr/lib64/libcassandra.so.2 /opt/bref/lib64/libcassandra.so.2
-COPY --from=ext /usr/lib64/libcassandra_static.a /opt/bref/lib64/libcassandra_static.a
-
-COPY --from=ext /usr/include/cassandra.h /opt/bref/include/cassandra.h
-COPY --from=ext /usr/include/dse.h /opt/bref/include/dse.h
-
-COPY --from=ext /usr/lib64/pkgconfig/cassandra.pc /opt/bref/lib64/pkgconfig/cassandra.pc
-COPY --from=ext /usr/lib64/pkgconfig/cassandra_static.pc /opt/bref/lib64/pkgconfig/cassandra_static.pc
-COPY --from=ext /usr/lib64/libuv.so.1 /opt/bref/lib64/libuv.so.1
+COPY --from=ext /tmp/extension-libs /opt/lib

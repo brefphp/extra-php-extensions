@@ -1,5 +1,6 @@
 ARG PHP_VERSION
-FROM bref/build-php-$PHP_VERSION:1.7.14 AS ext
+ARG BREF_VERSION
+FROM bref/build-php-$PHP_VERSION:$BREF_VERSION AS ext
 ARG PHP_VERSION
 
 # Install libmaxminddb
@@ -18,17 +19,15 @@ RUN make install
 # Install maxminddb
 RUN pecl install maxminddb
 RUN cp `php-config --extension-dir`/maxminddb.so /tmp/maxminddb.so
-RUN echo 'extension=/opt/bref-extra/maxminddb.so' > /tmp/ext.ini
+RUN echo 'extension=maxminddb.so' > /tmp/ext.ini
+
+RUN php /bref/lib-copy/copy-dependencies.php /tmp/maxminddb.so /tmp/extension-libs
+
 
 # Build the final image with just the files we need
 FROM scratch
 
 # Copy things we installed to the final image
-COPY --from=ext /opt/bref/include/maxminddb.h /opt/bref/include/maxminddb.h
-COPY --from=ext /opt/bref/include/maxminddb_config.h /opt/bref/include/maxminddb_config.h
-
-COPY --from=ext /opt/bref/lib/libmaxminddb.* /opt/bref/lib/
-COPY --from=ext /opt/bref/lib/pkgconfig/libmaxminddb.pc /opt/bref/lib/pkgconfig/libmaxminddb.pc
-
-COPY --from=ext /tmp/maxminddb.so /opt/bref-extra/maxminddb.so
+COPY --from=ext /tmp/maxminddb.so /opt/bref/extensions/maxminddb.so
 COPY --from=ext /tmp/ext.ini /opt/bref/etc/php/conf.d/ext-maxminddb.ini
+COPY --from=ext /tmp/extension-libs /opt/lib

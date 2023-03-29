@@ -26,7 +26,7 @@ jobs:
         id: fetch_version
         run: |
           cd layers/blackfire;
-          for VERSION in 73 74 80 81; do
+          for VERSION in 80 81; do
             BF_AGENT_VERSION=$(curl -s -o probe -D - https://blackfire.io/api/v1/releases/probe/php/linux/amd64/$VERSION | grep -i 'X-Blackfire-Release-Version: ' | sed "s%X-Blackfire-Release-Version: %%I" | sed s%.$%%);
             php ./store.php $VERSION $BF_AGENT_VERSION;
           done
