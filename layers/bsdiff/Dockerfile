@@ -8,10 +8,11 @@ RUN set -ex && \
     pecl channel-update pecl.php.net && \
     yes '' | pecl install bsdiff-stable && \
     cp "$(php-config --extension-dir)/bsdiff.so" /tmp/bsdiff.so && \
-    echo 'extension=/opt/bref-extra/bsdiff.so' > /tmp/bsdiff.ini
+    echo 'extension=bsdiff.so' > /tmp/ext.ini
 
-# Copy things we installed to the final image
+# Build the final image with just the files we need
 FROM scratch
 
-COPY --from=ext /tmp/bsdiff.so  /opt/bref-extra/bsdiff.so
-COPY --from=ext /tmp/bsdiff.ini /opt/bref/etc/php/conf.d/ext-bsdiff.ini
+# Copy things we installed to the final image
+COPY --from=ext /tmp/bsdiff.so  /opt/bref/extensions/bsdiff.so
+COPY --from=ext /tmp/ext.ini /opt/bref/etc/php/conf.d/ext-bsdiff.ini
