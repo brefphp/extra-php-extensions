@@ -1,5 +1,6 @@
 ARG PHP_VERSION
-FROM bref/build-php-$PHP_VERSION:1.7.14 AS ext
+ARG BREF_VERSION
+FROM bref/build-php-$PHP_VERSION:$BREF_VERSION AS ext
 ARG PHP_VERSION
 
 # Prepare environment
@@ -59,51 +60,14 @@ RUN make -j $(nproc)
 RUN make install
 
 RUN cp `php-config --extension-dir`/imagick.so /tmp/imagick.so
-RUN echo 'extension=/opt/bref-extra/imagick.so' > /tmp/ext.ini
+RUN echo 'extension=imagick.so' > /tmp/ext.ini
+
+RUN php /bref/lib-copy/copy-dependencies.php /tmp/imagick.so /tmp/extension-libs
+
 
 FROM scratch
 
-# The ImageMagick libraries needed by the extension
-COPY --from=ext /opt/bref/lib/libMagickWand-7.Q16HDRI.so.8.0.0 /opt/bref/lib/libMagickWand-7.Q16HDRI.so.8
-COPY --from=ext /opt/bref/lib/libMagickCore-7.Q16HDRI.so.8.0.0 /opt/bref/lib/libMagickCore-7.Q16HDRI.so.8
-
-# ImageMagick dependencies
-COPY --from=ext /usr/lib64/libpng15.so.15 /opt/bref/lib/libpng15.so.15
-COPY --from=ext /usr/lib64/libjpeg.so.62 /opt/bref/lib/libjpeg.so.62
-COPY --from=ext /usr/lib64/libwebp.so.4 /opt/bref/lib/libwebp.so.4
-COPY --from=ext /usr/lib64/libgomp.so.1 /opt/bref/lib/libgomp.so.1
-COPY --from=ext /usr/lib64/libtiff.so.5 /opt/bref/lib/libtiff.so.5
-COPY --from=ext /usr/lib64/libfreetype.so.6 /opt/bref/lib/libfreetype.so.6
-COPY --from=ext /usr/lib64/libXext.so.6 /opt/bref/lib/libXext.so.6
-COPY --from=ext /usr/lib64/libXt.so.6 /opt/bref/lib/libXt.so.6
-COPY --from=ext /usr/lib64/libSM.so.6 /opt/bref/lib/libSM.so.6
-COPY --from=ext /usr/lib64/libICE.so.6 /opt/bref/lib/libICE.so.6
-COPY --from=ext /usr/lib64/libX11.so.6 /opt/bref/lib/libX11.so.6
-COPY --from=ext /usr/lib64/libjbig.so.2.0 /opt/bref/lib/libjbig.so.2.0
-COPY --from=ext /usr/lib64/liblcms2.so.2 /opt/bref/lib/liblcms2.so.2
-COPY --from=ext /usr/lib64/libjasper.so.1 /opt/bref/lib/libjasper.so.1
-COPY --from=ext /usr/lib64/libcupsimage.so.2 /opt/bref/lib/libcupsimage.so.2
-COPY --from=ext /usr/lib64/libcups.so.2 /opt/bref/lib/libcups.so.2
-COPY --from=ext /usr/lib64/libfontconfig.so.1 /opt/bref/lib/libfontconfig.so.1
-COPY --from=ext /usr/lib64/libxcb.so.1 /opt/bref/lib/libxcb.so.1
-COPY --from=ext /usr/lib64/libXau.so.6 /opt/bref/lib/libXau.so.6
-COPY --from=ext /usr/lib64/libavahi-common.so.3 /opt/bref/lib/libavahi-common.so.3
-COPY --from=ext /usr/lib64/libavahi-client.so.3 /opt/bref/lib/libavahi-client.so.3
-COPY --from=ext /usr/lib64/libdbus-1.so.3 /opt/bref/lib/libdbus-1.so.3
-COPY --from=ext /usr/lib64/libsystemd.so.0 /opt/bref/lib/libsystemd.so.0
-COPY --from=ext /usr/lib64/liblz4.so.1 /opt/bref/lib/liblz4.so.1
-COPY --from=ext /usr/lib64/libdw.so.1 /opt/bref/lib/libdw.so.1
-COPY --from=ext /usr/lib64/libidn.so.11 /opt/bref/lib/libidn.so.11
-COPY --from=ext /usr/lib64/libpaper.so.1 /opt/bref/lib/libpaper.so.1
-COPY --from=ext /usr/lib64/libopenjp2.so.7 /opt/bref/lib/libopenjp2.so.7
-
-COPY --from=ext /opt/bref/lib/libde265.so.0 /opt/bref/lib/libde265.so.0
-COPY --from=ext /opt/bref/lib/libde265.a /opt/bref/lib/libde265.a
-COPY --from=ext /opt/bref/lib/libde265.la /opt/bref/lib/libde265.la
-COPY --from=ext /opt/bref/lib/libheif.so.1 /opt/bref/lib/libheif.so.1
-COPY --from=ext /opt/bref/lib/libheif.a /opt/bref/lib/libheif.a
-COPY --from=ext /opt/bref/lib/libheif.la /opt/bref/lib/libheif.la
-
 COPY --from=ext /tmp/gs /opt/bin/gs
-COPY --from=ext /tmp/imagick.so /opt/bref-extra/imagick.so
+COPY --from=ext /tmp/imagick.so /opt/bref/extensions/imagick.so
 COPY --from=ext /tmp/ext.ini /opt/bref/etc/php/conf.d/ext-imagick.ini
+COPY --from=ext /tmp/extension-libs /opt/lib
