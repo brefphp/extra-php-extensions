@@ -1,5 +1,6 @@
 ARG PHP_VERSION
-FROM bref/build-php-$PHP_VERSION:1.7.14 AS ext
+ARG BREF_VERSION
+FROM bref/build-php-$PHP_VERSION:$BREF_VERSION AS ext
 ARG PHP_VERSION
 
 ENV LIBRABBITMQ_BUILD_DIR=${BUILD_DIR}/librabbitmq
@@ -19,23 +20,16 @@ RUN set -xe; \
     cmake --build . --target install
 
 RUN if [[ "$PHP_VERSION" = "80" ]] ; then pecl install amqp-1.11.0beta ; else pecl install amqp ; fi
-RUN cp /opt/bref/lib/php/extensions/no-debug-non-zts-*/amqp.so /tmp/amqp.so
-RUN echo 'extension=/opt/bref-extra/amqp.so' > /tmp/ext.ini
+RUN cp `php-config --extension-dir`/amqp.so /tmp/amqp.so
+RUN echo 'extension=amqp.so' > /tmp/ext.ini
+
+RUN php /bref/lib-copy/copy-dependencies.php /tmp/amqp.so /tmp/extension-libs
+
 
 # Build the final image with just the files we need
 FROM scratch
 
 # Copy things we installed to the final image
-COPY --from=ext /opt/bref/include/amqp.h /opt/bref/include/amqp.h
-COPY --from=ext /opt/bref/include/amqp_framing.h /opt/bref/include/amqp_framing.h
-COPY --from=ext /opt/bref/include/amqp_ssl_socket.h /opt/bref/include/amqp_ssl_socket.h
-COPY --from=ext /opt/bref/include/amqp_tcp_socket.h /opt/bref/include/amqp_tcp_socket.h
-
-COPY --from=ext /opt/bref/lib64/librabbitmq.a /opt/bref/lib64/librabbitmq.a
-COPY --from=ext /opt/bref/lib64/librabbitmq.so /opt/bref/lib64/librabbitmq.so
-COPY --from=ext /opt/bref/lib64/librabbitmq.so.4 /opt/bref/lib64/librabbitmq.so.4
-COPY --from=ext /opt/bref/lib64/librabbitmq.so.4.3.0 /opt/bref/lib64/librabbitmq.so.4.3.0
-COPY --from=ext /opt/bref/lib64/pkgconfig/librabbitmq.pc /opt/bref/lib64/pkgconfig/librabbitmq.pc
-
-COPY --from=ext /tmp/amqp.so /opt/bref-extra/amqp.so
+COPY --from=ext /tmp/amqp.so /opt/bref/extensions/amqp.so
 COPY --from=ext /tmp/ext.ini /opt/bref/etc/php/conf.d/ext-amqp.ini
+COPY --from=ext /tmp/extension-libs /opt/lib
