@@ -1,5 +1,14 @@
 # Change log
 
+## 1.1.0
+
+### Added
+
+- Added extension for Swoole
+- Added extension for bsdiff
+- Upgrade Elastic APM to 1.8.1
+- Added Blackfire support for 8.2
+
 ## 1.0.2
 
 ### Added
