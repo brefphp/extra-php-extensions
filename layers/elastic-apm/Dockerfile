@@ -1,6 +1,7 @@
+ARG CPU_PREFIX
 ARG PHP_VERSION
 ARG BREF_VERSION
-FROM bref/build-php-$PHP_VERSION:$BREF_VERSION AS ext
+FROM bref/${CPU_PREFIX}build-php-$PHP_VERSION:$BREF_VERSION AS ext
 
 RUN \
     LD_LIBRARY_PATH=/lib64:/lib yum install -y libcurl-devel openssl-devel \

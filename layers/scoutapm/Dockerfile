@@ -1,6 +1,8 @@
+ARG CPU_PREFIX
 ARG PHP_VERSION
 ARG BREF_VERSION
-FROM bref/build-php-$PHP_VERSION:$BREF_VERSION AS ext
+FROM bref/${CPU_PREFIX}build-php-$PHP_VERSION:$BREF_VERSION AS ext
+
 RUN pecl install --force scoutapm
 RUN cp `php-config --extension-dir`/scoutapm.so /tmp/scoutapm.so
 RUN echo 'zend_extension=scoutapm.so' > /tmp/ext.ini

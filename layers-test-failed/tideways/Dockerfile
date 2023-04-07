@@ -1,7 +1,8 @@
 # syntax = docker/dockerfile:1.4
+ARG CPU_PREFIX
 ARG PHP_VERSION
 ARG BREF_VERSION
-FROM bref/build-php-$PHP_VERSION:$BREF_VERSION AS ext
+FROM bref/${CPU_PREFIX}build-php-$PHP_VERSION:$BREF_VERSION AS ext
 
 ARG TIDEWAYS_VERSION=5.5.14
 # Versions: https://tideways.com/profiler/downloads

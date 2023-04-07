@@ -1,7 +1,8 @@
 # syntax = docker/dockerfile:1.4
+ARG CPU_PREFIX
 ARG PHP_VERSION
 ARG BREF_VERSION
-FROM bref/build-php-$PHP_VERSION:2 AS ext
+FROM bref/${CPU_PREFIX}build-php-$PHP_VERSION:$BREF_VERSION AS ext
 
 ARG RELAY_VERSION=0.6.0
 
