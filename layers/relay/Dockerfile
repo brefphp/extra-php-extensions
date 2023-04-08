@@ -6,7 +6,12 @@ FROM bref/${CPU_PREFIX}build-php-$PHP_VERSION:$BREF_VERSION AS ext
 
 ARG RELAY_VERSION=0.6.0
 
+ENV LD_LIBRARY_PATH=/usr/lib:/usr/lib64:$LD_LIBRARY_PATH
+
 # Docs: https://relay.so/docs/1.x/installation#manual-installation
+
+# Added openssl11-libs
+RUN yum install -y openssl11-libs
 
 # Install extensions required by Relay
 RUN pecl install igbinary msgpack && \
@@ -28,8 +33,9 @@ END
 
 RUN <<'END' bash -e
     export php_version=$(php-config --version | cut -c -3)
+    export arch=$(arch | sed s/_/-/g)
     mkdir -p /tmp/relay
-    curl -sSL "https://builds.r2.relay.so/v$RELAY_VERSION/relay-v$RELAY_VERSION-php$php_version-centos7-x86-64.tar.gz" | tar -xz --strip-components=1 -C /tmp/relay
+    curl -sSL "https://builds.r2.relay.so/v$RELAY_VERSION/relay-v$RELAY_VERSION-php$php_version-centos7-$arch.tar.gz" | tar -xz --strip-components=1 -C /tmp/relay
     sed -i "s/00000000-0000-0000-0000-000000000000/$(cat /proc/sys/kernel/random/uuid)/" /tmp/relay/relay-pkg.so
     cp /tmp/relay/relay-pkg.so /tmp/relay.so
     echo 'extension=relay.so' > /tmp/ext-relay.ini
