@@ -3,28 +3,43 @@ ARG PHP_VERSION
 ARG BREF_VERSION
 FROM bref/${CPU_PREFIX}build-php-$PHP_VERSION:$BREF_VERSION AS ext
 
-# Build the New Relic Agent - install silently
-ARG NEWRELIC_VERSION=10.7.0.319
-RUN \
-  curl -L https://download.newrelic.com/php_agent/archive/${NEWRELIC_VERSION}/newrelic-php5-${NEWRELIC_VERSION}-linux.tar.gz | tar -C /tmp -zx && \
-  export NR_INSTALL_USE_CP_NOT_LN=1 && \
-  export NR_INSTALL_SILENT=1 && \
-  /tmp/newrelic-php5-*/newrelic-install install && \
-  rm -rf /tmp/newrelic-php5-* /tmp/nrinstall*
+ARG NEWRELIC_VERSION=10.9.0.324
 
-# newrelic.so will be installed to `php-config --extension-dir`/newrelic.so
-# In this core image newrelic.ini will be placed but not exist in the scatch layer
-# ${INSTALL_DIR}/etc/php/php.ini /tmp/php.ini - php.ini will contain the needed config and extension ref
+ENV LD_LIBRARY_PATH=/usr/lib:/usr/lib64:$LD_LIBRARY_PATH
+ENV RELIC_BUILD_DIR=${BUILD_DIR}/relic
+RUN mkdir -p ${RELIC_BUILD_DIR}
+WORKDIR ${RELIC_BUILD_DIR}
 
-# Copy the newrelic.so and php.ini file to the tmp folder
+RUN yum update -y &&  \
+    yum install -y git \
+    amazon-linux-extras \
+    libcurl-devel \
+    openssl-devel  \
+    openssl-static \
+    pcre-devel  \
+    pcre-static \
+    zlib-devel  \
+    zlib-static
 
-RUN cp `php -i | grep extension_dir | sed 's/^.*=> \(.*\)$/\1/' | head -1`/newrelic.so /tmp/newrelic.so
-RUN echo 'extension=newrelic.so' > /tmp/newrelic.ini
+RUN amazon-linux-extras install -y epel
+RUN amazon-linux-extras install -y golang1.11
 
-# Build the final image from the scratch image that contain files you want to export
+RUN git clone https://github.com/newrelic/newrelic-php-agent.git . \
+    && git reset --hard v${NEWRELIC_VERSION}
+
+RUN make \
+    && make agent-install
+
+RUN cp `php-config --extension-dir`/newrelic.so /tmp/newrelic.so
+RUN echo 'extension=newrelic.so' > /tmp/ext.ini
+
+RUN php /bref/lib-copy/copy-dependencies.php /tmp/newrelic.so /tmp/extension-libs
+
+## Build the final image from the scratch image that contain files you want to export
 FROM scratch
 
 # Copy the two key files to the correct location for the empty layer.
 # newrelic.so should become a layered extension.
 COPY --from=ext /tmp/newrelic.so /opt/bref/extensions/newrelic.so
-COPY --from=ext /tmp/newrelic.ini /opt/bref/etc/php/conf.d/ext-newrelic.ini
+COPY --from=ext /tmp/ext.ini /opt/bref/etc/php/conf.d/ext-newrelic.ini
+COPY --from=ext /tmp/extension-libs /opt/lib

@@ -12,7 +12,12 @@ RUN <<'END' bash -e
     mkdir -p /tmp/tideways
     cd /tmp/tideways
     export version=$(php -r "echo PHP_MAJOR_VERSION.'.'.PHP_MINOR_VERSION;")
-    curl -sSL "https://s3-eu-west-1.amazonaws.com/tideways/extension/${TIDEWAYS_VERSION}/tideways-php-${TIDEWAYS_VERSION}-x86_64.tar.gz" | tar -xz --strip-components=2 -C /tmp/tideways
+    export arch=$(arch | sed s/_/-/g)
+    if [ "$arch" = "aarch64" ] ; then
+      curl -sSL "https://s3-eu-west-1.amazonaws.com/tideways/extension/${TIDEWAYS_VERSION}/tideways-php-${TIDEWAYS_VERSION}-arm64.tar.gz" | tar -xz --strip-components=2 -C /tmp/tideways ;
+    else
+      curl -sSL "https://s3-eu-west-1.amazonaws.com/tideways/extension/${TIDEWAYS_VERSION}/tideways-php-${TIDEWAYS_VERSION}-x86_64.tar.gz" | tar -xz --strip-components=2 -C /tmp/tideways ;
+    fi
     cp /tmp/tideways/tideways-php-${version}.so /tmp/tideways.so
     echo 'extension=tideways.so' > /tmp/ext-tideways.ini
 END
