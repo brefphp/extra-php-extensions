@@ -1,8 +1,10 @@
 SHELL := /bin/bash
 layer ?= *
 cpu ?= x86
-resolve_cpu_types = $(or $(cpu),`jq -r '.cpu | join(" ")' ${1}/config.json`)
 resolve_php_versions = $(or $(php_versions),`jq -r '.php | join(" ")' ${1}/config.json`)
+makefile_path = $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
+get_cpu_types = `jq -r '.cpu | join(" ")' ${makefile_path}${1}/config.json`
+resolve_cpu_types = $(or $(cpu),`jq -r '.cpu | join(" ")' ${makefile_path}${1}/config.json`)
 resolve_tags = `./new-docker-tags.php $(DOCKER_TAG)`
 BREF_VERSION = 2
 
@@ -15,6 +17,12 @@ docker-images:
 	set -e; \
 	for dir in layers/${layer}; do \
 		for cpu_type in $(call resolve_cpu_types,$${dir}); do \
+			if [ "${layer}" = "*" ] && [[ "$(call get_cpu_types,$${dir})" != *"$${cpu_type}"* ]]; then \
+				echo "###############################################"; \
+				echo "️! Skip - $${dir} no $${cpu_type} support"; \
+				echo ""; \
+				break ; \
+			fi; \
 			for php_version in $(call resolve_php_versions,$${dir}); do \
 				if [[ "$${cpu_type}" = "arm" ]] ; then  \
 					cpu_prefix="arm-"; \
@@ -40,6 +48,12 @@ test: docker-images
 	set -e; \
 	for dir in layers/${layer}; do \
 		for cpu_type in $(call resolve_cpu_types,$${dir}); do \
+			if [ "${layer}" = "*" ] && [[ "$(call get_cpu_types,$${dir})" != *"$${cpu_type}"* ]]; then \
+				echo "###############################################"; \
+				echo "️! Skip - $${dir} no $${cpu_type} support"; \
+				echo ""; \
+				break ; \
+			fi; \
 			for php_version in $(call resolve_php_versions,$${dir}); do \
 				if [[ "$${cpu_type}" = "arm" ]] ; then  \
 					cpu_prefix="arm-"; \
@@ -73,6 +87,12 @@ layers: docker-images
 	set -e; \
 	for dir in layers/${layer}; do \
 		for cpu_type in $(call resolve_cpu_types,$${dir}); do \
+			if [ "${layer}" = "*" ] && [[ "$(call get_cpu_types,$${dir})" != *"$${cpu_type}"* ]]; then \
+				echo "###############################################"; \
+				echo "️! Skip - $${dir} no $${cpu_type} support"; \
+				echo ""; \
+				break ; \
+			fi; \
 			for php_version in $(call resolve_php_versions,${PWD}/$${dir}); do \
 				if [[ "$${cpu_type}" = "arm" ]] ; then  \
 					cpu_prefix="arm-"; \
@@ -110,6 +130,12 @@ publish: layers
 publish-docker-images: docker-images
 	for dir in layers/${layer}; do \
   		for cpu_type in $(call resolve_cpu_types,$${dir}); do \
+			if [ "${layer}" = "*" ] && [[ "$(call get_cpu_types,$${dir})" != *"$${cpu_type}"* ]]; then \
+				echo "###############################################"; \
+				echo "️! Skip - $${dir} no $${cpu_type} support"; \
+				echo ""; \
+				break ; \
+			fi; \
 			for php_version in $(call resolve_php_versions,$${dir}); do \
 				if [[ "$${cpu_type}" = "arm" ]] ; then  \
 					cpu_prefix="arm-"; \
