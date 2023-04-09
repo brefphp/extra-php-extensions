@@ -3,7 +3,7 @@ ARG PHP_VERSION
 ARG BREF_VERSION
 FROM bref/${CPU_PREFIX}build-php-$PHP_VERSION:$BREF_VERSION AS ext
 
-RUN pecl install openswoole-4.12.0
+RUN pecl install openswoole-4.12.1
 RUN cp `php-config --extension-dir`/openswoole.so /tmp/openswoole.so
 RUN echo 'extension=openswoole.so' > /tmp/ext.ini
 
