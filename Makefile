@@ -1,5 +1,6 @@
 SHELL := /bin/bash
 layer ?= *
+cpu ?= x86
 resolve_cpu_types = $(or $(cpu),`jq -r '.cpu | join(" ")' ${1}/config.json`)
 resolve_php_versions = $(or $(php_versions),`jq -r '.php | join(" ")' ${1}/config.json`)
 resolve_tags = `./new-docker-tags.php $(DOCKER_TAG)`
