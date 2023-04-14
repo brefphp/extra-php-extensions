@@ -6,7 +6,11 @@ This is useful when you want something "off the shelf".
 If you ever need more than 2-3 layer you should consider creating your own layer. That is because AWS has
 a limit of 5 layers per Lambda. You can also utilise the provided docker images for local development.
 
-:warning: ARM64 is not supported yet.
+> **Note**
+>
+> If you are using Bref v2, you need to use version `1.x` of the `bref/extra-php-extensions` package (:warning: ARM64 is not supported yet).
+>
+> If you are using Bref v1, you need to use version `0.x` of the `bref/extra-php-extensions` package.
 
 We are happy to get contributions for other extensions. Sky is the limit! (And also your knowledge with Docker...)
 
