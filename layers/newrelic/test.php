@@ -1,7 +1,7 @@
 <?php
 
 if (!function_exists($func = 'newrelic_ignore_transaction')) {
-    echo test . phpsprintf('FAIL: Function "%s" does not exist.', $func) . PHP_EOL;
+    echo sprintf('FAIL: Function "%s" does not exist.', $func) . PHP_EOL;
     exit(1);
 }
 

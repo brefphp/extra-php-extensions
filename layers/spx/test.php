@@ -1,7 +1,7 @@
 <?php
 
 if (!function_exists($func = 'spx_profiler_start')) {
-    echo test . phpsprintf('FAIL: Function "%s" does not exist.', $func) . PHP_EOL;
+    echo sprintf('FAIL: Function "%s" does not exist.', $func) . PHP_EOL;
     exit(1);
 }
 
