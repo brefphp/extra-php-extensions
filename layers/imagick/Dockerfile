@@ -10,36 +10,36 @@ RUN LD_LIBRARY_PATH= yum -y install libwebp-devel wget libpng-devel libjpeg-deve
 
 # Compile libde265 (libheif dependency)
 WORKDIR ${IMAGICK_BUILD_DIR}
-RUN wget https://github.com/strukturag/libde265/releases/download/v1.0.5/libde265-1.0.5.tar.gz -O libde265.tar.gz
+RUN wget https://github.com/strukturag/libde265/releases/download/v1.0.11/libde265-1.0.11.tar.gz -O libde265.tar.gz
 RUN tar xzf libde265.tar.gz
-WORKDIR ${IMAGICK_BUILD_DIR}/libde265-1.0.5
+WORKDIR ${IMAGICK_BUILD_DIR}/libde265-1.0.11
 RUN ./configure --prefix ${INSTALL_DIR} --exec-prefix ${INSTALL_DIR}
 RUN make -j $(nproc)
 RUN make install
 
 # Compile libheif
 WORKDIR ${IMAGICK_BUILD_DIR}
-RUN wget https://github.com/strukturag/libheif/releases/download/v1.6.2/libheif-1.6.2.tar.gz -O libheif.tar.gz
+RUN wget https://github.com/strukturag/libheif/releases/download/v1.15.2/libheif-1.15.2.tar.gz -O libheif.tar.gz
 RUN tar xzf libheif.tar.gz
-WORKDIR ${IMAGICK_BUILD_DIR}/libheif-1.6.2
+WORKDIR ${IMAGICK_BUILD_DIR}/libheif-1.15.2
 RUN ./configure --prefix ${INSTALL_DIR} --exec-prefix ${INSTALL_DIR}
 RUN make -j $(nproc)
 RUN make install
 
 # Compile gs
 WORKDIR ${IMAGICK_BUILD_DIR}
-RUN wget https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs9533/ghostscript-9.53.3.tar.gz -O ghostscript.tar.gz
+RUN wget https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs9533/ghostscript-9.56.1.tar.gz -O ghostscript.tar.gz
 RUN tar xzf ghostscript.tar.gz
-WORKDIR ${IMAGICK_BUILD_DIR}/ghostscript-9.53.3
+WORKDIR ${IMAGICK_BUILD_DIR}/ghostscript-9.56.1
 RUN ./configure --prefix ${INSTALL_DIR} --exec-prefix ${INSTALL_DIR} --without-x
 RUN make -j $(nproc)
 RUN cp bin/gs /tmp/gs
 
 # Compile the ImageMagick library
 WORKDIR ${IMAGICK_BUILD_DIR}
-RUN wget https://github.com/ImageMagick/ImageMagick/archive/7.0.10-43.tar.gz -O ImageMagick.tar.gz
+RUN wget https://github.com/ImageMagick/ImageMagick/archive/refs/tags/7.1.1-8.tar.gz -O ImageMagick.tar.gz
 RUN tar xzf ImageMagick.tar.gz
-WORKDIR ${IMAGICK_BUILD_DIR}/ImageMagick-7.0.10-43
+WORKDIR ${IMAGICK_BUILD_DIR}/ImageMagick-7.1.1-8
 RUN ./configure --prefix ${INSTALL_DIR} --exec-prefix ${INSTALL_DIR} --with-webp --with-heic --disable-static --with-freetype=yes
 RUN make -j $(nproc)
 RUN make install
@@ -49,11 +49,9 @@ RUN convert -list configure
 
 # Compile the php imagick extension
 WORKDIR ${IMAGICK_BUILD_DIR}
-# Temporary workaround for getting right imagick both for PHP 7.* and 8.*
-# @see https://github.com/brefphp/extra-php-extensions/pull/143/files#r541977286
 RUN git clone https://github.com/Imagick/imagick
 WORKDIR ${IMAGICK_BUILD_DIR}/imagick
-RUN git checkout 3.7.0
+RUN git checkout 28f27044e435a2b203e32675e942eb8de620ee58
 RUN phpize
 RUN ./configure --with-imagick=${INSTALL_DIR}
 RUN make -j $(nproc)
