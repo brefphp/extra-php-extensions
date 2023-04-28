@@ -167,8 +167,8 @@ docker-compose.yml
 
 Dockerfile-phpFpm
 ```
-FROM bref/php-82-fpm-dev
-COPY --from=bref/extra-mongodb-php-82 /opt /opt
+FROM bref/php-82-fpm-dev:2
+COPY --from=bref/extra-mongodb-php-82:1 /opt /opt
 ```
 
 ## For contributors and maintainers
