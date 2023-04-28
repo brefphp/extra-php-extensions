@@ -4,12 +4,8 @@
 
 ### Added
 
-- Updated Blackfire to version 1.86.6.
-
-## 1.1.1
-
-### Added
-
+- Specify grpc version for reliable builds (#435)
+- Rebuild MongoDB (#436)
 - Updated Blackfire to version 1.86.8.
 
 ## 1.1.0
