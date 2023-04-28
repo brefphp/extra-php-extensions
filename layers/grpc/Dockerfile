@@ -2,7 +2,7 @@ ARG PHP_VERSION
 ARG BREF_VERSION
 FROM bref/build-php-$PHP_VERSION:$BREF_VERSION AS ext
 
-RUN MAKEFLAGS="-j $(nproc)" && pecl install grpc > /dev/null
+RUN MAKEFLAGS="-j $(nproc)" && pecl install grpc-1.54.0 > /dev/null
 RUN cp `php-config --extension-dir`/grpc.so /tmp/grpc.so
 RUN strip --strip-debug /tmp/grpc.so
 RUN echo 'extension=grpc.so' > /tmp/ext.ini
