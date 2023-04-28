@@ -28,7 +28,7 @@ RUN make install
 
 # Compile gs
 WORKDIR ${IMAGICK_BUILD_DIR}
-RUN wget https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs9533/ghostscript-9.56.1.tar.gz -O ghostscript.tar.gz
+RUN wget https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs9561/ghostscript-9.56.1.tar.gz -O ghostscript.tar.gz
 RUN tar xzf ghostscript.tar.gz
 WORKDIR ${IMAGICK_BUILD_DIR}/ghostscript-9.56.1
 RUN ./configure --prefix ${INSTALL_DIR} --exec-prefix ${INSTALL_DIR} --without-x
