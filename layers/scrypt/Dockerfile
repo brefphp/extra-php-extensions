@@ -1,6 +1,7 @@
+ARG CPU_PREFIX
 ARG PHP_VERSION
 ARG BREF_VERSION
-FROM bref/build-php-$PHP_VERSION:$BREF_VERSION AS ext
+FROM bref/${CPU_PREFIX}build-php-$PHP_VERSION:$BREF_VERSION AS ext
 
 RUN pecl install scrypt
 RUN cp `php-config --extension-dir`/scrypt.so /tmp/scrypt.so

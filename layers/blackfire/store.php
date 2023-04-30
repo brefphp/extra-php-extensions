@@ -6,7 +6,7 @@ if ($argc !== 3) {
     exit(1);
 }
 
-$file = __DIR__.'/versions.json';
+$file = __DIR__ . '/versions.json';
 $data = json_decode(file_get_contents($file), true);
 $data[$argv[1]] = $argv[2];
 

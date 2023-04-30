@@ -1,6 +1,7 @@
+ARG CPU_PREFIX
 ARG PHP_VERSION
 ARG BREF_VERSION
-FROM bref/build-php-$PHP_VERSION:$BREF_VERSION AS ext
+FROM bref/${CPU_PREFIX}build-php-$PHP_VERSION:$BREF_VERSION AS ext
 
 RUN version=$(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") \
     && curl -A "Docker" -o /tmp/blackfire-probe.tar.gz -D - -L -s https://blackfire.io/api/v1/releases/probe/php/linux/amd64/$version \
