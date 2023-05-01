@@ -6,6 +6,12 @@ This is useful when you want something "off the shelf".
 If you ever need more than 2-3 layer you should consider creating your own layer. That is because AWS has
 a limit of 5 layers per Lambda. You can also utilise the provided docker images for local development.
 
+> **Note**
+>
+> If you are using Bref v2, you need to use version `1.x` of the `bref/extra-php-extensions` package (:warning: ARM64 is not supported yet).
+>
+> If you are using Bref v1, you need to use version `0.x` of the `bref/extra-php-extensions` package.
+
 We are happy to get contributions for other extensions. Sky is the limit! (And also your knowledge with Docker...)
 
 ## Install and configure
@@ -21,7 +27,6 @@ service: app
 provider:
     name: aws
     region: us-east-1
-    runtime: provided.al2
 
 plugins:
     - ./vendor/bref/bref
@@ -30,50 +35,60 @@ plugins:
 functions:
     console:
         handler: bin/console
+        runtime: php-81
         layers:
-            - ${bref:layer.php-74}
-            - ${bref-extra:amqp-php-74} # <----- Example for AMQP layer
-            - ${bref:layer.console}
+            - ${bref-extra:amqp-php-81} # <----- Example for AMQP layer
 ```
 
 ### Available layers
 
-| Name               | Serverless config (php 7.4)           |
+| Name               | Serverless config (php 8.1)           |
 |:-------------------|:--------------------------------------|
-| AMQP               | `${bref-extra:amqp-php-74}`           |
-| Blackfire          | `${bref-extra:blackfire-php-74}`      |
-| Calendar           | `${bref-extra:calendar-php-74}`       |
-| Cassandra          | `${bref-extra:cassandra-php-74}`      |
-| DS                 | `${bref-extra:ds-php-74}`             |
-| GD                 | `${bref-extra:gd-php-74}`             |
-| GMP                | `${bref-extra:gmp-php-74}`            |
-| gRPC               | `${bref-extra:grpc-php-74}`           |
-| Igbinary           | `${bref-extra:igbinary-php-74}`       |
-| Imagick            | `${bref-extra:imagick-php-74}`        |
-| IMAP               | `${bref-extra:imap-php-74}`           |
-| LDAP               | `${bref-extra:ldap-php-74}`           |
-| Mailparse          | `${bref-extra:mailparse-php-74}`      |
-| Memcache           | `${bref-extra:memcache-php-74}`       |
-| Memcached          | `${bref-extra:memcached-php-74}`      |
-| MongoDB            | `${bref-extra:mongodb-php-74}`        |
-| MsgPack            | `${bref-extra:msgpack-php-74}`        |
-| Newrelic           | `${bref-extra:newrelic-php-74}`       |
-| ODBC Snowflake     | `${bref-extra:odbc-snowflake-php-74}` |
+| AMQP               | `${bref-extra:amqp-php-81}`           |
+| Blackfire          | `${bref-extra:blackfire-php-81}`      |
+| Bsdiff             | `${bref-extra:bsdiff-php-81}`         |
+| Calendar           | `${bref-extra:calendar-php-81}`       |
+| Cassandra          | `${bref-extra:cassandra-php-81}`      |
+| Decimal            | `${bref-extra:decimal-php-81}`        |
+| DS                 | `${bref-extra:ds-php-81}`             |
+| Elastic APM        | `${bref-extra:elastic-apm-php-81}`    |
+| GD                 | `${bref-extra:gd-php-81}`             |
+| gnupg              | `${bref-extra:gnupg-php-81}`          |
+| GMP                | `${bref-extra:gmp-php-81}`            |
+| gRPC               | `${bref-extra:grpc-php-81}`           |
+| Igbinary           | `${bref-extra:igbinary-php-81}`       |
+| Imagick            | `${bref-extra:imagick-php-81}`        |
+| IMAP               | `${bref-extra:imap-php-81}`           |
+| LDAP               | `${bref-extra:ldap-php-81}`           |
+| Mailparse          | `${bref-extra:mailparse-php-81}`      |
+| MaxMind DB         | `${bref-extra:maxminddb-php-81}`      |
+| Memcache           | `${bref-extra:memcache-php-81}`       |
+| Memcached          | `${bref-extra:memcached-php-81}`      |
+| MongoDB            | `${bref-extra:mongodb-php-81}`        |
+| MsgPack            | `${bref-extra:msgpack-php-81}`        |
+| Newrelic           | `${bref-extra:newrelic-php-81}`       |
+| ODBC Snowflake     | `${bref-extra:odbc-snowflake-php-81}` |
+| OpenSwoole         | `${bref-extra:openswoole-php-81}`     |
 | Oracle             | `${bref-extra:oci8-php-80}`           |
-| Pcov               | `${bref-extra:pcov-php-74}`           |
-| PostgreSQL         | `${bref-extra:pgsql-php-74}`          |
-| RdKafka            | `${bref-extra:rdkafka-php-74}`        |
-| Redis              | `${bref-extra:redis-php-74}`          |
-| Redis-Igbinary     | `${bref-extra:redis-igbinary-php-74}` |
-| Scrypt             | `${bref-extra:scrypt-php-74}`         |
-| SPX                | `${bref-extra:spx-php-74}`            |
-| SSH2               | `${bref-extra:ssh2-php-74}`           |
-| Symfony Runtime    | `${bref-extra:symfony-runtime-php-74}`|
-| Microsoft SQLSRV   | `${bref-extra:sqlsrv-php-74}`         |
-| Tidy               | `${bref-extra:tidy-php-74}`           |
-| UUID               | `${bref-extra:uuid-php-74}`           |
-| Xdebug             | `${bref-extra:xdebug-php-74}`         |
-| Yaml               | `${bref-extra:yaml-php-74}`           |
+| Pcov               | `${bref-extra:pcov-php-81}`           |
+| PostgreSQL         | `${bref-extra:pgsql-php-81}`          |
+| RdKafka            | `${bref-extra:rdkafka-php-81}`        |
+| Redis (phpredis)   | `${bref-extra:redis-php-81}`          |
+| Redis-Igbinary     | `${bref-extra:redis-igbinary-php-81}` |
+| Relay              | `${bref-extra:relay-php-81}`          |
+| Scout APM          | `${bref-extra:scoutapm-php-81}`       |
+| Scrypt             | `${bref-extra:scrypt-php-81}`         |
+| SPX                | `${bref-extra:spx-php-81}`            |
+| SSH2               | `${bref-extra:ssh2-php-81}`           |
+| Swoole             | `${bref-extra:swoole-php-81}`         |
+| Symfony Runtime    | `${bref-extra:symfony-runtime-php-81}`|
+| Microsoft SQLSRV   | `${bref-extra:sqlsrv-php-81}`         |
+| Tideways           | `${bref-extra:tideways-php-81}`       |
+| Tidy               | `${bref-extra:tidy-php-81}`           |
+| UUID               | `${bref-extra:uuid-php-81}`           |
+| Xdebug             | `${bref-extra:xdebug-php-81}`         |
+| Xlswriter          | `${bref-extra:xlswriter-php-81}`      |
+| Yaml               | `${bref-extra:yaml-php-81}`           |
 
 ### Blackfire installation
 
@@ -138,7 +153,7 @@ the `/opt` directory in the image.
 
 ### Local Development
 
-When developing locally you can build your own images with the required extensions. Example with PHP 7.4 and MongoDB Extension:
+When developing locally you can build your own images with the required extensions. Example with PHP 8.2 and MongoDB Extension:
 
 docker-compose.yml
 ```
@@ -152,9 +167,8 @@ docker-compose.yml
 
 Dockerfile-phpFpm
 ```
-FROM bref/extra-mongodb-php-74 as mongodbextra
-FROM bref/php-74-fpm-dev
-COPY --from=mongodbextra /opt /opt
+FROM bref/php-82-fpm-dev:2
+COPY --from=bref/extra-mongodb-php-82:1 /opt /opt
 ```
 
 ## For contributors and maintainers
@@ -163,7 +177,7 @@ COPY --from=mongodbextra /opt /opt
 
 The idea is to start from bref/build-php-XX, install all libraries and extensions
 you want, then move all related files to `/opt`. Those files will be available in
-the same same location on the Lambda.
+the same location on the Lambda.
 
 Note that one can't just move files/libraries around. Most of them are expected to
 be in their "standard" location.
@@ -186,7 +200,14 @@ make test
 layer=imagick make test
 
 # Test a single layer on a single PHP version
-layer=imagick php_versions=74 make test
+layer=imagick php_versions=81 make test
+```
+
+You can publish the layer in your AWS account to test it in AWS Lambda as well:
+
+```
+# Publish a single layer on a single PHP version in a single region
+layer=imagick php_versions=81 only_region=us-east-1 make publish
 ```
 
 ### Deploy new versions
@@ -211,14 +232,14 @@ git push
 #### Config
 
 You can also build only one specific layer by providing `layer=blackfire` to `make`.
-Same thing for some specific version(s) of php by providing `php_versions="73 74"` to `make`.
+Same thing for some specific version(s) of php by providing `php_versions="80 81"` to `make`.
 You can invoke both ways:
 
 ```shell
 # First way: make with named arguments
-make layer=gd php_versions=74
+make layer=gd php_versions=81
 # Second way: environment variables passed to make
-layer=blackfire php_versions=80 make
+layer=blackfire php_versions=81 make
 ```
 
 ## Lambda layers in details

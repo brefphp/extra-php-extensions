@@ -1,5 +1,223 @@
 # Change log
 
+## 1.1.1
+
+### Added
+
+- Specify grpc version for reliable builds (#435)
+- Rebuild MongoDB (#436)
+- Updated Blackfire to version 1.86.8.
+
+## 1.1.0
+
+### Added
+
+- Added extension for Swoole
+- Added extension for bsdiff
+- Upgrade Elastic APM to 1.8.1
+- Added Blackfire support for 8.2
+
+## 1.0.2
+
+### Added
+
+- Updated Blackfire to version 1.86.6.
+
+## 1.0.1
+
+### Added
+
+- Updated Blackfire to version 1.86.5.
+- Updated NewRelic to version 10.7.0.319.
+
+## 1.0.0
+
+## Breaking changes
+
+- Just like Bref v2, support for PHP 7.3 and 7.4 was dropped. PHP 8.0 or greater is required.
+- [Bref v2](https://bref.sh/docs/news/02-bref-2.0.html) is required. If you use Bref v1, use the `0.12` version of the Bref extra extensions.
+
+## Internal changes
+
+These internal changes will not impact most users, however we list them in case you have an advanced use case:
+
+- The "bref-extra" PHP extensions are now installed in the official Bref directory for PHP extensions: `/opt/bref/extensions`. They were previously installed in `/opt/bref-extra`.
+
+If you were copying the layers in your Docker images, make sure to copy the entire `/opt` folder instead of the `/opt/bref-extra` folder:
+
+```dockerfile
+FROM bref/php-82-fpm:2
+
+# Don't do this:
+COPY --from=bref/extra-imagick-php-82:1 /opt/bref-extra /opt/bref-extra
+# Do this instead:
+COPY --from=bref/extra-imagick-php-82:1 /opt /opt
+```
+
+## 0.12.5
+
+### Added
+
+- Updated Blackfire to version 1.86.4.
+
+## 0.12.4
+
+### Added
+
+- Relay extension
+- Tideways extension
+- Update NewRelic
+
+## 0.12.3
+
+### Added
+
+- Support for PHP 8.2 for Xlswriter
+- Support for PHP 8.2 for oci8
+
+### Updated
+
+- Updated Blackfire to version 1.86.3.
+- NewRelic agent to 10.4.0.316
+
+## 0.12.2
+
+### Added
+
+- extensions compiled against PHP 8.2.0 stable release
+- OpenSwoole extension
+- Support for sqlsrv on PHP 8.2
+- Added more AWS regions
+
+### Changed
+
+- Using bref/build-php-XX:1.7.14 as base image
+- Updated NewRelic Agent to 10.3.0.315
+
+## 0.12.1
+
+### Added
+
+- Updated Blackfire to version 1.85.0.
+
+## 0.12.0
+
+### Removed
+
+- PHP 7 support
+
+### Changed
+
+- Using bref/build-php-XX:1.7.14 as base image
+
+### Added
+
+- Added Decimal extension
+- Added gnupg extension
+- Extensions support for PHP 8.2, all except following ones:
+  - amqp
+  - calendar
+  - ds
+  - gd
+  - gmp
+  - grpc
+  - igbinary
+  - imagick
+  - imap
+  - ldap
+  - mailparse
+  - maxminddb
+  - memcached
+  - mongodb
+  - msgpack
+  - odbc-snowflake
+  - pcov
+  - pgsql
+  - rdkafka
+  - redis
+  - redis-igbinary
+  - scoutapm
+  - ssh2
+  - symfony-runtime
+  - tidy
+  - uuid
+  - xdebug
+  - yaml
+
+## 0.11.35
+
+### Added
+
+- Updated Blackfire to version 1.84.0.
+- Added Xlswriter extension
+- Added Elastic APM extension
+- Updated dependencies for sqlsrv
+
+## 0.11.34
+
+### Added
+
+- Updated Blackfire to version 1.81.0.
+
+## 0.11.33
+
+### Added
+
+- Updated Blackfire to version 1.80.0.
+
+## 0.11.32
+
+### Added
+
+- Updated Blackfire to version 1.79.0.
+
+## 0.11.31
+
+### Added
+
+- Updated Blackfire to version 1.78.1.
+- Updated ODBC snowflake driver to version 2.25.0
+- Reduce size of ODBC layer
+
+## 0.11.30
+
+### Added
+
+- Updated Blackfire to version 1.78.0.
+
+## 0.11.29
+
+### Added
+
+- Updated Blackfire to version 1.77.0.
+- Added ScoutAMP extension
+
+## 0.11.28
+
+### Added
+
+- Added Maxminddb extension
+
+## 0.11.27
+
+### Added
+
+- Updated Blackfire to version 1.76.0.
+
+## 0.11.26
+
+### Added
+
+- Updated Blackfire to version 1.75.0.
+- OCI8 support for PHP 8.1
+- NewRelic support for PHP 8.1
+
+## 0.11.25
+
+### Added
+
+- Updated Blackfire to version 1.74.1.
+
 ## 0.11.24
 
 ### Added

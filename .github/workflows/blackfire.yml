@@ -2,7 +2,7 @@ name: Blackfire
 
 on:
   schedule:
-    - cron: '45 5 * * *'
+    - cron: "45 5 * * *"
 
 jobs:
   watch:
@@ -17,7 +17,7 @@ jobs:
           coverage: none
 
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
           ref: master
@@ -26,7 +26,7 @@ jobs:
         id: fetch_version
         run: |
           cd layers/blackfire;
-          for VERSION in 73 74 80; do
+          for VERSION in 80 81 82; do
             BF_AGENT_VERSION=$(curl -s -o probe -D - https://blackfire.io/api/v1/releases/probe/php/linux/amd64/$VERSION | grep -i 'X-Blackfire-Release-Version: ' | sed "s%X-Blackfire-Release-Version: %%I" | sed s%.$%%);
             php ./store.php $VERSION $BF_AGENT_VERSION;
           done
