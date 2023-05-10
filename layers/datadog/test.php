@@ -1,6 +1,6 @@
 <?php
 
-if (!class_exists($class = \DDTrace::class)) {
+if (!class_exists($class = \DDTrace\SpanData::class)) {
     echo sprintf('FAIL: Class "%s" does not exist.', $class).PHP_EOL;
     exit(1);
 }
