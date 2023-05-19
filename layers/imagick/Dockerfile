@@ -8,7 +8,7 @@ ENV IMAGICK_BUILD_DIR=${BUILD_DIR}/imagick
 RUN mkdir -p ${IMAGICK_BUILD_DIR}
 RUN LD_LIBRARY_PATH= yum -y install libpng-devel libjpeg-devel lcms2-devel ImageMagick-devel
 
-# Compile libwebp
+# Compile libwebp since AL2 ships with v0.3, and v0.4 or higher is required to builder the other libs
 WORKDIR ${IMAGICK_BUILD_DIR}
 RUN curl -Ls -o libwebp.tar.gz https://github.com/webmproject/libwebp/archive/refs/tags/v1.3.0.tar.gz
 RUN tar xzf libwebp.tar.gz
