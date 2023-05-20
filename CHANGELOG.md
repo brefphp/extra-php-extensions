@@ -1,5 +1,11 @@
 # Change log
 
+## 1.1.2
+
+### Added
+
+- Updated Blackfire to version 1.87.1.
+
 ## 1.1.1
 
 ### Added
