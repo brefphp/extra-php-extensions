@@ -8,8 +8,8 @@ ENV AMQP_BUILD_DIR=${BUILD_DIR}/amqp
 RUN mkdir -p ${AMQP_BUILD_DIR}
 
 # Compile rabbitmq
-RUN curl -Ls -o abbitmq-c.tar.gz https://github.com/alanxz/rabbitmq-c/archive/refs/tags/v0.13.0.tar.gz
-RUN tar xzf abbitmq-c.tar.gz
+RUN curl -Ls -o rabbitmq-c.tar.gz https://github.com/alanxz/rabbitmq-c/archive/refs/tags/v0.13.0.tar.gz
+RUN tar xzf rabbitmq-c.tar.gz
 WORKDIR ${AMQP_BUILD_DIR}/rabbitmq-c-0.13.0
 RUN cmake -DCMAKE_INSTALL_PREFIX=${INSTALL_DIR} .
 RUN cmake --build . --target install
