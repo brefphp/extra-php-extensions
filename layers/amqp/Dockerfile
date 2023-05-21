@@ -11,7 +11,6 @@ RUN mkdir -p ${AMQP_BUILD_DIR}
 WORKDIR ${AMQP_BUILD_DIR}
 RUN curl -Ls -o rabbitmq-c.tar.gz https://github.com/alanxz/rabbitmq-c/archive/refs/tags/v0.13.0.tar.gz
 RUN tar xzf rabbitmq-c.tar.gz
-RUN ls
 WORKDIR ${AMQP_BUILD_DIR}/rabbitmq-c-0.13.0
 RUN cmake -DCMAKE_INSTALL_PREFIX=${INSTALL_DIR} .
 RUN cmake --build . --target install
@@ -19,7 +18,7 @@ RUN cmake --build . --target install
 # Compile the php amqp extension
 WORKDIR ${AMQP_BUILD_DIR}
 RUN git clone https://github.com/php-amqp/php-amqp
-WORKDIR ${AMQP_BUILD_DIR}/amqp
+WORKDIR ${AMQP_BUILD_DIR}/php-amqp
 RUN git reset --hard 618e06ad2ef867598831cdd3faadba0dd65be917
 RUN phpize
 RUN ./configure
