@@ -4,7 +4,7 @@ FROM bref/build-php-$PHP_VERSION:$BREF_VERSION AS ext
 ARG PHP_VERSION
 
 # Prepare environment
-ENV IMAGICK_BUILD_DIR=${BUILD_DIR}/amqp
+ENV AMQP_BUILD_DIR=${BUILD_DIR}/amqp
 RUN mkdir -p ${AMQP_BUILD_DIR}
 
 # Compile rabbitmq
@@ -26,10 +26,9 @@ RUN make install
 
 RUN cp `php-config --extension-dir`/amqp.so /tmp/amqp.so
 RUN strip --strip-debug /tmp/amqp.so
-RUN echo 'extension=imagick.so' > /tmp/ext.ini
+RUN echo 'extension=amqp.so' > /tmp/ext.ini
 
 RUN php /bref/lib-copy/copy-dependencies.php /tmp/amqp.so /tmp/extension-libs
-
 
 # Build the final image with just the files we need
 FROM scratch
