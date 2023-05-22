@@ -3,28 +3,33 @@ ARG BREF_VERSION
 FROM bref/build-php-$PHP_VERSION:$BREF_VERSION AS ext
 ARG PHP_VERSION
 
-ENV LIBRABBITMQ_BUILD_DIR=${BUILD_DIR}/librabbitmq
+# Prepare environment
+ENV AMQP_BUILD_DIR=${BUILD_DIR}/amqp
+RUN mkdir -p ${AMQP_BUILD_DIR}
 
-RUN set -xe; \
-    mkdir -p ${LIBRABBITMQ_BUILD_DIR}; \
-    # Download and upack the source code
-    curl -Ls  https://github.com/alanxz/rabbitmq-c/archive/v0.9.0.tar.gz  \
-    | tar xzC ${LIBRABBITMQ_BUILD_DIR}
+# Compile rabbitmq
+WORKDIR ${AMQP_BUILD_DIR}
+RUN curl -Ls -o rabbitmq-c.tar.gz https://github.com/alanxz/rabbitmq-c/archive/refs/tags/v0.13.0.tar.gz
+RUN tar xzf rabbitmq-c.tar.gz
+WORKDIR ${AMQP_BUILD_DIR}/rabbitmq-c-0.13.0
+RUN cmake -DCMAKE_INSTALL_PREFIX=${INSTALL_DIR} .
+RUN cmake --build . --target install
 
-# Move into the unpackaged code directory
-WORKDIR  ${LIBRABBITMQ_BUILD_DIR}/rabbitmq-c-0.9.0/
+# Compile the php amqp extension
+WORKDIR ${AMQP_BUILD_DIR}
+RUN git clone https://github.com/php-amqp/php-amqp
+WORKDIR ${AMQP_BUILD_DIR}/php-amqp
+RUN git reset --hard 618e06ad2ef867598831cdd3faadba0dd65be917
+RUN phpize
+RUN ./configure
+RUN make -j $(nproc)
+RUN make install
 
-# Install
-RUN set -xe; \
-    cmake -DCMAKE_INSTALL_PREFIX=${INSTALL_DIR} . && \
-    cmake --build . --target install
-
-RUN if [[ "$PHP_VERSION" = "80" ]] ; then pecl install amqp-1.11.0beta ; else pecl install amqp ; fi
 RUN cp `php-config --extension-dir`/amqp.so /tmp/amqp.so
+RUN strip --strip-debug /tmp/amqp.so
 RUN echo 'extension=amqp.so' > /tmp/ext.ini
 
 RUN php /bref/lib-copy/copy-dependencies.php /tmp/amqp.so /tmp/extension-libs
-
 
 # Build the final image with just the files we need
 FROM scratch
