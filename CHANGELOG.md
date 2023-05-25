@@ -1,5 +1,22 @@
 # Change log
 
+## 1.2.1
+
+* Specify specific version, so upgrades are explicit and not cached by @GrahamCampbell in https://github.com/brefphp/extra-php-extensions/pull/446
+* Fixed broken amqp extension by @GrahamCampbell in https://github.com/brefphp/extra-php-extensions/pull/445
+* Upgrade to grpc 1.55.0 by @GrahamCampbell in https://github.com/brefphp/extra-php-extensions/pull/449
+* Fix the relay extension by @mnapoli in https://github.com/brefphp/extra-php-extensions/pull/448
+* Update Blackfire extension by @bref-bot in https://github.com/brefphp/extra-php-extensions/pull/450
+* Update FUNDING.yml by @mnapoli in https://github.com/brefphp/extra-php-extensions/pull/451
+
+## 1.2.0
+
+* Added `datadog` extension by @wolflingorg in https://github.com/brefphp/extra-php-extensions/pull/442
+* ImageMagick upgrades by @GrahamCampbell in https://github.com/brefphp/extra-php-extensions/pull/434
+* Upgrade NewRelic agent to v10.9.0.324 by @starred-gijs in https://github.com/brefphp/extra-php-extensions/pull/438
+* OCI8 Update by @mixaster in https://github.com/brefphp/extra-php-extensions/pull/439
+* Update Blackfire extension by @bref-bot in https://github.com/brefphp/extra-php-extensions/pull/444
+
 ## 1.1.2
 
 ### Added
