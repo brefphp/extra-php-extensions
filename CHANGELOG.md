@@ -1,5 +1,9 @@
 # Change log
 
+## 1.2.2
+
+* Update layer versions (previous release did not include them).
+
 ## 1.2.1
 
 * Specify specific version, so upgrades are explicit and not cached by @GrahamCampbell in https://github.com/brefphp/extra-php-extensions/pull/446
