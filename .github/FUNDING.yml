@@ -1,3 +1,4 @@
 # These are supported funding model platforms
 
-github: Nyholm
+github: [Nyholm, mnapoli]
+custom: 'https://bref.sh/#enterprise'
