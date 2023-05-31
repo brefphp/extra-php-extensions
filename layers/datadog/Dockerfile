@@ -20,6 +20,7 @@ RUN cp "$(php-config --extension-dir)/ddtrace.so" /tmp/ddtrace.so && \
 
 RUN sed -i 's/extension = ddtrace\.so/extension = \/opt\/bref-extra\/ddtrace.so/' /tmp/ext.ini && \
     sed -i 's/extension = datadog-profiling\.so/extension = \/opt\/bref-extra\/datadog-profiling.so/' /tmp/ext.ini && \
+    sed -i 's/extension = ddappsec\.so/\/opt\/bref-extra\/ddappsec.so/' /tmp/ext.ini && \
     sed -i 's/;datadog\.agent_host.*$/datadog\.agent_host = 127.0.0.1/' /tmp/ext.ini && \
     sed -i 's/^.*datadog\.appsec\.enabled.*$/datadog.appsec.enabled = Off/' /tmp/ext.ini && \
     sed -i 's/datadog\.profiling\.enabled = On/datadog.profiling.enabled = 1/' /tmp/ext.ini
