@@ -47,9 +47,9 @@ RUN cp bin/gs /tmp/gs
 
 # Compile the ImageMagick library
 WORKDIR ${IMAGICK_BUILD_DIR}
-RUN curl -Ls -o ImageMagick.tar.gz https://github.com/ImageMagick/ImageMagick/archive/refs/tags/7.1.1-9.tar.gz
+RUN curl -Ls -o ImageMagick.tar.gz https://github.com/ImageMagick/ImageMagick/archive/refs/tags/7.1.1-11.tar.gz
 RUN tar xzf ImageMagick.tar.gz
-WORKDIR ${IMAGICK_BUILD_DIR}/ImageMagick-7.1.1-9
+WORKDIR ${IMAGICK_BUILD_DIR}/ImageMagick-7.1.1-11
 RUN ./configure --prefix ${INSTALL_DIR} --exec-prefix ${INSTALL_DIR} --with-webp --with-heic --disable-static --with-freetype=yes
 RUN make -j $(nproc)
 RUN make install
