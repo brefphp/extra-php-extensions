@@ -1,5 +1,10 @@
 # Change log
 
+## 1.2.3
+
+* Fix Laravel support
+* Upgrade Imagick
+
 ## 1.2.2
 
 * Update layer versions (previous release did not include them).
