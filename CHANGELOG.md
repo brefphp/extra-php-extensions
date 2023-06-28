@@ -1,5 +1,11 @@
 # Change log
 
+## 1.2.4
+
+### Added
+
+- Updated Blackfire to version 1.88.0.
+
 ## 1.2.3
 
 * Fix Laravel support
