@@ -8,9 +8,15 @@ a limit of 5 layers per Lambda. You can also utilise the provided docker images 
 
 > **Note**
 >
-> If you are using Bref v2, you need to use version `1.x` of the `bref/extra-php-extensions` package (:warning: ARM64 is not supported yet).
+> If you are using Bref v2, you need to use version `1.x` of the `bref/extra-php-extensions` package.
 >
 > If you are using Bref v1, you need to use version `0.x` of the `bref/extra-php-extensions` package.
+
+
+> **Warning**
+> 
+> **ARM64 is not supported yet with Bref v2.**
+
 
 We are happy to get contributions for other extensions. Sky is the limit! (And also your knowledge with Docker...)
 
