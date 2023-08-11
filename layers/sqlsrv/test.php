@@ -2,6 +2,7 @@
 
 putenv('ODBCSYSINI=/opt/microsoft/conf/');
 
+
 // This test is for sqlsrv.so
 if (!function_exists($func = 'sqlsrv_connect')) {
     echo sprintf('FAIL: Function "%s" does not exist.', $func).PHP_EOL;
@@ -23,5 +24,19 @@ if (!sqlsrv_connect('localhost', ['LoginTimeout' => 1])) {
         }
     }
 }
+
+try{
+    new PDO("sqlsrv:Driver={ODBC Driver 17 for SQL Server};Server=localhost");
+}
+catch(Exception $e)
+{
+    // sql may not exist here but that's ok, anything else is a failure
+    if(!str_contains(print_r($e,true),"Login timeout expired"))
+    {
+        echo print_r($e);
+        exit(1);
+    }
+}
+
 
 exit(0);
