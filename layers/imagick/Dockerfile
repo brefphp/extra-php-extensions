@@ -10,9 +10,9 @@ RUN LD_LIBRARY_PATH= yum -y install libpng-devel libjpeg-devel lcms2-devel Image
 
 # Compile libwebp since AL2 ships with v0.3, and v0.4 or higher is required to builder the other libs
 WORKDIR ${IMAGICK_BUILD_DIR}
-RUN curl -Ls -o libwebp.tar.gz https://github.com/webmproject/libwebp/archive/refs/tags/v1.3.0.tar.gz
+RUN curl -Ls -o libwebp.tar.gz https://github.com/webmproject/libwebp/archive/refs/tags/v1.3.1.tar.gz
 RUN tar xzf libwebp.tar.gz
-WORKDIR ${IMAGICK_BUILD_DIR}/libwebp-1.3.0
+WORKDIR ${IMAGICK_BUILD_DIR}/libwebp-1.3.1
 RUN autoreconf -i && automake && autoconf
 RUN ./configure --prefix ${INSTALL_DIR} --exec-prefix ${INSTALL_DIR}
 RUN make -j $(nproc)
@@ -20,9 +20,9 @@ RUN make install
 
 # Compile libde265 (libheif dependency)
 WORKDIR ${IMAGICK_BUILD_DIR}
-RUN curl -Ls -o libde265.tar.gz https://github.com/strukturag/libde265/releases/download/v1.0.11/libde265-1.0.11.tar.gz
+RUN curl -Ls -o libde265.tar.gz https://github.com/strukturag/libde265/releases/download/v1.0.12/libde265-1.0.12.tar.gz
 RUN tar xzf libde265.tar.gz
-WORKDIR ${IMAGICK_BUILD_DIR}/libde265-1.0.11
+WORKDIR ${IMAGICK_BUILD_DIR}/libde265-1.0.12
 RUN ./configure --prefix ${INSTALL_DIR} --exec-prefix ${INSTALL_DIR}
 RUN make -j $(nproc)
 RUN make install
@@ -47,9 +47,9 @@ RUN cp bin/gs /tmp/gs
 
 # Compile the ImageMagick library
 WORKDIR ${IMAGICK_BUILD_DIR}
-RUN curl -Ls -o ImageMagick.tar.gz https://github.com/ImageMagick/ImageMagick/archive/refs/tags/7.1.1-11.tar.gz
+RUN curl -Ls -o ImageMagick.tar.gz https://github.com/ImageMagick/ImageMagick/archive/refs/tags/7.1.1-15.tar.gz
 RUN tar xzf ImageMagick.tar.gz
-WORKDIR ${IMAGICK_BUILD_DIR}/ImageMagick-7.1.1-11
+WORKDIR ${IMAGICK_BUILD_DIR}/ImageMagick-7.1.1-15
 RUN ./configure --prefix ${INSTALL_DIR} --exec-prefix ${INSTALL_DIR} --with-webp --with-heic --disable-static --with-freetype=yes
 RUN make -j $(nproc)
 RUN make install
