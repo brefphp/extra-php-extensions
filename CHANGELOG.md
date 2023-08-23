@@ -1,5 +1,9 @@
 # Change log
 
+## 1.2.6
+
+Please check out the GitHub release notes.
+
 ## 1.2.5
 
 ### Added
