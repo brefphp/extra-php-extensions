@@ -1,6 +1,10 @@
 <?php
 
 var_dump(getenv('ODBCSYSINI'));
+
+putenv('ODBCSYSINI=/opt/microsoft/conf/');
+
+
 // This test is for sqlsrv.so
 if (!function_exists($func = 'sqlsrv_connect')) {
     echo sprintf('FAIL: Function "%s" does not exist.', $func).PHP_EOL;
