@@ -1,6 +1,8 @@
 <?php
 
+var_dump(getenv('ODBCSYSINI'));
 putenv('ODBCSYSINI=/opt/microsoft/conf/');
+var_dump(getenv('ODBCSYSINI'));
 
 // This test is for sqlsrv.so
 if (!function_exists($func = 'sqlsrv_connect')) {
