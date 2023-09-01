@@ -3,6 +3,7 @@
 var_dump(getenv('ODBCSYSINI'));
 var_dump(putenv('ODBCSYSINI=/opt/microsoft/conf/'));
 var_dump(getenv('ODBCSYSINI'));
+var_dump(getenv('ODBCSYSINI', true));
 
 // See if putenv is not disabled
 phpinfo();
