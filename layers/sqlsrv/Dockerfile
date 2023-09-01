@@ -25,7 +25,7 @@ RUN php /bref/lib-copy/copy-dependencies.php /tmp/pdo_sqlsrv.so /tmp/extension-l
 
 FROM scratch
 
-ENV ODBCSYSINI=/opt/microsoft/conf/
+#ENV ODBCSYSINI=/opt/microsoft/conf/
 COPY --from=ext /opt/microsoft /opt/microsoft
 COPY --from=ext /tmp/sqlsrv.so /opt/bref/extensions/sqlsrv.so
 COPY --from=ext /tmp/pdo_sqlsrv.so /opt/bref/extensions/pdo_sqlsrv.so
