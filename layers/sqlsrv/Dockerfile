@@ -4,7 +4,6 @@ FROM bref/build-php-$PHP_VERSION:$BREF_VERSION AS ext
 ARG PHP_VERSION
 
 ENV LD_LIBRARY_PATH=/usr/lib:/usr/lib64:$LD_LIBRARY_PATH
-ENV ODBCSYSINI=/opt/microsoft/conf/
 
 RUN yum -y install unixODBC-devel-2.3.1-14.amzn2.x86_64
 
@@ -26,6 +25,7 @@ RUN php /bref/lib-copy/copy-dependencies.php /tmp/pdo_sqlsrv.so /tmp/extension-l
 
 FROM scratch
 
+ENV ODBCSYSINI=/opt/microsoft/conf/
 COPY --from=ext /opt/microsoft /opt/microsoft
 COPY --from=ext /tmp/sqlsrv.so /opt/bref/extensions/sqlsrv.so
 COPY --from=ext /tmp/pdo_sqlsrv.so /opt/bref/extensions/pdo_sqlsrv.so
