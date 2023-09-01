@@ -1,5 +1,6 @@
 <?php
 
+var_dump(getenv('ODBCSYSINI'));
 // This test is for sqlsrv.so
 if (!function_exists($func = 'sqlsrv_connect')) {
     echo sprintf('FAIL: Function "%s" does not exist.', $func).PHP_EOL;
@@ -15,6 +16,7 @@ if (!extension_loaded('pdo_sqlsrv')) {
 // This test attempts a connection, forcing MS odbc libraries to be loaded
 if (!sqlsrv_connect('localhost', ['LoginTimeout' => 1])) {
     foreach (sqlsrv_errors() as $error) {
+        var_dump($error);
         if ($error['SQLSTATE'] == '01000' || $error['SQLSTATE'] == 'IM002') {
             echo sprintf('FAIL: %s', $error['message']).PHP_EOL;
             exit(1);
