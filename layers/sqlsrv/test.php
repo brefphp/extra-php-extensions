@@ -1,9 +1,10 @@
 <?php
 
 var_dump(getenv('ODBCSYSINI'));
-putenv('ODBCSYSINI=/opt/microsoft/conf/');
+var_dump(putenv('ODBCSYSINI=/opt/microsoft/conf/'));
 var_dump(getenv('ODBCSYSINI'));
 
+// See if putenv is not disabled
 phpinfo();
 
 // This test is for sqlsrv.so
