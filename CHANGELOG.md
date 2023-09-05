@@ -4,6 +4,12 @@
 
 Please check out the GitHub release notes.
 
+## 1.2.6
+
+### Added
+
+- Updated Blackfire to version 1.89.0.
+
 ## 1.2.5
 
 ### Added
