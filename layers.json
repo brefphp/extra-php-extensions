@@ -2279,10 +2279,6 @@
         "af-south-1": 3,
         "me-south-1": 3
     },
-    "snmp-php-81": {
-        "us-east-1": 4,
-        "us-east-2": 4
-    },
     "spx-php-80": {
         "ca-central-1": 13,
         "eu-central-1": 13,
