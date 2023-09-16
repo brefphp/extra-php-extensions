@@ -28,7 +28,7 @@ END
 
 # Install OpenSSL 1.1 because Relay doesn't work with OpenSSL 3
 # https://github.com/openssl/openssl/releases
-ENV VERSION_OPENSSL=1.1.1v
+ENV VERSION_OPENSSL=1.1.1w
 ENV OPENSSL_BUILD_DIR=${BUILD_DIR}/openssl
 ENV CA_BUNDLE_SOURCE="https://curl.se/ca/cacert.pem"
 ENV CA_BUNDLE="${INSTALL_DIR}/bref/ssl/cert.pem"
