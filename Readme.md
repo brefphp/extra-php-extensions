@@ -86,6 +86,7 @@ functions:
 | Relay            | `${bref-extra:relay-php-81}`           |
 | Scout APM        | `${bref-extra:scoutapm-php-81}`        |
 | Scrypt           | `${bref-extra:scrypt-php-81}`          |
+| SNMP             | `${bref-extra:snmp-php-81}`            |
 | SPX              | `${bref-extra:spx-php-81}`             |
 | SSH2             | `${bref-extra:ssh2-php-81}`            |
 | Swoole           | `${bref-extra:swoole-php-81}`          |
