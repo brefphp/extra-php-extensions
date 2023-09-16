@@ -1,8 +1,11 @@
 # Change log
 
-## 1.2.6
+## 1.3.0
 
-Please check out the GitHub release notes.
+- Added extension SNMP
+- Added extension Excimer
+- Update elastic apm to version 1.8.4
+- Use openssl 1.1.1w in relay extension
 
 ## 1.2.6
 
