@@ -10,8 +10,8 @@ RUN yum -y install unixODBC-devel-2.3.1-14.amzn2.x86_64
 RUN curl https://packages.microsoft.com/config/rhel/7/prod.repo > /etc/yum.repos.d/mssql-release.repo
 RUN ACCEPT_EULA=Y yum -y install msodbcsql17-17.10.1.1-1.x86_64
 
-RUN pecl install sqlsrv-5.10.1 && \
-  pecl install pdo_sqlsrv-5.10.1
+RUN pecl install sqlsrv-5.11.1 && \
+  pecl install pdo_sqlsrv-5.11.1
 
 RUN cp `php-config --extension-dir`/sqlsrv.so /tmp/sqlsrv.so
 RUN cp `php-config --extension-dir`/pdo_sqlsrv.so /tmp/pdo_sqlsrv.so
