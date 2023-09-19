@@ -1,5 +1,9 @@
 # Change log
 
+## 1.3.1
+
+- Update PDO sqlsrv to 5.11.1
+
 ## 1.3.0
 
 - Added extension SNMP
