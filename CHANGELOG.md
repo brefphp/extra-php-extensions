@@ -1,5 +1,9 @@
 # Change log
 
+## 1.3.2
+
+- Updated Blackfire to version 1.90.0.
+
 ## 1.3.1
 
 - Update PDO sqlsrv to 5.11.1
