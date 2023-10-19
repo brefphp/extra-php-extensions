@@ -1,5 +1,43 @@
 # Change log
 
+## 1.3.2
+
+- Updated Blackfire to version 1.90.0.
+
+## 1.3.1
+
+- Update PDO sqlsrv to 5.11.1
+
+## 1.3.0
+
+- Added extension SNMP
+- Added extension Excimer
+- Update elastic apm to version 1.8.4
+- Use openssl 1.1.1w in relay extension
+
+## 1.2.6
+
+### Added
+
+- Updated Blackfire to version 1.89.0.
+
+## 1.2.5
+
+### Added
+
+- Updated Blackfire to version 1.88.1.
+
+## 1.2.4
+
+### Added
+
+- Updated Blackfire to version 1.88.0.
+
+## 1.2.3
+
+* Fix Laravel support
+* Upgrade Imagick
+
 ## 1.2.2
 
 * Update layer versions (previous release did not include them).

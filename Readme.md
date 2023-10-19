@@ -8,9 +8,15 @@ a limit of 5 layers per Lambda. You can also utilise the provided docker images 
 
 > **Note**
 >
-> If you are using Bref v2, you need to use version `1.x` of the `bref/extra-php-extensions` package (:warning: ARM64 is not supported yet).
+> If you are using Bref v2, you need to use version `1.x` of the `bref/extra-php-extensions` package.
 >
 > If you are using Bref v1, you need to use version `0.x` of the `bref/extra-php-extensions` package.
+
+
+> **Warning**
+> 
+> **ARM64 is not supported yet with Bref v2.**
+
 
 We are happy to get contributions for other extensions. Sky is the limit! (And also your knowledge with Docker...)
 
@@ -53,6 +59,7 @@ functions:
 | Decimal          | `${bref-extra:decimal-php-81}`         |
 | DS               | `${bref-extra:ds-php-81}`              |
 | Elastic APM      | `${bref-extra:elastic-apm-php-81}`     |
+| Excimer          | `${bref-extra:excimer-php-81}`         |
 | GD               | `${bref-extra:gd-php-81}`              |
 | gnupg            | `${bref-extra:gnupg-php-81}`           |
 | GMP              | `${bref-extra:gmp-php-81}`             |
@@ -79,6 +86,7 @@ functions:
 | Relay            | `${bref-extra:relay-php-81}`           |
 | Scout APM        | `${bref-extra:scoutapm-php-81}`        |
 | Scrypt           | `${bref-extra:scrypt-php-81}`          |
+| SNMP             | `${bref-extra:snmp-php-81}`            |
 | SPX              | `${bref-extra:spx-php-81}`             |
 | SSH2             | `${bref-extra:ssh2-php-81}`            |
 | Swoole           | `${bref-extra:swoole-php-81}`          |
