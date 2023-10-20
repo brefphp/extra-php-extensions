@@ -2,7 +2,7 @@ ARG PHP_VERSION
 ARG BREF_VERSION
 FROM bref/build-php-$PHP_VERSION:$BREF_VERSION AS ext
 
-RUN pecl install --force redis
+RUN pecl install --force redis-6.0.1
 RUN cp `php-config --extension-dir`/redis.so /tmp/redis.so
 RUN echo 'extension=redis.so' > /tmp/ext.ini
 
