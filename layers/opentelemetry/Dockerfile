@@ -1,10 +1,8 @@
-# https://github.com/brefphp/extra-php-extensions/blob/master/layers/yaml/Dockerfile
-
 ARG PHP_VERSION
 ARG BREF_VERSION
 FROM bref/build-php-$PHP_VERSION:$BREF_VERSION AS ext
 
-RUN MAKEFLAGS="-j $(nproc)" && pecl install opentelemetry > /dev/null
+RUN MAKEFLAGS="-j $(nproc)" && pecl install opentelemetry-1.0.0 > /dev/null
 RUN cp `php-config --extension-dir`/opentelemetry.so /tmp/opentelemetry.so
 RUN strip --strip-debug /tmp/opentelemetry.so
 RUN echo 'extension=opentelemetry.so' > /tmp/ext.ini
