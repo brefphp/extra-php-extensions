@@ -30,7 +30,7 @@ RUN make install
 # Compile libheif
 WORKDIR ${IMAGICK_BUILD_DIR}
 RUN curl -Ls -o libheif.tar.gz https://github.com/strukturag/libheif/releases/download/v1.17.5/libheif-1.17.5.tar.gz
-RUN mkdir ${IMAGICK_BUILD_DIR}/libheif-1.17.5/build
+RUN mkdir libheif-1.17.5/build
 WORKDIR ${IMAGICK_BUILD_DIR}/libheif-1.17.5/build
 RUN cmake -DCMAKE_INSTALL_PREFIX=${INSTALL_DIR} ..
 RUN make -j $(nproc)
