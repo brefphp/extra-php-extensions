@@ -30,9 +30,9 @@ RUN make install
 # Compile libheif
 WORKDIR ${IMAGICK_BUILD_DIR}
 RUN curl -Ls -o libheif.tar.gz https://github.com/strukturag/libheif/releases/download/v1.17.5/libheif-1.17.5.tar.gz
-RUN tar xzf libheif.tar.gz
-WORKDIR ${IMAGICK_BUILD_DIR}/libheif-1.17.5
-RUN cmake --preset=release --prefix ${INSTALL_DIR}
+RUN mkdir ${IMAGICK_BUILD_DIR}/libheif-1.17.5/build
+WORKDIR ${IMAGICK_BUILD_DIR}/libheif-1.17.5/build
+RUN cmake -DCMAKE_INSTALL_PREFIX=${INSTALL_DIR} ..
 RUN make -j $(nproc)
 RUN make install
 
@@ -41,7 +41,7 @@ WORKDIR ${IMAGICK_BUILD_DIR}
 RUN curl -Ls -o ghostscript.tar.gz https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs9561/ghostscript-9.56.1.tar.gz
 RUN tar xzf ghostscript.tar.gz
 WORKDIR ${IMAGICK_BUILD_DIR}/ghostscript-9.56.1
-RUN ./configure --install-prefix ${INSTALL_DIR} --exec-prefix ${INSTALL_DIR} --without-x
+RUN ./configure --prefix ${INSTALL_DIR} --exec-prefix ${INSTALL_DIR} --without-x
 RUN make -j $(nproc)
 RUN cp bin/gs /tmp/gs
 
