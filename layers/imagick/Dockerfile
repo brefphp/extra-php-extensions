@@ -61,7 +61,7 @@ RUN convert -list configure
 WORKDIR ${IMAGICK_BUILD_DIR}
 RUN git clone https://github.com/Imagick/imagick
 WORKDIR ${IMAGICK_BUILD_DIR}/imagick
-# TODO; update the commit hash this PR has been merged with PHP 8.3 support: https://github.com/Imagick/imagick/pull/641 
+# TODO; update the commit hash once this PR has been merged with PHP 8.3 support: https://github.com/Imagick/imagick/pull/641 
 RUN git reset --hard 28f27044e435a2b203e32675e942eb8de620ee58
 RUN phpize
 RUN ./configure --with-imagick=${INSTALL_DIR}
