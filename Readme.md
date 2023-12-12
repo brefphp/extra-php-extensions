@@ -98,7 +98,7 @@ functions:
 | UUID             | `${bref-extra:uuid-php-81}`            |
 | Xdebug           | `${bref-extra:xdebug-php-81}`          |
 | Xlswriter        | `${bref-extra:xlswriter-php-81}`       |
-| xmlrpc           | `${bref-extra:xmlrpc-php-81}`       |
+| xmlrpc           | `${bref-extra:xmlrpc-php-81}`          |
 | Yaml             | `${bref-extra:yaml-php-81}`            |
 
 ### Blackfire installation
