@@ -80,6 +80,7 @@ FROM scratch
 
 # Copy things we installed to the final image
 COPY --from=ext /tmp/gs /opt/bin/gs
+COPY --from=ext /tmp/convert /opt/bin/convert
 COPY --from=ext /tmp/imagick.so /opt/bref/extensions/imagick.so
 COPY --from=ext /tmp/ext.ini /opt/bref/etc/php/conf.d/ext-imagick.ini
 COPY --from=ext /tmp/extension-libs /opt/lib
