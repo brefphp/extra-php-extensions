@@ -1,8 +1,10 @@
 # Change log
 
-## 1.3.4
+## 1.4.0
 
 - Updated Blackfire to version 1.92.8.
+- Added support for PHP 8.3
+- Added xmlrpc extension
 
 ## 1.3.3
 
