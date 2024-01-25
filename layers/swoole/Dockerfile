@@ -9,7 +9,7 @@ RUN set -ex && \
     tar xfz swoole.tar.gz --strip-components=1 -C ${PHP_BUILD_DIR}/ext/swoole && \
     cd  ${PHP_BUILD_DIR}/ext/swoole && \
     phpize && \
-    ./configure --enable-mysqlnd --enable-swoole-pgsql --enable-openssl --enable-sockets --enable-swoole-curl && \
+    ./configure --enable-swoole-pgsql --enable-openssl --enable-sockets --enable-swoole-curl && \
     make -j $(nproc) && \
     make install && \
     cp "$(php-config --extension-dir)/swoole.so" /tmp/swoole.so && \
