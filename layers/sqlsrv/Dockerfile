@@ -10,9 +10,9 @@ RUN yum -y install unixODBC-devel-2.3.1-14.amzn2.x86_64
 RUN curl https://packages.microsoft.com/config/rhel/7/prod.repo > /etc/yum.repos.d/mssql-release.repo
 RUN ACCEPT_EULA=Y yum -y install msodbcsql17-17.10.1.1-1.x86_64
 
-RUN if [ "$PHP_VERSION" = "83" ]; \
-    then SQLSRV_VERSION=5.12.0beta1 ; \
-    else SQLSRV_VERSION=5.11.1 ; \
+RUN if [ "$PHP_VERSION" = "80" ]; \
+    then SQLSRV_VERSION=5.11.1 ; \
+    else SQLSRV_VERSION=5.12.0 ; \
     fi ; \
     pecl install sqlsrv-${SQLSRV_VERSION} && \
     pecl install pdo_sqlsrv-${SQLSRV_VERSION}
