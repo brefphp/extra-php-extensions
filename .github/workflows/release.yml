@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - prepare-release
+  workflow_dispatch:
 
 jobs:
   matrix:
@@ -20,6 +21,8 @@ jobs:
         run: |
           git fetch --prune --unshallow
           echo "::set-output name=list::$(git diff --name-only HEAD $(git describe --tags --abbrev=0) | grep layers/ | cut -d / -f 2  | sort | uniq | jq -R -s -c 'split("\n")[:-1]')"
+          # If the workflow was triggered manually, then build all layers
+          if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then echo "::set-output name=list::$(ls layers | jq -R -s -c 'split("\n")[:-1]')"; fi
 
     outputs:
       # Make the outputs accessible outside this job

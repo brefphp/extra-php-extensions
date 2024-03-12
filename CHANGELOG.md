@@ -1,10 +1,91 @@
 # Change log
 
+## 1.4.1
+
+- Updated Blackfire to version 1.92.9.
+
+## 1.4.0
+
+- Updated Blackfire to version 1.92.8.
+- Added support for PHP 8.3
+- Added xmlrpc extension
+
+## 1.3.3
+
+- Updated Blackfire to version 1.92.2.
+
+## 1.3.2
+
+- Updated Blackfire to version 1.90.0.
+
+## 1.3.1
+
+- Update PDO sqlsrv to 5.11.1
+
+## 1.3.0
+
+- Added extension SNMP
+- Added extension Excimer
+- Update elastic apm to version 1.8.4
+- Use openssl 1.1.1w in relay extension
+
+## 1.2.6
+
+### Added
+
+- Updated Blackfire to version 1.89.0.
+
+## 1.2.5
+
+### Added
+
+- Updated Blackfire to version 1.88.1.
+
+## 1.2.4
+
+### Added
+
+- Updated Blackfire to version 1.88.0.
+
+## 1.2.3
+
+* Fix Laravel support
+* Upgrade Imagick
+
+## 1.2.2
+
+* Update layer versions (previous release did not include them).
+
+## 1.2.1
+
+* Specify specific version, so upgrades are explicit and not cached by @GrahamCampbell in https://github.com/brefphp/extra-php-extensions/pull/446
+* Fixed broken amqp extension by @GrahamCampbell in https://github.com/brefphp/extra-php-extensions/pull/445
+* Upgrade to grpc 1.55.0 by @GrahamCampbell in https://github.com/brefphp/extra-php-extensions/pull/449
+* Fix the relay extension by @mnapoli in https://github.com/brefphp/extra-php-extensions/pull/448
+* Update Blackfire extension by @bref-bot in https://github.com/brefphp/extra-php-extensions/pull/450
+* Update FUNDING.yml by @mnapoli in https://github.com/brefphp/extra-php-extensions/pull/451
+
+## 1.2.0
+
+* Added `datadog` extension by @wolflingorg in https://github.com/brefphp/extra-php-extensions/pull/442
+* ImageMagick upgrades by @GrahamCampbell in https://github.com/brefphp/extra-php-extensions/pull/434
+* Upgrade NewRelic agent to v10.9.0.324 by @starred-gijs in https://github.com/brefphp/extra-php-extensions/pull/438
+* OCI8 Update by @mixaster in https://github.com/brefphp/extra-php-extensions/pull/439
+* Update Blackfire extension by @bref-bot in https://github.com/brefphp/extra-php-extensions/pull/444
+
+## 1.1.2
+
+### Added
+
+- Updated Blackfire to version 1.87.1.
+
 ## 1.1.1
 
 ### Added
 
-- Updated Blackfire to version 1.86.6.
+- Specify grpc version for reliable builds (#435)
+- Rebuild MongoDB (#436)
+- Updated Blackfire to version 1.86.8.
 
 ## 1.1.0
 

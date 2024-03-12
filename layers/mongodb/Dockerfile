@@ -9,6 +9,6 @@ RUN echo 'extension=mongodb.so' > /tmp/ext.ini
 # Build the final image with just the files we need
 FROM scratch
 
-# Copy things we installed to the final image
+# Copy the things we installed to the final image
 COPY --from=ext /tmp/mongodb.so /opt/bref/extensions/mongodb.so
 COPY --from=ext /tmp/ext.ini /opt/bref/etc/php/conf.d/ext-mongodb.ini
