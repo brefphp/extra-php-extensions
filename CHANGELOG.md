@@ -3,7 +3,7 @@
 ## 1.4.4
 
 - Updated Blackfire
-- Updated NewRelic
+- Updated NewRelic to version v10.22.0.12
 
 ## 1.4.1
 
