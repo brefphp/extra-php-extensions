@@ -1,5 +1,10 @@
 # Change log
 
+## 1.4.4
+
+- Updated Blackfire
+- Updated NewRelic to version v10.22.0.12
+
 ## 1.4.1
 
 - Updated Blackfire to version 1.92.9.
