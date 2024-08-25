@@ -7,7 +7,6 @@ on:
 jobs:
 
   list:
-    needs: build
     name: Update layer versions
     runs-on: ubuntu-latest
 
