@@ -69,7 +69,7 @@ jobs:
 
   list:
     needs: build
-    name: List layer
+    name: Update layer versions
     runs-on: ubuntu-latest
     if: ${{ github.actor != 'bref-bot' }}
 

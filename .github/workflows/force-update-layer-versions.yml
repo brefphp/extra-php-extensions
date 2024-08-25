@@ -1,0 +1,41 @@
+# TODO this should be removed, it's used to work around bugged builds
+name: Force update layer versions
+
+on:
+  workflow_dispatch:
+
+jobs:
+
+  list:
+    needs: build
+    name: Update layer versions
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Download dependencies
+        run: composer update --no-interaction --prefer-dist --optimize-autoloader --prefer-stable
+
+      - name: List layers
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_ACCESS_SECRET }}
+        run: php ./bref-extra list
+
+      - name: Commit changes
+        run: |
+          git config --local user.email "github-bot@bref.sh"
+          git config --local user.name "Bref Bot"
+
+          git add layers.json
+          git commit -m "Updated layers.json"
+
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.BOT_GITHUB_TOKEN }}
+          branch: prepare-release
