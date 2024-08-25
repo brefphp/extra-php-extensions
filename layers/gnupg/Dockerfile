@@ -11,7 +11,6 @@ RUN echo 'extension=gnupg.so' > /tmp/ext.ini
 
 RUN php /bref/lib-copy/copy-dependencies.php /tmp/gnupg.so /tmp/extension-libs
 
-
 FROM scratch
 
 COPY --from=ext /tmp/gnupg.so /opt/bref/extensions/gnupg.so
