@@ -4,6 +4,10 @@
 
 - Updated Blackfire to version 1.92.23.
 
+## 1.4.8
+
+- Updated Blackfire to version 1.92.24.
+
 ## 1.4.7
 
 - Updated New Relic
