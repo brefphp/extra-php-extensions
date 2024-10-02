@@ -15,41 +15,33 @@ RUN tar xzf libwebp.tar.gz
 WORKDIR ${IMAGICK_BUILD_DIR}/libwebp-1.3.2
 RUN autoreconf -i && automake && autoconf
 RUN ./configure --prefix ${INSTALL_DIR} --exec-prefix ${INSTALL_DIR}
-RUN make -j $(nproc)
-RUN make install
+RUN make -j $(nproc) && make install
 
 # Compile libde265 (libheif dependency)
 WORKDIR ${IMAGICK_BUILD_DIR}
-RUN curl -Ls -o libde265.tar.gz https://github.com/strukturag/libde265/releases/download/v1.0.14/libde265-1.0.14.tar.gz
-RUN tar xzf libde265.tar.gz
+RUN curl -Ls -o libde265.tar.gz https://github.com/strukturag/libde265/releases/download/v1.0.14/libde265-1.0.14.tar.gz && tar xzf libde265.tar.gz
 WORKDIR ${IMAGICK_BUILD_DIR}/libde265-1.0.14
 RUN ./configure --prefix ${INSTALL_DIR} --exec-prefix ${INSTALL_DIR}
-RUN make -j $(nproc)
-RUN make install
+RUN make -j $(nproc) && make install
 
 # Compile libheif
 WORKDIR ${IMAGICK_BUILD_DIR}
-RUN curl -Ls -o libheif.tar.gz https://github.com/strukturag/libheif/releases/download/v1.17.5/libheif-1.17.5.tar.gz
-RUN tar xzf libheif.tar.gz
+RUN curl -Ls -o libheif.tar.gz https://github.com/strukturag/libheif/releases/download/v1.17.5/libheif-1.17.5.tar.gz && tar xzf libheif.tar.gz
 RUN mkdir ${IMAGICK_BUILD_DIR}/libheif-1.17.5/build
 WORKDIR ${IMAGICK_BUILD_DIR}/libheif-1.17.5/build
 RUN cmake -DCMAKE_INSTALL_PREFIX=${INSTALL_DIR} ..
-RUN make -j $(nproc)
-RUN make install
+RUN make -j $(nproc) && make install
 
 # Compile gs
 WORKDIR ${IMAGICK_BUILD_DIR}
-RUN curl -Ls -o ghostscript.tar.gz https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs9561/ghostscript-9.56.1.tar.gz
-RUN tar xzf ghostscript.tar.gz
+RUN curl -Ls -o ghostscript.tar.gz https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs9561/ghostscript-9.56.1.tar.gz && tar xzf ghostscript.tar.gz
 WORKDIR ${IMAGICK_BUILD_DIR}/ghostscript-9.56.1
 RUN ./configure --prefix ${INSTALL_DIR} --exec-prefix ${INSTALL_DIR} --without-x
-RUN make -j $(nproc)
-RUN cp bin/gs /tmp/gs
+RUN make -j $(nproc) && cp bin/gs /tmp/gs
 
 # Compile the ImageMagick library
 WORKDIR ${IMAGICK_BUILD_DIR}
-RUN curl -Ls -o ImageMagick.tar.gz https://github.com/ImageMagick/ImageMagick/archive/refs/tags/7.1.1-22.tar.gz
-RUN tar xzf ImageMagick.tar.gz
+RUN curl -Ls -o ImageMagick.tar.gz https://github.com/ImageMagick/ImageMagick/archive/refs/tags/7.1.1-22.tar.gz && tar xzf ImageMagick.tar.gz
 WORKDIR ${IMAGICK_BUILD_DIR}/ImageMagick-7.1.1-22
 RUN ./configure --prefix ${INSTALL_DIR} --exec-prefix ${INSTALL_DIR} --with-webp --with-heic --disable-static --with-freetype=yes
 RUN make -j $(nproc)
@@ -62,7 +54,7 @@ RUN convert -list configure
 WORKDIR ${IMAGICK_BUILD_DIR}
 RUN git clone https://github.com/Imagick/imagick
 WORKDIR ${IMAGICK_BUILD_DIR}/imagick
-# TODO; update the commit hash once this PR has been merged with PHP 8.3 support: https://github.com/Imagick/imagick/pull/641 
+# TODO; update the commit hash once this PR has been merged with PHP 8.3 support: https://github.com/Imagick/imagick/pull/641
 RUN git reset --hard 28f27044e435a2b203e32675e942eb8de620ee58
 RUN phpize
 RUN ./configure --with-imagick=${INSTALL_DIR}
