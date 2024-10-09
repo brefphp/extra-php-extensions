@@ -1,8 +1,16 @@
 # Change log
 
+## 1.4.9
+
+- Updated Blackfire to version 1.92.25.
+
 ## 1.4.8
 
 - Updated Blackfire to version 1.92.23.
+
+## 1.4.9
+
+- Updated Blackfire to version 1.92.25.
 
 ## 1.4.8
 
