@@ -3,6 +3,7 @@
 ## 1.4.9
 
 - Updated Blackfire to version 1.92.25.
+- Update Imagick layer
 
 ## 1.4.8
 
