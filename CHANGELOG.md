@@ -1,5 +1,9 @@
 # Change log
 
+## 1.4.11
+
+- Upgrade Imagick to version 7.1.1-38 and build with support for AVIF format (aom encoder).
+
 ## 1.4.10
 
 - Updated Blackfire to version 1.92.26.
