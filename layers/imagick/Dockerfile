@@ -15,7 +15,7 @@ ENV IMAGICK_EXT_COMMIT="28f27044e435a2b203e32675e942eb8de620ee58"
 ENV IMAGICK_BUILD_DIR=${BUILD_DIR}/imagick
 RUN mkdir -p ${IMAGICK_BUILD_DIR}
 WORKDIR ${IMAGICK_BUILD_DIR}
-RUN LD_LIBRARY_PATH= yum -y install libpng-devel libjpeg-devel lcms2-devel ImageMagick-devel nasm gcc10.x86_64 gcc10-c++.x86_64
+RUN LD_LIBRARY_PATH= yum -y install libpng-devel libjpeg-devel lcms2-devel ImageMagick-devel nasm gcc10 gcc10-c++
 
 # Use gcc10 as the default compiler, needed for AOM
 ENV CXX="/usr/bin/gcc10-g++" 
