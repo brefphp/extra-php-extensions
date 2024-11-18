@@ -64,6 +64,7 @@ functions:
 | gnupg            | `${bref-extra:gnupg-php-81}`           |
 | GMP              | `${bref-extra:gmp-php-81}`             |
 | gRPC             | `${bref-extra:grpc-php-81}`            |
+| h3               | `${bref-extra:grpc-php-81}`            |
 | Igbinary         | `${bref-extra:igbinary-php-81}`        |
 | Imagick          | `${bref-extra:imagick-php-81}`         |
 | IMAP             | `${bref-extra:imap-php-81}`            |
