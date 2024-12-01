@@ -2,11 +2,8 @@
 
 ## 1.4.11
 
-- Updated Blackfire to version 1.92.28.
-
-## 1.4.11
-
 - Updated Blackfire to version 1.92.29.
+- Upgrade Imagick to version 7.1.1-38 and build with support for AVIF format (aom encoder).
 
 ## 1.4.10
 
