@@ -4,6 +4,10 @@
 
 - Updated Blackfire to version 1.92.28.
 
+## 1.4.11
+
+- Updated Blackfire to version 1.92.29.
+
 ## 1.4.10
 
 - Updated Blackfire to version 1.92.26.
