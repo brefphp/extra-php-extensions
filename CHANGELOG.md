@@ -1,16 +1,11 @@
 # Change log
 
-## 1.4.11
+## 1.5.0
 
-- Updated Blackfire to version 1.92.28.
-
-## 1.4.11
-
-- Updated Blackfire to version 1.92.29.
-
-## 1.4.11
-
+- Add support for PHP 8.4 for gd, sqlsrv and mongodb
+- Added h3 extension
 - Updated Blackfire to version 1.92.30.
+- Updated NewRelic Agent to v11.3.0.16
 
 ## 1.4.10
 
