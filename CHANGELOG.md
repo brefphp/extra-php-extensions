@@ -1,5 +1,9 @@
 # Change log
 
+## 1.6.0
+
+- Add support for PHP 8.4 for postgres
+
 ## 1.5.0
 
 - Add support for PHP 8.4 for gd, sqlsrv and mongodb
