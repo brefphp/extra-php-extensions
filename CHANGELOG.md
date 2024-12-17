@@ -1,9 +1,19 @@
 # Change log
 
-## 1.4.11
+## 1.6.1
 
-- Updated Blackfire to version 1.92.29.
 - Upgrade Imagick to version 7.1.1-38 and build with support for AVIF format (aom encoder).
+
+## 1.6.0
+
+- Add support for PHP 8.4 for postgres
+
+## 1.5.0
+
+- Add support for PHP 8.4 for gd, sqlsrv and mongodb
+- Added h3 extension
+- Updated Blackfire to version 1.92.30.
+- Updated NewRelic Agent to v11.3.0.16
 
 ## 1.4.10
 
