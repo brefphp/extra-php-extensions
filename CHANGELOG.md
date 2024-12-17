@@ -1,5 +1,9 @@
 # Change log
 
+## 1.6.1
+
+- Upgrade Imagick to version 7.1.1-38 and build with support for AVIF format (aom encoder).
+
 ## 1.6.0
 
 - Add support for PHP 8.4 for postgres
