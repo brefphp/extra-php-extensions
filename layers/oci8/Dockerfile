@@ -10,11 +10,12 @@ ENV ORACLE_BUILD_DIR=${BUILD_DIR}/oracle
 # Install libaio
 RUN yum install -y libaio
 
+# Instant Client newer than 21.x requires glibc 2.28+ which is not available on Amazon Linux 2
 RUN mkdir -p ${ORACLE_BUILD_DIR}; \
     cd ${ORACLE_BUILD_DIR}; \
-    curl -o oci-basic.zip https://download.oracle.com/otn_software/linux/instantclient/2110000/instantclient-basiclite-linux.x64-21.10.0.0.0dbru.zip && \
+    curl -o oci-basic.zip https://download.oracle.com/otn_software/linux/instantclient/2116000/instantclient-basiclite-linux.x64-21.16.0.0.0dbru.zip && \
     unzip oci-basic.zip -d src && \
-    curl -o oci-sdk.zip https://download.oracle.com/otn_software/linux/instantclient/2110000/instantclient-sdk-linux.x64-21.10.0.0.0dbru.zip && \
+    curl -o oci-sdk.zip https://download.oracle.com/otn_software/linux/instantclient/2116000/instantclient-sdk-linux.x64-21.16.0.0.0dbru.zip && \
     unzip oci-sdk.zip -d src
 
 RUN if [ "$PHP_VERSION" = "80" ] ; then \
