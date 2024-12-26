@@ -3,7 +3,7 @@ ARG PHP_VERSION
 ARG BREF_VERSION
 FROM bref/build-php-$PHP_VERSION:2 AS ext
 
-ARG RELAY_VERSION=0.6.8
+ARG RELAY_VERSION=0.9.1
 
 # Docs: https://relay.so/docs/1.x/installation#manual-installation
 
@@ -15,7 +15,7 @@ RUN pecl install igbinary msgpack && \
     echo 'extension=msgpack.so' > /tmp/ext-msgpack.ini
 
 # Install system dependencies needed by Relay
-ARG ZSTD_VERSION=1.5.2
+ARG ZSTD_VERSION=1.5.6
 RUN <<'END' bash -e
     mkdir -p /tmp/zstd
     cd /tmp/zstd
