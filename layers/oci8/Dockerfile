@@ -14,24 +14,24 @@ RUN yum install -y libaio
 RUN mkdir -p ${ORACLE_BUILD_DIR}; \
     cd ${ORACLE_BUILD_DIR}; \
     curl -o oci-basic.zip https://download.oracle.com/otn_software/linux/instantclient/2116000/instantclient-basiclite-linux.x64-21.16.0.0.0dbru.zip && \
-    unzip oci-basic.zip -d src && \
+    unzip oci-basic.zip -d src -x META-INF/* && \
     curl -o oci-sdk.zip https://download.oracle.com/otn_software/linux/instantclient/2116000/instantclient-sdk-linux.x64-21.16.0.0.0dbru.zip && \
-    unzip oci-sdk.zip -d src
+    unzip oci-sdk.zip -d src -x META-INF/*
 
 RUN if [ "$PHP_VERSION" = "80" ] ; then \
-    echo "instantclient,${ORACLE_BUILD_DIR}/src/instantclient_21_10" | pecl install oci8-3.0.1; \
+    echo "instantclient,${ORACLE_BUILD_DIR}/src/instantclient_21_16" | pecl install oci8-3.0.1; \
     elif [ "$PHP_VERSION" = "81" ] ; then \
-    echo "instantclient,${ORACLE_BUILD_DIR}/src/instantclient_21_10" | pecl install oci8-3.2.1; \
+    echo "instantclient,${ORACLE_BUILD_DIR}/src/instantclient_21_16" | pecl install oci8-3.2.1; \
     else \
-    echo "instantclient,${ORACLE_BUILD_DIR}/src/instantclient_21_10" | pecl install oci8; \
+    echo "instantclient,${ORACLE_BUILD_DIR}/src/instantclient_21_16" | pecl install oci8; \
     fi
 
 RUN cp /usr/lib64/libaio.so.1 /tmp/libaio.so.1
-RUN cp ${ORACLE_BUILD_DIR}/src/instantclient_21_10/libclntshcore.so.21.1 /tmp/libclntshcore.so.21.1
-RUN cp ${ORACLE_BUILD_DIR}/src/instantclient_21_10/libclntsh.so.21.1 /tmp/libclntsh.so.21.1
-RUN cp ${ORACLE_BUILD_DIR}/src/instantclient_21_10/libocci.so.21.1 /tmp/libocci.so.21.1
-RUN cp ${ORACLE_BUILD_DIR}/src/instantclient_21_10/libnnz21.so /tmp/libnnz21.so
-RUN cp ${ORACLE_BUILD_DIR}/src/instantclient_21_10/libociicus.so /tmp/libociicus.so
+RUN cp ${ORACLE_BUILD_DIR}/src/instantclient_21_16/libclntshcore.so.21.1 /tmp/libclntshcore.so.21.1
+RUN cp ${ORACLE_BUILD_DIR}/src/instantclient_21_16/libclntsh.so.21.1 /tmp/libclntsh.so.21.1
+RUN cp ${ORACLE_BUILD_DIR}/src/instantclient_21_16/libocci.so.21.1 /tmp/libocci.so.21.1
+RUN cp ${ORACLE_BUILD_DIR}/src/instantclient_21_16/libnnz21.so /tmp/libnnz21.so
+RUN cp ${ORACLE_BUILD_DIR}/src/instantclient_21_16/libociicus.so /tmp/libociicus.so
 RUN cp `php-config --extension-dir`/oci8.so /tmp/oci8.so
 RUN echo 'extension=oci8.so' > /tmp/ext.ini
 
