@@ -9,9 +9,11 @@ RUN mkdir -p ${AMQP_BUILD_DIR}
 
 # Compile rabbitmq
 WORKDIR ${AMQP_BUILD_DIR}
-RUN curl -Ls -o rabbitmq-c.tar.gz https://github.com/alanxz/rabbitmq-c/archive/refs/tags/v0.15.0.tar.gz
+# Currently it is not possible to use newer rabbitmq-c version than 0.13.0 because this is
+# last version which supports CMake 3.17 which is latest available version in Amazon Linux 2.
+RUN curl -Ls -o rabbitmq-c.tar.gz https://github.com/alanxz/rabbitmq-c/archive/refs/tags/v0.13.0.tar.gz
 RUN tar xzf rabbitmq-c.tar.gz
-WORKDIR ${AMQP_BUILD_DIR}/rabbitmq-c-0.15.0
+WORKDIR ${AMQP_BUILD_DIR}/rabbitmq-c-0.13.0
 RUN cmake -DCMAKE_INSTALL_PREFIX=${INSTALL_DIR} .
 RUN cmake --build . --target install
 
