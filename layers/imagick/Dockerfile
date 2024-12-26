@@ -10,9 +10,9 @@ RUN LD_LIBRARY_PATH= yum -y install libpng-devel libjpeg-devel lcms2-devel Image
 
 # Compile libwebp since AL2 ships with v0.3, and v0.4 or higher is required to builder the other libs
 WORKDIR ${IMAGICK_BUILD_DIR}
-RUN curl -Ls -o libwebp.tar.gz https://github.com/webmproject/libwebp/archive/refs/tags/v1.5.0.tar.gz
+RUN curl -Ls -o libwebp.tar.gz https://github.com/webmproject/libwebp/archive/refs/tags/v1.4.0.tar.gz
 RUN tar xzf libwebp.tar.gz
-WORKDIR ${IMAGICK_BUILD_DIR}/libwebp-1.5.0
+WORKDIR ${IMAGICK_BUILD_DIR}/libwebp-1.4.0
 RUN autoreconf -i && automake && autoconf
 RUN ./configure --prefix ${INSTALL_DIR} --exec-prefix ${INSTALL_DIR}
 RUN make -j $(nproc) && make install
@@ -26,22 +26,22 @@ RUN make -j $(nproc) && make install
 
 # Compile libheif
 WORKDIR ${IMAGICK_BUILD_DIR}
-RUN curl -Ls -o libheif.tar.gz https://github.com/strukturag/libheif/releases/download/v1.19.5/libheif-1.13.0.tar.gz && tar xzf libheif.tar.gz
-WORKDIR ${IMAGICK_BUILD_DIR}/libheif-1.19.5
+RUN curl -Ls -o libheif.tar.gz https://github.com/strukturag/libheif/releases/download/v1.13.0/libheif-1.13.0.tar.gz && tar xzf libheif.tar.gz
+WORKDIR ${IMAGICK_BUILD_DIR}/libheif-1.13.0
 RUN ./configure --prefix ${INSTALL_DIR} --exec-prefix ${INSTALL_DIR}
 RUN make -j $(nproc) && make install
 
 # Compile gs
 WORKDIR ${IMAGICK_BUILD_DIR}
-RUN curl -Ls -o ghostscript.tar.gz https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs9561/ghostscript-10.04.0.tar.gz && tar xzf ghostscript.tar.gz
-WORKDIR ${IMAGICK_BUILD_DIR}/ghostscript-10.04.0
+RUN curl -Ls -o ghostscript.tar.gz https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs9561/ghostscript-9.56.1.tar.gz && tar xzf ghostscript.tar.gz
+WORKDIR ${IMAGICK_BUILD_DIR}/ghostscript-9.56.1
 RUN ./configure --prefix ${INSTALL_DIR} --exec-prefix ${INSTALL_DIR} --without-x
 RUN make -j $(nproc) && cp bin/gs /tmp/gs
 
 # Compile the ImageMagick library
 WORKDIR ${IMAGICK_BUILD_DIR}
-RUN curl -Ls -o ImageMagick.tar.gz https://github.com/ImageMagick/ImageMagick/archive/refs/tags/7.1.1-43.tar.gz && tar xzf ImageMagick.tar.gz
-WORKDIR ${IMAGICK_BUILD_DIR}/ImageMagick-7.1.1-43
+RUN curl -Ls -o ImageMagick.tar.gz https://github.com/ImageMagick/ImageMagick/archive/refs/tags/7.1.1-38.tar.gz && tar xzf ImageMagick.tar.gz
+WORKDIR ${IMAGICK_BUILD_DIR}/ImageMagick-7.1.1-38
 RUN ./configure --prefix ${INSTALL_DIR} --exec-prefix ${INSTALL_DIR} --with-webp --with-heic --disable-static --with-freetype=yes
 RUN make -j $(nproc)
 RUN make install
