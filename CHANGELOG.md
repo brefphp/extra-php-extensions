@@ -1,5 +1,9 @@
 # Change log
 
+## 1.7.0
+
+- Add support for PHP 8.4 for most extensions.
+
 ## 1.6.0
 
 - Add support for PHP 8.4 for postgres
