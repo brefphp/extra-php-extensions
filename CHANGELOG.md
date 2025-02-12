@@ -1,5 +1,9 @@
 # Change log
 
+## 1.7.1
+
+- Fix odbc extension missing files
+
 ## 1.7.0
 
 - Add support for PHP 8.4 for most extensions.
