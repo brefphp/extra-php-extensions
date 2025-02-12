@@ -23,7 +23,14 @@ RUN curl https://sfc-repo.snowflakecomputing.com/odbc/linux/3.5.0/snowflake_linu
 # modify the config files for the new final location in /opt/snowflake_odbc
 RUN sed -i 's#/path/to/your/#/opt/snowflake_odbc/lib/#g' /tmp/snowflake_odbc/conf/*
 
+# Move /tmp/snowflake_odbc/ErrorMessages/en-US to /tmp/snowflake_odbc/lib/en-US
+# else we get errors like "An error occurred while attempting to retrieve the error message for key ..."
+RUN mv /tmp/snowflake_odbc/ErrorMessages/en-US /tmp/snowflake_odbc/lib/
+
 RUN php /bref/lib-copy/copy-dependencies.php /tmp/odbc.so /tmp/extension-libs
+
+# Manually copy `libodbcinst.so` to `/tmp/extension-libs` as it is not copied by the script
+RUN cp /usr/lib64/libodbcinst.so /tmp/extension-libs
 
 
 # Build the final image with just the files we need
