@@ -3,7 +3,7 @@ ARG PHP_VERSION
 ARG BREF_VERSION
 FROM bref/build-php-$PHP_VERSION:$BREF_VERSION AS ext
 
-ARG TIDEWAYS_VERSION=5.16.2
+ARG TIDEWAYS_VERSION=5.18.6
 # Versions: https://tideways.com/profiler/downloads
 # Docs: https://app.tideways.io/o/Bref/Bref-Tideways/installation
 
