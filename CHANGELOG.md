@@ -1,5 +1,9 @@
 # Change log
 
+## 1.7.2
+
+- Update the tideways extension
+
 ## 1.7.1
 
 - Fix odbc extension missing files
