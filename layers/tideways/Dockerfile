@@ -1,21 +1,18 @@
 # syntax = docker/dockerfile:1.4
 ARG PHP_VERSION
 ARG BREF_VERSION
+ARG TIDEWAYS_VERSION=5.18.6
+
+FROM ghcr.io/tideways/php:$TIDEWAYS_VERSION AS tideways
 FROM bref/build-php-$PHP_VERSION:$BREF_VERSION AS ext
 
-ARG TIDEWAYS_VERSION=5.18.6
 # Versions: https://tideways.com/profiler/downloads
 # Docs: https://app.tideways.io/o/Bref/Bref-Tideways/installation
 
-RUN <<'END' bash -e
-    mkdir -p /tmp/tideways
-    cd /tmp/tideways
-    export version=$(php -r "echo PHP_MAJOR_VERSION.'.'.PHP_MINOR_VERSION;")
-    curl -sSL "https://s3-eu-west-1.amazonaws.com/tideways/extension/${TIDEWAYS_VERSION}/tideways-php-${TIDEWAYS_VERSION}-x86_64.tar.gz" | tar -xz --strip-components=1 -C /tmp/tideways
-    cp /tmp/tideways/tideways-php-${version}.so /tmp/tideways.so
-    echo 'extension=tideways.so' > /tmp/ext-tideways.ini
-END
-
+COPY --from=tideways /tideways/ /tideways/
+RUN set -ex; \
+    cp "$(php /tideways/get-ext-path.php)" /tmp/tideways.so; \
+    echo "extension=tideways.so" > /tmp/ext-tideways.ini;
 
 # Build the final image with just the files we need
 FROM scratch
