@@ -16,14 +16,21 @@ RUN cp `php-config --extension-dir`/odbc.so /tmp/odbc.so
 RUN echo 'extension=odbc.so' > /tmp/ext.ini
 
 # https://docs.snowflake.com/en/user-guide/odbc-download.html
-# https://sfc-repo.snowflakecomputing.com/odbc/linux/2.25.0/index.html
+# https://sfc-repo.snowflakecomputing.com/odbc/linux/3.5.0/index.html
 # also: strip more than 100 mb of debug symbols
-RUN curl https://sfc-repo.snowflakecomputing.com/odbc/linux/2.25.0/snowflake_linux_x8664_odbc-2.25.0.tgz |tar xzv --directory /tmp \
+RUN curl https://sfc-repo.snowflakecomputing.com/odbc/linux/3.5.0/snowflake_linux_x8664_odbc-3.5.0.tgz | tar xzv --directory /tmp \
   && strip -g /tmp/snowflake_odbc/lib/libSnowflake.so
 # modify the config files for the new final location in /opt/snowflake_odbc
 RUN sed -i 's#/path/to/your/#/opt/snowflake_odbc/lib/#g' /tmp/snowflake_odbc/conf/*
 
+# Move /tmp/snowflake_odbc/ErrorMessages/en-US to /tmp/snowflake_odbc/lib/en-US
+# else we get errors like "An error occurred while attempting to retrieve the error message for key ..."
+RUN mv /tmp/snowflake_odbc/ErrorMessages/en-US /tmp/snowflake_odbc/lib/
+
 RUN php /bref/lib-copy/copy-dependencies.php /tmp/odbc.so /tmp/extension-libs
+
+# Manually copy `libodbcinst.so` to `/tmp/extension-libs` as it is not copied by the script
+RUN cp /usr/lib64/libodbcinst.so /tmp/extension-libs
 
 
 # Build the final image with just the files we need

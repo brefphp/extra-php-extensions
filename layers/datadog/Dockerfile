@@ -7,7 +7,7 @@ ENV DDTRACE_BUILD_DIR=${BUILD_DIR}/ddtrace
 RUN set -xe; \
     mkdir -p ${DDTRACE_BUILD_DIR}; \
     curl -Ls -o ${DDTRACE_BUILD_DIR}/datadog-setup.php \
-      https://github.com/DataDog/dd-trace-php/releases/download/0.96.0/datadog-setup.php
+      https://github.com/DataDog/dd-trace-php/releases/download/1.5.1/datadog-setup.php
 
 WORKDIR ${DDTRACE_BUILD_DIR}
 
@@ -15,7 +15,7 @@ RUN php datadog-setup.php --php-bin=all --enable-profiling
 
 RUN cp "$(php-config --extension-dir)/ddtrace.so" /tmp/ddtrace.so && \
     cp "$(php-config --extension-dir)/datadog-profiling.so" /tmp/datadog-profiling.so && \
-    cp "$(php-config --ini-dir)/98-ddtrace.ini" /tmp/ext.ini
+    cp "$(php-config --ini-dir | cut -d: -f1)/98-ddtrace.ini" /tmp/ext.ini
 
 RUN sed -i 's/extension = ddtrace\.so/extension = \/opt\/bref-extra\/ddtrace.so/' /tmp/ext.ini && \
     sed -i 's/extension = datadog-profiling\.so/extension = \/opt\/bref-extra\/datadog-profiling.so/' /tmp/ext.ini && \

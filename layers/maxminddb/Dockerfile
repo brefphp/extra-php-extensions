@@ -7,10 +7,10 @@ ARG PHP_VERSION
 ENV LIBMAXMINDDB_BUILD_DIR=${BUILD_DIR}/libmaxminddb
 RUN mkdir -p ${LIBMAXMINDDB_BUILD_DIR}
 
-RUN curl -Ls  https://github.com/maxmind/libmaxminddb/releases/download/1.6.0/libmaxminddb-1.6.0.tar.gz  \
+RUN curl -Ls  https://github.com/maxmind/libmaxminddb/releases/download/1.11.0/libmaxminddb-1.11.0.tar.gz  \
     | tar xzC ${LIBMAXMINDDB_BUILD_DIR}
 
-WORKDIR ${LIBMAXMINDDB_BUILD_DIR}/libmaxminddb-1.6.0
+WORKDIR ${LIBMAXMINDDB_BUILD_DIR}/libmaxminddb-1.11.0
 
 RUN ./configure --prefix ${INSTALL_DIR} --exec-prefix ${INSTALL_DIR}
 RUN make -j `nproc`
