@@ -1,5 +1,9 @@
 # Change log
 
+## 1.8.0
+
+- Upgrade Imagick to version 7.1.1-38 and build with support for AVIF format (aom encoder).
+
 ## 1.7.2
 
 - Update the tideways extension
