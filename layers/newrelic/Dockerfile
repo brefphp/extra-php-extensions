@@ -3,7 +3,7 @@ ARG BREF_VERSION
 FROM bref/build-php-$PHP_VERSION:$BREF_VERSION AS ext
 
 # Build the New Relic Agent - install silently
-ARG NEWRELIC_VERSION=11.4.0.17
+ARG NEWRELIC_VERSION=11.7.0.21
 RUN \
   curl -L https://download.newrelic.com/php_agent/archive/${NEWRELIC_VERSION}/newrelic-php5-${NEWRELIC_VERSION}-linux.tar.gz | tar -C /tmp -zx && \
   export NR_INSTALL_USE_CP_NOT_LN=1 && \
