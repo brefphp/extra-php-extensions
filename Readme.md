@@ -64,7 +64,7 @@ functions:
 | gnupg            | `${bref-extra:gnupg-php-81}`           |
 | GMP              | `${bref-extra:gmp-php-81}`             |
 | gRPC             | `${bref-extra:grpc-php-81}`            |
-| h3               | `${bref-extra:h3-php-81}`            |
+| h3               | `${bref-extra:h3-php-81}`              |
 | Igbinary         | `${bref-extra:igbinary-php-81}`        |
 | Imagick          | `${bref-extra:imagick-php-81}`         |
 | IMAP             | `${bref-extra:imap-php-81}`            |
@@ -73,7 +73,8 @@ functions:
 | MaxMind DB       | `${bref-extra:maxminddb-php-81}`       |
 | Memcache         | `${bref-extra:memcache-php-81}`        |
 | Memcached        | `${bref-extra:memcached-php-81}`       |
-| MongoDB          | `${bref-extra:mongodb-php-81}`         |
+| MongoDB v1.x     | `${bref-extra:mongodb-php-81`          |
+| MongoDB v2.x     | `${bref-extra:mongodb2-php-81}`        |
 | MsgPack          | `${bref-extra:msgpack-php-81}`         |
 | Newrelic         | `${bref-extra:newrelic-php-81}`        |
 | ODBC Snowflake   | `${bref-extra:odbc-snowflake-php-81}`  |
