@@ -3,6 +3,7 @@
 ## 1.8.0
 
 - Upgrade Imagick to version 7.1.1-38 and build with support for AVIF format (aom encoder).
+- Add support for PHP 8.4 for elastic-apm
 
 ## 1.7.2
 
