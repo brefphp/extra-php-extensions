@@ -4,6 +4,8 @@
 
 - Upgrade Imagick to version 7.1.1-38 and build with support for AVIF format (aom encoder).
 - Added support for [MongoDB driver for PHP](https://pecl.php.net/package/mongodb) 2.0.0
+- Use official Tideways image
+- Upgrade NewRelic Agent to v11.7.0.21
 
 ## 1.7.2
 
