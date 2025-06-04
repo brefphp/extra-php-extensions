@@ -2,7 +2,7 @@ ARG PHP_VERSION
 ARG BREF_VERSION
 FROM bref/build-php-$PHP_VERSION:$BREF_VERSION AS ext
 
-RUN pecl install --force mongodb-2.0.0
+RUN pecl install --force mongodb-2.1.0
 RUN cp `php-config --extension-dir`/mongodb.so /tmp/mongodb.so
 RUN echo 'extension=mongodb.so' > /tmp/ext.ini
 
