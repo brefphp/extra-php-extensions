@@ -7,7 +7,7 @@ ENV DDTRACE_BUILD_DIR=${BUILD_DIR}/ddtrace
 RUN set -xe; \
     mkdir -p ${DDTRACE_BUILD_DIR}; \
     curl -Ls -o ${DDTRACE_BUILD_DIR}/datadog-setup.php \
-      https://github.com/DataDog/dd-trace-php/releases/download/1.5.1/datadog-setup.php
+      https://github.com/DataDog/dd-trace-php/releases/download/1.10.0/datadog-setup.php
 
 WORKDIR ${DDTRACE_BUILD_DIR}
 
