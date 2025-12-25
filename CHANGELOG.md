@@ -4,6 +4,10 @@
 
 - Updated Blackfire to version 1.92.53.
 
+## 1.8.7
+
+- Updated Blackfire to version 1.92.57.
+
 ## 1.8.6
 
 - Update datadog extension to support PHP 8.4
