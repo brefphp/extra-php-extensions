@@ -52,6 +52,7 @@ functions:
 |:-----------------|:---------------------------------------|
 | AMQP             | `${bref-extra:amqp-php-81}`            |
 | Blackfire        | `${bref-extra:blackfire-php-81}`       |
+| Brotli           | `${bref-extra:brotli-php-81}`          |
 | Bsdiff           | `${bref-extra:bsdiff-php-81}`          |
 | Calendar         | `${bref-extra:calendar-php-81}`        |
 | Cassandra        | `${bref-extra:cassandra-php-81}`       |
