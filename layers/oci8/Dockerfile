@@ -8,7 +8,7 @@ ENV LD_LIBRARY_PATH=/usr/lib:/usr/lib64:$LD_LIBRARY_PATH
 ENV ORACLE_BUILD_DIR=${BUILD_DIR}/oracle
 
 # Install libaio
-RUN yum install -y libaio
+RUN dnf install -y libaio
 
 # Instant Client newer than 21.x requires glibc 2.28+ which is not available on Amazon Linux 2
 RUN mkdir -p ${ORACLE_BUILD_DIR}; \

@@ -5,7 +5,7 @@ FROM bref/build-php-$PHP_VERSION:$BREF_VERSION AS ext
 # Install required build libraries
 RUN set -ue \
     ; LD_LIBRARY_PATH= \
-    ; yum -y install \
+    ; dnf -y install \
     libwebp-devel \
     libXpm-devel \
     libpng-devel \

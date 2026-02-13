@@ -6,7 +6,7 @@ FROM bref/build-php-$PHP_VERSION:$BREF_VERSION AS ext
 ENV LD_LIBRARY_PATH=/usr/lib:/usr/lib64:$LD_LIBRARY_PATH
 
 # Install packages
-RUN yum install -y gmp-devel
+RUN dnf install -y gmp-devel
 
 # Build PHP extension
 WORKDIR ${PHP_BUILD_DIR}/ext/gmp
