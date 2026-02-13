@@ -5,7 +5,9 @@ FROM bref/build-php-$PHP_VERSION:$BREF_VERSION AS ext
 ENV LD_LIBRARY_PATH=/usr/lib:/usr/lib64:$LD_LIBRARY_PATH
 RUN dnf install -y re2c
 
-RUN pecl install mailparse
+RUN curl -Ls https://pecl.php.net/get/mailparse | tar xzC /tmp && \
+    cd /tmp/mailparse-* && \
+    phpize && ./configure && make -j $(nproc) && make install
 RUN cp `php-config --extension-dir`/mailparse.so /tmp/mailparse.so
 RUN echo 'extension=mailparse.so' > /tmp/ext.ini
 

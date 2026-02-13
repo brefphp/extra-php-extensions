@@ -9,9 +9,10 @@ RUN mkdir -p ${H3_BUILD_DIR}
 
 # Compile h3
 WORKDIR ${H3_BUILD_DIR}
-RUN git clone https://github.com/uber/h3.git && \
-    cd h3 && \
-    git checkout v3.7.2 && \
+RUN LD_LIBRARY_PATH= dnf install -y cmake
+RUN curl -Ls -o h3.tar.gz https://github.com/uber/h3/archive/refs/tags/v3.7.2.tar.gz && \
+    tar xzf h3.tar.gz && \
+    cd h3-3.7.2 && \
     cmake -DBUILD_SHARED_LIBS=ON . && \
     make -j "$(nproc)" && \
     make install
