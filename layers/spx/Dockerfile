@@ -4,7 +4,7 @@ FROM bref/build-php-$PHP_VERSION:$BREF_VERSION AS ext
 
 RUN git clone https://github.com/NoiseByNorthwest/php-spx.git \
     && cd php-spx \
-    && git reset --hard v0.4.10 \
+    && git reset --hard v0.4.20 \
     && phpize \
     && ./configure --prefix ${INSTALL_DIR} --exec-prefix ${INSTALL_DIR} \
     && make -j $(nproc) \

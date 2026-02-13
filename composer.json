@@ -11,7 +11,7 @@
         "async-aws/core": "^1.7",
         "symfony/http-client": "^5.4",
         "async-aws/lambda": "^1.1",
-        "bref/logger": "^1.0"
+        "bref/logger": "^2.0"
     },
     "autoload-dev": {
         "psr-4": {
@@ -19,7 +19,7 @@
         }
     },
     "conflict": {
-        "bref/bref": "<2.1.15"
+        "bref/bref": "<3.0.0"
     },
     "license": "MIT",
     "authors": [
