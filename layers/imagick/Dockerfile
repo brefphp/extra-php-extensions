@@ -3,7 +3,7 @@ ARG BREF_VERSION
 FROM bref/build-php-$PHP_VERSION:$BREF_VERSION AS ext
 ARG PHP_VERSION
 
-ENV IMAGICK_VERSION="7.1.1-38"
+ENV IMAGICK_VERSION="7.1.2-15"
 ENV AOM_VERSION="3.10.0"
 ENV LIBHEIF_VERSION="1.19.3"
 ENV LIBDE265_VERSION="1.0.15"
@@ -18,7 +18,7 @@ WORKDIR ${IMAGICK_BUILD_DIR}
 RUN LD_LIBRARY_PATH= yum -y install libpng-devel libjpeg-devel lcms2-devel ImageMagick-devel nasm gcc10 gcc10-c++
 
 # Use gcc10 as the default compiler, needed for AOM
-ENV CXX="/usr/bin/gcc10-g++" 
+ENV CXX="/usr/bin/gcc10-g++"
 ENV CC="/usr/bin/gcc10-gcc"
 
 # Compile libwebp since AL2 ships with v0.3, and v0.4 or higher is required to builder the other libs
