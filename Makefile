@@ -83,15 +83,15 @@ publish-docker-images: docker-images
 			publicImage=$${privateImage/layers\//extra-}; \
 			echo "Image name: $$publicImage"; \
 			echo ""; \
-			echo "docker push $$publicImage:latest"; \
-			docker tag $$privateImage:latest $$publicImage:latest; \
-			docker push $$publicImage:latest; \
+			echo "docker push $$publicImage:1"; \
+			docker tag $$privateImage:1 $$publicImage:1; \
+			docker push $$publicImage:1; \
 			if (test $(DOCKER_TAG)); then \
 			  echo "Pushing tagged images"; \
 			  for tag in $(call resolve_tags); do \
 			    echo ""; \
 			    echo "docker push $$publicImage:$${tag}"; \
-			    docker tag $$privateImage:latest $$publicImage:$${tag}; \
+			    docker tag $$privateImage:1 $$publicImage:$${tag}; \
 			    docker push $$publicImage:$${tag}; \
 			  done; \
 			fi; \
