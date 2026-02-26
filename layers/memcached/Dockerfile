@@ -4,6 +4,8 @@ FROM bref/build-php-$PHP_VERSION:$BREF_VERSION AS ext
 
 ENV LIBMEMCACHED_BUILD_DIR=${BUILD_DIR}/libmemcached
 
+RUN LD_LIBRARY_PATH= dnf install -y patch
+
 RUN set -xe; \
     mkdir -p ${LIBMEMCACHED_BUILD_DIR}; \
     # Download and upack the source code

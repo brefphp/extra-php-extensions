@@ -8,14 +8,16 @@ a limit of 5 layers per Lambda. You can also utilise the provided docker images 
 
 > **Note**
 >
-> If you are using Bref v2, you need to use version `1.x` of the `bref/extra-php-extensions` package.
+> If you are using Bref v3, you need to use version `3.x` of the `bref/extra-php-extensions` package.
 >
-> If you are using Bref v1, you need to use version `0.x` of the `bref/extra-php-extensions` package.
+> There is no version `2.x` of the `bref/extra-php-extensions` package.
+>
+> If you are using Bref v2, you need to use version `1.x` of the `bref/extra-php-extensions` package.
 
 
 > **Warning**
 >
-> **ARM64 is not supported yet with Bref v2.**
+> **ARM64 is not supported with extra extensions.**
 
 
 We are happy to get contributions for other extensions. Sky is the limit! (And also your knowledge with Docker...)
@@ -43,7 +45,7 @@ functions:
         handler: bin/console
         runtime: php-81
         layers:
-            - ${bref-extra:amqp-php-81} # <----- Example for AMQP layer
+            - ${bref-extra:amqp-php-83} # <----- Example for AMQP layer
 ```
 
 ### Available layers

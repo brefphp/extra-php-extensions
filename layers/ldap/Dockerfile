@@ -4,7 +4,7 @@ FROM bref/build-php-$PHP_VERSION:$BREF_VERSION AS ext
 
 ENV LD_LIBRARY_PATH=/usr/lib:/usr/lib64:$LD_LIBRARY_PATH
 
-RUN yum -y install openldap-devel
+RUN dnf -y install openldap-devel
 
 WORKDIR ${PHP_BUILD_DIR}/ext/ldap
 RUN phpize

@@ -3,7 +3,7 @@ ARG BREF_VERSION
 FROM bref/build-php-$PHP_VERSION:$BREF_VERSION AS ext
 
 ENV LD_LIBRARY_PATH=/usr/lib:/usr/lib64:$LD_LIBRARY_PATH
-RUN yum install -y gpgme-devel
+RUN dnf install -y gpgme-devel
 
 RUN pecl install gnupg
 RUN cp `php-config --extension-dir`/gnupg.so /tmp/gnupg.so

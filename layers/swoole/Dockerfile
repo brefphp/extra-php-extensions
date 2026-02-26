@@ -3,7 +3,7 @@ ARG BREF_VERSION
 FROM bref/build-php-$PHP_VERSION:$BREF_VERSION AS ext
 
 RUN set -ex && \
-    LD_LIBRARY_PATH=/lib64:/lib yum install -y libcurl-devel postgresql-devel openssl-devel && \
+    LD_LIBRARY_PATH=/lib64:/lib dnf install -y libcurl-devel postgresql-devel openssl-devel && \
     mkdir ${PHP_BUILD_DIR}/ext/swoole && \
     curl -sfL https://github.com/swoole/swoole-src/archive/v5.1.2.tar.gz -o swoole.tar.gz && \
     tar xfz swoole.tar.gz --strip-components=1 -C ${PHP_BUILD_DIR}/ext/swoole && \

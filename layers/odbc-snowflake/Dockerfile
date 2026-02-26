@@ -3,7 +3,7 @@ ARG BREF_VERSION
 FROM bref/build-php-$PHP_VERSION:$BREF_VERSION AS ext
 
 ENV LD_LIBRARY_PATH=/usr/lib:/usr/lib64:$LD_LIBRARY_PATH
-RUN yum install -y unixODBC unixODBC-devel
+RUN dnf install -y unixODBC unixODBC-devel
 
 # strongly inspired by https://github.com/mlocati/docker-php-extension-installer/blob/master/install-php-extensions
 WORKDIR ${PHP_BUILD_DIR}/ext/odbc

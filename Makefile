@@ -2,7 +2,7 @@ SHELL := /bin/bash
 layer ?= *
 resolve_php_versions = $(or $(php_versions),`jq -r '.php | join(" ")' ${1}/config.json`)
 resolve_tags = `./new-docker-tags.php $(DOCKER_TAG)`
-BREF_VERSION = 2
+BREF_VERSION = 3
 
 define build_docker_image
 	docker build -t bref/${1}-php-${2} --build-arg PHP_VERSION=${2} --build-arg BREF_VERSION=${BREF_VERSION} ${DOCKER_BUILD_FLAGS} ${1}
