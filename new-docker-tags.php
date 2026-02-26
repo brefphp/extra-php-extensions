@@ -14,14 +14,14 @@ if ($argc < 2) {
 
 $version = $argv[1];
 if (!preg_match('|([0-9]+)\.([0-9]+)\.([0-9]+)|', $version, $match)) {
-    echo 'Please provide a version with 3 numbers in it. Like "1.12.34"';
+    echo 'Please provide a version with 3 numbers in it. Like "3.12.34"';
     exit(1);
 }
 
 $update = false;
 if (isset($argv[2])) {
     if ('--update' !== $argv[2]) {
-        echo sprintf('Use "--update" if you want to update the config.json. Like "./%s 1.2.3 --update"', basename(__FILE__));
+        echo sprintf('Use "--update" if you want to update the config.json. Like "./%s 3.2.3 --update"', basename(__FILE__));
         exit(1);
     }
     $update = true;
