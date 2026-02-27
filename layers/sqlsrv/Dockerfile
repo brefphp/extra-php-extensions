@@ -5,14 +5,31 @@ ARG PHP_VERSION
 
 ENV LD_LIBRARY_PATH=/usr/lib:/usr/lib64:$LD_LIBRARY_PATH
 
+# Workaround for openssl-snapsafe-libs conflict in AL2 Lambda base images.
+# See: https://github.com/aws/aws-lambda-base-images/issues/245#issuecomment-2714953498
+RUN printf '%s\n' \
+    '[amzn2extra-openssl-snapsafe]' \
+    'name=Amazon Extras repo for openssl-snapsafe' \
+    'enabled=1' \
+    'mirrorlist=$awsproto://$amazonlinux.$awsregion.$awsdomain/2/extras/openssl-snapsafe/latest/$basearch/mirror.list' \
+    'gpgcheck=1' \
+    'gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-amazon-linux-2' \
+    'priority=10' \
+    'skip_if_unavailable=1' \
+    'report_instanceid=yes' \
+    > /etc/yum.repos.d/amzn2-extras-snapsafe.repo
+RUN yum upgrade -y openssl-snapsafe-libs
+
 RUN yum -y install unixODBC-devel-2.3.1-14.amzn2.x86_64
 
 RUN curl https://packages.microsoft.com/config/rhel/7/prod.repo > /etc/yum.repos.d/mssql-release.repo
-RUN ACCEPT_EULA=Y yum -y install msodbcsql17-17.10.1.1-1.x86_64
+RUN ACCEPT_EULA=Y yum -y install msodbcsql17-17.10.6.1-1.x86_64
 
 RUN if [ "$PHP_VERSION" = "80" ]; \
     then SQLSRV_VERSION=5.11.1 ; \
-    else SQLSRV_VERSION=5.12.0 ; \
+    elif [ "$PHP_VERSION" = "81" ] || [ "$PHP_VERSION" = "82" ]; \
+    then SQLSRV_VERSION=5.12.0 ; \
+    else SQLSRV_VERSION=5.13.0 ; \
     fi ; \
     pecl install sqlsrv-${SQLSRV_VERSION} && \
     pecl install pdo_sqlsrv-${SQLSRV_VERSION}
