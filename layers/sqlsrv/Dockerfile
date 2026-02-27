@@ -5,6 +5,21 @@ ARG PHP_VERSION
 
 ENV LD_LIBRARY_PATH=/usr/lib:/usr/lib64:$LD_LIBRARY_PATH
 
+# Workaround for openssl-snapsafe-libs conflict in AL2 Lambda base images.
+# See: https://github.com/aws/aws-lambda-base-images/issues/245#issuecomment-2714953498
+RUN cat > /etc/yum.repos.d/amzn2-extras-snapsafe.repo << 'EOF'
+[amzn2extra-openssl-snapsafe]
+name=Amazon Extras repo for openssl-snapsafe
+enabled=1
+mirrorlist=$awsproto://$amazonlinux.$awsregion.$awsdomain/2/extras/openssl-snapsafe/latest/$basearch/mirror.list
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-amazon-linux-2
+priority=10
+skip_if_unavailable=1
+report_instanceid=yes
+EOF
+RUN yum upgrade -y openssl-snapsafe-libs
+
 RUN yum -y install unixODBC-devel-2.3.1-14.amzn2.x86_64
 
 RUN curl https://packages.microsoft.com/config/rhel/7/prod.repo > /etc/yum.repos.d/mssql-release.repo
