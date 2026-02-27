@@ -1,5 +1,9 @@
 # Change log
 
+## 3.0.1
+
+- Update sqlsrv extension
+
 ## 3.0.0
 
 - Bref v3 compatibility.
