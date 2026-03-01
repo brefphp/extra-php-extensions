@@ -1,5 +1,9 @@
 # Change log
 
+## 3.0.2
+
+- Updated Blackfire to version 1.92.60.
+
 ## 3.0.1
 
 - Update sqlsrv extension
