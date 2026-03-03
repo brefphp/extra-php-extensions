@@ -23,7 +23,7 @@ class ServerlessPlugin {
         // See https://www.serverless.com/framework/docs/guides/plugins/custom-variables
         this.configurationVariablesSources = {
             'bref-extra': {
-                async resolve({address, params, resolveConfigurationProperty, options}) {
+                resolve: async ({address, params, resolveConfigurationProperty, options}) => {
                     // `address` and `params` reflect values configured with a variable: ${bref-extra(param1, param2):address}
 
                     // `options` is CLI options
