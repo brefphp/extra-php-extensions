@@ -10,9 +10,9 @@ RUN dnf -y install unixODBC-devel-2.3.9-3.amzn2023.0.3.x86_64
 RUN curl -fsSL https://packages.microsoft.com/config/rhel/9/prod.repo > /etc/yum.repos.d/mssql-release.repo
 RUN ACCEPT_EULA=Y dnf -y install msodbcsql18-18.6.1.1-1.x86_64
 
-RUN if [ "$PHP_VERSION" = "84" ]; \
-    then SQLSRV_VERSION=5.13.0beta1 ; \
-    else SQLSRV_VERSION=5.12.0 ; \
+RUN if [ "$PHP_VERSION" = "82" ]; \
+    then SQLSRV_VERSION=5.12.0 ; \
+    else SQLSRV_VERSION=5.13.0 ; \
     fi ; \
     pecl install sqlsrv-${SQLSRV_VERSION} && \
     pecl install pdo_sqlsrv-${SQLSRV_VERSION}
