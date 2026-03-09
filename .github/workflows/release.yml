@@ -62,9 +62,9 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_ACCESS_SECRET }}
         run: php ./bref-extra publish
 
-  list:
+  release:
     needs: build
-    name: Update layer versions
+    name: Update layers and release
     runs-on: ubuntu-latest
     if: ${{ github.actor != 'bref-bot' }}
 
@@ -83,17 +83,33 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_ACCESS_SECRET }}
         run: php ./bref-extra list
 
+      - name: Get next version
+        id: version
+        run: |
+          LATEST=$(git describe --tags --abbrev=0)
+          MAJOR=$(echo $LATEST | cut -d. -f1)
+          MINOR=$(echo $LATEST | cut -d. -f2)
+          PATCH=$(echo $LATEST | cut -d. -f3)
+          echo "version=$MAJOR.$MINOR.$((PATCH + 1))" >> $GITHUB_OUTPUT
+
       - name: Commit changes
         run: |
           git config --local user.email "github-bot@bref.sh"
           git config --local user.name "Bref Bot"
-
           git add layers.json
-          git commit -m "Updated layers.json"
+          git commit -m "Update layer versions"
 
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.BOT_GITHUB_TOKEN }}
           branch: master
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.version.outputs.version }}
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.BOT_GITHUB_TOKEN }}
 
