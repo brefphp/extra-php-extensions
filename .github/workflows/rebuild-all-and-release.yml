@@ -1,4 +1,4 @@
-name: Release
+name: Rebuild all layers and release
 
 on:
   workflow_dispatch:
@@ -13,11 +13,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-        # Only find layers that have changed since last tag
       - id: find-layers
         run: |
           git fetch --prune --unshallow
-          echo "::set-output name=list::$(git diff --name-only HEAD $(git describe --tags --abbrev=0) | grep layers/ | cut -d / -f 2  | sort | uniq | jq -R -s -c 'split("\n")[:-1]')"
+          # Build all layers
+          echo "::set-output name=list::$(ls layers | jq -R -s -c 'split("\n")[:-1]')"
 
     outputs:
       # Make the outputs accessible outside this job
@@ -96,4 +96,3 @@ jobs:
         with:
           github_token: ${{ secrets.BOT_GITHUB_TOKEN }}
           branch: master
-

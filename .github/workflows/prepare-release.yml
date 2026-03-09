@@ -1,7 +1,9 @@
-name: Release
+name: Prepare release
 
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - prepare-release
 
 jobs:
   matrix:
@@ -95,5 +97,4 @@ jobs:
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.BOT_GITHUB_TOKEN }}
-          branch: master
-
+          branch: prepare-release
