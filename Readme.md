@@ -82,7 +82,7 @@ functions:
 | ODBC Snowflake   | `${bref-extra:odbc-snowflake-php-81}`  |
 | OpenSwoole       | `${bref-extra:openswoole-php-81}`      |
 | OpenTelemetry    | `${bref-extra:opentelemetry-php-81}`   |
-| Oracle           | `${bref-extra:oci8-php-80}`            |
+| Oracle           | `${bref-extra:oci8-php-83}`            |
 | Pcov             | `${bref-extra:pcov-php-81}`            |
 | PostgreSQL       | `${bref-extra:pgsql-php-81}`           |
 | RdKafka          | `${bref-extra:rdkafka-php-81}`         |

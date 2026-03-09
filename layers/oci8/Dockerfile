@@ -1,44 +1,50 @@
 ARG PHP_VERSION
 ARG BREF_VERSION
-FROM bref/build-php-$PHP_VERSION:$BREF_VERSION AS ext
+ARG OL_VERSION=8
+ARG IC_VERSION=21
+# Oracle Instant Client image
+FROM public.ecr.aws/docker/library/oraclelinux:$OL_VERSION AS oracle_base
+ARG OL_VERSION
+RUN dnf -y install oracle-instantclient-release-el${OL_VERSION}
+
+FROM oracle_base AS oracle_devel
+RUN dnf -y install oracle-instantclient-devel && \
+        mkdir -p /opt/oracle && \
+        cp -r /usr/lib/oracle/*/client64/lib/* /opt/oracle/ && \
+        cp -r /usr/include/oracle/*/client64/* /opt/oracle/ 
+
+FROM oracle_base AS oracle_client
+RUN dnf -y install oracle-instantclient-basiclite && \
+        mkdir -p /opt/oracle && \
+        cp -r /usr/lib/oracle/*/client64/lib/* /opt/oracle/
+
+# Redeclare for scope
 ARG PHP_VERSION
+ARG BREF_VERSION
+FROM bref/build-php-$PHP_VERSION:$BREF_VERSION AS ext
+ARG IC_VERSION
+ENV ORACLE_DEVEL_DIR=/opt/oracle-devel
+ENV ORACLE_CLIENT_DIR=/opt/oracle-client
+ENV LD_LIBRARY_PATH=/usr/lib:/usr/lib64:$ORACLE_CLIENT_DIR:$ORACLE_DEVEL_DIR:$LD_LIBRARY_PATH
 
-# Specify library path
-ENV LD_LIBRARY_PATH=/usr/lib:/usr/lib64:$LD_LIBRARY_PATH
-ENV ORACLE_BUILD_DIR=${BUILD_DIR}/oracle
+COPY --from=oracle_devel /usr/lib64/libaio.so.1 /usr/lib64/libaio.so.1
+COPY --from=oracle_devel /opt/oracle $ORACLE_DEVEL_DIR
+COPY --from=oracle_client /opt/oracle $ORACLE_CLIENT_DIR
 
-# Install libaio
-RUN dnf install -y libaio
+RUN echo "instantclient,${ORACLE_DEVEL_DIR}" | pecl install oci8
 
-# Instant Client newer than 21.x requires glibc 2.28+ which is not available on Amazon Linux 2
-RUN mkdir -p ${ORACLE_BUILD_DIR}; \
-    cd ${ORACLE_BUILD_DIR}; \
-    curl -o oci-basic.zip https://download.oracle.com/otn_software/linux/instantclient/2116000/instantclient-basiclite-linux.x64-21.16.0.0.0dbru.zip && \
-    unzip oci-basic.zip -d src -x META-INF/* && \
-    curl -o oci-sdk.zip https://download.oracle.com/otn_software/linux/instantclient/2116000/instantclient-sdk-linux.x64-21.16.0.0.0dbru.zip && \
-    unzip oci-sdk.zip -d src -x META-INF/*
+RUN cp /usr/lib64/libaio.so.1 /tmp/libaio.so.1 && \
+    cp ${ORACLE_CLIENT_DIR}/libclntshcore.so.${IC_VERSION}.1 /tmp && \
+    cp ${ORACLE_CLIENT_DIR}/libclntsh.so.${IC_VERSION}.1 /tmp && \
+    cp ${ORACLE_CLIENT_DIR}/libnnz${IC_VERSION}.so /tmp && \
+    cp ${ORACLE_CLIENT_DIR}/libocci.so.${IC_VERSION}.1 /tmp && \
+    cp ${ORACLE_CLIENT_DIR}/libociicus.so /tmp && \
+    cp `php-config --extension-dir`/oci8.so /tmp/oci8.so && \
+    echo 'extension=oci8.so' > /tmp/ext.ini
 
-RUN if [ "$PHP_VERSION" = "80" ] ; then \
-    echo "instantclient,${ORACLE_BUILD_DIR}/src/instantclient_21_16" | pecl install oci8-3.0.1; \
-    elif [ "$PHP_VERSION" = "81" ] ; then \
-    echo "instantclient,${ORACLE_BUILD_DIR}/src/instantclient_21_16" | pecl install oci8-3.2.1; \
-    else \
-    echo "instantclient,${ORACLE_BUILD_DIR}/src/instantclient_21_16" | pecl install oci8; \
-    fi
-
-RUN cp /usr/lib64/libaio.so.1 /tmp/libaio.so.1
-RUN cp ${ORACLE_BUILD_DIR}/src/instantclient_21_16/libclntshcore.so.21.1 /tmp/libclntshcore.so.21.1
-RUN cp ${ORACLE_BUILD_DIR}/src/instantclient_21_16/libclntsh.so.21.1 /tmp/libclntsh.so.21.1
-RUN cp ${ORACLE_BUILD_DIR}/src/instantclient_21_16/libocci.so.21.1 /tmp/libocci.so.21.1
-RUN cp ${ORACLE_BUILD_DIR}/src/instantclient_21_16/libnnz21.so /tmp/libnnz21.so
-RUN cp ${ORACLE_BUILD_DIR}/src/instantclient_21_16/libociicus.so /tmp/libociicus.so
-RUN cp `php-config --extension-dir`/oci8.so /tmp/oci8.so
-RUN echo 'extension=oci8.so' > /tmp/ext.ini
-
-RUN php /bref/lib-copy/copy-dependencies.php /tmp/oci8.so /tmp/extension-libs
-# Missing these two
-RUN cp /tmp/libocci.so.21.1 /tmp/extension-libs
-RUN cp /tmp/libociicus.so /tmp/extension-libs
+RUN php /bref/lib-copy/copy-dependencies.php /tmp/oci8.so /tmp/extension-libs && \
+    cp /tmp/libocci.so.${IC_VERSION}.1 /tmp/extension-libs && \
+    cp /tmp/libociicus.so /tmp/extension-libs
 
 # Build the final image from the scratch image that contain files you want to export
 FROM scratch
