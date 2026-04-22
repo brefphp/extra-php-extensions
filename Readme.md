@@ -192,6 +192,10 @@ COPY --from=bref/extra-mongodb-php-82:3 /opt /opt
 
 ## For contributors and maintainers
 
+### Releasing
+
+Run the [Release](https://github.com/brefphp/extra-php-extensions/actions/workflows/release.yml) workflow.
+
 ### Creating a new layer
 
 The idea is to start from bref/build-php-XX, install all libraries and extensions
@@ -227,38 +231,6 @@ You can publish the layer in your AWS account to test it in AWS Lambda as well:
 ```
 # Publish a single layer on a single PHP version in a single region
 layer=imagick php_versions=81 only_region=us-east-1 make publish
-```
-
-### Deploy new versions
-
-#### Use Github actions
-
-Prepare the changelog with some release notes. Then push your changes to `prepare-release` branch.
-The Github Action will build an publish layers and then commit the `layers.json` to your PR.
-
-Now you will just merge and create a tag.
-
-#### The manual way
-
-```
-export AWS_PROFILE=my_profile
-make publish
-git add layers.json
-git commit -m "New version of layers"
-git push
-```
-
-#### Config
-
-You can also build only one specific layer by providing `layer=blackfire` to `make`.
-Same thing for some specific version(s) of php by providing `php_versions="80 81"` to `make`.
-You can invoke both ways:
-
-```shell
-# First way: make with named arguments
-make layer=gd php_versions=81
-# Second way: environment variables passed to make
-layer=blackfire php_versions=81 make
 ```
 
 ## Lambda layers in details
