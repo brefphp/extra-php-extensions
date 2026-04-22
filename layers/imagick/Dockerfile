@@ -14,7 +14,7 @@ ENV IMAGICK_EXT_COMMIT="70087bab33eab913e99ac77d64d04d1a2fd0b7b0"
 ENV IMAGICK_BUILD_DIR=${BUILD_DIR}/imagick
 RUN mkdir -p ${IMAGICK_BUILD_DIR}
 WORKDIR ${IMAGICK_BUILD_DIR}
-RUN LD_LIBRARY_PATH= dnf -y install libpng-devel libjpeg-devel lcms2-devel libwebp-devel nasm cmake
+RUN LD_LIBRARY_PATH= dnf -y install libpng-devel libjpeg-devel lcms2-devel libwebp-devel libtiff-devel nasm cmake
 
 # Compile AOM (libavif dependency for AVIF support)
 RUN curl -Ls -o aom.tar.gz https://storage.googleapis.com/aom-releases/libaom-${AOM_VERSION}.tar.gz && tar xzf aom.tar.gz && rm aom.tar.gz \
