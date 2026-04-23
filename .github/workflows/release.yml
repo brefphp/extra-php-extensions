@@ -70,7 +70,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
@@ -86,6 +86,7 @@ jobs:
       - name: Get next version
         id: version
         run: |
+          git pull
           LATEST=$(git describe --tags --abbrev=0)
           MAJOR=$(echo $LATEST | cut -d. -f1)
           MINOR=$(echo $LATEST | cut -d. -f2)
