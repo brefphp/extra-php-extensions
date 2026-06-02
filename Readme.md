@@ -100,6 +100,7 @@ functions:
 | Tideways         | `${bref-extra:tideways-php-81}`        |
 | Tidy             | `${bref-extra:tidy-php-81}`            |
 | UUID             | `${bref-extra:uuid-php-81}`            |
+| V8Js             | `${bref-extra:v8js-php-81}`            |
 | Xdebug           | `${bref-extra:xdebug-php-81}`          |
 | Xlswriter        | `${bref-extra:xlswriter-php-81}`       |
 | xmlrpc           | `${bref-extra:xmlrpc-php-81}`          |
