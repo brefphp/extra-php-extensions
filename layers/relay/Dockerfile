@@ -3,12 +3,12 @@ ARG PHP_VERSION
 ARG BREF_VERSION
 FROM bref/build-php-$PHP_VERSION:2 AS ext
 
-# Leave empty to install the latest stable release (resolved from https://builds.r2.relay.so/meta/latest)
+# Leave empty to install the latest stable release
 ARG RELAY_VERSION=
 
 # Docs: https://relay.so/docs/1.x/installation#manual-installation
 
-# Install extensions required by Relay
+# Install optional extensions
 RUN pecl install igbinary msgpack && \
     cp `php-config --extension-dir`/igbinary.so /tmp/igbinary.so && \
     cp `php-config --extension-dir`/msgpack.so /tmp/msgpack.so && \
