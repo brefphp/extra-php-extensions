@@ -3,7 +3,8 @@ ARG PHP_VERSION
 ARG BREF_VERSION
 FROM bref/build-php-$PHP_VERSION:2 AS ext
 
-ARG RELAY_VERSION=0.9.1
+# Leave empty to install the latest stable release (resolved from https://builds.r2.relay.so/meta/latest)
+ARG RELAY_VERSION=
 
 # Docs: https://relay.so/docs/1.x/installation#manual-installation
 
@@ -59,8 +60,15 @@ RUN mkdir -p ${INSTALL_DIR}/bref/ssl && curl -Lk -o ${CA_BUNDLE} ${CA_BUNDLE_SOU
 
 RUN <<'END' bash -e
     export php_version=$(php-config --version | cut -c -3)
+    # When no version is pinned, resolve the latest stable release (e.g. "v0.30.0" -> "0.30.0")
+    if [ -z "$RELAY_VERSION" ]; then
+        RELAY_VERSION=$(curl -sSL "https://builds.r2.relay.so/meta/latest" | sed 's/^v//')
+    fi
+    # Relay tarballs are named after `uname -m` with the underscore swapped for a dash
+    # (x86_64 -> x86-64, aarch64 stays aarch64)
+    ARCH=$(uname -m | sed 's/_/-/')
     mkdir -p /tmp/relay
-    curl -sSL "https://builds.r2.relay.so/v$RELAY_VERSION/relay-v$RELAY_VERSION-php$php_version-centos7-x86-64.tar.gz" | tar -xz --strip-components=1 -C /tmp/relay
+    curl -sSL "https://builds.r2.relay.so/v$RELAY_VERSION/relay-v$RELAY_VERSION-php$php_version-centos7-$ARCH.tar.gz" | tar -xz --strip-components=1 -C /tmp/relay
     sed -i "s/00000000-0000-0000-0000-000000000000/$(cat /proc/sys/kernel/random/uuid)/" /tmp/relay/relay-pkg.so
     cp /tmp/relay/relay-pkg.so /tmp/relay.so
     echo 'extension=relay.so' > /tmp/ext-relay.ini
