@@ -88,7 +88,7 @@ functions:
 | RdKafka          | `${bref-extra:rdkafka-php-81}`         |
 | Redis (phpredis) | `${bref-extra:redis-php-81}`           |
 | Redis-Igbinary   | `${bref-extra:redis-igbinary-php-81}`  |
-| Relay            | `${bref-extra:relay-php-81}`           |
+| Relay            | `${bref-extra:relay-php-82}`           |
 | Scout APM        | `${bref-extra:scoutapm-php-81}`        |
 | Scrypt           | `${bref-extra:scrypt-php-81}`          |
 | SNMP             | `${bref-extra:snmp-php-81}`            |
