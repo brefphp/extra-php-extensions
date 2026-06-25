@@ -4,7 +4,7 @@ ARG BREF_VERSION
 FROM bref/build-php-$PHP_VERSION:3 AS ext
 
 # Leave empty to install the latest stable release
-ARG RELAY_VERSION=
+ARG RELAY_VERSION=0.30.0
 
 # Docs: https://relay.so/docs/1.x/installation#manual-installation
 
