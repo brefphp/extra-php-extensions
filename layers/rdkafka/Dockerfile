@@ -6,7 +6,7 @@ ENV LIBRDKAFKA_BUILD_DIR=${BUILD_DIR}/librdkafka
 
 RUN set -xe; \
     mkdir -p ${LIBRDKAFKA_BUILD_DIR}; \
-    # Download and upack the source code
+    # Download and unpack the source code
     curl -Ls  https://github.com/edenhill/librdkafka/archive/refs/tags/v1.8.2.tar.gz   \
     | tar xzC ${LIBRDKAFKA_BUILD_DIR}
 

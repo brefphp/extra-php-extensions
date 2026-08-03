@@ -12,7 +12,7 @@ RUN \
   rm -rf /tmp/newrelic-php5-* /tmp/nrinstall*
 
 # newrelic.so will be installed to `php-config --extension-dir`/newrelic.so
-# In this core image newrelic.ini will be placed but not exist in the scatch layer
+# In this core image newrelic.ini will be placed but not exist in the scratch layer
 # ${INSTALL_DIR}/etc/php/php.ini /tmp/php.ini - php.ini will contain the needed config and extension ref
 
 # Copy the newrelic.so and php.ini file to the tmp folder
