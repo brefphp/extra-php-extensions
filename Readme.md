@@ -70,6 +70,7 @@ functions:
 | Igbinary         | `${bref-extra:igbinary-php-81}`        |
 | Imagick          | `${bref-extra:imagick-php-81}`         |
 | IMAP             | `${bref-extra:imap-php-81}`            |
+| Iconv Extra      | `${bref-extra:iconv-extra-php-81}`     |
 | LDAP             | `${bref-extra:ldap-php-81}`            |
 | Mailparse        | `${bref-extra:mailparse-php-81}`       |
 | MaxMind DB       | `${bref-extra:maxminddb-php-81}`       |
@@ -104,6 +105,17 @@ functions:
 | Xlswriter        | `${bref-extra:xlswriter-php-81}`       |
 | xmlrpc           | `${bref-extra:xmlrpc-php-81}`          |
 | Yaml             | `${bref-extra:yaml-php-81}`            |
+
+### Iconv Extra setup
+
+The Iconv Extra layer provides additional glibc conversion modules for legacy character encodings,
+such as Windows-1250. Set `GCONV_PATH` in `serverless.yaml` so glibc can find the modules before PHP starts:
+
+```yaml
+provider:
+    environment:
+        GCONV_PATH: /opt/lib/gconv
+```
 
 ### Blackfire installation
 

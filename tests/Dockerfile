@@ -6,3 +6,4 @@ FROM bref/php-$PHP_VERSION:3
 
 COPY --from=ext /opt /opt
 ENV ODBCSYSINI=/opt/microsoft/conf/
+ENV GCONV_PATH=/opt/lib/gconv
