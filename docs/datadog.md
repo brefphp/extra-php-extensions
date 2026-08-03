@@ -16,7 +16,7 @@ If you are running an ARM-based Lambda in AWS commercial regions, use the follow
 
 After installing the layer and the agent, you must configure the Datadog extension by adding the following key/value pair to a Lambda environment variable:
 
-- `DD_ENV=<enviroment>`
+- `DD_ENV=<environment>`
 - `DD_SERVICE=<service>`
 - `DD_SITE=<datadoghq.eu|datadoghq.com>` (depending on your Datadog account region)
 - `DD_API_KEY=<api_key>`

@@ -8,7 +8,7 @@ RUN LD_LIBRARY_PATH= dnf install -y patch
 
 RUN set -xe; \
     mkdir -p ${LIBMEMCACHED_BUILD_DIR}; \
-    # Download and upack the source code
+    # Download and unpack the source code
     curl -Ls  https://launchpad.net/libmemcached/1.0/1.0.18/+download/libmemcached-1.0.18.tar.gz  \
     | tar xzC ${LIBMEMCACHED_BUILD_DIR}
 

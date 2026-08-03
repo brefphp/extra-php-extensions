@@ -75,7 +75,7 @@ functions:
 | MaxMind DB       | `${bref-extra:maxminddb-php-81}`       |
 | Memcache         | `${bref-extra:memcache-php-81}`        |
 | Memcached        | `${bref-extra:memcached-php-81}`       |
-| MongoDB v1.x     | `${bref-extra:mongodb-php-81`          |
+| MongoDB v1.x     | `${bref-extra:mongodb-php-81}`         |
 | MongoDB v2.x     | `${bref-extra:mongodb2-php-81}`        |
 | MsgPack          | `${bref-extra:msgpack-php-81}`         |
 | Newrelic         | `${bref-extra:newrelic-php-81}`        |

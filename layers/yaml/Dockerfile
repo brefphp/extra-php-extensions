@@ -6,7 +6,7 @@ ENV LIBYAML_BUILD_DIR=${BUILD_DIR}/libyaml
 
 RUN set -xe; \
     mkdir -p ${LIBYAML_BUILD_DIR}; \
-    # Download and upack the source code
+    # Download and unpack the source code
     curl -Ls https://github.com/yaml/libyaml/archive/0.2.5.tar.gz  \
     | tar xzC ${LIBYAML_BUILD_DIR}
 
