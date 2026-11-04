@@ -43,68 +43,61 @@ plugins:
 functions:
     console:
         handler: bin/console
-        runtime: php-81
+        runtime: php-84
         layers:
-            - ${bref-extra:amqp-php-83} # <----- Example for AMQP layer
+            - ${bref-extra:amqp-php-84} # <----- Example for AMQP layer
 ```
 
 ### Available layers
 
-| Name             | Serverless config (php 8.1)            |
+| Name             | Serverless config (PHP 8.4)            |
 |:-----------------|:---------------------------------------|
-| AMQP             | `${bref-extra:amqp-php-81}`            |
-| Blackfire        | `${bref-extra:blackfire-php-81}`       |
-| Bsdiff           | `${bref-extra:bsdiff-php-81}`          |
-| Calendar         | `${bref-extra:calendar-php-81}`        |
-| Cassandra        | `${bref-extra:cassandra-php-81}`       |
-| Datadog          | `${bref-extra:datadog-php-81}`         |
-| Decimal          | `${bref-extra:decimal-php-81}`         |
-| DS               | `${bref-extra:ds-php-81}`              |
-| Elastic APM      | `${bref-extra:elastic-apm-php-81}`     |
-| Excimer          | `${bref-extra:excimer-php-81}`         |
-| GD               | `${bref-extra:gd-php-81}`              |
-| gnupg            | `${bref-extra:gnupg-php-81}`           |
-| GMP              | `${bref-extra:gmp-php-81}`             |
-| gRPC             | `${bref-extra:grpc-php-81}`            |
-| h3               | `${bref-extra:h3-php-81}`              |
-| Igbinary         | `${bref-extra:igbinary-php-81}`        |
-| Imagick          | `${bref-extra:imagick-php-81}`         |
-| IMAP             | `${bref-extra:imap-php-81}`            |
-| Iconv Extra      | `${bref-extra:iconv-extra-php-81}`     |
-| LDAP             | `${bref-extra:ldap-php-81}`            |
-| Mailparse        | `${bref-extra:mailparse-php-81}`       |
-| MaxMind DB       | `${bref-extra:maxminddb-php-81}`       |
-| Memcache         | `${bref-extra:memcache-php-81}`        |
-| Memcached        | `${bref-extra:memcached-php-81}`       |
-| MongoDB v1.x     | `${bref-extra:mongodb-php-81}`         |
-| MongoDB v2.x     | `${bref-extra:mongodb2-php-81}`        |
-| MsgPack          | `${bref-extra:msgpack-php-81}`         |
-| Newrelic         | `${bref-extra:newrelic-php-81}`        |
-| ODBC Snowflake   | `${bref-extra:odbc-snowflake-php-81}`  |
-| OpenSwoole       | `${bref-extra:openswoole-php-81}`      |
-| OpenTelemetry    | `${bref-extra:opentelemetry-php-81}`   |
-| Oracle           | `${bref-extra:oci8-php-83}`            |
-| Pcov             | `${bref-extra:pcov-php-81}`            |
-| PostgreSQL       | `${bref-extra:pgsql-php-81}`           |
-| RdKafka          | `${bref-extra:rdkafka-php-81}`         |
-| Redis (phpredis) | `${bref-extra:redis-php-81}`           |
-| Redis-Igbinary   | `${bref-extra:redis-igbinary-php-81}`  |
-| Relay            | `${bref-extra:relay-php-82}`           |
-| Scout APM        | `${bref-extra:scoutapm-php-81}`        |
-| Scrypt           | `${bref-extra:scrypt-php-81}`          |
-| SNMP             | `${bref-extra:snmp-php-81}`            |
-| SPX              | `${bref-extra:spx-php-81}`             |
-| SSH2             | `${bref-extra:ssh2-php-81}`            |
-| Swoole           | `${bref-extra:swoole-php-81}`          |
-| Symfony Runtime  | `${bref-extra:symfony-runtime-php-81}` |
-| Microsoft SQLSRV | `${bref-extra:sqlsrv-php-81}`          |
-| Tideways         | `${bref-extra:tideways-php-81}`        |
-| Tidy             | `${bref-extra:tidy-php-81}`            |
-| UUID             | `${bref-extra:uuid-php-81}`            |
-| Xdebug           | `${bref-extra:xdebug-php-81}`          |
-| Xlswriter        | `${bref-extra:xlswriter-php-81}`       |
-| xmlrpc           | `${bref-extra:xmlrpc-php-81}`          |
-| Yaml             | `${bref-extra:yaml-php-81}`            |
+| AMQP             | `${bref-extra:amqp-php-84}`
+| Blackfire        | `${bref-extra:blackfire-php-84}`
+| Bsdiff           | `${bref-extra:bsdiff-php-84}`
+| Calendar         | `${bref-extra:calendar-php-84}`
+| Datadog          | `${bref-extra:datadog-php-84}`
+| DS               | `${bref-extra:ds-php-84}`
+| Elastic APM      | `${bref-extra:elastic-apm-php-83}`
+| Excimer          | `${bref-extra:excimer-php-84}`
+| GD               | `${bref-extra:gd-php-84}`
+| gnupg            | `${bref-extra:gnupg-php-84}`
+| GMP              | `${bref-extra:gmp-php-84}`
+| gRPC             | `${bref-extra:grpc-php-84}`
+| h3               | `${bref-extra:h3-php-84}`
+| Igbinary         | `${bref-extra:igbinary-php-84}`
+| Imagick          | `${bref-extra:imagick-php-84}`
+| Iconv Extra      | `${bref-extra:iconv-extra-php-84}`
+| LDAP             | `${bref-extra:ldap-php-84}`
+| Mailparse        | `${bref-extra:mailparse-php-84}`
+| MaxMind DB       | `${bref-extra:maxminddb-php-84}`
+| Memcached        | `${bref-extra:memcached-php-84}`
+| MongoDB v1.x     | `${bref-extra:mongodb-php-84}`
+| MongoDB v2.x     | `${bref-extra:mongodb2-php-84}`
+| MsgPack          | `${bref-extra:msgpack-php-84}`
+| Newrelic         | `${bref-extra:newrelic-php-84}`
+| ODBC Snowflake   | `${bref-extra:odbc-snowflake-php-84}`
+| OpenTelemetry    | `${bref-extra:opentelemetry-php-84}`
+| Oracle           | `${bref-extra:oci8-php-84}`
+| Pcov             | `${bref-extra:pcov-php-84}`
+| PostgreSQL       | `${bref-extra:pgsql-php-84}`
+| RdKafka          | `${bref-extra:rdkafka-php-84}`
+| Redis-Igbinary   | `${bref-extra:redis-igbinary-php-84}`
+| Relay            | `${bref-extra:relay-php-84}`
+| Scout APM        | `${bref-extra:scoutapm-php-84}`
+| SSH2             | `${bref-extra:ssh2-php-84}`
+| Symfony Runtime  | `${bref-extra:symfony-runtime-php-84}`
+| Microsoft SQLSRV | `${bref-extra:sqlsrv-php-84}`
+| Tideways         | `${bref-extra:tideways-php-84}`
+| UUID             | `${bref-extra:uuid-php-84}`
+| Xdebug           | `${bref-extra:xdebug-php-84}`
+| Xlswriter        | `${bref-extra:xlswriter-php-84}`
+| xmlrpc           | `${bref-extra:xmlrpc-php-84}`
+| Yaml             | `${bref-extra:yaml-php-84}`
+
+Replace `84` with your PHP version. Elastic APM is only available for PHP 8.2 and 8.3.
+
+The Redis extension is included in Bref's runtimes: enable it with `extension=redis` in a `php.ini` file ([read more](https://bref.sh/docs/environment/php#extensions-installed-but-disabled-by-default)).
 
 ### Iconv Extra setup
 
@@ -184,7 +177,7 @@ the `/opt` directory in the image.
 
 ### Local Development
 
-When developing locally you can build your own images with the required extensions. Example with PHP 8.2 and MongoDB Extension:
+When developing locally you can build your own images with the required extensions. Example with PHP 8.4 and MongoDB Extension:
 
 docker-compose.yml
 ```
@@ -198,8 +191,8 @@ docker-compose.yml
 
 Dockerfile-phpFpm
 ```
-FROM bref/php-82-fpm-dev:3
-COPY --from=bref/extra-mongodb-php-82:3 /opt /opt
+FROM bref/php-84-dev:3
+COPY --from=bref/extra-mongodb-php-84:3 /opt /opt
 ```
 
 ## For contributors and maintainers
