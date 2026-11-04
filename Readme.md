@@ -48,6 +48,10 @@ functions:
             - ${bref-extra:amqp-php-84} # <----- Example for AMQP layer
 ```
 
+Use the `${bref-extra:…}` variables rather than copying layer ARNs from `layers.json`: they follow updates of this package.
+
+Layers count toward the [250MB size limit](https://bref.sh/docs/deploy#reducing-package-size) of Lambda functions, together with Bref's PHP layer and your code. Some layers are large: `imagick` takes about 70MB unzipped (it includes Ghostscript). Deploy without development dependencies (`composer install --no-dev`) to leave room for them.
+
 ### Available layers
 
 | Name             | Serverless config (PHP 8.4)            |
