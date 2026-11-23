@@ -18,8 +18,8 @@ RUN cmake --build . --target install
 
 # Compile the php amqp extension
 WORKDIR ${AMQP_BUILD_DIR}
-RUN curl -Ls -o php-amqp.tar.gz https://github.com/php-amqp/php-amqp/archive/refs/tags/v2.1.2.tar.gz && \
-    tar xzf php-amqp.tar.gz && mv php-amqp-2.1.2 php-amqp
+RUN curl -Ls -o php-amqp.tar.gz https://github.com/php-amqp/php-amqp/archive/refs/tags/v2.2.0.tar.gz && \
+    tar xzf php-amqp.tar.gz && mv php-amqp-2.2.0 php-amqp
 WORKDIR ${AMQP_BUILD_DIR}/php-amqp
 RUN phpize
 RUN ./configure
