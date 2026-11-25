@@ -2,7 +2,18 @@ ARG PHP_VERSION
 ARG BREF_VERSION
 FROM bref/build-php-$PHP_VERSION:$BREF_VERSION AS ext
 
-RUN pecl install excimer
+# Excimer moved from PECL to PIE in 1.2.7, so PECL no longer has the latest release.
+ENV EXCIMER_VERSION=1.2.7
+WORKDIR /tmp
+RUN mkdir excimer && \
+    curl -fLs https://github.com/wikimedia/mediawiki-php-excimer/archive/refs/tags/${EXCIMER_VERSION}.tar.gz \
+    | tar xz -C excimer --strip-components=1
+WORKDIR /tmp/excimer
+RUN phpize
+RUN ./configure
+RUN make -j $(nproc)
+RUN make install
+
 RUN cp `php-config --extension-dir`/excimer.so /tmp/excimer.so
 RUN echo 'extension=excimer.so' > /tmp/ext.ini
 
